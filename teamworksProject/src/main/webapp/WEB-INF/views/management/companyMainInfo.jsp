@@ -12,7 +12,8 @@
      <jsp:include page="../common/menubar.jsp"/>
 
      <div class="content">
-
+       <h1>test</h1>
+       <h2>test</h2>
     </div>
 
     <jsp:include page="../common/sidebarSample.jsp"/>
