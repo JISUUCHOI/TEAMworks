@@ -5,13 +5,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>TEAMWORKS</title>
+<Style>
+	#mainOuter{
+		width:1240px;
+		float:left;
+	}
+</Style>
 </head>
 <body>
 
-	<%-- <jsp:include page=""/> 메뉴바 포함시키기 --%>
+	<jsp:include page="common/menubar.jsp"/>
 	
-	<h1>메인페이지임</h1>
+	<!-- 메인용 사이드바로 고쳐야함!!  -->
+	<jsp:include page="common/sidebarSample.jsp"/>
+	
+	
+	<div id="mainOuter">
+		<h1>메인페이지임</h1>
+	
+	</div>
 	
 </body>
 </html>
