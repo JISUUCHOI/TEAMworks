@@ -109,7 +109,7 @@
             </div>
             <div id="center">
                 <div class="menu" id="home"><a href="">홈</a></div>
-                <div class="menu" id="approveDoc"><a href="">전자결재</a></div>
+                <div class="menu" id="approveDoc"><a href="formList.ap">전자결재</a></div>
                 <div class="menu" id="email"><a href="">메일</a></div>
                 <div class="menu" id="board"><a href="">게시판</a></div>
                 <div class="menu" id="calender"><a href="">일정</a></div>
