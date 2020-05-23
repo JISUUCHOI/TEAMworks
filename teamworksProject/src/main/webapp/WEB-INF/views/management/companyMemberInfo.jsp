@@ -9,15 +9,13 @@
 </head>
 <body>
 
-     <!-- 이쪽에 메뉴바 포함 할꺼임 -->
      <jsp:include page="../common/menubar.jsp"/>
 
      <div class="content">
 
     </div>
 
-    <!-- 이쪽에 푸터바 포함할꺼임 -->
-    <jsp:include page="../common/footer.jsp"/>
+    <jsp:include page="../common/sidebarSample.jsp"/>
 
 </body>
 </html>
