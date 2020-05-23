@@ -32,7 +32,7 @@
             margin-left:10px;
         }
         #center{
-            width:720px;
+            width:740px;
             height:30px;
             margin-top:60px;
             float:right;
@@ -40,6 +40,7 @@
         .menu{
             width:100px;
             height:30px;
+            margin-left:5px;
             text-align:center;
             font-family: 'Handon3gyeopsal300g';
             /* font-family: 'JSDongkang-Regular'; */
