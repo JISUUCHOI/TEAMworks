@@ -8,7 +8,7 @@
 <title>TEAMWORKS</title>
 <Style>
 	#mainOuter{
-		width:1240px;
+		width:1250px;
 		float:left;
 	}
 </Style>
