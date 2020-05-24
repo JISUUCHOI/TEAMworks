@@ -234,7 +234,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleIput"></td>
+	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
 	                </tr>
 	            </table>
 				
