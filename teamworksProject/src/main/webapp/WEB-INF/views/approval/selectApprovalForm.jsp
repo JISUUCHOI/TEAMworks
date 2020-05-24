@@ -117,7 +117,7 @@
 	                    <td style="text-align:center;">1</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form">기안서</td>
+	                    <td style="padding-left:40px;" class="form"><a href="writeDaft.ap">기안서</a></td>
 	                </tr>
 	                <tr >
 	                    <td style="text-align:center;">2</td>
@@ -189,6 +189,17 @@
 	
 		</div>
     </div>
+    
+    <!-- form 클릭시 이동 
+    <script>
+    	$(function(){
+    		$(".form").click(function(){
+    			
+    			a.href="writeDaft.ap";   			
+    		});
+    	});
+    </script>
+    	-->
 
 	<script>
 		$(function(){

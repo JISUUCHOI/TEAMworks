@@ -15,5 +15,11 @@ public class ApprovalController {
 		return "approval/selectApprovalForm";
 	}
 	
+	// 기안문작성
+	@RequestMapping("writeDaft.ap")
+	public String writeDaftForm() {
+		return "approval/writeDraftForm";
+	}
+	
 	
 }
