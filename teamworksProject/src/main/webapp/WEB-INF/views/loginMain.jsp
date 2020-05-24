@@ -67,7 +67,7 @@
         <h2 class="card-title text-center"><img src="${ pageContext.servletContext.contextPath }/resources/images/logo_blue.png" alt="" width="250px"></h2>
       </div>
       <div class="card-body" align="center">
-        <form class="form-signin" method="POST" onSubmit="logincall(); return false" >
+        <form class="form-signin" method="POST" action="login.em" onSubmit="logincall(); return false" >
          
           <label for="inputEmail" class="sr-only"></label>
           <input type="text" id="uid" class="form-control" placeholder="사원번호" required autofocus><BR>
