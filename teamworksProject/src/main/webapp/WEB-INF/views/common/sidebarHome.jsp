@@ -17,12 +17,19 @@
         html, body{height:100%; position:relative;}
         
         /* 사이드바 */
+        div{box-sizing:border-box;}
+		#sidebarOuter{
+			width:250px;
+			height:700px;
+			float:left;
+		}
+		
         #sidebar{
             position:absolute;
             width:250px;
             height:100%;
             float:left;
-            margin-top:100px;
+            /* margin-top:100px; */
             padding-top:20px;
             background:rgb(7, 53, 90);
         }
@@ -57,8 +64,9 @@
 <body>
  
  <!-- 사이드바 -->
+ <div id="sidebarOuter">
     <div id="sidebar" align="center">
-        <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/images/messenger.png" alt="" width="20px"> messenger</a></div>
+        <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png" alt="" width="20px"> messenger</a></div>
         <div id="logout"><a href="">logout</a></div>
         
         <div class="row">
@@ -67,7 +75,7 @@
                     <br>
                     <div class="profile" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;">
                         <a href="">
-                            <img class="" src="resources/images/1.jpg" alt="" width="100%">
+                            <img class="" src="${ pageContext.servletContext.contextPath }/resources/images/sampleImg.jpg" alt="" width="100%">
                         </a>
                     </div>
                     <div class="caption">
@@ -101,5 +109,7 @@
         </div>
         
     </div>
+    
+ </div>
 </body>
 </html>

@@ -18,7 +18,7 @@
 	<jsp:include page="common/menubar.jsp"/>
 	
 	<!-- 메인용 사이드바로 고쳐야함!!  -->
-	<jsp:include page="common/sidebarSample.jsp"/>
+	<jsp:include page="common/sidebarHome.jsp"/>
 	
 	
 	<div id="mainOuter">
