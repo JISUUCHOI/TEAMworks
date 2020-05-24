@@ -13,7 +13,7 @@
 
      <div class="content">
        <h1>test</h1>
-       <h2>test</h2>
+       <h2>test</h2>A
     </div>
 
     <jsp:include page="../common/sidebarSample.jsp"/>
