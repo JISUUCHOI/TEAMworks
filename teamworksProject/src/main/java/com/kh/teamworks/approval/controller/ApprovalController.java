@@ -21,5 +21,24 @@ public class ApprovalController {
 		return "approval/writeDraftForm";
 	}
 	
+	// 경조비신청서
+	@RequestMapping("familyEvent.ap")
+	public String familyEventtForm() {
+		return "approval/familyEventForm";
+	}
+	
+	// 휴가신청서
+	@RequestMapping("vacation.ap")
+	public String vacationForm() {
+		return "approval/vacationForm";
+	}
+	
+	// w제증명청서
+	@RequestMapping("proof.ap")
+	public String proofForm() {
+		return "approval/proofForm";
+	}
+	
+	
 	
 }
