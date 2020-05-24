@@ -10,10 +10,12 @@
 	
 	<typeAliases>
 		<typeAlias type="com.kh.teamworks.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.teamworks.employee.model.vo.Employee" alias="Employee"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml"/>
+		<mapper resource="mappers/employee-mapper.xml"/>
 	</mappers>
 
 </configuration>
