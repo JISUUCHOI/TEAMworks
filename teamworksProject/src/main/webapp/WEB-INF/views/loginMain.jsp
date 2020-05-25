@@ -67,12 +67,12 @@
         <h2 class="card-title text-center"><img src="${ pageContext.servletContext.contextPath }/resources/images/logo_blue.png" alt="" width="250px"></h2>
       </div>
       <div class="card-body" align="center">
-        <form class="form-signin" method="POST" action="login.em" onSubmit="logincall(); return false" >
+        <form class="form-signin" method="POST" action="login.em">
          
           <label for="inputEmail" class="sr-only"></label>
-          <input type="text" id="uid" class="form-control" placeholder="사원번호" required autofocus><BR>
+          <input type="text" id="uid" class="form-control" name="empId" placeholder="사원번호" required autofocus><BR>
           <label for="inputPassword" class="sr-only"></label>
-          <input type="password" id="upw" class="form-control" placeholder="Password" required><br>
+          <input type="password" id="upw" class="form-control" name="empPwd" placeholder="Password" required><br>
          
           <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit">로 그 인</button>
           

@@ -32,6 +32,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 		<url-pattern>*.bo</url-pattern>
+		<url-pattern>*.em</url-pattern>
 	</servlet-mapping>
 	
 	
