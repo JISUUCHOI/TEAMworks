@@ -12,15 +12,15 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <style>
         /* 전체윤곽 */
+        #vacationWrapper{
+        	width:1250px;
+        	float:left;
+        }
         #draftOuter{
             width:800px;
-            height:1300px;
-            /* float:left; */
+            height:750px;
             display:inline-block;
            	margin:auto;
-            margin-top:50px;
-            margin-left:500px;
-            /* border:1px solid red; */
         }
 
         /* 버튼 */
@@ -67,7 +67,6 @@
         .docContents{margin:auto;}
         .docContents, .docContents tr, .docContents td{
             border-collapse: collapse;
-            text-align:center;
             font-size:13px;
         }
         .docContents tr, #fileTb{
@@ -91,8 +90,8 @@
         	background:lightsteelblue;
         	cursor:pointer;
         }
-        #titleIput{
-            width:600px;
+        #titleIput, #vcReason{
+            width:580px;
             height:20px;
             margin-left:10px;
         }
@@ -106,95 +105,25 @@
             margin-right:10px;
             font-size:12px;
         }
-
-        /* 파일첨부 */
-        #fileTb{margin:auto;}
-        #fileUpload{
-            width:798px;
-            height:100px;
-            border:1px solid lightgrey;
-            margin:auto;
-            text-align:center;
-            line-height:7;
-            color:grey;
-            font-size:12px;
-        }
-        #fileUpBtn{
-            float:right;
-            margin-right:20px;
-        }
-        #bodyWrapper{
-        	width:1250px;
-        	float:left;
-        }
         
-                #feName{
-            width:120px;
+        /* 휴가신청서 */
+        #requestVacation input, #requestVacation span{
+            height:20px;
+            float:left;
             margin-left:10px;
-            margin-right: 10px;
         }
-        #fePrice{
-            width:120px;
+        #requestVacation select{
             margin-left:10px;
-            margin-right: 10px;
+            height:25px;
+            width:70px;
         }
-        #feDate{
-            width: 120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #fePlace{
-            width:300px;
-            margin-left:20px;
-            margin-right: 20px;
-        }
-        #feAccount{
-            width: 120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #feAccountName{
-            width: 120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #bank{
-            width: 60px;
-            text-align:center;
-        }
-        #feSq{
-            width: 60px;
-            text-align:center;
-        }
-        #feRelation{
-            width: 60px;
-            text-align:center;
-        }
-        #vcSq{
-            width: 70px;
-            text-align:center;
-        }
-        #vcDay{
-            width: 70px;
-            text-align:center;
-        }
-        #vcDate{
-            width: 120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #days{
-        	width:30px;
-        	margin-left:5px;
-        	margin-right: 5px;
-        }
-        
     </style>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-	<jsp:include page="approvalSidebar.jsp"/>
-	<div id="bodyWrapper">
+    <jsp:include page="approvalSidebar.jsp"/>
+    
+	<div id="vacationWrapper">
 	    <div id="draftOuter">
 	
 	        <h4>⊙ 기안문 작성</h4>
@@ -210,7 +139,7 @@
 	            </div>
 	            <br><br><br>
 	
-	            <h1 style="text-align:center;">기안서</h1>
+	            <h1 style="text-align:center;">휴가 신청서</h1>
 	            <br>
 	
 	            <!-- 결재선 -->
@@ -231,15 +160,15 @@
 	            <table class="docContents">
 	                <tr width="1000">
 	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200">자동부여</td>
+	                    <td width="200" style="text-align:center;">자동부여</td>
 	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200">2020.05.07</td>
+	                    <td width="200" style="text-align:center;">2020.05.07</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td>이용석</td>
+	                    <td style="text-align:center;">이용석</td>
 	                    <td class="th">기안부서</td>
-	                    <td>개발팀</td>
+	                    <td style="text-align:center;">개발팀</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
@@ -248,25 +177,27 @@
 	                        <button type="button" id="refBtn">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
-	                    <td>2020.06.07</td>
+	                    <td style="text-align:center;">2020.06.07</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"><input type="text" id="titleIput"></td>
 	                </tr>
 	            </table>
 				
 				<br><br>
-				
-                <table class="docContents">
+                
+                <!-- 휴가신청서 -->
+                <table class="docContents" id="requestVacation">
 	                <tr width="1000">
 	                    <td width="200" class="th">휴가구분</td>
-	                    <td width="200"><select name="vcSq" id="vcSq">
-                            <option value="">연차</option>
-                            <option value="">경조사</option>
-                            <option value="">병가</option>
-                            <option value="">출산</option>
-                       </select>
+	                    <td width="200">
+                            <select name="vcSq" id="vcSq">
+                                <option value="">연차</option>
+                                <option value="">경조사</option>
+                                <option value="">병가</option>
+                                <option value="">출산</option>
+                            </select>
 	                    <td width="200" class="th">전일/반일 구분</td>
                         <td width="200"><select name="vcDay" id="vcDay">
                             <option value="">전일</option>
@@ -275,17 +206,17 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">휴가 신청일</td>
-	                    <td width=""><input type="date" id="vcDate"></td>
+                        <td><input type="date" id="vcDate"></td>
+                        <td class="th">일수</td>
+                        <td><input type="text" id="vcDays"></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">휴가기간</td>
-                        <td width=""><input type="date" id="vcDate"></td>
-                        <td width=""><input type="date" id="vcDate"></td>
-                        <td>(일수 :<input type="text" id="days" placeholder="0"> )</td>
+                        <td colspan="3"><input type="date" id="vcStartDate"><span>~</span><input type="date" id="vcEndDate"></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">휴가사유</td>
-	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"><input type="text" id="vcReason"></td>
 	                </tr>
                 </table>
 	
@@ -293,5 +224,14 @@
 	
 	    </div>
 	</div>
+	
+	<script>
+		$(function(){
+			$("#approveDoc>a").css("color", "dimgray");
+			$("#approveDoc").css("border-bottom-style", "groove");
+			$("#writeDoc>a").css("color", "deepskyblue");
+		});	
+	</script>
+	
 </body>
 </html>
