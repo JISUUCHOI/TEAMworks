@@ -14,13 +14,9 @@
         /* 전체윤곽 */
         #draftOuter{
             width:800px;
-            height:1300px;
-            /* float:left; */
+            height:750px;
             display:inline-block;
            	margin:auto;
-            margin-top:50px;
-            margin-left:500px;
-            /* border:1px solid red; */
         }
 
         /* 버튼 */
