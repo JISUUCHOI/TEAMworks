@@ -143,7 +143,7 @@
 	        <hr>
 	        <br>
 	
-	        <form id="docForm" action="">
+	        <form id="docForm" action="insertFe.ap" method="post">
 	            <!-- 버튼들 -->
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn">결재선</button>
