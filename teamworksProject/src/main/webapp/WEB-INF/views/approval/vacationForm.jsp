@@ -14,13 +14,14 @@
         /* 전체윤곽 */
         #vacationWrapper{
         	width:1250px;
+        	height:100%;
         	float:left;
         }
         #draftOuter{
             width:800px;
-            height:750px;
-            display:inline-block;
+            height:850px;
            	margin:auto;
+           	margin-top:50px;
         }
 
         /* 버튼 */
@@ -81,7 +82,7 @@
             text-align:center;
             font-size:13px;
         }
-        #refSch{
+        #refSch, #apprveEndDate{
             width:120px;
             height:20px;
             margin-left:10px;
@@ -90,7 +91,7 @@
         	background:lightsteelblue;
         	cursor:pointer;
         }
-        #titleIput, #vcReason{
+        #titleInput, #vcReason{
             width:580px;
             height:20px;
             margin-left:10px;
@@ -177,11 +178,11 @@
 	                        <button type="button" id="refBtn">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
-	                    <td style="text-align:center;">2020.06.07</td>
+	                     <td><input type="date" id="apprveEndDate"></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleIput"></td>
+	                    <td colspan="3"><input type="text" id="titleInput"></td>
 	                </tr>
 	            </table>
 				

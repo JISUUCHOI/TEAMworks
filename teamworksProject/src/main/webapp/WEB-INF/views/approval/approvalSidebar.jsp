@@ -6,24 +6,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	html, body{height:100%; position:relative;}
-	
+	html, body{height:100%; /* position:relative; */}
 	div{box-sizing:border-box;}
+	
 	#sidebarOuter{
 		width:250px;
-		height:700px;
+		height:100%;
 		float:left;
+        background:rgb(7, 53, 90);
 	}
 	
 	/* 사이드바 */
     #sidebar{
-    	position:absolute;
         width:250px;
         height:100%;
         float:left;
-       /*  margin-top:100px; */
         padding-top:20px;
-        background:rgb(7, 53, 90);
+    	position:absolute;
     }
     
     .category{
@@ -77,7 +76,7 @@
             <div class="subCate" id="refDoc"><a href="">참조문서함</a> <span><b>1</b></span></div>
             <div class="subCate" id="requestCallback"><a href="">회수요청함</a> <span><b>1</b></span></div>
         </div>
-    </div>
+   </div>
 
 </body>
 </html>

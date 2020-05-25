@@ -12,14 +12,16 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <style>
 	/* 전체윤곽 */
+	html, body{height:100%;}
+	
 	#familyEventWrapper{
 		width:1250px;
+		height:100%;
 		float:left;
 	}
 	#draftOuter{
 	    width:800px;
-	    height:750px;
-	    display:inline-block;
+	    height:850px;
 	   	margin:auto;
 	    margin-top:50px;
 	}
@@ -68,7 +70,6 @@
 	.docContents{margin:auto;}
 	.docContents, .docContents tr, .docContents td{
 	    border-collapse: collapse;
-	    
 	    font-size:13px;
 	}
 	.docContents tr, #fileTb{
@@ -83,7 +84,7 @@
 	    text-align:center;
 	    font-size:13px;
 	}
-	#refSch{
+	#refSch, #apprveEndDate{
 	    width:120px;
 	    height:20px;
 	    margin-left:10px;
@@ -92,7 +93,7 @@
 		background:lightsteelblue;
 		cursor:pointer;
 	}
-	#titleIput{
+	#titleInput{
 	    width:580px;
 	    height:20px;
 	    margin-left:10px;
@@ -189,11 +190,11 @@
 	                        <button type="button" id="refBtn">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
-	                    <td style="text-align:center;">2020.06.07</td>
+	                    <td><input type="date" id="apprveEndDate"></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleIput"></td>
+	                    <td colspan="3"><input type="text" id="titleInput"></td>
 	                </tr>
 	            </table>
 				
