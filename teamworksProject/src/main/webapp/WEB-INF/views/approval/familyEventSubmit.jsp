@@ -128,6 +128,72 @@
         	float:left;
         }
         
+                #feName{
+            width:120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #fePrice{
+            width:120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #feDate{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #fePlace{
+            width:300px;
+            margin-left:20px;
+            margin-right: 20px;
+        }
+        #feAccount{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #feAccountName{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #bank{
+            width: 60px;
+            text-align:center;
+        }
+        #feSq{
+            width: 60px;
+            text-align:center;
+        }
+        #feRelation{
+            width: 60px;
+            text-align:center;
+        }
+        #pfSq{
+            width: 100px;
+            text-align:center;
+        }
+        #vcDay{
+            width: 70px;
+            text-align:center;
+        }
+        #pfDate{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #paymentOpinion, #paymentOpinion tr, #paymentOpinion td, #paymentOpinion th{
+            border:1.2px solid lightgrey;           
+            border-collapse: collapse;
+            font-size:12px;
+            text-align:center;
+        }
+        #aa{
+            background:lightsteelblue;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -149,18 +215,29 @@
 	            </div>
 	            <br><br><br>
 	
-	            <h1 style="text-align:center;">기안서</h1>
+	            <h1 style="text-align:center;">경조비 신청서</h1>
 	            <br>
 	
 	            <!-- 결재선 -->
 	            <div id="appoveLine">
 	                <table id="approveLineTb">
 	                    <tr height="20">
-	                        <td rowspan="2" width="20">결<br>재</td>
-	                        <td width="70">기안</td>
+	                        <td rowspan="3" width="20">결<br>재</td>
+                            <td width="70">기안</td>
+                            <td width="70">이사</td>
+                            <td width="70">사장</td>
+
 	                    </tr>
-	                    <tr height="70">
-	                        <td>최해성</td>
+	                    <tr height="">
+                            <td>이용석</td>
+                            <td>최해성</td>
+                            <td>강보람</td>
+                        </tr>
+                        <tr height="">
+                            <td>승인(날짜)</td>
+                            <td>승인(날짜)</td>
+                            <td>반려</td>
+
 	                    </tr>
 	                </table>
 	            </div>
@@ -170,7 +247,7 @@
 	            <table class="docContents">
 	                <tr width="1000">
 	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200">자동부여</td>
+	                    <td width="200">20200509-0003</td>
 	                    <td width="200" class="th">기안일자</td>
 	                    <td width="200">2020.05.07</td>
 	                </tr>
@@ -182,61 +259,69 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td>
-	                        <input type="text" id="refSch">
-	                        <button type="button" id="refBtn">참조</button>
-	                    </td>
-	                    <td class="th">마감일자</td>
-	                    <td>2020.06.07</td>
+	                    <td>최해성 이사 개발팀</td>
+	                    <td class="th">기결재 첨부</td>
+	                    <td></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"></td>
 	                </tr>
 	            </table>
-	
-	            <!--썸머노트-->
-	            <div id="summernote"></div>
-				<script>
-				$(document).ready(function() {
-					$('#summernote').summernote({
-	      				  placeholder: '내용을 입력하세요',
-	      				  tabsize: 2,
-	      				  height: 300,
-	      				  toolbar: [
-	       				   ['style', ['style']],
-	        				  ['font', ['bold', 'underline', 'clear']],
-	       				   ['color', ['color']],
-	        				  ['para', ['ul', 'ol', 'paragraph']],
-	        				  ['table', ['table']],
-	        				  ['insert', ['link', 'picture', 'video']],
-	         				 ['view', ['fullscreen', 'codeview', 'help']]
-	       				 ]
-	    				  });
-					
-				});
-   				   
-   				</script>
-
-	            
-	
-	            <!--파일첨부-->
-	            <br><br>
-	            <h4>⊙ 파일업로드</h4>
-	            <hr>
-	            <br>
-	
-	            <table id="fileTb">
+				
+				<br><br>
+				
+                <table class="docContents">
+	                <tr width="1000">
+	                    <td width="200" class="th">경조구분</td>
+	                    <td width="200">환갑</td>
+	                    <td width="200" class="th">신청일자</td>
+	                    <td width="200">2020.05.30</td>
+	                </tr>
 	                <tr>
-	                    <td width="600px">파일명</td>
-	                    <td width="200px">크기</td>
+	                    <td class="th">경조기간</td>
+	                    <td>2020.05.30~2020.05.30</td>
+	                    <td class="th">가족관계/대상자</td>
+	                    <td>부/마동석</td>
 	                </tr>
+	                <tr>
+	                    <td class="th">경조장소</td>
+	                    <td>제주도 서귀포시...</td>
+	                    <td class="th">신청금액</td>
+	                    <td>1000000</td>
+	                </tr>
+	                <tr>
+	                    <td class="th">비고</td>
+	                    <td colspan="3"></td>
+                    </tr>
 	            </table>
-	            <div id="fileUpload">
-	               	 이곳에 파일을 드래그 하세요.
+                
+                <br><br>
+	            <h4>결재의견</h4>
+	            <hr>
+                <br>
+                
+                <div id="Opinion">
+	                <table id="paymentOpinion">
+	                    <tr height="20" id="aa">
+                            <td width="80">결재</td>
+                            <td width="120">결재자</td>
+                            <td width="100">부서</td>
+                            <td width="160">결재일시</td>
+                            <td width="320">의견</td>
+                            <td width="30">파일</td>
+	                    </tr>
+	                    <tr height="">
+                            <td>승인</td>
+                            <td>최해성 이사</td>
+                            <td>개발팀</td>
+                            <td>2020.05.06 23:11</td>
+                            <td>승인합니다</td>
+                            <td></td>
+                        </tr>
+
+	                </table>
 	            </div>
-	            <br>
-	            <button type="button" id="fileUpBtn">파일첨부</button>
 	
 	        </form>
 	

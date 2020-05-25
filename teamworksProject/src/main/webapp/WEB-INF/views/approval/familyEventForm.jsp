@@ -128,6 +128,49 @@
         	float:left;
         }
         
+                #feName{
+            width:120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #fePrice{
+            width:120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #feDate{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #fePlace{
+            width:300px;
+            margin-left:20px;
+            margin-right: 20px;
+        }
+        #feAccount{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #feAccountName{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #bank{
+            width: 60px;
+            text-align:center;
+        }
+        #feSq{
+            width: 60px;
+            text-align:center;
+        }
+        #feRelation{
+            width: 60px;
+            text-align:center;
+        }
+        
     </style>
 </head>
 <body>
@@ -194,49 +237,58 @@
 	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
 	                </tr>
 	            </table>
-	
-	            <!--썸머노트-->
-	            <div id="summernote"></div>
-				<script>
-				$(document).ready(function() {
-					$('#summernote').summernote({
-	      				  placeholder: '내용을 입력하세요',
-	      				  tabsize: 2,
-	      				  height: 300,
-	      				  toolbar: [
-	       				   ['style', ['style']],
-	        				  ['font', ['bold', 'underline', 'clear']],
-	       				   ['color', ['color']],
-	        				  ['para', ['ul', 'ol', 'paragraph']],
-	        				  ['table', ['table']],
-	        				  ['insert', ['link', 'picture', 'video']],
-	         				 ['view', ['fullscreen', 'codeview', 'help']]
-	       				 ]
-	    				  });
-					
-				});
-   				   
-   				</script>
-
-	            
-	
-	            <!--파일첨부-->
-	            <br><br>
-	            <h4>⊙ 파일업로드</h4>
-	            <hr>
-	            <br>
-	
-	            <table id="fileTb">
+				
+				<br><br>
+				
+	            <table class="docContents">
+	                <tr width="">
+	                    <td width="100" class="th">문서번호</td>
+	                    <td width=""><input type="date" id="feDate"></td>
+	                    <td width="100" class="th">경조구분</td>
+                        <td width="100"><select name="feSq" id="feSq">
+                             <option value="">결혼</option>
+                             <option value="">환갑</option>
+                             <option value="">칠순</option>
+                             <option value="">사망</option>
+                        </select>
+                        </td>
+                        <td width="100" class="th">가족관계</td>
+	                    <td width="100"><select name="feRelation" id="feRelation">
+                            <option value="">결혼</option>
+                            <option value="">환갑</option>
+                            <option value="">칠순</option>
+                            <option value="">사망</option>
+                        </select>
+                        </td>
+	                </tr>
 	                <tr>
-	                    <td width="600px">파일명</td>
-	                    <td width="200px">크기</td>
+	                    <td class="th">대상자 성명</td>
+	                    <td><input type="text" id="feName" placeholder="내용을 입력해주세요"></td>
+	                    <td class="th">경조일자</td>
+                        <td width=""><input type="date" id="feDate"></td>
+                        <td width=""><input type="date" id="feDate"></td>
+	                </tr>
+	                <tr>
+	                    <td class="th">신청금액</td>
+	                    <td><input type="text" id="fePrice" placeholder="내용을 입력해주세요"></td>
+	                    <td class="th">경조장소</td>
+	                    <td colspan="3"><input type="text" id="fePlace" placeholder="내용을 입력해주세요"></td>
+	                </tr>
+	                <tr width="">
+	                    <td width="" class="th">은행</td>
+	                    <td width="100"><select name="bank" id="bank">
+                            <option value="">신한</option>
+                            <option value="">국민</option>
+                            <option value="">농협</option>
+                            <option value="">우리</option>
+                        </select>
+                        </td>
+	                    <td width="" class="th">계좌번호</td>
+                        <td><input type="text" id="feAccount" placeholder="내용을 입력해주세요"></td>
+                        <td width="" class="th">예금주</td>
+                        <td><input type="text" id="feAccountName" placeholder="내용을 입력해주세요"></td>
 	                </tr>
 	            </table>
-	            <div id="fileUpload">
-	               	 이곳에 파일을 드래그 하세요.
-	            </div>
-	            <br>
-	            <button type="button" id="fileUpBtn">파일첨부</button>
 	
 	        </form>
 	

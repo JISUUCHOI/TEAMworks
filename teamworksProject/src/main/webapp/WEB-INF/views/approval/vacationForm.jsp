@@ -128,6 +128,67 @@
         	float:left;
         }
         
+                #feName{
+            width:120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #fePrice{
+            width:120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #feDate{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #fePlace{
+            width:300px;
+            margin-left:20px;
+            margin-right: 20px;
+        }
+        #feAccount{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #feAccountName{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #bank{
+            width: 60px;
+            text-align:center;
+        }
+        #feSq{
+            width: 60px;
+            text-align:center;
+        }
+        #feRelation{
+            width: 60px;
+            text-align:center;
+        }
+        #vcSq{
+            width: 70px;
+            text-align:center;
+        }
+        #vcDay{
+            width: 70px;
+            text-align:center;
+        }
+        #vcDate{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #days{
+        	width:30px;
+        	margin-left:5px;
+        	margin-right: 5px;
+        }
+        
     </style>
 </head>
 <body>
@@ -194,49 +255,39 @@
 	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
 	                </tr>
 	            </table>
-	
-	            <!--썸머노트-->
-	            <div id="summernote"></div>
-				<script>
-				$(document).ready(function() {
-					$('#summernote').summernote({
-	      				  placeholder: '내용을 입력하세요',
-	      				  tabsize: 2,
-	      				  height: 300,
-	      				  toolbar: [
-	       				   ['style', ['style']],
-	        				  ['font', ['bold', 'underline', 'clear']],
-	       				   ['color', ['color']],
-	        				  ['para', ['ul', 'ol', 'paragraph']],
-	        				  ['table', ['table']],
-	        				  ['insert', ['link', 'picture', 'video']],
-	         				 ['view', ['fullscreen', 'codeview', 'help']]
-	       				 ]
-	    				  });
-					
-				});
-   				   
-   				</script>
-
-	            
-	
-	            <!--파일첨부-->
-	            <br><br>
-	            <h4>⊙ 파일업로드</h4>
-	            <hr>
-	            <br>
-	
-	            <table id="fileTb">
-	                <tr>
-	                    <td width="600px">파일명</td>
-	                    <td width="200px">크기</td>
+				
+				<br><br>
+				
+                <table class="docContents">
+	                <tr width="1000">
+	                    <td width="200" class="th">휴가구분</td>
+	                    <td width="200"><select name="vcSq" id="vcSq">
+                            <option value="">연차</option>
+                            <option value="">경조사</option>
+                            <option value="">병가</option>
+                            <option value="">출산</option>
+                       </select>
+	                    <td width="200" class="th">전일/반일 구분</td>
+                        <td width="200"><select name="vcDay" id="vcDay">
+                            <option value="">전일</option>
+                            <option value="">반일</option>
+                       </select>
 	                </tr>
-	            </table>
-	            <div id="fileUpload">
-	               	 이곳에 파일을 드래그 하세요.
-	            </div>
-	            <br>
-	            <button type="button" id="fileUpBtn">파일첨부</button>
+	                <tr>
+	                    <td class="th">휴가 신청일</td>
+	                    <td width=""><input type="date" id="vcDate"></td>
+	                </tr>
+	                <tr>
+	                    <td class="th">휴가기간</td>
+                        <td width=""><input type="date" id="vcDate"></td>
+                        <td width=""><input type="date" id="vcDate"></td>
+                        <td>(일수 :<input type="text" id="days" placeholder="0"> )</td>
+	                </tr>
+	                <tr>
+	                    <td class="th">휴가사유</td>
+	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
+	                </tr>
+                </table>
 	
 	        </form>
 	

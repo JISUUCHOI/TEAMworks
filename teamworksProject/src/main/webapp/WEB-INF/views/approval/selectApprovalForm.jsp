@@ -123,19 +123,19 @@
 	                    <td style="text-align:center;">2</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">경영지원</td>
-	                    <td style="padding-left:40px;" class="form">경조비 신청서</td>
+	                    <td style="padding-left:40px;" class="form"><a href="familyEvent.ap">경조비 신청서</a></td>
 	                </tr>
 	                <tr>
 	                    <td style="text-align:center;">3</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">경영지원</td>
-	                    <td style="padding-left:40px;" class="form">휴가 신청서</td>
+	                    <td style="padding-left:40px;" class="form"><a href="vacation.ap">휴가 신청서</a></td>
 	                </tr>
 	                <tr>
 	                    <td style="text-align:center;">4</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">경영지원</td>
-	                    <td style="padding-left:40px;" class="form">제증명 신청서</td>
+	                    <td style="padding-left:40px;" class="form"><a href="proof.ap">제증명 신청서</a></td>
 	                </tr>
 	                <tr>
 	                    <td style="text-align:center;">5</td>

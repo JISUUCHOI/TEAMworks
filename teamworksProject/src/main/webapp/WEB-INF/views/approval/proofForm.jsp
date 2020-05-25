@@ -128,6 +128,63 @@
         	float:left;
         }
         
+                #feName{
+            width:120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #fePrice{
+            width:120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #feDate{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #fePlace{
+            width:300px;
+            margin-left:20px;
+            margin-right: 20px;
+        }
+        #feAccount{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #feAccountName{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        #bank{
+            width: 60px;
+            text-align:center;
+        }
+        #feSq{
+            width: 60px;
+            text-align:center;
+        }
+        #feRelation{
+            width: 60px;
+            text-align:center;
+        }
+        #pfSq{
+            width: 100px;
+            text-align:center;
+        }
+        #vcDay{
+            width: 70px;
+            text-align:center;
+        }
+        #pfDate{
+            width: 120px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+
+        
     </style>
 </head>
 <body>
@@ -194,49 +251,43 @@
 	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
 	                </tr>
 	            </table>
-	
-	            <!--썸머노트-->
-	            <div id="summernote"></div>
-				<script>
-				$(document).ready(function() {
-					$('#summernote').summernote({
-	      				  placeholder: '내용을 입력하세요',
-	      				  tabsize: 2,
-	      				  height: 300,
-	      				  toolbar: [
-	       				   ['style', ['style']],
-	        				  ['font', ['bold', 'underline', 'clear']],
-	       				   ['color', ['color']],
-	        				  ['para', ['ul', 'ol', 'paragraph']],
-	        				  ['table', ['table']],
-	        				  ['insert', ['link', 'picture', 'video']],
-	         				 ['view', ['fullscreen', 'codeview', 'help']]
-	       				 ]
-	    				  });
-					
-				});
-   				   
-   				</script>
-
-	            
-	
-	            <!--파일첨부-->
-	            <br><br>
-	            <h4>⊙ 파일업로드</h4>
-	            <hr>
-	            <br>
-	
-	            <table id="fileTb">
-	                <tr>
-	                    <td width="600px">파일명</td>
-	                    <td width="200px">크기</td>
+				
+				<br><br>
+				
+                <table class="docContents">
+	                <tr width="1000">
+                        <td width="200" class="th">신청번호</td>
+                        <td>자동생성</td>
+	                    <td width="200" class="th">증명서구분</td>
+                        <td width="200"><select name="pfSq" id="pfSq">
+                            <option value="">재직증명서</option>
+                            <option value="">경력증명서</option>
+                            <option value="">퇴직증명서</option>
+                       </select>
 	                </tr>
-	            </table>
-	            <div id="fileUpload">
-	               	 이곳에 파일을 드래그 하세요.
-	            </div>
-	            <br>
-	            <button type="button" id="fileUpBtn">파일첨부</button>
+	                <tr>
+	                    <td width="200" class="th">사원번호</td>
+                        <td>15</td>
+	                    <td width="200" class="th">성명</td>
+                        <td>최해성</td>
+	                </tr>
+	                <tr>
+	                    <td width="200" class="th">사업장</td>
+                        <td>(주)팀웍스</td>
+	                    <td width="200" class="th">부서</td>
+                        <td>개발팀</td>
+                    </tr>
+                    <tr>
+	                    <td width="200" class="th">직급</td>
+                        <td>사원</td>
+	                    <td width="200" class="th">신청일자</td>
+                        <td width=""><input type="Date" id="pfDate"></td>
+	                </tr>
+	                <tr>
+	                    <td class="th">용도</td>
+	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
+	                </tr>
+                </table>
 	
 	        </form>
 	

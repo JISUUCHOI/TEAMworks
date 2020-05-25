@@ -123,9 +123,21 @@
             float:right;
             margin-right:20px;
         }
-        #bodyWrapper{
-        	width:1250px;
-        	float:left;
+        #draftFile{
+            height:60px;
+        }
+        #draftContent{
+            height: 250px;       
+        }
+
+        #paymentOpinion, #paymentOpinion tr, #paymentOpinion td, #paymentOpinion th{
+            border:1.2px solid lightgrey;           
+            border-collapse: collapse;
+            font-size:12px;
+            text-align:center;
+        }
+        #aa{
+            background:lightsteelblue;
         }
         
     </style>
@@ -156,11 +168,23 @@
 	            <div id="appoveLine">
 	                <table id="approveLineTb">
 	                    <tr height="20">
-	                        <td rowspan="2" width="20">결<br>재</td>
-	                        <td width="70">기안</td>
+	                        <td rowspan="3" width="20">결<br>재</td>
+                            <td width="70">기안</td>
+                            <td width="70">팀장</td>
+                            <td width="70">이사</td>
+                            <td width="70">사장</td>
 	                    </tr>
-	                    <tr height="70">
-	                        <td>최해성</td>
+	                    <tr height="">
+                            <td>최해성</td>
+                            <td>이용석</td>
+                            <td>김용명</td>
+                            <td>최지수</td>
+                        </tr>
+                        <tr height="">
+                            <td>승인(날짜)</td>
+                            <td>승인(날짜)</td>
+                            <td>진행</td>
+                            <td>미결</td>
 	                    </tr>
 	                </table>
 	            </div>
@@ -182,62 +206,49 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td>
-	                        <input type="text" id="refSch">
-	                        <button type="button" id="refBtn">참조</button>
-	                    </td>
-	                    <td class="th">마감일자</td>
-	                    <td>2020.06.07</td>
+	                    <td></td>
+	                    <td class="th">기결재 첨부</td>
+	                    <td></td>
 	                </tr>
 	                <tr>
-	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
-	                </tr>
-	            </table>
-	
-	            <!--썸머노트-->
-	            <div id="summernote"></div>
-				<script>
-				$(document).ready(function() {
-					$('#summernote').summernote({
-	      				  placeholder: '내용을 입력하세요',
-	      				  tabsize: 2,
-	      				  height: 300,
-	      				  toolbar: [
-	       				   ['style', ['style']],
-	        				  ['font', ['bold', 'underline', 'clear']],
-	       				   ['color', ['color']],
-	        				  ['para', ['ul', 'ol', 'paragraph']],
-	        				  ['table', ['table']],
-	        				  ['insert', ['link', 'picture', 'video']],
-	         				 ['view', ['fullscreen', 'codeview', 'help']]
-	       				 ]
-	    				  });
-					
-				});
-   				   
-   				</script>
+	                    <td class="th">문서제목</td>
+	                    <td colspan="3"></td>
+                    </tr>
+                    <tr>
+	                    <td class="th">첨부파일</td>
+	                    <td colspan="3" id="draftFile"></td>
+                    </tr>
+                    <tr>
+	                    <td colspan="4" id="draftContent"></td>
+                    </tr>
+                </table>
 
-	            
-	
-	            <!--파일첨부-->
-	            <br><br>
-	            <h4>⊙ 파일업로드</h4>
+                <br><br>
+	            <h4>결재의견</h4>
 	            <hr>
-	            <br>
-	
-	            <table id="fileTb">
-	                <tr>
-	                    <td width="600px">파일명</td>
-	                    <td width="200px">크기</td>
-	                </tr>
-	            </table>
-	            <div id="fileUpload">
-	               	 이곳에 파일을 드래그 하세요.
+                <br>
+                
+                <div id="Opinion">
+	                <table id="paymentOpinion">
+	                    <tr height="20" id="aa">
+                            <td width="80">결재</td>
+                            <td width="120">결재자</td>
+                            <td width="100">부서</td>
+                            <td width="160">결재일시</td>
+                            <td width="320">의견</td>
+	                    </tr>
+	                    <tr height="">
+                            <td>승인</td>
+                            <td>최해성 이사</td>
+                            <td>개발팀</td>
+                            <td>2020.05.06 23:11</td>
+                            <td>승인합니다</td>
+                        </tr>
+
+	                </table>
 	            </div>
-	            <br>
-	            <button type="button" id="fileUpBtn">파일첨부</button>
-	
+
+
 	        </form>
 	
 	    </div>
