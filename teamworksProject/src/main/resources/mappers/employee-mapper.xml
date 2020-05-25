@@ -4,5 +4,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="employeeMapper">
 
+	<resultMap type="Employee" id="employeeResultSet">
+		<id column="emp_Id" property="empId"/>
+		<result column="dept_code" property="deptCode"/>
+		<result column="job_code" property="jobCode"/>
+		<result column="emp_name" property="empName"/>
+		<result column="emp_pwd" property="empPwd"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="emp_phone" property="phone"/>
+		<result column="emp_email" property="email"/>
+		<result column="postcode" property="postcode"/>
+		<result column="address" property="empAdd"/>
+		<result column="address_dt" property="empAddDetail"/>
+		<result column="hire_date" property="hireDate"/>
+		<result column="retire_date" property="retireDate"/>
+		<result column="sal_type" property="salType"/>
+		<result column="modify_date" property="modifyDate"/>
+		<result column="emp_status" property="status"/>
+		<result column="emp_note" property="empNote"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+		<result column="hom_no" property="homNo"/>
+	</resultMap>
+	
+	<select id="loginEmployee" parameterType="Employee" resultMap="employeeResultSet">
+		select *
+		  from employee
+		 where emp_id = #{empId}
+	 	   and emp_status='Y'
+	</select>
 
 </mapper>

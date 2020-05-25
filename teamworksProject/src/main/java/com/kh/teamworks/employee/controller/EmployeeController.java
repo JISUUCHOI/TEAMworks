@@ -16,18 +16,21 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService eService;
-	
+	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
 	@RequestMapping("login.em")
 	public ModelAndView loginEmployee(Employee e, HttpSession session, ModelAndView mv) {
 		
+		// System.out.println(e.getEmpId());
+		// System.out.println(e.getEmpPwd());
 		Employee loginUser = eService.loginEmployee(e);
 		
+		// System.out.println(loginUser.getEmpPwd());
 		if(loginUser != null && bcryptPasswordEncoder.matches(e.getEmpPwd(), loginUser.getEmpPwd())) {
 			session.setAttribute("loginUser", loginUser);
-			mv.setViewName("redirect:main");
+			mv.setViewName("redirect:/");
 		}else {
 			mv.addObject("msg", "로그인 실패").setViewName("common/errorPage");
 		}

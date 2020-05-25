@@ -32,6 +32,9 @@ public class Employee {
 	private Date modifyDate;
 	private String status;
 	private String empNote;
-	private String homeNo;
+	private String homNo;
+	private String originName;
+	private String changeName;
+
 
 }

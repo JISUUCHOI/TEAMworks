@@ -62,6 +62,8 @@
 </head>
 <body>
 <div id="particles-js" class="loginbody" align="center">
+<c:choose>
+	<c:when test="${ empty loginUser }">
     <div class="card align-middle" style="width:20rem; border-radius:20px; position: absolute; top:200px; left: 0; right: 0;;">
       <div class="card-title" style="margin-top:30px;">
         <h2 class="card-title text-center"><img src="${ pageContext.servletContext.contextPath }/resources/images/logo_blue.png" alt="" width="250px"></h2>
@@ -81,6 +83,11 @@
           <a id="pwdChange" href="">비밀번호 변경</a>
       </div>
     </div>
+    </c:when>
+    <c:otherwise>
+    	<jsp:forward page="main.jsp"/>
+    </c:otherwise>
+ </c:choose>   
   </div>
   
   
