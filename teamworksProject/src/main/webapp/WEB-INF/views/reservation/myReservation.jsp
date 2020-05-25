@@ -33,6 +33,9 @@
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<jsp:include page="sidebarReservation.jsp"/>
+
     <h2>나의 예약 목록</h2>
 
     <table>

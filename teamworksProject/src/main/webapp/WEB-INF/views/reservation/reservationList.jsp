@@ -66,6 +66,9 @@
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<jsp:include page="sidebarReservation.jsp"/>
+
 	<div align="center">
 	  <button class="pointBtn">&lt;</button>
 	  <b id="date">2020.05.12 (화)</b>
