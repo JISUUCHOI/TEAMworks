@@ -33,11 +33,16 @@ public class ApprovalController {
 		return "approval/vacationForm";
 	}
 	
-	// w제증명청서
+	// 제증명신청서
 	@RequestMapping("proof.ap")
 	public String proofForm() {
 		return "approval/proofForm";
 	}
+	
+	// 기안문insert
+	// @RequestMapping("draftInsert.ap")
+	// public String insertDraft
+	
 	
 	
 	
