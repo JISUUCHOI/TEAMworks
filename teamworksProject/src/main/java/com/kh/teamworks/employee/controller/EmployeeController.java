@@ -34,4 +34,11 @@ public class EmployeeController {
 		
 		return mv;
 	}
+	
+	@RequestMapping("logout.em")
+	public String logoutEemployee(HttpSession session) {
+		
+		session.invalidate();
+		return "redirect:/";
+	}
 }

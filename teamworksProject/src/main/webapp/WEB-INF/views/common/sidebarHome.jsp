@@ -67,7 +67,7 @@
  <div id="sidebarOuter">
     <div id="sidebar" align="center">
         <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png" alt="" width="20px"> messenger</a></div>
-        <div id="logout"><a href="">logout</a></div>
+        <div id="logout"><a href="logout.em">logout</a></div>
         
         <div class="row">
             <div class="col" style="width: 200px;">
