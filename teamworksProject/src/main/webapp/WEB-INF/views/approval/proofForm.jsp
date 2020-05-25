@@ -193,7 +193,7 @@
 	        <hr>
 	        <br>
 	
-	        <form id="docForm" action="">
+	        <form id="docForm" method="post" action="proofInsert.ap" enctype="multipart/form-data">
 	            <!-- 버튼들 -->
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn">결재선</button>
@@ -256,9 +256,9 @@
                         <td>자동생성</td>
 	                    <td width="200" class="th">증명서구분</td>
                         <td width="200"><select name="pfSq" id="pfSq">
-                            <option value="">재직증명서</option>
-                            <option value="">경력증명서</option>
-                            <option value="">퇴직증명서</option>
+                            <option value="재직증명서">재직증명서</option>
+                            <option value="경력증명서">경력증명서</option>
+                            <option value="퇴직증명서">퇴직증명서</option>
                        </select>
 	                </tr>
 	                <tr>
@@ -281,7 +281,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">용도</td>
-	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"><input type="text" id="titleIput" required name="pfPurpose" placeholder="내용을 입력해주세요"></td>
 	                </tr>
                 </table>
 	

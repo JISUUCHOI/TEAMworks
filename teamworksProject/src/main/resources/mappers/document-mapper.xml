@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="documentMapper">
+
+	<resultMap type="Document" id="documentResultSet">
+		<result column="PF_SQ" property="pfSq"/>
+		<result column="PF_PURPOSE" property="pfPurpose"/>
+	</resultMap>
+	
+	<insert id="insertProof" parameterType="Document">
+		
+	</insert>
+
+</mapper>
