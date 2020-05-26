@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository("raDao")
 public class ReqApprovalDao {
-	/*
+
 	public int insertDocNo(SqlSessionTemplate sqlSession, String empId, String docDepartment) {
-		return sqlSession.insertDocNo("approvalMapper.insertDocNo");
+		return sqlSession.insertDocNo("approvalMapper.insertDocNo", empId, docDepartment);
 	}
-	*/
+	
 }

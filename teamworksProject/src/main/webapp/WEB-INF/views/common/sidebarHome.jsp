@@ -81,7 +81,7 @@
                     <div class="caption">
                         <h5><b>강보람 대표이사</b></h5>
                         <h6>경영지원팀</h6>
-                        <a href="" class="btn btn-info">개인정보 수정</a>
+                        <a href="myPage.em" class="btn btn-info">개인정보 수정</a>
                     </div>
                 </div>
             </div>
