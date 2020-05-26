@@ -45,7 +45,7 @@
 
         <div class="inner wrap">
             <h3>기본정보</h3>
-            <form action="" method="post" action="" enctype="multipart/form-data">
+            <form id="myPageForm" action="update.em" method="post" enctype="multipart/form-data">
               
                  <table id="memberInfo" class="">
                      <hr>
@@ -56,12 +56,14 @@
                              <div style="border:1px solid lightgray; width:100px; height:100px; border-radius: 50%; overflow: hidden;">
                                  <c:choose>
                                  	<c:when test="${ empty loginUser.originName }">
-                                 		<a id="empImg" href="" onclick=document.all.file.click();><img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
-                                 		<input type="file" name="empfile" id="file" style="display:none"/>
+                                 		<a id="empImg" href="" onclick=document.all.file.click();>
+                                 		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
+                                 		<input type="file" name="empfile" id="file" style="display:none" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
                                  	</c:when>
                                  	<c:otherwise>
-                                 		<a id="empImg" href="" onclick=document.all.file.click();><img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" width="100%" height="100%" ></a>
-                             	 		<input type="file" name="empfile" id="file" style="display:none"/>
+                                 		<a id="empImg" href="" onclick=document.all.file.click();>
+                                 		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" width="100%" height="100%" ></a>
+                             	 		<input type="file" name="empfile" id="file" style="display:none" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
                              	 	</c:otherwise>
                              	 </c:choose>
                              </div>
@@ -131,14 +133,14 @@
         </div>
    
     </div>
-   <!--  <script>
+	<script>
     	$(function(){
-    		$("#empImg").click(function(){
-    			$("#file").click();
-    		});
     		
+    		$("#file").change(function(){
+    			$("#myPageForm").submit();
+    		});
     	});
-    </script> -->
+    </script> 
 
   
 <script>
