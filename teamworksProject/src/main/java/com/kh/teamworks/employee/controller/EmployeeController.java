@@ -49,5 +49,4 @@ public class EmployeeController {
 	public String myPage() {
 		return "myPage/myPage";
 	}
-	
 }
