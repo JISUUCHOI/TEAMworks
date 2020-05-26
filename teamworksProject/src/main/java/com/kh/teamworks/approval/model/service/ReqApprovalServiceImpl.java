@@ -16,6 +16,7 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 	@Autowired
 	private ReqApprovalDao raDao;
 	
+	/*
 	@Override
 	public int insertDocNo(String empId, String docDepartment) {
 		return raDao.insertDocNo(sqlSession, empId, docDepartment);
@@ -26,7 +27,7 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return null;
 	}
 
-	
+	*/
 
 	
 	
