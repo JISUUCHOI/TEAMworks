@@ -47,6 +47,6 @@ public class EmployeeController {
 	
 	@RequestMapping("myPage.em")
 	public String myPage() {
-		return "myPage/myPage";
+		return "employee/myPage";
 	}
 }
