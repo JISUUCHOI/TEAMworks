@@ -44,4 +44,9 @@ public class EmployeeController {
 		session.invalidate();
 		return "redirect:/";
 	}
+	
+	@RequestMapping("myPage.em")
+	public String myPage() {
+		return "myPage/myPage";
+	}
 }
