@@ -12,12 +12,12 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <style>
         /* 전체윤곽 */
-        #draftOuter{
-            width:800px;
-            height:750px;
-            display:inline-block;
-           	margin:auto;
-        }
+		#draftOuter{
+		    width:800px;
+		    height:850px;
+		   	margin:auto;
+		    margin-top:50px;
+		}
 
         /* 버튼 */
         #btns{
@@ -202,7 +202,7 @@
 	            </div>
 	            <br><br><br>
 	
-	            <h1 style="text-align:center;">기안서</h1>
+	            <h1 style="text-align:center;">제증명 신청서</h1>
 	            <br>
 	
 	            <!-- 결재선 -->
