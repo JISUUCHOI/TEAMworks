@@ -66,7 +66,7 @@
             <div id="logout"><a href="">logout</a></div>
             
             <div class="category">Mypage</div>
-            <div class="subCate"><a href="">기본정보</a></div>
+            <div class="subCate"><a href="myPage.em">기본정보</a></div>
             <div class="subCate"><a href="">비밀번호변경</a></div>
         </div>
     </div>

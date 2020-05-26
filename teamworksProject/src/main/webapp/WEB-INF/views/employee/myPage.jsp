@@ -45,7 +45,7 @@
 
         <div class="inner wrap">
             <h3>기본정보</h3>
-            <form action="">
+            <form action="" method="post" action="" enctype="multipart/form-data">
               
                  <table id="memberInfo" class="">
                      <hr>
@@ -56,10 +56,12 @@
                              <div style="border:1px solid lightgray; width:100px; height:100px; border-radius: 50%; overflow: hidden;">
                                  <c:choose>
                                  	<c:when test="${ empty loginUser.originName }">
-                                 		<a href=""><img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
+                                 		<a id="empImg" href="" onclick=document.all.file.click();><img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
+                                 		<input type="file" name="empfile" id="file" style="display:none"/>
                                  	</c:when>
                                  	<c:otherwise>
-                                 		<a href=""><img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/logo_blue.png" alt="" width="100%" height="100%" ></a>
+                                 		<a id="empImg" href="" onclick=document.all.file.click();><img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" width="100%" height="100%" ></a>
+                             	 		<input type="file" name="empfile" id="file" style="display:none"/>
                              	 	</c:otherwise>
                              	 </c:choose>
                              </div>
@@ -129,6 +131,14 @@
         </div>
    
     </div>
+   <!--  <script>
+    	$(function(){
+    		$("#empImg").click(function(){
+    			$("#file").click();
+    		});
+    		
+    	});
+    </script> -->
 
   
 <script>
