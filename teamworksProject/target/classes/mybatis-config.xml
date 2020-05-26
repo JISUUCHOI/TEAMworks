@@ -17,6 +17,7 @@
 	<mappers>
 		<mapper resource="mappers/board-mapper.xml"/>
 		<mapper resource="mappers/employee-mapper.xml"/>
+		<mapper resource="mappers/approval-mapper.xml"/>
 	</mappers>
 
 </configuration>
