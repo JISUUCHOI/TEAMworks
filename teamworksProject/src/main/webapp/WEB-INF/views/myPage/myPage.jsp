@@ -15,12 +15,17 @@
 
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<style>
+		 .outer{
+		 	width:1250px;
+			float:left; 
+		 }
 	     .wrap{
 	         width: 900px; 
 	         font-family: 'Nanum Gothic';
 	         border: 1px solid lightgray;
 	         border-radius: 20px;
 	         padding: 20px;
+	         margin-left: 220px;
 	         margin-top: 20px;
 	         box-shadow: lightgrey 5px 5px 5px ;
 	         }

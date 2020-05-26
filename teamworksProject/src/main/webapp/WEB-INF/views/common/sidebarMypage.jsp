@@ -8,9 +8,10 @@
 <title>Insert title here</title>
 	<style>
  		html, body{height:100%; position:relative;}
+ 		div{box-sizing:border-box;}
         #sidebarOuter{
             width:250px;
-            height:700px;
+            height:900px;
             float:left;
         }
         /* 사이드바 */
@@ -19,7 +20,7 @@
             width:250px;
             height:100%;
             float:left;
-            margin-top:100px;
+           /*  margin-top:100px; */
             padding-top:20px;
             background:rgb(7, 53, 90);
         }
@@ -57,7 +58,7 @@
   <!-- 사이드바 -->
     <div class="sidebarOuter">
         <div id="sidebar">
-            <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/images/messenger.png"width="20px"> messenger</a></div>
+            <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
             <div id="logout"><a href="">logout</a></div>
             
             <div class="category">Mypage</div>
