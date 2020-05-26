@@ -36,9 +36,10 @@ public class requestApprovalController {
 	}
 	
 	// 휴가신청서
+	/*
 	@RequestMapping("vacation.rap")
 	public String vacationForm() {
 		return "approval/vacationForm";
 	}
-	
+	*/
 }
