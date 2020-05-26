@@ -25,11 +25,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="origin_name" property="originName"/>
 		<result column="change_name" property="changeName"/>
 		<result column="hom_no" property="homNo"/>
+		<result column="dept_name" property="deptName"/>
+		<result column="job_name" property="jobName"/>
 	</resultMap>
 	
 	<select id="loginEmployee" parameterType="Employee" resultMap="employeeResultSet">
 		select *
 		  from employee
+		  join department using(dept_code)
+          join job using(job_code)
 		 where emp_id = #{empId}
 	 	   and emp_status='Y'
 	</select>
