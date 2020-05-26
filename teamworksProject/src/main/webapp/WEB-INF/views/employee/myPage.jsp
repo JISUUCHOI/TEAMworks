@@ -15,12 +15,12 @@
 
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<style>
-		.outer{
+		 .outer{
 			width:1250px;
-			
 			float:left;
-			display:inline-block;
-		}
+			margin-left:220px;
+		
+		 }
 	     .wrap{
 	         width: 900px; 
 	         font-family: 'Nanum Gothic';
@@ -30,10 +30,10 @@
 	         margin-top: 20px;
 	         box-shadow: lightgrey 5px 5px 5px ;
 	         }
-	        #memberInfo{ 
-	            border-collapse: separate;
-	            border-spacing: 20px;
-	        }
+	      #memberInfo{ 
+	         border-collapse: separate;
+	         border-spacing: 20px;
+	      }
 	</style>
 </head>
 <body>
@@ -54,7 +54,14 @@
                          
                          <td>    
                              <div style="border:1px solid lightgray; width:100px; height:100px; border-radius: 50%; overflow: hidden;">
-                                 <a href=""><img class="card-imtg-top" src="resources/images/1.jpg" alt="" width="100%" height="100%" ></a>
+                                 <c:choose>
+                                 	<c:when test="${ empty loginUser.originName }">
+                                 		<a href=""><img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
+                                 	</c:when>
+                                 	<c:otherwise>
+                                 		<a href=""><img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/logo_blue.png" alt="" width="100%" height="100%" ></a>
+                             	 	</c:otherwise>
+                             	 </c:choose>
                              </div>
                          </td>
                          <td width="200px"></td>
@@ -62,26 +69,26 @@
                      </tr>
                      <tr>
                          <th>이 름</th>
-                         <td>고창석</td>
+                         <td>${ loginUser.empName }</td>
                          <td></td>
                          <td></td>
                      </tr>
                      <tr>
                          <th>부 서</th>
-                         <td>개발팀</td>
+                         <td>${ loginUser.deptName }</td>
                          <td></td>
                          <td></td>
                      </tr>
                      <tr>
                          <th>직 급</th>
-                         <td>대리</td>
+                         <td>${ loginUser.jobName }</td>
                          <td></td>
                          <td></td>
                      </tr>
                      <tr>
                          <th>우편번호</th>
                          <td colspan="1">
-                             <input  class="form-control" type="text" id="postcode" placeholder="우편번호" disabled>
+                             <input  class="form-control" type="text" id="postcode" name="postcode" placeholder="우편번호" disabled>
                          </td>
                          <td>
                              <input class="btn btn-info" type="button" onclick="daumPostCode();" value="우편번호 찾기">
@@ -90,28 +97,28 @@
                      </tr>
                      <tr>
                          <th>도로명주소</th>
-                         <td colspan="3"><input class="form-control" type="text" id="address" placeholder="주소"></td>
+                         <td colspan="3"><input class="form-control" type="text" id="address" name="empAdd" value="${ loginUser.empAdd }" placeholder="주소"></td>
                      </tr>
                      <tr>
                          <th>상세주소</th>
                          <td colspan="3">
-                             <input class="form-control" type="text" id="detailAddress" placeholder="상세주소">
+                             <input class="form-control" type="text" id="detailAddress" name="empAddDetail" value="${ loginUser.empAddDetail }" placeholder="상세주소">
                              <input type="hidden" id="extraAddress" placeholder="참고항목">
                          </td>
                      </tr>
                      <tr>
                          <th>EMAIL</th>
-                         <td colspan="2"> <input type="email" class="form-control"></td>
+                         <td colspan="2"> <input type="email" class="form-control" name="email" value="${ loginUser.email }"></td>
                          <td></td>
                      </tr>
                      <tr>
                          <th>연락처</th>
-                         <td colspan="2"> <input type="text" class="form-control"></td>
+                         <td colspan="2"> <input type="text" class="form-control" name="phone" value="${loginUser.phone}"></td>
                          <td></td>
                      </tr>
                      <tr>
                          <th>생년월일</th>
-                         <td colspan="2"> 1987-04-05</td>
+                         <td colspan="2"></td>
                          <td></td>
                      </tr>
                  </table>
