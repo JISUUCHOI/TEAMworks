@@ -33,6 +33,8 @@
 		<url-pattern>/</url-pattern>
 		<url-pattern>*.bo</url-pattern>
 		<url-pattern>*.em</url-pattern>
+		<url-pattern>*.ap</url-pattern>
+		<url-pattern>*.rap</url-pattern>
 	</servlet-mapping>
 	
 	

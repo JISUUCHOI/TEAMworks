@@ -170,6 +170,7 @@
 	            <br><br><br><br><br><br><br><br>
 	
 	            <!-- 기안문서 -->
+	            
 	            <table class="docContents">
 	                <tr>
 	                    <td width="200" class="th">문서번호</td>
@@ -179,7 +180,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td style="text-align:center;">이용석</td>
+	                    <td style="text-align:center;">최해성</td>
 	                    <td class="th">기안부서</td>
 	                    <td style="text-align:center;">개발팀</td>
 	                </tr>
