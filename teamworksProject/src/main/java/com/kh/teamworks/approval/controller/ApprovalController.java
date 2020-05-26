@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.teamworks.approval.model.service.ApprovalService;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.employee.model.vo.Employee;
 
 @Controller
 public class ApprovalController {
@@ -43,11 +44,18 @@ public class ApprovalController {
 	
 	// 제증명 insert
 	@RequestMapping("proofInsert.ap")
-	public String insertProof(Document d, HttpServletRequest request, Model model,
-            				  @RequestParam(name="uploadFile", required=false) MultipartFile file) {
+	public String insertProof(Employee e, HttpServletRequest request, Model model,
+            				  @RequestParam(name="empName", required=false) String empName,
+            				  @RequestParam(name="titleInput", required=false) String titleInput) {
 		
-		 int result = aService.insertProof(d);
-		return null;
+		model.addAttribute("empName", empName);
+		model.addAttribute("titleInput", titleInput);
+		
+		System.out.println(empName);
+		System.out.println(titleInput);
+		
+		// int result = aService.insertProof(d);
+		  return "redirect:proof.ap";
 		
 	}
 

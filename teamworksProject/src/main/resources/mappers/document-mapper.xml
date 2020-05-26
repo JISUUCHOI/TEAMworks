@@ -5,12 +5,15 @@
 <mapper namespace="documentMapper">
 
 	<resultMap type="Document" id="documentResultSet">
-		<result column="PF_SQ" property="pfSq"/>
-		<result column="PF_PURPOSE" property="pfPurpose"/>
+		<result column="DOC_NO" property="docNo"/>
+		<result column="EMP_ID" property="empName"/>
+		<result column="DOC_DEPARTMENT" property="deptCode"/>
+		<result column="DOC_TITLE" property="titleIput"/>
 	</resultMap>
 	
 	<insert id="insertProof" parameterType="Document">
-		
+		INSERT INTO DOCUMENT
+		VALUES(2, #{empId}, '기안서', 1, #{titleInput}, '최해성', '11', '11', 1)
 	</insert>
 
 </mapper>

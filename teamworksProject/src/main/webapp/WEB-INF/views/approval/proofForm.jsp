@@ -229,9 +229,18 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td>이용석</td>
+	                    <td><input type="text" id="empName" name="empName" value="${ loginUser.empName }" readonly></td>
+	                    <input type="hidden" id="empId" name="empId" value="${ loginUser.empId }">
 	                    <td class="th">기안부서</td>
-	                    <td>개발팀</td>
+	                    <c:choose>
+		                    <c:when test="${ loginUser.deptCode eq 1001}">
+			                    <td><input type="text" id="deptCode" name="deptCode" value="경영지원팀" readonly></td>
+		                    </c:when>
+		                    <c:otherwise>
+			                    <td><input type="text" id="deptCode" name="deptCode" value="개발팀" readonly></td>
+		                    </c:otherwise>
+	                    </c:choose>
+	                    
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
@@ -244,7 +253,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleIput" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"><input type="text" id="titleIput" name="titleInput" placeholder="내용을 입력해주세요"></td>
 	                </tr>
 	            </table>
 				
