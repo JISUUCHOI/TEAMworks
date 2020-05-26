@@ -35,6 +35,7 @@
 		<url-pattern>*.em</url-pattern>
 		<url-pattern>*.ap</url-pattern>
 		<url-pattern>*.rap</url-pattern>
+		<url-pattern>*.re</url-pattern>
 	</servlet-mapping>
 	
 	

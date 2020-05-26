@@ -17,12 +17,14 @@ public class ReqApprovalController {
 		@RequestMapping("familyEvent.rap")
 		public String familyEventtForm() {
 			
-			/*
-			int result = raService.insertDocNo();
+			String empId = "TW103";
+			String docDepartment = "개발팀";
+			
+			int result = raService.insertDocNo(empId, docDepartment);
 			
 			if(result > 0) {
 				raService.selectDocNo();
-			}*/
+			}
 			
 			return "approval/familyEventForm";
 		}
