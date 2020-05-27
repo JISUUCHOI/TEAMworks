@@ -22,7 +22,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public ArrayList<Reservation> selectReservationList() {
 
-		return null;
+		return reDao.selectReservationList(sqlSession);
 	}
 	
 	
