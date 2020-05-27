@@ -23,7 +23,7 @@ public class ReservationController {
 		ArrayList<Reservation> list = reService.selectReservationList();
 		
 		mv.addObject("list", list);
-		mv.setViewName("");
+		mv.setViewName("reservation/reservationList");
 		
 		return mv;
 	}
