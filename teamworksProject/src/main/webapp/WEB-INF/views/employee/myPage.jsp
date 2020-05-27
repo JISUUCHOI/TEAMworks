@@ -46,7 +46,6 @@
         <div class="inner wrap">
             <h3>기본정보</h3>
             <form id="myPageForm" action="update.em" method="post" enctype="multipart/form-data">
-              
                  <table id="memberInfo" class="">
                      <hr>
                      <tr>
@@ -101,7 +100,7 @@
                      </tr>
                      <tr>
                          <th>도로명주소</th>
-                         <td colspan="3"><input class="form-control" type="text" id="address" name="empAdd" value="${ loginUser.empAdd }" placeholder="주소"></td>
+                         <td colspan="3"><input class="form-control" type="text" id="address" name="empAdd" value="${ loginUser.empAdd }" placeholder="주소" readonly></td>
                      </tr>
                      <tr>
                          <th>상세주소</th>
@@ -186,6 +185,7 @@
             }
             }).open();
 
+   	 }
     }
    
 </script>

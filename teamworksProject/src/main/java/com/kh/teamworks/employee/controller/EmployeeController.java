@@ -49,4 +49,9 @@ public class EmployeeController {
 	public String myPage() {
 		return "employee/myPage";
 	}
+	
+	@RequestMapping("update.em")
+	public String updateEMployee() {
+		return "redirect:/";
+	}
 }
