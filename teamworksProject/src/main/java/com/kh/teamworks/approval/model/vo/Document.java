@@ -24,7 +24,7 @@ public class Document {
 	private String docReference;	// 참조자
 	private String docDate;			// 기안일자
 	private String docEnd;			// 마감일자
-	private int docDepartment;	// 기안부서		// 개발팀, 경영지원팀
+	private int docDepartment;		// 기안부서		// 개발팀, 경영지원팀
 	
 	// 경조비신청서
 	private String feSq;			// 경조구분		// 결혼, 환갑/칠순, 사망

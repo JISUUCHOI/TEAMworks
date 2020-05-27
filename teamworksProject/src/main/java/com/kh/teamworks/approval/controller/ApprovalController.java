@@ -1,6 +1,7 @@
 package com.kh.teamworks.approval.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,18 +45,21 @@ public class ApprovalController {
 	
 	// 제증명 insert
 	@RequestMapping("proofInsert.ap")
-	public String insertProof(Employee e, HttpServletRequest request, Model model,
-            				  @RequestParam(name="empName", required=false) String empName,
-            				  @RequestParam(name="titleInput", required=false) String titleInput) {
+	public String insertProof(Document d, Model model, HttpSession session) {
 		
-		model.addAttribute("empName", empName);
-		model.addAttribute("titleInput", titleInput);
+
+		//model.addAttribute("titleInput", titleInput);
 		
-		System.out.println(empName);
-		System.out.println(titleInput);
+		// System.out.println(d);
 		
-		// int result = aService.insertProof(d);
-		  return "redirect:proof.ap";
+	    int result = aService.insertProof(d);
+	  
+	    if(result > 0) {
+	    	
+	    	return "redirect:proof.ap";
+	    }else {
+	    	return "redirect:proof.ap";
+	    }
 		
 	}
 

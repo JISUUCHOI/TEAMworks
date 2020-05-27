@@ -1,7 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.Date, java.text.SimpleDateFormat"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+   Date date = new Date();
+   SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd");
+%>
+
+
+
+
+
+  
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +98,7 @@
         	background:lightsteelblue;
         	cursor:pointer;
         }
-        #titleIput{
+        #titleInput{
             width:600px;
             height:20px;
             margin-left:10px;
@@ -188,12 +199,11 @@
 	<jsp:include page="approvalSidebar.jsp"/>
 	<div id="bodyWrapper">
 	    <div id="draftOuter">
-	
 	        <h4>⊙ 기안문 작성</h4>
 	        <hr>
 	        <br>
 	
-	        <form id="docForm" method="post" action="proofInsert.ap" enctype="multipart/form-data">
+	        <form id="docForm"  action="proofInsert.ap" enctype="multipart/form-data">
 	            <!-- 버튼들 -->
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn">결재선</button>
@@ -225,19 +235,24 @@
 	                    <td width="200" class="th">문서번호</td>
 	                    <td width="200">자동부여</td>
 	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200">2020.05.07</td>
+	                    <td width="200"><jsp:useBean id="docDate" class="java.util.Date" />
+										<fmt:formatDate value="${docDate}" pattern="yyyy-MM-dd" var="docDate" /><c:out value="${docDate}"/>
+										<input type="hidden" id="docDate" name="docDate" value="${ docDate}">
+						</td>			 
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td><input type="text" id="empName" name="empName" value="${ loginUser.empName }" readonly></td>
+	                    <td>${ loginUser.empName }</td>
 	                    <input type="hidden" id="empId" name="empId" value="${ loginUser.empId }">
 	                    <td class="th">기안부서</td>
 	                    <c:choose>
 		                    <c:when test="${ loginUser.deptCode eq 1001}">
-			                    <td><input type="text" id="deptCode" name="deptCode" value="경영지원팀" readonly></td>
+			                    <td>경영지원팀</td>
+			                    <td><input type="hidden" id="docDepartment" name="docDepartment" value="0" readonly></td>
 		                    </c:when>
 		                    <c:otherwise>
-			                    <td><input type="text" id="deptCode" name="deptCode" value="개발팀" readonly></td>
+			                    <td>개발팀</td>
+			                    <td><input type="hidden" id="docDepartment" name="docDepartment" value="1" readonly></td>
 		                    </c:otherwise>
 	                    </c:choose>
 	                    
@@ -249,11 +264,15 @@
 	                        <button type="button" id="refBtn">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
-	                    <td>2020.06.07</td>
+	                    <td><jsp:useBean id="docEnd" class="java.util.Date"/>
+							<jsp:setProperty name="docEnd" property="date" value="${docEnd.date + 7}"/>
+							<fmt:formatDate value="${docEnd}" pattern="yyyy-MM-dd" var="docEnd"/><c:out value="${docEnd}"/>
+							<input type="hidden" id="docEnd" name="docEnd" value="${ docEnd}">
+						</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleIput" name="titleInput" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" placeholder="내용을 입력해주세요"></td>
 	                </tr>
 	            </table>
 				
@@ -290,7 +309,8 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">용도</td>
-	                    <td colspan="3"><input type="text" id="titleIput" required name="pfPurpose" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"><input type="text" id="titleInput" required name="pfPurpose" placeholder="내용을 입력해주세요"></td>
+
 	                </tr>
                 </table>
 	
