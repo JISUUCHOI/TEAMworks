@@ -95,7 +95,7 @@
 		  <tbody>
 		    <tr>
 		      <th>08:00</th>
-		      <td><a data-toggle="modal" data-target="#loginModal"></a></td>
+		      <td></td>
 		      <td></td>
 		      <td></td>
 		    </tr>
@@ -189,6 +189,7 @@
 		      <td></td>
 		      <td></td>
 		    </tr>
+
 		  </tbody>
 		</table>
 	</div>
