@@ -14,11 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Employee;
+
+import oracle.net.aso.s;
 
 @Controller
 public class EmployeeController {
@@ -129,6 +132,21 @@ public class EmployeeController {
 		return "employee/myPasswordForm";
 	}
 	
+	@ResponseBody
+	@RequestMapping("confirmPwd.em")
+	public String confirmPwd(Employee e) {
+		
+		Employee loginUser = eService.loginEmployee(e);
+		
+		if(loginUser != null && bcryptPasswordEncoder.matches(e.getEmpPwd(), loginUser.getEmpPwd())) {
+			return "success";
+		}else {
+			
+			return "fail";
+		}
+		
+	}
+	
 	
 	public String saveFile(MultipartFile file,  HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
@@ -160,5 +178,11 @@ public class EmployeeController {
 		
 		File deleteFile = new File(savePath + fileName);
 		deleteFile.delete();
+	}
+	
+	//내근태현황가기
+	@RequestMapping("myAtt.em")
+	public String myAtt() {
+		return "employee/myAttendance";
 	}
 }
