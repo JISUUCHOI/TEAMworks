@@ -29,9 +29,7 @@
         .tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
         .tg .tg-0lax{text-align:left;vertical-align:top}
 
-        #t1{
-            width:800px;            
-        }    
+       
         #t2{
             float: left;
         }
@@ -45,16 +43,15 @@
 </head>
 <body>
 
-     <jsp:include page="../common/menubar.jsp"/>
-
-     <c:set var="date" value="<%=new java.util.Date()%>"/>
-
-        <div>
+    <jsp:include page="../common/menubar.jsp"/>
+    <jsp:include page="../common/sidebarMg.jsp"/>
+     
+        <div style="width:1250px; float:left;">
             
             <h1>회사 정보</h1>
             <hr align="left" style="border: solid 1px grey; width: 85%;">
 
-            <div id="t1">
+            <div>
                 <div id="t2">
                     <p style="font-size: 15px;"><b>회사 로고</b></p>
                     <img src="../../../resources/images/No-image-available.png">
