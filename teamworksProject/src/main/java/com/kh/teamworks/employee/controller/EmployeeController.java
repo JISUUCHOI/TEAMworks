@@ -109,9 +109,19 @@ public class EmployeeController {
 		}
 	}
 	
-	@RequestMapping("update.em")
-	public String updateEMployee() {
-		return "redirect:/";
+	@RequestMapping("updateMyPage.em")
+	public String updateEMployee(Employee e, HttpSession session, Model model ) {
+		//System.out.println(e);
+		int result = eService.myPageUpdateEmployee(e);
+		
+		if(result>0) {
+			session.setAttribute("loginUser", eService.loginEmployee(e));
+			session.setAttribute("msg","개인 정보 수정 성공 ! ");
+			return "redirect:/myPage.em";
+		}else {
+			model.addAttribute("msg", "이미지 등록 실패 !");
+			return "redirect:common/errorPage";
+		}
 	}
 	
 	

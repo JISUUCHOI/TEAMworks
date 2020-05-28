@@ -18,4 +18,8 @@ public class EmployeeDao {
 	public int insertProfile(SqlSession sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.insertProfile", e);
 	}
+	
+	public int myPageUpdateEmployee(SqlSession sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.myPageUpdateEmployee", e);
+	}
 }

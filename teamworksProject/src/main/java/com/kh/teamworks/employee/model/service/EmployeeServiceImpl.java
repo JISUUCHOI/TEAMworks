@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public int myPageUpdateEmployee(Employee e) {
-		return 0;
+		return eDao.myPageUpdateEmployee(sqlSession,e);
 	}
 
 	@Override

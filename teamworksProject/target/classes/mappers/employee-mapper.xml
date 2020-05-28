@@ -44,5 +44,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       change_name = #{changeName}
 		 where emp_id=#{empId}
 	</update>
-
+	
+	<update id="myPageUpdateEmployee" parameterType="Employee">
+		update employee
+		   set postcode = #{postcode},
+		       address=#{empAdd},
+		       address_dt=#{empAddDetail},
+		       emp_email=#{email},
+		       emp_phone=#{phone}
+		 where emp_id=#{empId}
+	</update>
 </mapper>

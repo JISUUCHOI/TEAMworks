@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,7 +46,8 @@
 
         <div class="inner wrap">
             <h3>기본정보</h3>
-            <form id="myPageForm" action="update.em" method="post" enctype="multipart/form-data">
+            <form id="myPageForm" action="updateMyPage.em" method="post" enctype="multipart/form-data">
+                 <input type="hidden" name="empId" value="${loginUser.empId}">
                  <table id="memberInfo" class="">
                      <hr>
                      <tr>
@@ -121,7 +123,10 @@
                      </tr>
                      <tr>
                          <th>생년월일</th>
-                         <td colspan="2"></td>
+                         <td colspan="2">
+                         	<c:set var="str" value="${ loginUser.empNo }"/>
+                         	${fn:substringBefore(str,'-')}
+                         </td>
                          <td></td>
                      </tr>
                  </table>
