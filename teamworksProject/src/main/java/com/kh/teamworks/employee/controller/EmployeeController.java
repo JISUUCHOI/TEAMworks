@@ -129,6 +129,21 @@ public class EmployeeController {
 		return "employee/myPasswordForm";
 	}
 	
+	@ResponseBody
+	@RequestMapping("confirmPwd.em")
+	public String confirmPwd(Employee e) {
+		
+		Employee loginUser = eService.loginEmployee(e);
+		
+		if(loginUser != null && bcryptPasswordEncoder.matches(e.getEmpPwd(), loginUser.getEmpPwd())) {
+			return "success";
+		}else {
+			
+			return "fail";
+		}
+		
+	}
+	
 	
 	public String saveFile(MultipartFile file,  HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
