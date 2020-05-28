@@ -14,5 +14,11 @@ public class ReservationDao {
 		
 		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationList");
 	}
+	
+	
+	public ArrayList<Reservation> selectMyReservationList(SqlSessionTemplate sqlSession, String empId) {
+		
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectMyReservationList", empId);
+	}
 
 }

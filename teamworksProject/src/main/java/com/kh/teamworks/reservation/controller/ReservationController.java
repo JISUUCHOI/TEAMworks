@@ -12,28 +12,32 @@ import com.kh.teamworks.reservation.model.vo.Reservation;
 
 @Controller
 public class ReservationController {
-	
+
 	@Autowired
 	public ReservationService reService;
-	
-	
+
 	@RequestMapping("selectList.re")
 	public ModelAndView selectReservationList(ModelAndView mv) {
-		
+
 		ArrayList<Reservation> list = reService.selectReservationList();
-		
+
 		mv.addObject("list", list);
 		mv.setViewName("reservation/reservationList");
+
+		return mv;
+	}
+
+	
+	@RequestMapping("myResList.re") 
+	public ModelAndView selectMyReservationList(String empId, ModelAndView mv) {
+	 
+		ArrayList<Reservation> list = reService.selectMyReservationList(empId);
+		
+		mv.addObject("list", list);
+		mv.setViewName("reservation/myReservation");
 		
 		return mv;
 	}
-	
-	
-	/*
-	 * @RequestMapping("myResList.re") public ModelAndView
-	 * selectMyReservationList(ModelAndView mv) {
-	 * 
-	 * ArrayList<Reservation> list = reService.selectMyReservationList(empId); }
-	 */
+	 
 
 }

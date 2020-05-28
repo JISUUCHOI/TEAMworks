@@ -47,6 +47,33 @@
             <th width="12%">예약취소</th>
             <th width="12%">사용여부</th>
         </tr>
+        <c:choose>
+        	<c:when test="${ empty list }">
+        		<tr>
+        			<td rowspan="6">예약이 없습니다.</td>
+        		</tr>
+        	</c:when>
+        	<c:otherwise>
+        		<c:forEach var="r" items="${ list }">
+        			        <tr>
+					            <td>회의실${ r.roomNo }</td>
+					            <td>${ r.reservationDate } ${ r.startTime }:00-${ r.endTime }:00</td>
+					            <td>${ r.purpose }</td>
+					            <td>${ r.status }</td>
+					            <td>
+					            	<c:if test="${ r.status eq '예정' }">
+						                <button id="cancelBtn" onclick="cancel();">취소</button>
+					                </c:if>
+					            </td>
+					            <td>
+					            	<c:if test="${ r.status eq '예정' }">
+					            	    <button id="confirmBtn" onclick="confirm();">완료</button>
+					            	</c:if>
+					            </td>
+					        </tr>
+        		</c:forEach>
+        	</c:otherwise>
+        </c:choose>
         <tr>
             <td>회의실1</td>
             <td>2020-05-08 10:00-11:00</td>

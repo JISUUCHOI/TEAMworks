@@ -16,7 +16,12 @@
 	<select id="selectReservationList" resultMap="reservationResultSet">
 		SELECT *
 		  FROM RESERVATION
-		 WHERE RES_STATUS='Y'
+	</select>
+	
+	<select id="selectMyReservationList" parameterType="string" resultMap="reservationResultSet">
+		SELECT *
+		  FROM RESERVATION
+		 WHERE EMP_ID=#{empId}
 	</select>
 
 </mapper>
