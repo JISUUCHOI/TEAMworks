@@ -68,6 +68,8 @@
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="sidebarReservation.jsp"/>
+	
+	<br><br>
 
 	<div align="center">
 	  <button class="pointBtn">&lt;</button>

@@ -2,4 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reservationMapper">
 
+	<resultMap type="Reservation" id="reservationResultSet">
+		<id column="RES_NO" property="reservationNo"/>
+		<result column="EMP_ID" property="empId"/>
+		<result column="RES_ROOM_NO" property="roomNo"/>
+		<result column="RES_DATE" property="reservationDate"/>
+		<result column="RES_STR_TIME" property="startTime"/>
+		<result column="RES_END_TIME" property="endTime"/>
+		<result column="RES_PURPOSE" property="purpose"/>
+		<result column="RES_STATUS" property="status"/>
+	</resultMap>
+	
+	<select id="selectReservationList" resultMap="reservationResultSet">
+		SELECT *
+		  FROM RESERVATION
+		 WHERE RES_STATUS='Y'
+	</select>
+
 </mapper>
