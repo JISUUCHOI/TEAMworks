@@ -61,12 +61,7 @@
     </style>
 </head>
 <body>
-	<c:if test="${ !empty msg }">
-		<script>
-			alert('${msg}');
-		</script>	
-		<c:remove var="msg" scope="session"/>
-	</c:if>
+
 	
 <div id="particles-js" class="loginbody" align="center">
 

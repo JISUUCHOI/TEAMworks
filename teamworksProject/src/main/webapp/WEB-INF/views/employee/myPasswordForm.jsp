@@ -64,6 +64,9 @@
                         </td>
                         <td></td>
                     </tr>
+                    <tr>
+                    	<th colspan="3">비밀번호 변경 시 재로그인 하십시오.</th>
+                    </tr>
                 </table>
                 <button type="submit"  onclick="return validate();" class="btn btn-primary" id="pwdBtn" style="margin-right: 30px;" disabled>변경</button>
                 <button type="reset" class="btn">취소</button>
