@@ -43,18 +43,19 @@ public class ApprovalController {
 	
 	
 	
-	// 제증명 insert
+	// Document insert
 	@RequestMapping("proofInsert.ap")
 	public String insertProof(Document d, Model model, HttpSession session) {
 		
 
 		//model.addAttribute("titleInput", titleInput);
 		
-		// System.out.println(d);
+		 System.out.println(d);
 		
-	    int result = aService.insertProof(d);
+		
+	     int result = aService.insertProof(d);
 	  
-	    if(result > 0) {
+	   if(result > 0) {
 	    	
 	    	return "redirect:proof.ap";
 	    }else {

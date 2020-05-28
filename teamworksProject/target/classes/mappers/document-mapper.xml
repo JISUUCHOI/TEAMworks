@@ -6,20 +6,20 @@
 
 	<resultMap type="Document" id="documentResultSet">
 		<result column="DOC_NO" property="docNo"/>					<!-- 문서코드 -->
-		<result column="EMP_ID" property="empName"/>				<!-- 기안자 사원번호 -->
+		<result column="EMP_ID" property="empId"/>					<!-- 기안자 사원번호 -->
 		<result column="DOC_SC" property="titleIput"/>				<!-- 기안서, 경조사, 휴가, 제증명 -->
-		<result column="DOC_STATUS" property="titleIput"/>			<!-- 0:대기 1: 진행 2: 완료 3: 반려 4:회수 -->
-		<result column="DOC_TITLE" property="titleIput"/>			<!-- 문서제목 -->
-		<result column="DOC_REFERENCE" property="titleIput"/>		<!-- 참조자 사원번호 -->
-		<result column="DOC_DATE" property="titleIput"/>			<!-- 기안일자 -->
-		<result column="DOC_END" property="titleIput"/>				<!-- 마감일자 -->
-		<result column="DOC_DEPARTMENT" property="deptCode"/>		<!-- 개발팀, 경영지원팀 -->
+		<result column="DOC_STATUS" property="docStatus"/>			<!-- 0:대기 1: 진행 2: 완료 3: 반려 4:회수 -->
+		<result column="DOC_TITLE" property="docTitle"/>			<!-- 문서제목 -->
+		<result column="DOC_REFERENCE" property="docReference"/>	<!-- 참조자 사원번호 -->
+		<result column="DOC_DATE" property="docDate"/>				<!-- 기안일자 -->
+		<result column="DOC_END" property="docEnd"/>				<!-- 마감일자 -->
+		<result column="DOC_DEPARTMENT" property="docDepartment"/>	<!-- 개발팀, 경영지원팀 -->
 		
 	</resultMap>
 	
 	<insert id="insertProof" parameterType="Document">
 		insert into document
-		values(SEQ_DOCNO.NEXTVAL, #{empId}, '제증명', 0, #{titleInput}, '최해성', '1', '1', 1)
+		values(SEQ_DOCNO.NEXTVAL, #{empId}, '제증명', 0, #{docTitle}, '최해성', #{docDate}, #{docEnd}, #{docDepartment})
 	</insert>
 
 </mapper>

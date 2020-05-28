@@ -21,6 +21,7 @@
 		<mapper resource="mappers/employee-mapper.xml"/>
 		<mapper resource="mappers/reservation-mapper.xml"/>
 		<mapper resource="mappers/schedule-mapper.xml"/>
+		<mapper resource="mappers/document-mapper.xml"/>
 	</mappers>
 
 </configuration>
