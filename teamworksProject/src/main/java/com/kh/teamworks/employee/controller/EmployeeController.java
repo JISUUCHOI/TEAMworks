@@ -48,7 +48,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("logout.em")
-	public String logoutEemployee(HttpSession session) {
+	public String logoutEmployee(HttpSession session) { //메소드명 수정
 		
 		session.invalidate();
 		return "redirect:/";
@@ -110,7 +110,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("updateMyPage.em")
-	public String updateEMployee(Employee e, HttpSession session, Model model ) {
+	public String updateEmployee(Employee e, HttpSession session, Model model ) { // 메소드명 수정
 		System.out.println(e);
 		int result = eService.myPageUpdateEmployee(e);
 		
