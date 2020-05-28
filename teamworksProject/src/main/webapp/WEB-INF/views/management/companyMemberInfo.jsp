@@ -24,9 +24,12 @@
 
      <jsp:include page="../common/menubar.jsp"/>
 
+      <h2>인사 정보 등록</h2>
+      <hr align="left" style="border: solid 1px grey; width: 90%;">
      <div class="content">
-         <>
-            <table class="tg">
+        <h3>인적사항</h3>
+        <img src="../../../resources/images/sampleImg.jpg" width="100px" style="float: left;">
+            <table class="tg" style="float:left">
                 <thead>
                     <tr>
                       <th class="tg-uzvj">사원번호</th>
@@ -54,20 +57,17 @@
                       <td class="tg-uzvj">회사전화</td>
                       <td class="tg-9wq8">1112222</td>
                     </tr>
-                  </tbody>
-                </table>
-    
-                <table class="tg" >
-                      <tr>
+                    <tr>
                         <th class="tg-0lax" rowspan="2"><b>자택주소</b></th>
-                        <th class="tg-0lax"><button>우편번호 검색 api 집어넣고</button></th>
-                      </tr>
-                      <tr>
-                        <td class="tg-0lax">상세주소</td>
-                      </tr>
+                        <td class="tg-0lax" colspan="3"><button>우편번호 검색 api 집어넣고</button></td>
+                    </tr>
+                    <tr>
+                      <td class="tg-0lax" colspan="3">상세주소</td>
+                    </tr>
                 </table>
 
                 <br><br>
+                
                 <table style="float: left" border="1px" class="job">
                   <tr>
                     <th>사업장</th>
