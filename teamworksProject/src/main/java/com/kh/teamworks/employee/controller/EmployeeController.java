@@ -147,6 +147,21 @@ public class EmployeeController {
 		
 	}
 	
+	@RequestMapping("updatePwd.em")
+	public String myUpdatePwd(Employee e, Model model, HttpServletRequest request) {
+		
+		String encPwd = bcryptPasswordEncoder.encode(e.getEmpPwd());
+		e.setEmpPwd(encPwd);
+		int result = eService.myUpdatePwd(e);
+		
+		if(result>0) {
+			request.setAttribute("msg", "비밀번호 변경 성공 !! 다시 로그인 해주세요.");
+			return "redirect:logout.em";
+		}else {
+			model.addAttribute("msg", "비밀번호 변경 실패");
+			return "common/errorPqge";
+		}
+	}
 	
 	public String saveFile(MultipartFile file,  HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");

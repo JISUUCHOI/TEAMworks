@@ -42,7 +42,7 @@
 	<div class="outer" align="center">
         <div class="wrap inner">
             <h3>비밀번호 변경</h3>
-            <form action="" method="post">
+            <form action="updatePwd.em" method="post">
             	<input type="hidden" name="empId" value="${loginUser.empId}">
                 <table id="memberInfo">
                     <tr>
@@ -52,7 +52,7 @@
                     </tr>
                     <tr>
                         <th>변경할 비밀번호</th>
-                        <td> <input type="password" id="pwd1" name="" class="form-control" autocomplete="new-password" required>
+                        <td> <input type="password" id="pwd1" name="empPwd" class="form-control" autocomplete="new-password" required>
                         	<div style="font-size:0.8em; color:gray">영문자, 숫자, 특수문자 포함하여 총 8자~15자로 입력하시오.</div>
                         </td>
                         <td></td>
@@ -63,6 +63,9 @@
                         	<div style="font-size:0.8em; color:gray">위의 비밀번호와 일치하는 비밀번호를 입력하세요.</div>
                         </td>
                         <td></td>
+                    </tr>
+                    <tr>
+                    	<th colspan="3">비밀번호 변경 시 재로그인 하십시오.</th>
                     </tr>
                 </table>
                 <button type="submit"  onclick="return validate();" class="btn btn-primary" id="pwdBtn" style="margin-right: 30px;" disabled>변경</button>

@@ -27,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public int myUpdatePwd(Employee e) {
-		return 0;
+		return eDao.myUpdatePwd(sqlSession, e);
 	}
 
 	@Override

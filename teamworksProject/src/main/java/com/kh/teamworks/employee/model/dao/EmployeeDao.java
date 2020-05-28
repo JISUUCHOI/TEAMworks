@@ -22,4 +22,8 @@ public class EmployeeDao {
 	public int myPageUpdateEmployee(SqlSession sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.myPageUpdateEmployee", e);
 	}
+	
+	public int myUpdatePwd(SqlSession sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.myUpdatePwd", e);
+	}
 }

@@ -54,4 +54,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		       emp_phone=#{phone}
 		 where emp_id=#{empId}
 	</update>
+	
+	<update id="myUpdatePwd" parameterType="Employee">
+		update employee
+		   set emp_pwd=#{empPwd}
+		 where emp_id=#{empId} 
+	</update>
 </mapper>
