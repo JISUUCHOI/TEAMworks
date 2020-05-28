@@ -82,6 +82,33 @@ public class EmployeeController {
 			return "redirect:common/errorPage";
 		}
 	}
+	
+	@RequestMapping("updateProfile.em")
+	public String updateProfile(Employee e,HttpServletRequest request, HttpSession session, Model model,
+	                            @RequestParam(name="empProfile", required=false) MultipartFile file) {
+		
+		if(!file.getOriginalFilename().equals("")) {
+			
+			if(e.getChangeName() != null) {
+				deleteFile(e.getChangeName(), request);
+			}
+			String changeName = saveFile(file, request);
+			
+			e.setOriginName(file.getOriginalFilename());
+			e.setChangeName(changeName);
+		}
+		
+		int result = eService.insertProfile(e);
+		if(result>0) {
+			session.setAttribute("loginUser", eService.loginEmployee(e));
+			session.setAttribute("msg","이미지 등록 성공");
+			return "redirect:/myPage.em";
+		}else {
+			model.addAttribute("msg", "이미지 등록 실패 !");
+			return "redirect:common/errorPage";
+		}
+	}
+	
 	@RequestMapping("update.em")
 	public String updateEMployee() {
 		return "redirect:/";
@@ -110,5 +137,14 @@ public class EmployeeController {
 		}
 		
 		return changeName;
+	}
+	
+	
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources + "\\empUploadFiles\\";
+		
+		File deleteFile = new File(savePath + fileName);
+		deleteFile.delete();
 	}
 }

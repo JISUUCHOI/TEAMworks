@@ -55,12 +55,12 @@
                              <div style="border:1px solid lightgray; width:100px; height:100px; border-radius: 50%; overflow: hidden;">
                                  <c:choose>
                                  	<c:when test="${ empty loginUser.originName }">
-                                 		<a id="empImg" href="" data-toggle="modal" data-target="#myModal">
+                                 		<a id="empImg" href="" data-toggle="modal" data-target="#insertProfile">
                                  		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
                                  		
                                  	</c:when>
                                  	<c:otherwise>
-                                 		<a id="empImg" href="" onclick=document.all.file.click();>
+                                 		<a id="empImg" href=""  data-toggle="modal" data-target="#updateProfile">
                                  		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" width="100%" height="100%" ></a>
                              	 		
                              	 	</c:otherwise>
@@ -134,7 +134,7 @@
     </div>
     
  <!-- 프로필 이미지 Modal -->
-	<div id="myModal" class="modal fade" role="dialog">
+	<div id="insertProfile" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content-->
@@ -156,6 +156,32 @@
 			</div>
 		</div>
 	</div>
+	
+	<div id="updateProfile" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">프로필 이미지 등록</h4>
+				</div>
+				<form action="updateProfile.em" method="post" enctype="multipart/form-data">
+					<div class="modal-body">
+						<input type="hidden" name="changeName" value="${loginUser.changeName}">
+						<input type="hidden" name="empId" value="${loginUser.empId}">
+						<input type="file" class="" name="empProfile" accept=".jpg,.jpeg,.png,.gif,.bmp">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" id="modalBtn" class="btn btn-default">등록</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+	
 	<script>
     	$(function(){
     		/* $("#modalBtn").click(function(){
