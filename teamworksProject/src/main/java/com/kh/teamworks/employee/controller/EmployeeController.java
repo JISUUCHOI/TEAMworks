@@ -1,11 +1,14 @@
 package com.kh.teamworks.employee.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.teamworks.employee.model.service.EmployeeService;
@@ -50,6 +53,11 @@ public class EmployeeController {
 		return "employee/myPage";
 	}
 	
+	@RequestMapping("profile.em")
+	public String updateProfile(HttpServletRequest request,@RequestParam(name="empProfile", required=false) MultipartFile file) {
+		
+		return "redirect:/";
+	}
 	@RequestMapping("update.em")
 	public String updateEMployee() {
 		return "redirect:/";

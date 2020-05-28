@@ -145,10 +145,10 @@
 				</div>
 				<form action="profile.em" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
-						<input type="file" class="form-control-file border" name="empProfile" accept=".jpg,.jpeg,.png,.gif,.bmp">
+						<input type="file" class="" name="empProfile" accept=".jpg,.jpeg,.png,.gif,.bmp">
 					</div>
 					<div class="modal-footer">
-						<button type="submit" id="modalBtn" class="btn btn-default" data-dismiss="modal">등록</button>
+						<button type="submit" id="modalBtn" class="btn btn-default">등록</button>
 					</div>
 				</form>
 			</div>
@@ -208,7 +208,7 @@
             }).open();
 
    	 }
-    }
+    
    
 </script>
 </body>
