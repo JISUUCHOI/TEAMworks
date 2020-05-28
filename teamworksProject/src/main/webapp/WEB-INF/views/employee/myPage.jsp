@@ -55,14 +55,14 @@
                              <div style="border:1px solid lightgray; width:100px; height:100px; border-radius: 50%; overflow: hidden;">
                                  <c:choose>
                                  	<c:when test="${ empty loginUser.originName }">
-                                 		<a id="empImg" href="" onclick=document.all.file.click();>
+                                 		<a id="empImg" href="" data-toggle="modal" data-target="#myModal">
                                  		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
-                                 		<input type="file" name="empfile" id="file" style="display:none" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
+                                 		
                                  	</c:when>
                                  	<c:otherwise>
                                  		<a id="empImg" href="" onclick=document.all.file.click();>
                                  		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" width="100%" height="100%" ></a>
-                             	 		<input type="file" name="empfile" id="file" style="display:none" accept=".jpg,.jpeg,.png,.gif,.bmp"/>
+                             	 		
                              	 	</c:otherwise>
                              	 </c:choose>
                              </div>
@@ -126,18 +126,40 @@
                      </tr>
                  </table>
                  <br>
-                 <button type="submit" class="btn btn-primary" style="margin-right: 40px;">저장</button>
+                 <button type="submit" id="submitBtn" class="btn btn-primary" style="margin-right: 40px;">저장</button>
                  <button type="reset" class="btn">취소</button>
              </form>
         </div>
    
     </div>
+    
+ <!-- 프로필 이미지 Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">프로필 이미지 등록</h4>
+				</div>
+				<form action="profile.em" method="post" enctype="multipart/form-data">
+					<div class="modal-body">
+						<input type="file" class="form-control-file border" name="empProfile" accept=".jpg,.jpeg,.png,.gif,.bmp">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" id="modalBtn" class="btn btn-default" data-dismiss="modal">등록</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<script>
     	$(function(){
+    		/* $("#modalBtn").click(function(){
+    			$("#submitBtn").click();
+    		}); */
     		
-    		$("#file").change(function(){
-    			$("#myPageForm").submit();
-    		});
     	});
     </script> 
 
