@@ -93,7 +93,7 @@
                      <tr>
                          <th>우편번호</th>
                          <td colspan="1">
-                             <input  class="form-control" type="text" id="postcode" name="postcode" placeholder="우편번호" disabled>
+                             <input class="form-control" type="text" id="postcode" name="postcode" placeholder="우편번호"  value="${loginUser.postcode}" readonly>
                          </td>
                          <td>
                              <input class="btn btn-info" type="button" onclick="daumPostCode();" value="우편번호 찾기">
@@ -131,7 +131,7 @@
                      </tr>
                  </table>
                  <br>
-                 <button type="submit" id="submitBtn" class="btn btn-primary" style="margin-right: 40px;">저장</button>
+                 <button type="submit" class="btn btn-primary" style="margin-right: 40px;">저장</button>
                  <button type="reset" class="btn">취소</button>
              </form>
         </div>
@@ -231,9 +231,10 @@
                 } else {
                     document.getElementById("extraAddress").value = '';
                 }
-
+				
+                 var postcode=data.zonecode;
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById('postcode').value = postcode;
                 document.getElementById("address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("detailAddress").focus();

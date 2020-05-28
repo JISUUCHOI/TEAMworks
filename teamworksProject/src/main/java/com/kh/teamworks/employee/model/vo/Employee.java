@@ -23,7 +23,7 @@ public class Employee {
 	private String empNo;
 	private String phone;
 	private String email;
-	private int postcode;
+	private String postcode;
 	private String empAdd;
 	private String empAddDetail;
 	private Date hireDate;
