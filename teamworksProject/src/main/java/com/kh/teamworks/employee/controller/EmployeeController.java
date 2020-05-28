@@ -14,11 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Employee;
+
+import oracle.net.aso.s;
 
 @Controller
 public class EmployeeController {
@@ -92,7 +95,7 @@ public class EmployeeController {
 			if(e.getChangeName() != null) {
 				deleteFile(e.getChangeName(), request);
 			}
-			String changeName = saveFile(file, request);s
+			String changeName = saveFile(file, request);
 			
 			e.setOriginName(file.getOriginalFilename());
 			e.setChangeName(changeName);
