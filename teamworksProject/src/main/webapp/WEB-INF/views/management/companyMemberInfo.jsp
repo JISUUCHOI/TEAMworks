@@ -15,6 +15,9 @@
 .tg .tg-9wq8{border-color:inherit;text-align:center;vertical-align:middle}
 .tg .tg-uzvj{border-color:inherit;font-weight:bold;text-align:center;vertical-align:middle}
 .tg .tg-0lax{border-color:inherit;text-align:center;vertical-align:middle}
+.job{width: 300px;height: 200px;}
+.job th{width: 40%;}
+.job td{text-align: center;vertical-align: middle;}
 </style>
 </head>
 <body>
@@ -22,7 +25,7 @@
      <jsp:include page="../common/menubar.jsp"/>
 
      <div class="content">
-         <div>
+         <>
             <table class="tg">
                 <thead>
                     <tr>
@@ -64,65 +67,70 @@
                       </tr>
                 </table>
 
-                <table>
-                  <div style="float: left;">
-                    <tr>
-                      <th>사업장</th>
-                      <th>모름</th>
-                    </tr>
-                    <tr>
-                      <th>직급</th>
-                      <th>
-                        <select name="jobcode" id="jobcode">
-                          <option value="1">사장</option>
-                          <option value="2">이사</option>
-                          <option value="3">부장</option>
-                          <option value="4">차장</option>
-                          <option value="5">과장</option>
-                          <option value="6">대리</option>
-                          <option value="7">사원</option>
-                        </select>
-                      </th>
-                    </tr>
-                    <th>재직구분</th>
-                    <th>
-                      <select>
-                        <option>재직</option>
-                        <option>퇴직</option>
+                <br><br>
+                <table style="float: left" border="1px" class="job">
+                  <tr>
+                    <th>사업장</th>
+                    <td>모름</td>
+                  </tr>
+                  <tr>
+                    <th>직급</th>
+                    <td>
+                      <select name="jobcode" id="jobcode">
+                        <option value="1">사장</option>
+                        <option value="2">이사</option>
+                        <option value="3">부장</option>
+                        <option value="4">차장</option>
+                        <option value="5">과장</option>
+                        <option value="6">대리</option>
+                        <option value="7">사원</option>
                       </select>
-                    </th>
-                  </div>
-                  <div style="float: right;">
+                    </td>
+                  </tr>
+                  <th>재직구분</th>
+                  <td>
+                    <select>
+                      <option>재직</option>
+                      <option>퇴직</option>
+                    </select>
+                  </td>
+                </table>
+                <table border="1px" class="job">
                     <tr>
                       <th>부서</th>
-                      <th>
+                      <td>
                         <select>
                           <option>개발팀</option>
                           <option>인사팀</option>
                           <option>행정팀</option>
                         </select>
-                      </th>
+                      </td>
                     </tr>
                     <tr>
                       <th>입사일자</th>
-                      <th>날짜 선택</th>
+                      <td>날짜 선택</td>
                     </tr>
                     <tr>
                       <th>퇴직일자</th>
-                      <th>날짜 선택</th>
+                      <td>날짜 선택</td>
                     </tr>
                     <tr>
                       <th>급여 계약 기준</th>
-                      <th>
+                      <td>
                         <select>
                           <option>연봉제</option>
                           <option>기간제</option>
                         </select>
-                      </th>
+                      </td>
                     </tr>
-                  </div>
-
                 </table>
+                <table border="1px" style="width: 600px;height: 40px;">
+                  <tr>
+                    <th style="width: 40%;">비고</th>
+                    <th>빈칸</th>
+                  </tr>
+                </table>
+                    
 
          </div>
         
