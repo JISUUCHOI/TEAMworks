@@ -55,22 +55,73 @@
                 </table>
     
                 <table class="tg" >
-                    <thead>
                       <tr>
-                        <th class="tg-0lax"><b>자택주소</b></th>
-                        <th class="tg-0lax"></th>
+                        <th class="tg-0lax" rowspan="2"><b>자택주소</b></th>
+                        <th class="tg-0lax"><button>우편번호 검색 api 집어넣고</button></th>
                       </tr>
-                    </thead>
-                    <tbody>
                       <tr>
-                        <td class="tg-0lax"></td>
                         <td class="tg-0lax">상세주소</td>
                       </tr>
-                    </tbody>
                 </table>
 
                 <table>
-                    
+                  <div style="float: left;">
+                    <tr>
+                      <th>사업장</th>
+                      <th>모름</th>
+                    </tr>
+                    <tr>
+                      <th>직급</th>
+                      <th>
+                        <select name="jobcode" id="jobcode">
+                          <option value="1">사장</option>
+                          <option value="2">이사</option>
+                          <option value="3">부장</option>
+                          <option value="4">차장</option>
+                          <option value="5">과장</option>
+                          <option value="6">대리</option>
+                          <option value="7">사원</option>
+                        </select>
+                      </th>
+                    </tr>
+                    <th>재직구분</th>
+                    <th>
+                      <select>
+                        <option>재직</option>
+                        <option>퇴직</option>
+                      </select>
+                    </th>
+                  </div>
+                  <div style="float: right;">
+                    <tr>
+                      <th>부서</th>
+                      <th>
+                        <select>
+                          <option>개발팀</option>
+                          <option>인사팀</option>
+                          <option>행정팀</option>
+                        </select>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>입사일자</th>
+                      <th>날짜 선택</th>
+                    </tr>
+                    <tr>
+                      <th>퇴직일자</th>
+                      <th>날짜 선택</th>
+                    </tr>
+                    <tr>
+                      <th>급여 계약 기준</th>
+                      <th>
+                        <select>
+                          <option>연봉제</option>
+                          <option>기간제</option>
+                        </select>
+                      </th>
+                    </tr>
+                  </div>
+
                 </table>
 
          </div>
