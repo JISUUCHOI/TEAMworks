@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,143 +71,129 @@
 	<jsp:include page="sidebarReservation.jsp"/>
 	
 	<br><br>
+	
+	<c:set var="date" value="<%=new java.util.Date()%>"/>
 
-	<div align="center">
-	  <button class="pointBtn">&lt;</button>
-	  <b id="date">2020.05.12 (화)</b>
-	  <button class="pointBtn">&gt;</button>
+	<div style="width:1250px; float:left;">
+		<div align="center">
+		  <button class="pointBtn">&lt;</button>
+		  <b id="date"><fmt:formatDate value="${date}" pattern="yyyy.MM.dd"/></b>
+		  <button class="pointBtn">&gt;</button>
+		</div>
+		
+		<br>
+		
+		<table id="reservationTable" align="center">
+		  <thead>
+		    <tr>
+		      <th width="25%"></th>
+		      <th width="25%">회의실1</th>
+		      <th width="25%">회의실2</th>
+		      <th width="25%">회의실3</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th>08:00</th>
+		      <td><a data-toggle="modal" data-target="#loginModal"></a></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>09:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>10:00</th>
+		      <td style="background:#d4f4fa;"><a>최부장 | 개발팀 <br> 10:00 - 11:00</a></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>11:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>12:00</th>
+		      <td></td>
+		      <td style="background:#d4f4fa;"><a>라이사 | 경영지원팀 <br> 12:00 - 13:00</a></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>13:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>14:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>15:00</th>
+		      <td></td>
+		      <td></td>
+		      <td style="background:#d4f4fa;"><a>이부장 | 경영지원팀 <br> 15:00 - 16:00</a></td>
+		    </tr>
+		    <tr>
+		      <th>16:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>17:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>18:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>19:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>20:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>21:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>22:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		    <tr>
+		      <th>23:00</th>
+		      <td></td>
+		      <td></td>
+		      <td></td>
+		    </tr>
+		  </tbody>
+		</table>
 	</div>
 	
-	<br>
-	
-	<table id="reservationTable" align="center">
-	  <thead>
-	    <tr>
-	      <th width="25%"></th>
-	      <th width="25%">회의실1</th>
-	      <th width="25%">회의실2</th>
-	      <th width="25%">회의실3</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <th>07:00</th>
-	      <td><a data-toggle="modal" data-target="#loginModal"></a></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>08:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>09:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>10:00</th>
-	      <td style="background:#d4f4fa;"><a>최부장 | 개발팀 <br> 10:00 - 11:00</a></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>11:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>12:00</th>
-	      <td></td>
-	      <td style="background:#d4f4fa;"><a>라이사 | 경영지원팀 <br> 12:00 - 13:00</a></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>13:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>14:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>15:00</th>
-	      <td></td>
-	      <td></td>
-	      <td style="background:#d4f4fa;"><a>이부장 | 경영지원팀 <br> 15:00 - 16:00</a></td>
-	    </tr>
-	    <tr>
-	      <th>16:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>17:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>18:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>19:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>20:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>21:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>22:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>23:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>00:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	    <tr>
-	      <th>01:00</th>
-	      <td></td>
-	      <td></td>
-	      <td></td>
-	    </tr>
-	  </tbody>
-	</table>
-	
-	<br><br>
+	<br><br><br><br><br>
 	
 	<!-- 예약 추가 모달 (빈 칸 클릭 시 뜸)-->
 	<div class="modal fade" id="insertModal">
