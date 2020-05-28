@@ -66,8 +66,8 @@
             <div id="logout"><a href="">logout</a></div>
             
             <div class="category">예약</div>
-            <div class="subCate" id="reservationList"><a href="">예약 현황</a></div>
-            <div class="subCate" id="myReservation"><a href="">나의 예약 목록</a></div>
+            <div class="subCate" id="reservationList"><a href="selectList.re">예약 현황</a></div>
+            <div class="subCate" id="myReservation"><a href="myResList.re">나의 예약 목록</a></div>
         </div>
     </div>
 

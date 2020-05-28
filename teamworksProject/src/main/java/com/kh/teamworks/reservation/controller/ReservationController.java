@@ -27,5 +27,13 @@ public class ReservationController {
 		
 		return mv;
 	}
+	
+	
+	/*
+	 * @RequestMapping("myResList.re") public ModelAndView
+	 * selectMyReservationList(ModelAndView mv) {
+	 * 
+	 * ArrayList<Reservation> list = reService.selectMyReservationList(empId); }
+	 */
 
 }
