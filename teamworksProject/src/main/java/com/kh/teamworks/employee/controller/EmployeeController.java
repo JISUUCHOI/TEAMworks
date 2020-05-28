@@ -157,4 +157,10 @@ public class EmployeeController {
 		File deleteFile = new File(savePath + fileName);
 		deleteFile.delete();
 	}
+	
+	//내근태현황가기
+	@RequestMapping("myAtt.em")
+	public String myAtt() {
+		return "employee/myAttendance";
+	}
 }

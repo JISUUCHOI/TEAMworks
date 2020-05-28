@@ -121,15 +121,10 @@
                            <div class="panel-heading" style="text-align:center">
                              	  월 일 
                            </div> 
-                           <div class="panel-body">
-                                 
+                           <div class="panel-body"> 
                                        <div class="calendarDay" >
-                                          
-                                              
-                                          
-                                                                         
-                                       </div>
-                                                   
+                                                 
+                                       </div>                
                            </div> 
                        </div>
                    </div>
@@ -141,8 +136,7 @@
                 		           월 일 
                        </div> 
                        <div class="panel-body">    
-                                   <div class="calendarDay" >
-                                            
+                                   <div class="calendarDay" >                
                                    </div>           
                        </div> 
                    </div>
@@ -151,33 +145,21 @@
                <div class="calendarColumn" >
                    <div class="panel panel-default">
                        <div class="panel-heading" style="text-align:center">
-                           월 일 
+                    	       월 일 
                        </div> 
-                       <div class="panel-body">
-                             
-                                   <div class="calendarDay" >
-                                      
-                                          
-                                      
-                                                                     
-                                   </div>
-                                               
+                       <div class="panel-body">   
+                                   <div class="calendarDay" >       
+                                   </div>                   
                        </div> 
                    </div>
                </div><div class="calendarColumn" >
                    <div class="panel panel-default">
                        <div class="panel-heading" style="text-align:center">
-                           월 일 
+                           	월 일 
                        </div> 
-                       <div class="panel-body">
-                             
+                       <div class="panel-body">      
                                    <div class="calendarDay" >
-                                      
-                                          
-                                      
-                                                                     
                                    </div>
-                                               
                        </div> 
                    </div>
                </div>
