@@ -38,7 +38,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public ArrayList<Reservation> selectMyReservationList(String empId) {
 
-		return null;
+		return reDao.selectMyReservationList(sqlSession, empId);
 	}
 	
 	
