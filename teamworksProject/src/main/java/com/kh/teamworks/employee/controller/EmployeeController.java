@@ -124,6 +124,10 @@ public class EmployeeController {
 		}
 	}
 	
+	@RequestMapping("myPwdForm.em")
+	public String myPwdForm() {
+		return "employee/myPasswordForm";
+	}
 	
 	
 	public String saveFile(MultipartFile file,  HttpServletRequest request) {
