@@ -111,7 +111,7 @@ public class EmployeeController {
 	
 	@RequestMapping("updateMyPage.em")
 	public String updateEmployee(Employee e, HttpSession session, Model model ) { // 메소드명 수정
-		System.out.println(e);
+		// System.out.println(e);
 		int result = eService.myPageUpdateEmployee(e);
 		
 		if(result>0) {
