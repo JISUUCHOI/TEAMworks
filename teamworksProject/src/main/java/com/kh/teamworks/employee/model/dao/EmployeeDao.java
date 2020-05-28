@@ -13,4 +13,9 @@ public class EmployeeDao {
 		
 		return sqlSession.selectOne("employeeMapper.loginEmployee", e);
 	}
+	
+	
+	public int insertProfile(SqlSession sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.insertProfile", e);
+	}
 }

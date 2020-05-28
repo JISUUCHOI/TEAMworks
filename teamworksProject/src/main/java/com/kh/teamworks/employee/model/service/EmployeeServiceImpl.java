@@ -30,4 +30,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return 0;
 	}
 
+	@Override
+	public int insertProfile(Employee e) {
+		return eDao.insertProfile(sqlSession,e);
+	}
+
 }

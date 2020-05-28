@@ -15,5 +15,10 @@ public interface EmployeeService {
 	
 	// 3. 마이페이지 비밀번호 변경 서비스
 	int myUpdatePwd(Employee e);
+	
+	// 4. 프로필 이미지 신규 등록
+	int insertProfile(Employee e);
+	
+	
 
 }

@@ -37,5 +37,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 where emp_id = #{empId}
 	 	   and emp_status='Y'
 	</select>
+	
+	<update id="insertProfile" parameterType="Employee">
+		update employee
+		   set origin_name = #{e.originName},
+		       change_name = #{e.changeName}
+		 where emp_id=#{empId}
+	</update>
 
 </mapper>

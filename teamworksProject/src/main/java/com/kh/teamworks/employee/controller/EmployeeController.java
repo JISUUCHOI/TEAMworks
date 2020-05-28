@@ -1,5 +1,10 @@
 package com.kh.teamworks.employee.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -54,12 +59,45 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("profile.em")
-	public String updateProfile(HttpServletRequest request,@RequestParam(name="empProfile", required=false) MultipartFile file) {
+	public String insertProfile(Employee e,HttpServletRequest request, HttpSession session,
+						        @RequestParam(name="empProfile", required=false) MultipartFile file) {
+		if(!file.getOriginalFilename().equals("")) {
+			String changeName = saveFile(file, request);
+			
+			e.setOriginName(file.getOriginalFilename());
+			e.setChangeName(changeName);
+		}
 		
+		int result = eService.insertProfile(e);
 		return "redirect:/";
 	}
 	@RequestMapping("update.em")
 	public String updateEMployee() {
 		return "redirect:/";
+	}
+	
+	
+	
+	public String saveFile(MultipartFile file,  HttpServletRequest request) {
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources + "\\empUploadFiles\\";
+		
+		String originName = file.getOriginalFilename();
+		
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		
+		String ext = originName.substring(originName.lastIndexOf("."));
+		
+		String changeName = "tw"+currentTime+ext;
+		
+		try {
+			file.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return changeName;
 	}
 }
