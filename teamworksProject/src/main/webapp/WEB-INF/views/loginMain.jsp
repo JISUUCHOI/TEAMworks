@@ -61,7 +61,15 @@
     </style>
 </head>
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			alert('${msg}');
+		</script>	
+		<c:remove var="msg" scope="session"/>
+	</c:if>
+	
 <div id="particles-js" class="loginbody" align="center">
+
 <c:choose>
 	<c:when test="${ empty loginUser }">
     <div class="card align-middle" style="width:20rem; border-radius:20px; position: absolute; top:200px; left: 0; right: 0;;">

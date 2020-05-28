@@ -9,17 +9,15 @@
 <Style>
 	#mainOuter{
 		width:1250px;
-		float:left;
+		
 	}
 </Style>
 </head>
 <body>
-   	<jsp:include page="menubar.jsp"/>
-	
+
 	<!-- 메인용 사이드바로 고쳐야함!!  -->
-	<jsp:include page="sidebarHome.jsp"/>
-	
-	<div id="mainOuter">
+
+	<div id="mainOuter" align="center">
 		<h1>${ msg }</h1>
 	
 	</div>
