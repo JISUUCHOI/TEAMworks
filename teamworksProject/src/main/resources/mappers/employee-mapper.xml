@@ -40,8 +40,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="insertProfile" parameterType="Employee">
 		update employee
-		   set origin_name = #{e.originName},
-		       change_name = #{e.changeName}
+		   set origin_name = #{originName},
+		       change_name = #{changeName}
 		 where emp_id=#{empId}
 	</update>
 

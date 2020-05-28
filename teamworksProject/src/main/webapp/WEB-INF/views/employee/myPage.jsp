@@ -145,8 +145,8 @@
 				</div>
 				<form action="profile.em" method="post" enctype="multipart/form-data">
 					<div class="modal-body">
-						<input tyep="hidden" name="" value="${loginUser.changeName}">
-						<input tyep="hidden" name="empId" value="${loginUser.empId}">
+						<input type="hidden" name="changeName" value="${loginUser.changeName}">
+						<input type="hidden" name="empId" value="${loginUser.empId}">
 						<input type="file" class="" name="empProfile" accept=".jpg,.jpeg,.png,.gif,.bmp">
 					</div>
 					<div class="modal-footer">

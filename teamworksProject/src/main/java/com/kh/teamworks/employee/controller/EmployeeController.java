@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,8 +60,10 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("profile.em")
-	public String insertProfile(Employee e,HttpServletRequest request, HttpSession session,
+	public String insertProfile(Employee e,HttpServletRequest request, HttpSession session, Model model,
 						        @RequestParam(name="empProfile", required=false) MultipartFile file) {
+		
+		// System.out.println(e);
 		if(!file.getOriginalFilename().equals("")) {
 			String changeName = saveFile(file, request);
 			
@@ -69,7 +72,15 @@ public class EmployeeController {
 		}
 		
 		int result = eService.insertProfile(e);
-		return "redirect:/";
+		
+		if(result>0) {
+			session.setAttribute("loginUser", eService.loginEmployee(e));
+			session.setAttribute("msg","이미지 등록 성공");
+			return "redirect:/myPage.em";
+		}else {
+			model.addAttribute("msg", "이미지 등록 실패 !");
+			return "redirect:common/errorPage";
+		}
 	}
 	@RequestMapping("update.em")
 	public String updateEMployee() {
