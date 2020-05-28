@@ -48,7 +48,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("logout.em")
-	public String logoutEemployee(HttpSession session) {
+	public String logoutEmployee(HttpSession session) { //메소드명 수정
 		
 		session.invalidate();
 		return "redirect:/";
@@ -92,7 +92,7 @@ public class EmployeeController {
 			if(e.getChangeName() != null) {
 				deleteFile(e.getChangeName(), request);
 			}
-			String changeName = saveFile(file, request);
+			String changeName = saveFile(file, request);s
 			
 			e.setOriginName(file.getOriginalFilename());
 			e.setChangeName(changeName);
@@ -110,8 +110,8 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("updateMyPage.em")
-	public String updateEMployee(Employee e, HttpSession session, Model model ) {
-		System.out.println(e);
+	public String updateEmployee(Employee e, HttpSession session, Model model ) { // 메소드명 수정
+		// System.out.println(e);
 		int result = eService.myPageUpdateEmployee(e);
 		
 		if(result>0) {
@@ -124,6 +124,10 @@ public class EmployeeController {
 		}
 	}
 	
+	@RequestMapping("myPwdForm.em")
+	public String myPwdForm() {
+		return "employee/myPasswordForm";
+	}
 	
 	
 	public String saveFile(MultipartFile file,  HttpServletRequest request) {
