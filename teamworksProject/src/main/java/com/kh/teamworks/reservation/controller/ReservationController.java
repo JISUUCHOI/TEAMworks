@@ -27,24 +27,42 @@ public class ReservationController {
 		cal.setTime(new Date());
         DateFormat df = new SimpleDateFormat("yyyy.MM.dd");
         
-        String today = df.format(cal.getTime());
-
-//        cal.add(Calendar.MONTH, 2);
-//        cal.add(Calendar.DATE, -3);
-//        System.out.println("after: " + df.format(cal.getTime()));
-
+        cal.add(Calendar.DATE, -3);
+        
+        String[] days = new String[7];
+        for(int i=0; i<days.length; i++) {
+        	days[i] = new String(df.format(cal.getTime()));
+        	cal.add(Calendar.DATE, 1);
+        	
+//        	System.out.println(days[i]);
+        }
+        
+        
 		ArrayList<Reservation> list = reService.selectReservationList();
-
+		
 		mv.addObject("list", list);
-		mv.addObject("cal", cal);
+		mv.addObject("days", days);
 		mv.setViewName("reservation/reservationList");
 		
-		System.out.println("today : " + today);
-		
-		cal.add(Calendar.DATE, -3);
-		
-		System.out.println("3일 전 : " + today);
+		/*
+		 * for(int i=0; i<list.size(); i++) {
+		 * if(list.get(i).getReservationDate().equals(days[3])) {
+		 * System.out.println(list.get(i)); } }
+		 */
 
+
+		return mv;
+	}
+	
+	
+	@RequestMapping("selectDayRes.re")
+	public ModelAndView selectDayReservation(String day, ModelAndView mv) {
+		
+		ArrayList<Reservation> dayList = reService.selectDayReservation(day);
+		
+		mv.addObject("dayList", dayList);
+		mv.setViewName("reservation/reservationList");
+		
 		return mv;
 	}
 

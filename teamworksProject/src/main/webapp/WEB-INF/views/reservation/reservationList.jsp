@@ -72,13 +72,12 @@
 	
 	<br><br>
 	
-	<c:set var="date" value="<%=new java.util.Date()%>"/>
 
 	<div style="width:1250px; float:left;">
 		<div align="center">
-		  <button class="pointBtn">&lt;</button>
-		  <b id="date"><fmt:formatDate value="${date}" pattern="yyyy.MM.dd"/></b>
-		  <button class="pointBtn">&gt;</button>
+		  <button class="pointBtn" id="beforeBtn">&lt;</button>
+		  <b id="date">${ days[3] }</b>
+		  <button class="pointBtn" id="afterBtn">&gt;</button>
 		</div>
 		
 		<br>
@@ -194,7 +193,9 @@
 		</table>
 	</div>
 	
+	
 	<br><br><br><br><br>
+	
 	
 	<!-- 예약 추가 모달 (빈 칸 클릭 시 뜸)-->
 	<div class="modal fade" id="insertModal">
@@ -226,7 +227,7 @@
 	                </tr>
 	                <tr>
 	                  <th>날짜</th>
-	                  <td><fmt:formatDate value="${date}" pattern="yyyy.MM.dd"/></td>
+	                  <td>${ days[3] }</td>
 	                </tr>
 	                <tr>
 	                  <th>예약시간</th>
@@ -288,11 +289,11 @@
 	                </tr>
 	                <tr>
 	                  <th>사용자</th>
-	                  <td>(사용자의이름)</td>
+	                  <td>${ loginUser.empName }</td>
 	                </tr>
 	                <tr>
 	                  <th>날짜</th>
-	                  <td>(일정날짜)</td>
+	                  <td>${ days[3] }</td>
 	                </tr>
 	                <tr>
 	                  <th>예약시간</th>
@@ -352,11 +353,11 @@
 	                </tr>
 	                <tr>
 	                  <th>사용자</th>
-	                  <td>(로그인유저의이름)</td>
+	                  <td>${ loginUser.empName }</td>
 	                </tr>
 	                <tr>
 	                  <th>날짜</th>
-	                  <td>(현재페이지의날짜)</td>
+	                  <td>${ days[3] }</td>
 	                </tr>
 	                <tr>
 	                  <th>예약시간</th>

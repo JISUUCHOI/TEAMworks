@@ -8,6 +8,9 @@ public interface ReservationService {
 	
 	// 예약 현황 조회용 서비스
 	ArrayList<Reservation> selectReservationList();
+
+	// 전달받은 날짜의 예약 리스트 조회용 서비스
+	ArrayList<Reservation> selectDayReservation(String day);
 	
 	// 예약 추가용 서비스
 	int insertReservation(Reservation r);
@@ -20,5 +23,6 @@ public interface ReservationService {
 	
 	// 예약 사용 완료 처리용 서비스
 	int completeReservation(int reservationNo);
+
 
 }
