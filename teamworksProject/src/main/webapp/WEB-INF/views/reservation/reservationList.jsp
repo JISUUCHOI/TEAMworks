@@ -222,11 +222,11 @@
 	                </tr>
 	                <tr>
 	                  <th>사용자</th>
-	                  <td>(로그인유저의이름)</td>
+	                  <td>${ loginUser.empName }</td>
 	                </tr>
 	                <tr>
 	                  <th>날짜</th>
-	                  <td>(현재페이지의날짜)</td>
+	                  <td><fmt:formatDate value="${date}" pattern="yyyy.MM.dd"/></td>
 	                </tr>
 	                <tr>
 	                  <th>예약시간</th>
@@ -392,14 +392,13 @@
 	</div>
 	
 	
-	
 	<script>
-	  $(function(){
-	    $('tbody td').click(function(){
-	      $('div#insertModal').modal();
-	    });
-	  });
-	
+		$(function(){
+			$('tbody td').click(function(){
+				$('div#insertModal').modal();
+			});
+		});
 	</script>
+	
 </body>
 </html>
