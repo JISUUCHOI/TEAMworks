@@ -1,6 +1,6 @@
 package com.kh.teamworks.board.model.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,8 +19,8 @@ public class BoardReply {
 	private String replyWriter;
 	private int refBoardNo;
 	private String replyContent;
-	private Date createDate;
-	private Date modifyDate;
+	private Timestamp createDate;
+	private Timestamp modifyDate;
 	private String status;
 
 }
