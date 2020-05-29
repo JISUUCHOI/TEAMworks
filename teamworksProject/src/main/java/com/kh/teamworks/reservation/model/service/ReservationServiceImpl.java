@@ -28,9 +28,9 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	// 전달받은 날짜의 예약 리스트 조회용 서비스
 	@Override
-	public ArrayList<Reservation> selectDayReservation(String day) {
+	public ArrayList<Reservation> selectDayReservation(String today) {
 		
-		return reDao.selectDayReservation(sqlSession, day);
+		return reDao.selectDayReservation(sqlSession, today);
 	}
 	
 	

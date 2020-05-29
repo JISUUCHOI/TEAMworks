@@ -24,9 +24,11 @@
 	</select>
 	
 	<select id="selectDayReservation" parameterType="string" resultMap="reservationResultSet">
-		SELECT *
+		SELECT RES_NO, EMP_ID, EMP_NAME, DEPT_NAME, RES_ROOM_NO, RES_DATE, RES_STR_TIME, RES_END_TIME, RES_PURPOSE, RES_STATUS
 		  FROM RESERVATION
-		 WHERE RES_DATE=#{day}
+		  JOIN EMPLOYEE USING(EMP_ID)
+		  JOIN DEPARTMENT USING(DEPT_CODE)
+		 WHERE RES_DATE=#{dayIndex} AND RES_STATUS NOT IN '취소'
 	</select>
 	
 	<select id="selectMyReservationList" parameterType="string" resultMap="reservationResultSet">
