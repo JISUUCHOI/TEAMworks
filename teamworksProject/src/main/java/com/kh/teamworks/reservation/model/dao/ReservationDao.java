@@ -16,9 +16,9 @@ public class ReservationDao {
 	}
 	
 	
-	public ArrayList<Reservation> selectDayReservation(SqlSessionTemplate sqlSession, String day) {
+	public ArrayList<Reservation> selectDayReservation(SqlSessionTemplate sqlSession, String today) {
 		
-		return (ArrayList)sqlSession.selectList("reservationMapper.selectDayReservation", day);
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectDayReservation", today);
 	}
 	
 	

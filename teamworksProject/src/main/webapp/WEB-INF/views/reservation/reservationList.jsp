@@ -336,7 +336,34 @@
 	
 	
 	<script>
-
+	var dayIndex;
+	var check = 0;
+		$(function(){
+			$('#beforeBtn').click(function(){
+				if(check == 0){
+					check = 1;	
+					dayIndex = ${dayIndex};	
+				}
+				
+				if(dayIndex > 0){
+					dayIndex -= 1;
+				}else{
+					
+				}
+				
+				$.ajax({
+					url:"selectDayRes.re",
+					data:{dayIndex:dayIndex},
+					success:function(dayList){
+						console.log(dayList);
+					},error:function(){
+						console.log("전날 이동 ajax 통신 실패!");
+					}
+				});
+				
+				console.log(dayIndex);
+			});
+		});
 	
 		$(function(){
 			$('tbody td').click(function(){
