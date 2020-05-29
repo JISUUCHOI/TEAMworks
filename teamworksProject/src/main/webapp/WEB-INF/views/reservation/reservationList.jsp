@@ -94,99 +94,595 @@
 		  <tbody>
 		    <tr>
 		      <th>08:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 8 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>09:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 9 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>10:00</th>
-		      <td style="background:#d4f4fa;"><a>최부장 | 개발팀 <br> 10:00 - 11:00</a></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 10 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>11:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 11 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>12:00</th>
-		      <td></td>
-		      <td style="background:#d4f4fa;"><a>라이사 | 경영지원팀 <br> 12:00 - 13:00</a></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 12 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>13:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 13 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>14:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 14 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>15:00</th>
-		      <td></td>
-		      <td></td>
-		      <td style="background:#d4f4fa;"><a>이부장 | 경영지원팀 <br> 15:00 - 16:00</a></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 15 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>16:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 16 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>17:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 17 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>18:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 18 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>19:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 19 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>20:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 20 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>21:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 21 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>22:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 22 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 		    <tr>
 		      <th>23:00</th>
-		      <td></td>
-		      <td></td>
-		      <td></td>
+		      <c:forEach var="r" items="${ list }">
+		      	<c:choose>
+			      	<c:when test="${ r.startTime eq 23 }">
+			      		<c:choose>
+			      			<c:when test="${ r.roomNo eq 1 }">
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 2 }">
+								<td></td>		      			
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      				<td></td>
+			      			</c:when>
+			      			<c:when test="${ r.roomNo eq 3 }">
+			      				<td></td>
+			      				<td></td>
+			      				<td style="background:#d4f4fa;">
+			      					<a>${r.empName} | ${r.deptName} <br> ${r.startTime}:00 - ${r.endTime}:00</a>
+			      				</td>
+			      			</c:when>
+			      		</c:choose>
+			      	</c:when>
+			      	<c:otherwise>
+					    <td></td>
+				      	<td></td>
+				      	<td></td>
+			      	</c:otherwise>
+			  	</c:choose>
+		      </c:forEach>
 		    </tr>
 
 		  </tbody>
@@ -227,7 +723,7 @@
 	                </tr>
 	                <tr>
 	                  <th>날짜</th>
-	                  <td>${ days[3] }</td>
+	                  <td>${ today }</td>
 	                </tr>
 	                <tr>
 	                  <th>예약시간</th>
@@ -293,7 +789,7 @@
 	                </tr>
 	                <tr>
 	                  <th>날짜</th>
-	                  <td>${ days[3] }</td>
+	                  <td>${ today }</td>
 	                </tr>
 	                <tr>
 	                  <th>예약시간</th>
@@ -357,7 +853,7 @@
 	                </tr>
 	                <tr>
 	                  <th>날짜</th>
-	                  <td>${ days[3] }</td>
+	                  <td>${ today }</td>
 	                </tr>
 	                <tr>
 	                  <th>예약시간</th>

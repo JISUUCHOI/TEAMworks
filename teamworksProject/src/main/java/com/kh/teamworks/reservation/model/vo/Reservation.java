@@ -22,5 +22,10 @@ public class Reservation {
 	private String purpose;			// 사용용도
 	private String status;			// 예약상태
 	
+	
+	// 타 테이블 컬럼
+	private String empName;			// 사원명 
+	private String deptName;		// 부서명
+	
 
 }

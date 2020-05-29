@@ -5,6 +5,8 @@
 	<resultMap type="Reservation" id="reservationResultSet">
 		<id column="RES_NO" property="reservationNo"/>
 		<result column="EMP_ID" property="empId"/>
+		<result column="EMP_NAME" property="empName"/>
+		<result column="DEPT_NAME" property="deptName"/>
 		<result column="RES_ROOM_NO" property="roomNo"/>
 		<result column="RES_DATE" property="reservationDate"/>
 		<result column="RES_STR_TIME" property="startTime"/>
@@ -14,8 +16,10 @@
 	</resultMap>
 	
 	<select id="selectReservationList" parameterType="string" resultMap="reservationResultSet">
-		SELECT *
+		SELECT RES_NO, EMP_ID, EMP_NAME, DEPT_NAME, RES_ROOM_NO, RES_DATE, RES_STR_TIME, RES_END_TIME, RES_PURPOSE, RES_STATUS
 		  FROM RESERVATION
+		  JOIN EMPLOYEE USING(EMP_ID)
+		  JOIN DEPARTMENT USING(DEPT_CODE)
 		 WHERE RES_DATE=#{today} AND RES_STATUS NOT IN '취소'
 	</select>
 	
