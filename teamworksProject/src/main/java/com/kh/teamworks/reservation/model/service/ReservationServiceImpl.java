@@ -20,9 +20,9 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	// 예약 현황 조회용 서비스
 	@Override
-	public ArrayList<Reservation> selectReservationList() {
+	public ArrayList<Reservation> selectReservationList(String today) {
 
-		return reDao.selectReservationList(sqlSession);
+		return reDao.selectReservationList(sqlSession, today);
 	}
 	
 	

@@ -10,9 +10,9 @@ import com.kh.teamworks.reservation.model.vo.Reservation;
 @Repository("reDao")
 public class ReservationDao {
 	
-	public ArrayList<Reservation> selectReservationList(SqlSessionTemplate sqlSession) {
+	public ArrayList<Reservation> selectReservationList(SqlSessionTemplate sqlSession, String today) {
 		
-		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationList");
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectReservationList", today);
 	}
 	
 	

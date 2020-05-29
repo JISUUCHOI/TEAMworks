@@ -76,7 +76,7 @@
 	<div style="width:1250px; float:left;">
 		<div align="center">
 		  <button class="pointBtn" id="beforeBtn">&lt;</button>
-		  <b id="date">${ days[3] }</b>
+		  <b id="date">${ today }</b>
 		  <button class="pointBtn" id="afterBtn">&gt;</button>
 		</div>
 		

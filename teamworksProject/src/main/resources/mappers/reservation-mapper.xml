@@ -13,9 +13,10 @@
 		<result column="RES_STATUS" property="status"/>
 	</resultMap>
 	
-	<select id="selectReservationList" resultMap="reservationResultSet">
+	<select id="selectReservationList" parameterType="string" resultMap="reservationResultSet">
 		SELECT *
 		  FROM RESERVATION
+		 WHERE RES_DATE=#{today} AND RES_STATUS NOT IN '취소'
 	</select>
 	
 	<select id="selectDayReservation" parameterType="string" resultMap="reservationResultSet">
