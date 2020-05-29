@@ -18,10 +18,17 @@
 		  FROM RESERVATION
 	</select>
 	
+	<select id="selectDayReservation" parameterType="string" resultMap="reservationResultSet">
+		SELECT *
+		  FROM RESERVATION
+		 WHERE RES_DATE=#{day}
+	</select>
+	
 	<select id="selectMyReservationList" parameterType="string" resultMap="reservationResultSet">
 		SELECT *
 		  FROM RESERVATION
 		 WHERE EMP_ID=#{empId}
 	</select>
+	
 
 </mapper>

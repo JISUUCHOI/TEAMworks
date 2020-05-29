@@ -63,7 +63,7 @@
   }
   .modalTable th{background:#f2f2f2;}
 
-
+	input[type=number]{width:45px;}
 </style>
 </head>
 <body>
@@ -232,9 +232,9 @@
 	                <tr>
 	                  <th>예약시간</th>
 	                  <td>
-	                    <input type=time name="startTime" step="3600" required>
+	                    <input type=number id="startTime" name="startTime" min="8" max="23" required> : 00
 	                    ~
-	                    <input type=time name="endTime" step="3600" required>
+	                    <input type=number id="endTime" name="endTime" min="8" max="23" required> : 00
 	                  </td>
 	                </tr>
 	                <tr>
@@ -254,7 +254,7 @@
 	          
 	          <!-- Modal footer -->
 	          <div class="modal-footer">
-	              <button type="submit" class="btn btn-primary">예약</button>
+	              <button type="submit" class="btn btn-primary" onclick="return reservationSubmit();">예약</button>
 	              <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 	          </div>
 	      </form>
@@ -298,9 +298,9 @@
 	                <tr>
 	                  <th>예약시간</th>
 	                  <td>
-	                    <input type=time name="startTime" step="3600" required>
+	                    <input type=number id="startTime" name="startTime" min="8" max="23" required> : 00
 	                    ~
-	                    <input type=time name="endTime" step="3600" required>
+	                    <input type=number id="endTime" name="endTime" min="8" max="23" required> : 00
 	                  </td>
 	                </tr>
 	                <tr>
@@ -362,9 +362,9 @@
 	                <tr>
 	                  <th>예약시간</th>
 	                  <td>
-	                    <input type=time name="startTime" step="3600" required>
+	                    <input type=number id="startTime" name="startTime" min="8" max="23" required> : 00
 	                    ~
-	                    <input type=time name="endTime" step="3600" required>
+	                    <input type=number id="endTime" name="endTime" min="8" max="23" required> : 00
 	                  </td>
 	                </tr>
 	                <tr>
@@ -384,7 +384,7 @@
 	          
 	          <!-- Modal footer -->
 	          <div class="modal-footer">
-	              <button type="submit" class="btn btn-primary">수정</button>
+	              <button type="submit" class="btn btn-primary" onclick="return updateSubmit();">수정</button>
 	              <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 	          </div>
 	      </form>
@@ -394,11 +394,43 @@
 	
 	
 	<script>
+
+	
 		$(function(){
 			$('tbody td').click(function(){
 				$('div#insertModal').modal();
 			});
 		});
+		
+		// 예약 추가 시 잘못된 예약 시간을 입력했는지 조건 검사
+		function reservationSubmit(){
+			var startTime = document.getElementById("startTime");
+			var endTime = document.getElementById("endTime");
+			
+            if(startTime.value >= endTime.value){
+                alert("사용 시작 시간은 종료 시간보다 크거나 같을 수 없습니다. 다시 확인해주세요.");
+                endTime.value = "";
+                endTime.focus();
+                return false;
+            }
+            
+            return true;
+		}
+		
+		// 예약 수정 시 잘못된 예약 시간을 입력했는지 조건 검사
+		function updateSubmit(){
+			var startTime = document.getElementById("startTime");
+			var endTime = document.getElementById("endTime");
+			
+            if(startTime.value >= endTime.value){
+                alert("사용 시작 시간은 종료 시간보다 크거나 같을 수 없습니다. 다시 확인해주세요.");
+                endTime.value = "";
+                endTime.focus();
+                return false;
+            }
+            
+            return true;
+		}
 	</script>
 	
 </body>
