@@ -59,15 +59,15 @@
        <div id="inner2" style="display:none;">
            <br>
            <br>
-            <button data-toggle="collapse" data-target="#key" class="btn btn-success">이메일 인증</button>
+            <button data-toggle="collapse" data-target="#key"  onclick="authentication();" class="btn btn-success">이메일 인증</button>
             <div id="key" class="collapse" >
                 <form action="">
                     <table id="pwdForm1" width="80%">
                         <tr>
                             <td width="90%">
-                                <input type="text" class="form-control" placeholder="이메일에 전달된 인증키를 입력하세요.">
+                                <input type="text" id="key2" class="form-control" placeholder="이메일에 전달된 인증키를 입력하세요.">
                             </td>
-                            <td> <button class="btn btn-success">확인</button></td>
+                            <td> <button onclick="confirmKey();" class="btn btn-success">확인</button></td>
                         </tr> 
                     </table>
                 </form>
@@ -117,7 +117,10 @@
         		data:{
         			email:email
         		},
-        		success:function(authKey){
+        		success:function(key){
+        			alert("인증 번호를 발송했습니다. 인증키를 입력해주세요.");
+        			// console.log(key);
+        			authKey=key;
         			
         		},
         		error:function(){
@@ -125,6 +128,15 @@
         		}
         	});
         	
+        }
+        
+        function confirmKey(){
+        	if(authKey==$("#key2").val()){
+        		alert("인증키가 입치합니다. 비밀번호를 변경해 주세요.");
+        	}else{
+        		alert("인증키가 일치하지 않습니다. 다시 입력해주세요.");
+        	}
+        		
         }
    </script>  
 </body>
