@@ -55,34 +55,7 @@
             </table>
             </form>
         </div>
-        
-        <script>
-        	function checkId(){
-        		$.ajax({
-        			url:"checkId.em",
-        			type:"post",
-        			data:{
-        				empId:$("#empId").val(),
-        				email:$("#email").val()
-        			},
-        			success:function(status){
-        				if(status=="success"){
-        					alert("확인되었습니다. 이메일 인증 후 새로운 비밀번호를 등록해 주세요.");
-        					$("#inner1").css("display","none");
-        					$("#inner2").css("display","block");
-        				}else if(status=="fail"){
-        					alert("이메일 정보가 일치 하지 않습니다. 이메일을 확인해주세요.");
-        					
-        				}else{
-        					alert("조회되는 사원번호가 없습니다. 사원번호를 확인해주세요.");
-        				}
-        			},
-        			error:function(){
-        				console.log("checkId ajax실패");
-        			}
-        		})
-        	}
-        </script>
+      
        <div id="inner2" style="display:none;">
            <br>
            <br>
@@ -102,6 +75,57 @@
        </div>
     </div>
         
-
+	<script>
+  		 var empId;
+  		 var email;
+         function checkId(){
+     		$.ajax({
+     			url:"checkId.em",
+     			type:"post",
+     			data:{
+     				empId:$("#empId").val(),
+     				email:$("#email").val()
+     			},
+     			success:function(status){
+     				if(status=="success"){
+     					alert("확인되었습니다. 이메일 인증 후 새로운 비밀번호를 등록해 주세요.");
+     					$("#inner1").css("display","none");
+     					$("#inner2").css("display","block");
+     					empId = $("#empId").val();
+     					email = $("#email").val();
+     				}else if(status=="fail"){
+     					alert("이메일 정보가 일치 하지 않습니다. 이메일을 확인해주세요.");
+     					
+     				}else{
+     					alert("조회되는 사원번호가 없습니다. 사원번호를 확인해주세요.");
+     				}
+     			},
+     			error:function(){
+     				console.log("checkId ajax실패");
+     			}
+     		})
+     	}
+          
+        var authKey;
+        
+        function authentication(){
+        	// console.log(empId);
+        	// console.log(email);
+        	$.ajax({
+        		url:"auth.em",
+        		type:"post",
+        		data:{
+        			email:email
+        		},
+        		success:function(authKey){
+        			
+        		},
+        		error:function(){
+        			console.log("인증 전송 실패 !!");
+        		}
+        	});
+        	
+        }
+   </script>  
 </body>
 </html>
