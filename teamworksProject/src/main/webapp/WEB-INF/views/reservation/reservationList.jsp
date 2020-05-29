@@ -355,7 +355,9 @@
 					
 				}
 				
-				console.log('${days[' + dayIndex + ']}');
+				var test='${day[dayIndex--]}';
+				console.log(test);
+				//console.log('${days[' + dayIndex + ']}');
 				
 				/*
 				$.ajax({
