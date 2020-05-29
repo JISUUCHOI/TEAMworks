@@ -83,7 +83,7 @@
           
         </form>
           <br>
-          <a id="pwdChange" href="">비밀번호 변경</a>
+          <a id="pwdChange" onclick="searchPwd();">비밀번호 변경</a>
       </div>
     </div>
     </c:when>
@@ -92,7 +92,11 @@
     </c:otherwise>
  </c:choose>   
   </div>
-  
+  <script>
+  	function searchPwd(){
+  		 window.open("searchPwd.em","예약등록창","width=700px,height=600px"); 
+  	}
+  </script>
   
 <!-- scripts -->
 <script src="${ pageContext.servletContext.contextPath }/resources/js/particles.js"></script>
