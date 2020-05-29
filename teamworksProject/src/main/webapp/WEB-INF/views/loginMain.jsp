@@ -94,7 +94,7 @@
   </div>
   <script>
   	function searchPwd(){
-  		 window.open("searchPwd.em","예약등록창","width=700px,height=600px"); 
+  		 window.open("searchPwd.em","예약등록창","width=500px,height=300px"); 
   	}
   </script>
   
