@@ -34,4 +34,7 @@ public class EmployeeDao {
 		
 		return sqlSession.insert("employeeMapper.attInsert", att);
 	}
+
+
+	
 }
