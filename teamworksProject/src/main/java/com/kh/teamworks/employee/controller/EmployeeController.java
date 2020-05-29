@@ -147,6 +147,11 @@ public class EmployeeController {
 		
 	}
 	
+	@RequestMapping("searchPwd.em")
+	public String searchPwdForm() {
+		return "employee/searchPwdForm";
+	}
+	
 	@RequestMapping("updatePwd.em")
 	public String myUpdatePwd(Employee e, Model model, HttpServletRequest request) {
 		
