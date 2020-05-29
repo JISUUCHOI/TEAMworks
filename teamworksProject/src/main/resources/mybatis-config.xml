@@ -12,6 +12,7 @@
 		<typeAlias type="com.kh.teamworks.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.teamworks.employee.model.vo.Employee" alias="Employee"/>
 		<typeAlias type="com.kh.teamworks.approval.model.vo.Document" alias="Document"/>
+		<typeAlias type="com.kh.teqmworks.approval.model.vo.ApprovalSearchCondition" alias="ASearchCondition"/>
 		<typeAlias type="com.kh.teamworks.reservation.model.vo.Reservation" alias="Reservation"/>
 		<typeAlias type="com.kh.teamworks.schedule.model.vo.Schedule" alias="Schedule"/>
 	</typeAliases>
@@ -22,6 +23,7 @@
 		<mapper resource="mappers/reservation-mapper.xml"/>
 		<mapper resource="mappers/schedule-mapper.xml"/>
 		<mapper resource="mappers/document-mapper.xml"/>
+		<mapper resource="mappers/approval-mapper.xml"/>
 	</mappers>
 
 </configuration>
