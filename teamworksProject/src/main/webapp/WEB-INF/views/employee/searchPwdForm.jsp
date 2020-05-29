@@ -14,11 +14,11 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-	    #pwdForm1{
+	    #pwdForm1, #pwdForm2{
 	        border-collapse: separate;
 	        border-spacing: 20px;
 	    }
-	    #inner1, #inner2{
+	    #inner1, #inner2, #inner3{
 	        width: 500px;
 	    }
 
@@ -178,8 +178,13 @@
         				empPwd:$("#pwd1").val()
         			},
         			type:"post",
-        			success:function(){
-        				
+        			success:function(result){
+        				if(result=="success"){
+        					alert("비밀번호 변경에 성공하셨습니다. 새로운 비밀번호로 로그인 해주세요.");
+        					window.close();
+        				}else{
+        					alert("비밀번호 변경 실패!");
+        				}
         			},
         			error:function(){
         				console.log("비밀번호 변경 ajax 실패");

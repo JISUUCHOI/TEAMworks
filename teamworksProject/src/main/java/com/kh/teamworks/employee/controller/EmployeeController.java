@@ -211,6 +211,22 @@ public class EmployeeController {
 		return String.valueOf(dice);
 	}
 	
+	@ResponseBody
+	@RequestMapping("changePwd.em")
+	public String changePwd(Employee e) {
+		
+		String encPwd = bcryptPasswordEncoder.encode(e.getEmpPwd());
+		e.setEmpPwd(encPwd);
+		int result = eService.myUpdatePwd(e);
+		
+		if(result>0) {
+			
+			return "success";
+		}else {
+			
+			return "fail";
+		}
+	}
 	
 	@RequestMapping("updatePwd.em")
 	public String myUpdatePwd(Employee e, Model model, HttpServletRequest request) {
