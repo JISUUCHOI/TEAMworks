@@ -4,16 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -176,41 +172,7 @@ public class EmployeeController {
 		
 	}
 	
-
-	@ResponseBody
-	@RequestMapping("auth.em")
-	public String authMailSending(String email) {
-		
-		Random r = new Random();
-		int dice = r.nextInt() + 50106;
-		
-		String setfrom = "twgroupware@gmail.com";
-		String tomail=email;
-		String title="TEAMworks 인증 메일 입니다.";
-		String content =
-		
-			   System.getProperty("line.separator")+
-			   "인증번호는 " + dice + " 입니다." +
-			   System.getProperty("line.separator")+
-			   "받으신 인증번호를 사이트에서 입력하시면 비밀번호를 변경하실 수 있습니다.";
-		
-		try {
-			MimeMessage message = mailSender.createMimeMessage();
-			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-			
-			messageHelper.setFrom(setfrom);
-			messageHelper.setTo(tomail);
-			messageHelper.setSubject(title);
-			messageHelper.setText(content);
-			
-			mailSender.send(message);
-			
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-		
-		return String.valueOf(dice);
-	}
+	
 	
 	@RequestMapping("updatePwd.em")
 	public String myUpdatePwd(Employee e, Model model, HttpServletRequest request) {
