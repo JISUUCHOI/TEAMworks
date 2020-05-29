@@ -29,6 +29,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="job_name" property="jobName"/>
 	</resultMap>
 	
+	<resultMap type="com.kh.teamworks.employee.model.vo.Attendance" id="attendanceResultSet">
+		<id column="ATT_DATE" property="attDate" />
+		<result column="emp_id" property="empId"/>
+		<result column="START_TIME" property="startTime"/>
+		<result column="EMD_TIME" property="endTime"/>
+		<result column="AT_TYPE" property="atType"/>
+	</resultMap>
+	
 	<select id="loginEmployee" parameterType="Employee" resultMap="employeeResultSet">
 		select *
 		  from employee
@@ -60,4 +68,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   set emp_pwd=#{empPwd}
 		 where emp_id=#{empId} 
 	</update>
+	
+	<insert id="attInsert" parameterType="Attendance">
+		insert into Attendance values
+		(TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{empId},TO_CHAR(SYSDATE,'HH:MI:SS'),DEFAULT,DEFAULT)
+	</insert>
+	
 </mapper>

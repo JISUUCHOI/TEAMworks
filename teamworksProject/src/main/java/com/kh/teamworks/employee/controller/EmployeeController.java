@@ -19,9 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.teamworks.employee.model.service.EmployeeService;
+import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
-
-import oracle.net.aso.s;
 
 @Controller
 public class EmployeeController {
@@ -225,5 +224,18 @@ public class EmployeeController {
 	@RequestMapping("myAtt.em")
 	public String myAtt() {
 		return "employee/myAttendance";
+	}
+	
+	//출근도장 
+	@ResponseBody
+	@RequestMapping(value="attinsert.em")
+	public String attInsert(Attendance att) {
+		int result = eService.attInsert(att);
+		
+		if(result >0) {
+			return "success";
+		}else {
+			return "fail";
+		}
 	}
 }

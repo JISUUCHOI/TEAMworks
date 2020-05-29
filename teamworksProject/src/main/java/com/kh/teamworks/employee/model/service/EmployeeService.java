@@ -1,6 +1,7 @@
 package com.kh.teamworks.employee.model.service;
 
 
+import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 
@@ -19,6 +20,7 @@ public interface EmployeeService {
 	// 4. 프로필 이미지 신규 등록
 	int insertProfile(Employee e);
 	
-	
+	// 5. 출근 기록 서비스
+	int attInsert(Attendance att);
 
 }
