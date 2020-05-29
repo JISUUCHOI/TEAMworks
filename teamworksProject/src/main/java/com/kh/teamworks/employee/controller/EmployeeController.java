@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,8 @@ public class EmployeeController {
 	private EmployeeService eService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
-	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@RequestMapping("login.em")
 	public ModelAndView loginEmployee(Employee e, HttpSession session, ModelAndView mv) {
