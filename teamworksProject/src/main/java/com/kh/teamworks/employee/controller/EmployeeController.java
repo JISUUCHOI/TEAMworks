@@ -152,6 +152,27 @@ public class EmployeeController {
 		return "employee/searchPwdForm";
 	}
 	
+	@ResponseBody
+	@RequestMapping("checkId.em")
+	public String checkId(Employee e) {
+		
+		Employee searchUser = eService.loginEmployee(e);
+		
+		if(searchUser != null) { // 사원번호 조회 성공
+			
+			if(e.getEmail().equals(searchUser.getEmail())) {// 등록된 이메일과 같음
+				return "success";
+			}else { // 등록된 이메일과 다름
+				return "fail";
+			}
+		}else { // 사원번호 조회 실패
+			return "none";
+		}
+		
+	}
+	
+	
+	
 	@RequestMapping("updatePwd.em")
 	public String myUpdatePwd(Employee e, Model model, HttpServletRequest request) {
 		
