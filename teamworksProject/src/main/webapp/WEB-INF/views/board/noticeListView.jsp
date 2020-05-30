@@ -63,14 +63,20 @@
             </div>
           </div>
         </form>
-            
         </div>
+       
         <br><br>
      
         <div class="inner">
+        <c:if test="${loginUser.deptCode eq 1001 }">
+	         <div align="right">
+	         	<button class="btn btn-info">글쓰기</button>
+	         </div>
+         </c:if>
             <hr>
             <h4>공지사항</h4>
             <hr>
+           
             <table class="table table-hover text-center">
                 <thead>
                     <tr>
@@ -131,7 +137,7 @@
             			<li class="next disabled" ><a href="">&gt;</a></li>
             		</c:when>
             		<c:otherwise>
-            			<li class="next"><a href="list.bo?currentPage=${ pi.currentPage + 1 }&cat=1">&lt;</a></li>
+            			<li class="next"><a href="list.bo?currentPage=${ pi.currentPage + 1 }&cat=1">&gt;</a></li>
             		</c:otherwise>
             	</c:choose>
 
