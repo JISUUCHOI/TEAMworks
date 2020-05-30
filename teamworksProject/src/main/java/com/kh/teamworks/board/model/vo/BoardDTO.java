@@ -13,17 +13,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Board {
+public class BoardDTO {
 	
 	private int boardNo;
 	private int boardCategory;
-	private String boardWriter;
 	private String boardTitle;
+	private String empName;
 	private String boardContent;
 	private Date createDate;
 	private Date modifyDate;
-	private int bdLike;
-	private String status;
 	private int count;
-	
+	private int like;
 }
