@@ -36,7 +36,8 @@
     		events.push({
 	    		title:'${e.schTitle}',
 	    		start:'${e.startDate}',
-	    		end:'${e.endDate}'
+	    		end:'${e.endDate}',
+	    		schNo:'${e.schNo}'
     		});
 	    </c:forEach>
 	    
@@ -51,11 +52,17 @@
 	      eventLimit: true, // allow "more" link when too many events
 	      events: events,
 	      locale: 'ko',
-	      dateClick: function() {
-	        alert('날짜 클릭 이벤트 발생');
-	      },
 	      eventClick: function() {
-	        alert('일정 클릭 이벤트 발생');
+	        $.ajax({
+	        	url:"",
+	        	data:{schNo:$(this).schNo},
+	        	type:"post",
+	        	success:function(){
+	        		
+	        	},error:function(){
+	        		console.log("이벤트 상세조회용 ajax 통신 실패!");
+	        	}
+	        });
 	      }
 	
 	    });

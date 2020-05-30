@@ -16,7 +16,13 @@
 	<select id="selectAllSch" resultMap="scheduleResultSet">
 		SELECT *
 		FROM SCHEDULE
-		WHERE SCH_DEL_STATUS='N'
+		WHERE EMP_ID IN ('tw101', #{empId}) AND SCH_DEL_STATUS='N'
+	</select>
+	
+	<select id="selectSchDetail" parameterType="_int" resultMap="scheduleResultSet">
+		SELECT *
+		FROM SCHEDULE
+		WHERE 
 	</select>
 
 </mapper>

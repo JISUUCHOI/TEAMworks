@@ -7,8 +7,10 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.teamworks.schedule.model.service.ScheduleService;
 import com.kh.teamworks.schedule.model.vo.Schedule;
 
@@ -35,6 +37,16 @@ public class ScheduleController {
 		//System.out.println(today);
 		
 		return mv;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("detail.sc")
+	public String selectSchDetail(int schNo) {
+		
+		Schedule sch = scService.selectSchDetail(schNo);
+		
+		return new Gson().toJson(sch);
 	}
 
 }

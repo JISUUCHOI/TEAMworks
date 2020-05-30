@@ -43,7 +43,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public Schedule selectSchDetail(int schNo) {
 
-		return null;
+		return scDao.selectSchDetail(sqlSession, schNo);
 	}
 
 	// 일정 추가용 서비스
