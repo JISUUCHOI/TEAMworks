@@ -286,6 +286,7 @@ public class EmployeeController {
 	@ResponseBody
 	@RequestMapping(value="attinsert.em")
 	public String attInsert(Attendance att) {
+		System.out.println(att);
 		int result = eService.attInsert(att);
 		
 		if(result >0) {
