@@ -84,24 +84,57 @@
                     </tr>
                 </thead>
               <tbody>
+              	<c:forEach var="n" items="${ list }">
                     <tr>
-                        <td>1</td>
-                        <td>공지사항입니다.</td>
-                        <td>강보람</td>
-                        <td>2020-05-01</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td><i class="fas fa-paperclip"></i></td>
+                        <td>${ n.boardNo }</td>
+                        <td>${ n.boardTitle }</td>
+                        <td>${ n.empName }</td>
+                        <td>${ n.createDate }</td>
+                        <td>${ n.count }</td>
+                        <td>${ n.like }</td>
+                        <c:choose>
+                        	<c:when test="${ !empty n.boardFiles }">
+                        		<td><i class="fas fa-paperclip"></i></td>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<td>&nbsp;</td>
+                        	</c:otherwise>	
+                        </c:choose>
                     </tr>
+                  </c:forEach>
                 </tbody>
             </table>
             <br>
             <ul class="pagination">
-                <li class="previous"><a href="">&lt;</a></li>
-                <li><a href="">1</a></li>
-                <li><a href="">2</a></li>
-                <li><a href="">3</a></li>
-                <li class="next"><a href="">&gt;</a></li>
+            	<c:choose>
+            		<c:when test="${ pi.currentPage eq 1 }">
+            			<li class="previous disabled" ><a href="">&lt;</a></li>
+            		</c:when>
+            		<c:otherwise>
+            			<li class="previous"><a href="list.bo?currentPage=${ pi.currentPage - 1 }&cat=1">&lt;</a></li>
+            		</c:otherwise>
+            	</c:choose>
+                
+                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                	<c:choose>
+                		<c:when test="${ p eq pi.currentPage }">
+                			<li class="disabled"><a href="">${ p }</a></li>
+                		</c:when>
+                		<c:otherwise>
+                			<li class=""><a href="list.bo?currentPage=${ p }&cat=1">${ p }</a></li>
+                		</c:otherwise>
+                	</c:choose>
+                </c:forEach>
+                
+              	<c:choose>
+            		<c:when test="${ pi.currentPage eq pi.maxPage }">
+            			<li class="next disabled" ><a href="">&gt;</a></li>
+            		</c:when>
+            		<c:otherwise>
+            			<li class="next"><a href="list.bo?currentPage=${ pi.currentPage + 1 }&cat=1">&lt;</a></li>
+            		</c:otherwise>
+            	</c:choose>
+
             </ul>
         </div>
     </div>
