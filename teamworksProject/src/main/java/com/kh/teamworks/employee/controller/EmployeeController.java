@@ -230,7 +230,7 @@ public class EmployeeController {
 	
 	//출근도장 
 	@ResponseBody
-	@RequestMapping(value="attinsert.em")
+	@RequestMapping("attinsert.em")
 	public String attInsert(Attendance att) {
 		System.out.println(att);
 		int result = eService.attInsert(att);

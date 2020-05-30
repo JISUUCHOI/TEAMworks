@@ -111,7 +111,7 @@
         		$("#startTime").click(function(){
         			$.ajax({
         				url:"attinsert.em",
-        				data:{empId:"${login.userId}"},
+        				data:{empId:"${loginUser.empId}"},
         				type:"post",
         				success:function(status){
         					console.log(status)
