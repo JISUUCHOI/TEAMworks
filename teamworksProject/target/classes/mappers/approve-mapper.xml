@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC 
-"-//mybatis.org//DTD Mapper 3.0//EN" 
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="approvalMapper">
-	
+<mapper namespace="approveMapper">
+
 	<resultMap id="empInfoResultSet" type="Employee">
 		<id column="emp_id" property="empId"/>
 		<result column="emp_name" property="empName"/>
@@ -66,15 +66,27 @@
          order by e.dept_code, e.job_code
 	</select>
 
-	<select id="selectEmpSch" parameterType="" resultMap="empInfoResultSet">
+	<!-- <select id="selectEmpSch" parameterType="com.kh.teamworks.approval.model.vo.ApprovalSearchCondition" resultMap="empInfoResultSet">
 		select emp_id, emp_name, e.dept_code, dept_name, e.job_code, job_name
 		  from employee e
 		  join department d on(e.dept_code = d.dept_code)
 		  join job j on(e.job_code = j.job_code)
-		 where emp_name = #{}
-		 	   emp_status = 'Y' 
-	
-	</select>
+		 where emp_status = 'Y'
+		 	<choose>
+		 		<when test="deptName != null">
+		 					and dept_name like '%' || #{deptName} || '%'
+		 			order by job_code
+		 		</when>	
+		 		<when test="jobName != null">
+		 					and job_name like '%' || #{jobName} || '%'
+		 			order by dept_code
+		 		</when>
+		 		<when test="empName != null">
+		 					and emp_name like '%' || #{empName} || '%'
+		 			order by dept_code, job_code
+		 		</when>
+		 	</choose>
+	</select> -->
 
 	
 	<!-- <insert id="insertDocNo" parameterType="Document">
@@ -88,5 +100,6 @@
 		where empId
 	
 	</select> -->
-	
+
+
 </mapper>
