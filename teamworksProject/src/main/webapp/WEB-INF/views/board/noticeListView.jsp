@@ -40,22 +40,22 @@
            <form action="" class="form-inline" style="float: right;">
             <div class="form-group input-group" style="width: 180px;">
                 <span  class="input-group-addon"><i class="far fa-calendar-alt"></i></span>
-                <input id="startDate" type="text" id="start" class="form-control"  readonly > 
+                <input id="startDate" type="text" name="start" class="form-control"  readonly > 
             </div>
             <div class="form-group">~</div>
             <div class="input-group" style="width: 180px;">
                 <span class="input-group-addon"><i class="far fa-calendar-alt"></i></span>
-                <input id="endDate"  type="text" class="form-control" readonly> 
+                <input id="endDate"  type="text" name="end" class="form-control" readonly> 
             </div>
             <div  class="form-group">
-                <select class="form-control" name="" id=""  style="width: 120px;">
-                    <option value="">작성자</option>
-                    <option value="">제목</option>
-                    <option value="">내용</option>
+                <select class="form-control" name="condition" id=""  style="width: 120px;">
+                    <option value="writer">작성자</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
                  </select>
               </div>
               <div class="form-group input-group"style="width: 235px;">
-                <input type="text" class="form-control" placeholder="Search">
+                <input type="text" class="form-control" name="keyword" placeholder="Search">
                 <div class="input-group-btn">
                     <button class="btn btn-default" type="submit">
                     <i class="glyphicon glyphicon-search"></i>
