@@ -24,4 +24,6 @@ public class BoardDTO {
 	private Date modifyDate;
 	private int count;
 	private int like;
+	private String status;
+	private String boardFiles;
 }
