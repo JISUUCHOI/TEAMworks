@@ -1,4 +1,4 @@
-package com.kh.spring.board.controller;
+package com.kh.teamworks.management.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,9 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Controller;
+
 @Controller
-public class BoardController {
+public class ManagementController {
 	
 }
