@@ -23,6 +23,7 @@
 			width:1250px;
 			float:left;
 			margin-left:220px;
+			margin-top:50px;
 		
 		 }
     .inner{width: 900px;}
@@ -30,6 +31,9 @@
 </style>
 </head>
 <body>
+
+<jsp:include page="../common/menubar.jsp"/>
+<jsp:include page="sidebarBoard.jsp"/>
   <div class="outer" align="center">
         <br>
         <div class="inner">

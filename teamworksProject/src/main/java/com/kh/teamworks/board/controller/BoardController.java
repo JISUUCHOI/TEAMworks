@@ -12,5 +12,8 @@ public class BoardController {
 	@Autowired
 	private BoardService bService;
 	
-
+	@RequestMapping("list.bo")
+	public String selectList() {
+		return "board/noticeListView";
+	}
 }
