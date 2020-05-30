@@ -1,6 +1,8 @@
 package com.kh.teamworks.schedule.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +22,17 @@ public class ScheduleController {
 	@RequestMapping("selectAllSch.sc")
 	public ModelAndView selectAllSch(ModelAndView mv) {
 		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
 		ArrayList<Schedule> events = scService.selectAllSch();
 		
 		mv.addObject("events", events);
+		mv.addObject("today", today);
 		mv.setViewName("schedule/allScheduleView");
+		
+		//System.out.println(today);
 		
 		return mv;
 	}
