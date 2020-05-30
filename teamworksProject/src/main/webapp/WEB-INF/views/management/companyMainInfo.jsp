@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head></head>
+<head>
     <meta charset="UTF-8">
     <title>회사 정보 관리</title>
     <!-- jQuery 라이브러리 -->
