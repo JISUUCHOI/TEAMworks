@@ -76,6 +76,7 @@
        <div id="inner3" style="display:none;">
         <br>
         <h3>비밀번호 변경</h3>
+        <form onSubmit="return false">
             <table id="pwdForm2">
                 <tr>
                     <th>변경할 비밀번호</th>
@@ -95,7 +96,7 @@
             </table>
             <button type="button" onclick="validateANchange();" class="btn btn-primary" style="margin-right: 30px;">변경</button>
             <button type="reset" class="btn" onclick="window.close();">취소</button>
-
+		</form>
     	</div>
     </div>
         
