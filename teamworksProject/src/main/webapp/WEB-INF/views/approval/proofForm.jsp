@@ -29,7 +29,6 @@
 		   	margin:auto;
 		    margin-top:50px;
 		}
-
         /* 버튼 */
         #btns{
             width:200px;
@@ -56,7 +55,6 @@
             font-weight:600;
             cursor:pointer;
         }
-
         /* 결재선 */
         #appoveLine{
             float:right;
@@ -69,7 +67,6 @@
         #approveLineTb{
             text-align:center;
         }
-
         /* 기안문서 */
         .docContents{margin:auto;}
         .docContents, .docContents tr, .docContents td{
@@ -113,7 +110,6 @@
             margin-right:10px;
             font-size:12px;
         }
-
         /* 파일첨부 */
         #fileTb{margin:auto;}
         #fileUpload{
@@ -190,7 +186,6 @@
             margin-left:10px;
             margin-right: 10px;
         }
-
         
     </style>
 </head>
@@ -223,7 +218,7 @@
 	                        <td width="70">기안</td>
 	                    </tr>
 	                    <tr height="70">
-	                        <td>최해성</td>
+	                        <td>${ loginUser.empName }</td>
 	                    </tr>
 	                </table>
 	            </div>
@@ -250,8 +245,12 @@
 			                    <td>경영지원팀</td>
 			                    <td><input type="hidden" id="docDepartment" name="docDepartment" value="0" readonly></td>
 		                    </c:when>
-		                    <c:otherwise>
+		                    <c:when test="${ loginUser.deptCode eq 1002}">
 			                    <td>개발팀</td>
+			                    <td><input type="hidden" id="docDepartment" name="docDepartment" value="0" readonly></td>
+		                    </c:when>
+		                    <c:otherwise>
+			                    <td></td>
 			                    <td><input type="hidden" id="docDepartment" name="docDepartment" value="1" readonly></td>
 		                    </c:otherwise>
 	                    </c:choose>
@@ -281,7 +280,7 @@
                 <table class="docContents">
 	                <tr width="1000">
                         <td width="200" class="th">신청번호</td>
-                        <td>자동생성</td>
+                        <td width="200">자동생성</td>
 	                    <td width="200" class="th">증명서구분</td>
                         <td width="200"><select name="pfSq" id="pfSq">
                             <option value="재직증명서">재직증명서</option>
@@ -291,25 +290,38 @@
 	                </tr>
 	                <tr>
 	                    <td width="200" class="th">사원번호</td>
-                        <td>15</td>
+                        <td>${ loginUser.empId }</td>
 	                    <td width="200" class="th">성명</td>
-                        <td>최해성</td>
+                        <td>${ loginUser.empName }</td>
 	                </tr>
 	                <tr>
 	                    <td width="200" class="th">사업장</td>
                         <td>(주)팀웍스</td>
 	                    <td width="200" class="th">부서</td>
-                        <td>개발팀</td>
+                        <c:choose>
+		                    <c:when test="${ loginUser.deptCode eq 1001}">
+			                    <td>경영지원팀</td>
+			                    <td><input type="hidden" id="docDepartment" name="docDepartment" value="경영지원팀" readonly></td>
+		                    </c:when>
+		                    <c:when test="${ loginUser.deptCode eq 1002}">
+			                    <td>개발팀</td>
+			                    <td><input type="hidden" id="docDepartment" name="docDepartment" value="개발팀" readonly></td>
+		                    </c:when>
+		                    <c:otherwise>
+			                    <td></td>
+			                    <td><input type="hidden" id="docDepartment" name="docDepartment" value="1" readonly></td>
+		                    </c:otherwise>
+	                    </c:choose>
                     </tr>
                     <tr>
 	                    <td width="200" class="th">직급</td>
-                        <td>사원</td>
+                        <td>${ loginUser.jobName }</td>
 	                    <td width="200" class="th">신청일자</td>
-                        <td width=""><input type="Date" id="pfDate"></td>
+                        <td width="">${ docDate}</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">용도</td>
-	                    <td colspan="3"><input type="text" id="titleInput" required name="pfPurpose" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"><input type="text" id="titleInput"  name="pfPurpose" placeholder="내용을 입력해주세요"></td>
 
 	                </tr>
                 </table>
