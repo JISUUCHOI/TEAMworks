@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="scheduleMapper">
 
+	<resultMap type="Schedule" id="scheduleResultSet">
+		<id column="SCH_NO" property="schNo"/>
+		<result column="SCH_CATEGORY" property="schCategory"/>
+		<result column="EMP_ID" property="empId"/>
+		<result column="SCH_TITLE" property="schTitle"/>
+		<result column="SCH_CONTENT" property="schContent"/>
+		<result column="SCH_STR_DATE" property="startDate"/>
+		<result column="SCH_END_DATE" property="endDate"/>
+		<result column="SCH_DEL_STATUS" property="deleteStatus"/>
+	</resultMap>
+
 </mapper>

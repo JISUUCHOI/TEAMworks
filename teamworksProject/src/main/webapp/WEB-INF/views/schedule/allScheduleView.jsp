@@ -14,7 +14,7 @@
 <script src='js/ko.js'></script>
 <script>
 
-  document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -115,6 +115,8 @@
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="sidebarSchedule.jsp"/>
+	
+	<br><br>
 
 	<div style="width:1250px; float:left;">
 		<div id='calendar'></div>
