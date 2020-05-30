@@ -1,3 +1,5 @@
+vo.Document
+
 package com.kh.teamworks.approval.model.vo;
 
 import java.sql.Clob;
@@ -53,6 +55,32 @@ public class Document {
 	private String pfSq;			// 제증명구분		// 재직증명서,  경력증명서, 퇴직증명서
 	private String pfPurpose;		// 용도
 	private String pfStatus;		// 발행상태		// 발행확인 되면 Y값 변경
+	
+	
+	
+	
+	public Document(int docNo, String empId, String docSc, int docStatus, String docTitle, String docReference,
+			String docDate, String docEnd, int docDepartment, String pfSq, String pfPurpose, String pfStatus) {
+		super();
+		this.docNo = docNo;
+		this.empId = empId;
+		this.docSc = docSc;
+		this.docStatus = docStatus;
+		this.docTitle = docTitle;
+		this.docReference = docReference;
+		this.docDate = docDate;
+		this.docEnd = docEnd;
+		this.docDepartment = docDepartment;
+		this.pfSq = pfSq;
+		this.pfPurpose = pfPurpose;
+		this.pfStatus = pfStatus;
+		
+		
+	}
+	
+	
+	
+	
 	
 	
 	
