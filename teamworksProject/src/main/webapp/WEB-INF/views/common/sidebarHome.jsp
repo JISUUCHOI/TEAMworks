@@ -100,13 +100,32 @@
                     <span><b>퇴근시간</b></span> &nbsp;
                     <span style="color:rgb(7, 53, 90)">09:00:00</span>
                     <div class="caption">
-                        <button class="btn btn-info">출근</button> &nbsp; &nbsp;
+                        <button class="btn btn-info" id="startTime">출근</button> &nbsp; &nbsp;
                         <button class="btn btn-info">퇴근</button>
                     </div>
                 </div>
-                
             </div>
         </div>
+         <script>
+        	$(function(){
+        		$("#startTime").click(function(){
+        			$.ajax({
+        				url:"attinsert.em",
+        				data:{empId:"${loginUser.empId}"},
+        				type:"post",
+        				success:function(status){
+        					console.log(status)
+        					if(status == "success"){
+        						
+        					}
+        					
+        				},errorPage:function(){
+        					console.log("출근 실패")
+        				}
+        			})
+        		});
+        	});
+        </script>
         <div align="left">
             <div class="subCate"><a href="myAtt.em">내근태관리</a></div>
             <div class="subCate"><a href="">휴가현황</a></div>

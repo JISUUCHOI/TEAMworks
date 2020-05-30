@@ -13,17 +13,13 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Board {
-	
-	private int boardNo;
-	private int boardCategory;
-	private String boardWriter;
-	private String boardTitle;
-	private String boardContent;
-	private Date createDate;
-	private Date modifyDate;
-	private int bdLike;
+public class BoardAttachment {
+
+	private int bdFileNo;
+	private int refBoardNo;
+	private String baOriginName;
+	private String baChangeName;
+	private String baFilePath;
+	private Date updateDate;
 	private String status;
-	private int count;
-	
 }

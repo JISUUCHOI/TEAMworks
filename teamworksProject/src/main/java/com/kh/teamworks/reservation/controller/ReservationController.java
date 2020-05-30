@@ -48,8 +48,10 @@ public class ReservationController {
 
 		mv.addObject("list", list);
 		mv.addObject("today", today);
+		mv.addObject("days", days);
 		mv.addObject("dayIndex", dayIndex);
 		mv.setViewName("reservation/reservationList");
+		
 
 		return mv;
 	}
