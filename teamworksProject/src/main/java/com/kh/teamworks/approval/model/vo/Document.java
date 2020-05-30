@@ -1,5 +1,3 @@
-vo.Document
-
 package com.kh.teamworks.approval.model.vo;
 
 import java.sql.Clob;
