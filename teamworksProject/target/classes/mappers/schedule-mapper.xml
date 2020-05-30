@@ -12,5 +12,11 @@
 		<result column="SCH_END_DATE" property="endDate"/>
 		<result column="SCH_DEL_STATUS" property="deleteStatus"/>
 	</resultMap>
+	
+	<select id="selectAllSch" resultMap="scheduleResultSet">
+		SELECT *
+		FROM SCHEDULE
+		WHERE SCH_DEL_STATUS='N'
+	</select>
 
 </mapper>

@@ -22,7 +22,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public ArrayList<Schedule> selectAllSch() {
 
-		return null;
+		return scDao.selectAllSch(sqlSession);
 	}
 
 	// 회사 일정 리스트 조회용 서비스
