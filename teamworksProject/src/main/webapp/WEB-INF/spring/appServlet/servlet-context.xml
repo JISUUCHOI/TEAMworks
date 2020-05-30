@@ -23,6 +23,8 @@
 	
 	<context:component-scan base-package="com.kh.teamworks" />
 	
-	
+	<resources mapping="/css/**" location="/resources/css/" />
+	<resources mapping="/js/**" location="/resources/js/" /> 
+	<resources mapping="/resources/**" location="/resources/" /> 
 	
 </beans:beans>

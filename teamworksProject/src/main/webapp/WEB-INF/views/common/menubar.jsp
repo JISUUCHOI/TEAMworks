@@ -122,7 +122,7 @@
                 <div class="menu" id="email"><a href="">메일</a></div>
                 <div class="menu" id="board"><a href="">게시판</a></div>
                 <div class="menu" id="calender"><a href="">일정</a></div>
-                <div class="menu" id="book"><a href="selectList.re?dayIndex=3">예약</a></div>
+                <div class="menu" id="book"><a href="selectList.re">예약</a></div>
                 <div class="menu" id="orgManage"><a href="">조직관리</a></div>
             </div>
         </div>

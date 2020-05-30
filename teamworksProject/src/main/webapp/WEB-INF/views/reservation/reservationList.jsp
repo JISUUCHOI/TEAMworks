@@ -333,9 +333,7 @@
 	    </div>
 	  </div>
 	</div>
-	
-	<label id="test"> </label>
-	
+
 	
 	<script>
 	var dayIndex;
@@ -355,28 +353,6 @@
 					
 				}
 				
-				var test='${day[dayIndex--]}';
-				console.log(test);
-				//console.log('${days[' + dayIndex + ']}');
-				
-				/*
-				$.ajax({
-					url:"selectDayRes.re",
-					data:{dayIndex:dayIndex},
-					success:function(dayList){
-						
-						$("#test").text('${days[dayIndex]}');
-						
-						
-						
-					},error:function(){
-						console.log("전날 이동 ajax 통신 실패!");
-					}
-				}).done(function(){
-					//console.log('${days[dayIndex]}');
-				});
-				*/
-				
 				console.log(dayIndex);
 			});
 		});
@@ -395,18 +371,7 @@
 					
 				}
 				
-			/* 	$.ajax({
-					url:"selectDayRes.re",
-					data:{dayIndex:dayIndex},
-					success:function(dayList){
-						$('#todayDate').text(dayList[0].reservationDate);
-						
-						
-					},error:function(){
-						console.log("다음날 이동 ajax 통신 실패!");
-					}
-				}); */
-				
+
 				console.log(dayIndex);
 			});
 		});
