@@ -71,7 +71,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="attInsert" parameterType="com.kh.teamworks.employee.model.vo.Attendance">
 		insert into Attendance values
-		(TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{empId},TO_CHAR(SYSDATE,'HH:MI:SS'),DEFAULT,DEFAULT)
+		(TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{empId},TO_CHAR(SYSDATE,'HH24:MI:SS'),DEFAULT,DEFAULT)
 	</insert>
+	
+	<select id="selectAttTime" parameterType="com.kh.teamworks.employee.model.vo.Attendance" resultMap="attendanceResultSet"> 
+		SELECT ATT_DATE,EMP_ID,START_TIME,END_TIME,AT_TYPE
+		  FROM ATTENDANCE
+		 WHERE EMP_ID=#{empId} and ATT_DATE=(TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+	</select>
+	<update id="attUpdate"  parameterType="com.kh.teamworks.employee.model.vo.Attendance">
+		UPDATE ATTENDANCE
+   	       SET END_TIME=TO_CHAR(SYSDATE,'HH24:MI:SS')
+         where emp_id=#{empId} and ATT_DATE=(TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+	</update>
 	
 </mapper>
