@@ -37,6 +37,8 @@
   <div class="outer" align="center">
         <br>
         <div class="inner">
+        <h4>공지사항</h4>
+            <hr>
            <form action="search.bo" class="form-inline" style="float: right;">
          	<input type="hidden" name="cat" value="1"> 
          	<input type="hidden" name="currentPage" value="1"> 
@@ -57,7 +59,7 @@
                  </select>
               </div>
               <div class="form-group input-group"style="width: 235px;">
-                <input type="text" class="form-control" name="keyword" placeholder="Search">
+                <input type="text" class="form-control" name="keyword" value="${ sc.keyword }" placeholder="Search">
                 <div class="input-group-btn">
                     <button class="btn btn-default" type="submit">
                     <i class="glyphicon glyphicon-search"></i>
@@ -85,8 +87,7 @@
 	         </div>
          </c:if>
             <hr>
-            <h4>공지사항</h4>
-            <hr>
+            
            
             <table class="table table-hover text-center">
                 <thead>
@@ -163,7 +164,7 @@
 							<li class="next"><a href="list.bo?currentPage=${ pi.currentPage + 1 }&cat=1">&gt;</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="next"><a href="search.bo?currentPage=${ pi.currentPage + 1 }&cat=1&sc=${ sc }"></a></li>
+							<li class="next"><a href="search.bo?currentPage=${ pi.currentPage + 1 }&cat=1&sc=${ sc }">&gt;</a></li>
 						</c:otherwise>        		
             		</c:choose>
             	</c:if>
