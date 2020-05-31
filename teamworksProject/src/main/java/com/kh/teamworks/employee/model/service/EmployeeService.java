@@ -22,5 +22,14 @@ public interface EmployeeService {
 	
 	// 5. 출근 기록 서비스
 	int attInsert(Attendance att);
+	
+	// 6. 내 오늘 출근 시간체크
+	Attendance selectAttTime(String empId);
+	
+	// 7. 퇴근도장
+	int attUpdate(Attendance att);
+
+
+	
 
 }

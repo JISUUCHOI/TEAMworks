@@ -18,10 +18,10 @@ import lombok.ToString;
 public class Attendance {
 
 	private String empId;
-	private Date attDate;
-	private Timestamp startTime;
-	private Timestamp endTime;
-	private String atType;
+	private Date attDate;  //년-월-일
+	private String startTime;//출근시간
+	private String endTime;// 퇴근시간
+	private String atType; // 0:정상출근 1:지각 2:조퇴
 	
 	
 	

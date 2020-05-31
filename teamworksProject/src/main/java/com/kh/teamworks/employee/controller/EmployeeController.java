@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.GsonBuilder;
 import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
@@ -286,7 +287,7 @@ public class EmployeeController {
 	@ResponseBody
 	@RequestMapping("attinsert.em")
 	public String attInsert(Attendance att) {
-		System.out.println(att);
+		//System.out.println(att);
 		int result = eService.attInsert(att);
 		
 		if(result >0) {
@@ -295,4 +296,27 @@ public class EmployeeController {
 			return "fail";
 		}
 	}
+	//출근 시간 갱신
+	@ResponseBody
+	@RequestMapping(value="todayAtt.em", produces="application/json; charset=utf-8")
+	public String selectAttTime(String empId) {
+		
+		Attendance att =  eService.selectAttTime(empId);
+	
+		return new GsonBuilder().create().toJson(att);
+	}
+	//퇴근 도장
+		@ResponseBody
+		@RequestMapping("attupdate.em")
+		public String attUpdate(Attendance att) {
+			//System.out.println(att);
+			int result = eService.attUpdate(att);
+			
+			if(result >0) {
+				return "success";
+			}else {
+				return "fail";
+			}
+		}
+	// 내 근태 
 }

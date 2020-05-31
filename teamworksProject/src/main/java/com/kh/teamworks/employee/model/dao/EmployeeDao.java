@@ -34,4 +34,18 @@ public class EmployeeDao {
 		
 		return sqlSession.insert("employeeMapper.attInsert", att);
 	}
+
+
+	public Attendance selectAttTime(SqlSessionTemplate sqlSession, String empId) {
+		
+		return sqlSession.selectOne("employeeMapper.selectAttTime", empId);
+	}
+
+
+	public int attUpdate(SqlSessionTemplate sqlSession, Attendance att) {
+		
+		return sqlSession.update("employeeMapper.attUpdate", att);
+	}
+
+
 }

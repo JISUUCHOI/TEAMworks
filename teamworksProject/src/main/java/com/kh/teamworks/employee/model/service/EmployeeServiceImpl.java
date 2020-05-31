@@ -42,4 +42,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return eDao.attInsert(sqlSession,att);
 	}
 
+	@Override
+	public Attendance selectAttTime(String empId) {
+		
+		return eDao.selectAttTime(sqlSession,empId);
+	}
+
+	@Override
+	public int attUpdate(Attendance att) {
+		
+		return eDao.attUpdate(sqlSession,att);
+	}
+
 }
