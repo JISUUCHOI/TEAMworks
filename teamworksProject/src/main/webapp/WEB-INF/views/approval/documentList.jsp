@@ -9,9 +9,18 @@
 <title>결재문서보관함</title>
 <style>
 	/* 전체 윤곽 */
+	html, body{height:100%;}
+	#docListWrapper{
+		width:1250px;
+		height:100%;
+		float:left;
+	}
+	
 	#docListOuter{
-	    width:1200px;
-	    padding-top:20px;
+	    width:800px;
+	    height:670px;
+	    margin:auto;
+	    margin-top:50px;
 	}
 	/* 본문 */
 	#docListArea{
@@ -121,7 +130,26 @@
         <!-- 본문 -->
         <div id="docListArea">
             <!-- 조건:대기/진행/완료/반려/회수요청/회수 -->
-            <h4>⊙ 결재대기함</h4>
+            <c:choose>
+				<c:when test="${sts eq '0'}">
+		            <h4>⊙ 결재대기함</h4>
+	        	</c:when>
+	        	<c:when test="${sts eq '1'}">
+		            <h4>⊙ 결재진행함</h4>
+	        	</c:when>
+	        	<c:when test="${sts eq '2'}">
+		            <h4>⊙ 결재완료함</h4>
+	        	</c:when>
+	        	<c:when test="${sts eq '3'}">
+		            <h4>⊙ 반려문서함</h4>
+	        	</c:when>
+	        	<c:when test="${sts eq '4'}">
+		            <h4>⊙ 회수요청함</h4>
+	        	</c:when>
+	        	<c:otherwise>
+		            <h4>⊙ 결재회수함</h4>
+	        	</c:otherwise>
+	        </c:choose>
             <hr>
             <br>
 
@@ -246,5 +274,26 @@
         </div>
 
     </div>
+    
+    <script>
+		$(function(){
+			$("#approveDoc>a").css("color", "dimgray");
+			$("#approveDoc").css("border-bottom-style", "groove");
+			
+			var sts = "${sts}"
+			
+			switch(sts){
+			case '0': $("#readyForApprove>a").css("color", "deepskyblue"); break;
+			case '1': $("#pendingApprove>a").css("color", "deepskyblue"); break;
+			case '2': $("#doneApprove>a").css("color", "deepskyblue"); break;
+			case '3': $("#refuseApprove>a").css("color", "deepskyblue"); break;
+			case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
+			case '5': $("#callbackDoc>a").css("color", "deepskyblue"); break;
+			}
+			
+			
+		});	
+	</script>
+    
 </body>
 </html>
