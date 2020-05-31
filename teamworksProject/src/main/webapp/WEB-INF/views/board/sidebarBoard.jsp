@@ -66,8 +66,8 @@
             <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category"></div>
-            <div class="subCate"><a href="">공지사항</a></div>
-            <div class="subCate"><a href="">자유게시판</a></div>
+            <div class="subCate"><a href="list.bo?currentPage=1&cat=1">공지사항</a></div>
+            <div class="subCate"><a href="list.bo?currentPage=1&cat=2">자유게시판</a></div>
           
         </div>
     </div>
