@@ -13,16 +13,16 @@
 		<result column="SCH_DEL_STATUS" property="deleteStatus"/>
 	</resultMap>
 	
-	<select id="selectAllSch" resultMap="scheduleResultSet">
+	<select id="selectAllSch" parameterType="string" resultMap="scheduleResultSet">
 		SELECT *
 		FROM SCHEDULE
-		WHERE EMP_ID IN ('tw101', #{empId}) AND SCH_DEL_STATUS='N'
+		WHERE SCH_DEL_STATUS='N' AND EMP_ID IS NULL or EMP_ID=#{empId}
 	</select>
 	
 	<select id="selectSchDetail" parameterType="_int" resultMap="scheduleResultSet">
 		SELECT *
 		FROM SCHEDULE
-		WHERE 
+		WHERE SCH_DEL_STATUS='N' AND SCH_NO=#{schNo}
 	</select>
 
 </mapper>

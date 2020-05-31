@@ -11,9 +11,9 @@ import com.kh.teamworks.schedule.model.vo.Schedule;
 public class ScheduleDao {
 	
 	
-	public ArrayList<Schedule> selectAllSch(SqlSessionTemplate sqlSession) {
+	public ArrayList<Schedule> selectAllSch(SqlSessionTemplate sqlSession, String empId) {
 		
-		return (ArrayList)sqlSession.selectList("scheduleMapper.selectAllSch");
+		return (ArrayList)sqlSession.selectList("scheduleMapper.selectAllSch", empId);
 	}
 	
 	

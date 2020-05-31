@@ -22,19 +22,19 @@ public class ScheduleController {
 	
 	
 	@RequestMapping("selectAllSch.sc")
-	public ModelAndView selectAllSch(ModelAndView mv) {
+	public ModelAndView selectAllSch(String empId, ModelAndView mv) {
 		
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String today = sdf.format(cal.getTime());
 		
-		ArrayList<Schedule> events = scService.selectAllSch();
+		ArrayList<Schedule> events = scService.selectAllSch(empId);
 		
 		mv.addObject("events", events);
 		mv.addObject("today", today);
 		mv.setViewName("schedule/allScheduleView");
 		
-		//System.out.println(today);
+		//System.out.println(events);
 		
 		return mv;
 	}

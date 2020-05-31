@@ -20,9 +20,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 	
 	// 전체 일정 리스트 조회용 서비스
 	@Override
-	public ArrayList<Schedule> selectAllSch() {
+	public ArrayList<Schedule> selectAllSch(String empId) {
 
-		return scDao.selectAllSch(sqlSession);
+		return scDao.selectAllSch(sqlSession, empId);
 	}
 
 	// 회사 일정 리스트 조회용 서비스

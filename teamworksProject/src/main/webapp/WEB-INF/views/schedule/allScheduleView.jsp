@@ -34,10 +34,10 @@
 	    var events = [];
 	    <c:forEach var="e" items="${events}">
     		events.push({
+    			id:'${e.schNo}',
 	    		title:'${e.schTitle}',
 	    		start:'${e.startDate}',
-	    		end:'${e.endDate}',
-	    		schNo:'${e.schNo}'
+	    		end:'${e.endDate}'
     		});
 	    </c:forEach>
 	    
@@ -52,17 +52,17 @@
 	      eventLimit: true, // allow "more" link when too many events
 	      events: events,
 	      locale: 'ko',
-	      eventClick: function() {
-	        $.ajax({
-	        	url:"",
-	        	data:{schNo:$(this).schNo},
-	        	type:"post",
-	        	success:function(){
-	        		
-	        	},error:function(){
-	        		console.log("이벤트 상세조회용 ajax 통신 실패!");
-	        	}
-	        });
+	      eventClick: function(info) {//info.event.id
+		        $.ajax({
+		        	url:"detail.sc",
+		        	data:{schNo:info.event.id},
+		        	type:"post",
+		        	success:function(sch){
+		        		console.log(sch);
+		        	},error:function(){
+		        		console.log("이벤트 상세조회용 ajax 통신 실패!");
+		        	}
+		        });
 	      }
 	
 	    });

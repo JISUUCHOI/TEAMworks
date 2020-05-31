@@ -7,7 +7,7 @@ import com.kh.teamworks.schedule.model.vo.Schedule;
 public interface ScheduleService {
 	
 	// 전체 일정 리스트 조회용 서비스
-	ArrayList<Schedule> selectAllSch();
+	ArrayList<Schedule> selectAllSch(String empId);
 	
 	// 회사 일정 리스트 조회용 서비스
 	ArrayList<Schedule> selectTeamSch();
