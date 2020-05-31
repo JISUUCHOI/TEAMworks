@@ -37,7 +37,8 @@
   <div class="outer" align="center">
         <br>
         <div class="inner">
-           <form action="" class="form-inline" style="float: right;">
+           <form action="search.bo" class="form-inline" style="float: right;">
+         	<input type="hidden" name="cat" value="1"> 
             <div class="form-group input-group" style="width: 180px;">
                 <span  class="input-group-addon"><i class="far fa-calendar-alt"></i></span>
                 <input id="startDate" type="text" name="start" class="form-control"  readonly > 

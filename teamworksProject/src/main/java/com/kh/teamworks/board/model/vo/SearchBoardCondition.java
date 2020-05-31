@@ -13,9 +13,11 @@ import lombok.ToString;
 @ToString
 public class SearchBoardCondition {
 	
+	private String condition;
 	private String writer;
 	private String title;
 	private String content;
+	private String keyword;
 	private String start;
 	private String end;
 

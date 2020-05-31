@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.teamworks.board.model.service.BoardService;
 import com.kh.teamworks.board.model.vo.BoardDTO;
+import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
 
@@ -33,5 +34,14 @@ public class BoardController {
 		}else {
 			return "board/boardListView";
 		}
+	}
+	
+	@RequestMapping("search.bo")
+	public String searchCondition(SearchBoardCondition sc, int cat, Model model) {
+		
+		System.out.println(sc);
+		System.out.println(cat);
+	
+		return "";
 	}
 }
