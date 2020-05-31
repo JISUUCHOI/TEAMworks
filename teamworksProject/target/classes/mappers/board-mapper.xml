@@ -32,4 +32,40 @@
 		 AND BD_CATEGORY=#{cat}
 		 ORDER BY BOARD_SQ DESC
 	</select>
+	
+	<select id="searchListcount" parameterType="sc" resultType="_int">
+		select count(*)
+          from v_board_list
+         where bd_status = 'Y' and bd_category = #{boardCategory}
+       		<if test="writer != null">
+       			and emp_name like '%'||#{writer}||'%'
+       		</if>
+			<if test="title != null">
+				and bd_title like '%'||#{title}||'%'
+			</if>
+			<if test="content != null">
+				and bd_content like '%'||#{content}||'%'
+			</if>
+			<if test="start != '' and end != ''">
+				and create_date between #{start} and #{end}
+			</if>
+	</select>
+	
+	<select id="searchList" parameterType="sc" resultMap="boardDTOResultSet">
+		select *
+          from v_board_list
+         where bd_status = 'Y' and bd_category = #{boardCategory}
+       		<if test="writer != null">
+       			and emp_name like '%'||#{writer}||'%'
+       		</if>
+			<if test="title != null">
+				and bd_title like '%'||#{title}||'%'
+			</if>
+			<if test="content != null">
+				and bd_content like '%'||#{content}||'%'
+			</if>
+			<if test="start != '' and end != ''">
+				and create_date between #{start} and #{end}
+			</if>
+	</select>
 </mapper>

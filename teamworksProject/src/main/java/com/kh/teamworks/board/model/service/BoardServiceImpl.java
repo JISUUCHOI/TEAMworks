@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.teamworks.board.model.dao.BoardDao;
 import com.kh.teamworks.board.model.vo.BoardDTO;
+import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
 
 @Service("bService")
@@ -26,6 +27,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ArrayList<BoardDTO> selectList(PageInfo pi, int cat) {
 		return bDao.selectList(sqlSession, pi, cat);
+	}
+
+	@Override
+	public int searchListCount(SearchBoardCondition sc) {
+		return bDao.searchListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<BoardDTO> searchList(SearchBoardCondition sc, PageInfo pi) {
+		return bDao.searchList(sqlSession, sc, pi);
 	}
 
 	

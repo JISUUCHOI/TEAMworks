@@ -20,5 +20,6 @@ public class SearchBoardCondition {
 	private String keyword;
 	private String start;
 	private String end;
+	private int boardCategory;
 
 }

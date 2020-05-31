@@ -37,27 +37,34 @@ public class BoardController {
 	}
 	
 	@RequestMapping("search.bo")
-	public String searchCondition(SearchBoardCondition sc , int cat, Model model) {
+	public String searchList(SearchBoardCondition sc , int cat, int currentPage, Model model) {
 		
-		//System.out.println(condition);
-		//System.out.println(keyword);
-		//System.out.println(sc);
-		//System.out.println(cat);
-		
+	
 		switch(sc.getCondition()) {
 		case "writer" : sc.setWriter(sc.getKeyword()); break;
 		case "title" : sc.setTitle(sc.getKeyword()); break;
 		case "content" : sc.setContent(sc.getKeyword()); break;
 		}
 		
+		sc.setBoardCategory(cat);
 		
-		System.out.println(sc);
-		System.out.println(cat);
+		int listCount = bService.searchListCount(sc);
 		
-		if(sc.getStart().equals("")) {
-			System.out.println("ddd");
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<BoardDTO> list = bService.searchList(sc, pi);
+		
+		// System.out.println(sc);
+		// System.out.println(cat);
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		model.addAttribute("sc", sc);
+		
+		if(sc.getBoardCategory()==1) {
+			return "board/noticeListView";
+		}else {
+			return "board/boardListView";
 		}
-		
-		return "";
+	
 	}
 }

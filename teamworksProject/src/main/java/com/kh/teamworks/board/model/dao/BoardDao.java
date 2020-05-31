@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.teamworks.board.model.vo.BoardDTO;
+import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
 
 @Repository("bDao")
@@ -20,5 +21,15 @@ public class BoardDao {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("boardMapper.selectList", cat, rowBounds);
+	}
+	
+	public int searchListCount(SqlSession sqlSession, SearchBoardCondition sc) {
+		return sqlSession.selectOne("boardMapper.searchListcount", sc);
+	}
+	
+	public ArrayList<BoardDTO> searchList(SqlSession sqlSession, SearchBoardCondition sc, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("boardMapper.searchList", sc, rowBounds);
 	}
 }

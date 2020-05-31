@@ -39,6 +39,7 @@
         <div class="inner">
            <form action="search.bo" class="form-inline" style="float: right;">
          	<input type="hidden" name="cat" value="1"> 
+         	<input type="hidden" name="currentPage" value="1"> 
             <div class="form-group input-group" style="width: 180px;">
                 <span  class="input-group-addon"><i class="far fa-calendar-alt"></i></span>
                 <input id="startDate" type="text" name="start" class="form-control"  readonly > 
@@ -48,7 +49,7 @@
                 <span class="input-group-addon"><i class="far fa-calendar-alt"></i></span>
                 <input id="endDate"  type="text" name="end" class="form-control" readonly> 
             </div>
-            <div  class="form-group">
+            <div  class="form-group" id="searchArea">
                 <select class="form-control" name="condition" id=""  style="width: 120px;">
                     <option value="writer">작성자</option>
                     <option value="title">제목</option>
@@ -65,7 +66,16 @@
           </div>
         </form>
         </div>
-       
+       <script type="text/javascript">
+       		$(function(){
+       			switch('${sc.condition}'){
+       			case "writer": $("#searchArea option").eq(0).attr("selected", true);  break;
+				case "title":  $("#searchArea option").eq(1).attr("selected", true);  break;
+				case "content": $("#searchArea option").eq(2).attr("selected", true);  break;
+				 
+       			}
+       		});
+       </script>
         <br><br>
      
         <div class="inner">
@@ -113,35 +123,50 @@
             </table>
             <br>
             <ul class="pagination">
-            	<c:choose>
-            		<c:when test="${ pi.currentPage eq 1 }">
-            			<li class="previous disabled" ><a href="">&lt;</a></li>
-            		</c:when>
-            		<c:otherwise>
-            			<li class="previous"><a href="list.bo?currentPage=${ pi.currentPage - 1 }&cat=1">&lt;</a></li>
-            		</c:otherwise>
-            	</c:choose>
-                
-                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                	<c:choose>
-                		<c:when test="${ p eq pi.currentPage }">
-                			<li class="disabled"><a href="">${ p }</a></li>
-                		</c:when>
-                		<c:otherwise>
-                			<li class=""><a href="list.bo?currentPage=${ p }&cat=1">${ p }</a></li>
-                		</c:otherwise>
-                	</c:choose>
-                </c:forEach>
-                
-              	<c:choose>
-            		<c:when test="${ pi.currentPage eq pi.maxPage }">
-            			<li class="next disabled" ><a href="">&gt;</a></li>
-            		</c:when>
-            		<c:otherwise>
-            			<li class="next"><a href="list.bo?currentPage=${ pi.currentPage + 1 }&cat=1">&gt;</a></li>
-            		</c:otherwise>
-            	</c:choose>
-
+            	<c:if test="${ pi.currentPage ne 1 }">
+            		<c:choose>
+            			<c:when test="${ empty sc }">
+            				<li class="previous"><a href="list.bo?currentPage=${ pi.currentPage - 1 }&cat=1">&lt;</a></li>
+            			</c:when>
+            			<c:otherwise>
+            				<li class="previous">
+            				<a href="search.bo?currentPage=${ pi.currentPage -1 }&cat=1&sc=${ sc }">&lt;</a>
+            				</li>
+            			</c:otherwise>
+            		</c:choose>
+            	
+            	</c:if>
+            	
+            	 <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+            	 	<c:choose>
+            	 		<c:when test="${ p eq pi.currentPage }">
+            	 			<li class="disabled"><a href="">${ p }</a></li>
+            	 		</c:when>
+            	 		<c:otherwise>
+            	 			<c:choose>
+	            	 			<c:when test="${ empty sc }">
+	            					<li class=""><a href="list.bo?currentPage=${ p }&cat=1">${ p }</a></li>
+	            				</c:when>
+	            				<c:otherwise>
+	            					<li class="previous">
+	            						<a href="search.bo?currentPage=${ p }&cat=1&sc=${ sc }">${ p }</a>
+	            					</li>
+	            				</c:otherwise>
+            				</c:choose>
+            	 		</c:otherwise>
+            	 	</c:choose>
+            	 </c:forEach>
+            	
+            	<c:if test="${ pi.currentPage ne pi.maxPage }">
+            		<c:choose>
+						<c:when test="${ empty sc }">
+							<li class="next"><a href="list.bo?currentPage=${ pi.currentPage + 1 }&cat=1">&gt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="next"><a href="search.bo?currentPage=${ pi.currentPage + 1 }&cat=1&sc=${ sc }"></a></li>
+						</c:otherwise>        		
+            		</c:choose>
+            	</c:if>
             </ul>
         </div>
     </div>
