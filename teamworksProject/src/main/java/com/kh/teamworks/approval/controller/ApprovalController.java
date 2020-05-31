@@ -80,11 +80,7 @@ public class ApprovalController {
 
 			return new Gson().toJson(schEmp);
 			
-		}
-	
-	
-	
-	
+		}	
 	// Document insert
 	@RequestMapping("proofInsert.ap")
 	public String insertProof(Document d, Model model, HttpSession session) {
@@ -107,6 +103,9 @@ public class ApprovalController {
 	   
 		
 	}
+	
+	// 결재선 insert
+	
 	
 	
 

@@ -386,7 +386,7 @@
 	        <form id="docForm"  action="proofInsert.ap" method="post">
 	            <!-- 버튼들 -->
 	            <div id="btns">
-	                <button type="button" id="approveLineBtn">결재선</button>
+	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#refEmp">결재선</button>
 	                <button type="submit" id="approveBtn">결재요청</button>
 	                <button type="button" id="cancelBtn">취소</button>
 	            </div>
@@ -444,7 +444,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" placeholder="내용을 입력해주세요" required></td>
 	                </tr>
 	            </table>
 				
@@ -481,7 +481,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">용도</td>
-	                    <td colspan="3"><input type="text" id="titleInput"  name="pfPurpose" placeholder="내용을 입력해주세요"></td>
+	                    <td colspan="3"><input type="text" id="titleInput"  name="pfPurpose" placeholder="내용을 입력해주세요" required></td>
 	                </tr>
                 </table>
 	        </form>
@@ -496,6 +496,10 @@
 		            <div class="modal-header">
 		                <h6 class="modal-title">참조자</h6>
 		            </div>
+		            
+		            
+		            
+		            
 		
 	                <!-- Modal Body -->
 	                <div class="modal-body">
