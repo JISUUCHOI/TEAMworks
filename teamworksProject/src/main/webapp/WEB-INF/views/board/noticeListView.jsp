@@ -44,12 +44,12 @@
          	<input type="hidden" name="currentPage" value="1"> 
             <div class="form-group input-group" style="width: 180px;">
                 <span  class="input-group-addon"><i class="far fa-calendar-alt"></i></span>
-                <input id="startDate" type="text" name="start" class="form-control"  readonly > 
+                <input id="startDate" type="text" name="start" value="${ sc.start }" class="form-control"  readonly > 
             </div>
             <div class="form-group">~</div>
             <div class="input-group" style="width: 180px;">
                 <span class="input-group-addon"><i class="far fa-calendar-alt"></i></span>
-                <input id="endDate"  type="text" name="end" class="form-control" readonly> 
+                <input id="endDate"  type="text" name="end" value="${sc.end}" class="form-control" readonly> 
             </div>
             <div  class="form-group" id="searchArea">
                 <select class="form-control" name="condition" id=""  style="width: 120px;">
@@ -130,8 +130,16 @@
             				<li class="previous"><a href="list.bo?currentPage=${ pi.currentPage - 1 }&cat=1">&lt;</a></li>
             			</c:when>
             			<c:otherwise>
+            					<c:url value="search.bo" var="searchUrl">
+										<c:param name="condition" value="${ sc.condition }"/>
+										<c:param name="keyword" value="${ sc.keyword }"/>
+										<c:param name="start" value="${ sc.start }"/>
+										<c:param name="end" value="${ sc.end }"/>
+										<c:param name="cat" value="1"/>
+										<c:param name="currentPage" value="${  pi.currentPage -1 }"/>
+								</c:url>
             				<li class="previous">
-            				<a href="search.bo?currentPage=${ pi.currentPage -1 }&cat=1&sc=${ sc }">&lt;</a>
+            				<a href="${ searchUrl }">&lt;</a>
             				</li>
             			</c:otherwise>
             		</c:choose>
@@ -149,8 +157,16 @@
 	            					<li class=""><a href="list.bo?currentPage=${ p }&cat=1">${ p }</a></li>
 	            				</c:when>
 	            				<c:otherwise>
-	            					<li class="previous">
-	            						<a href="search.bo?currentPage=${ p }&cat=1&sc=${ sc }">${ p }</a>
+	            					<c:url value="search.bo" var="searchUrl">
+										<c:param name="condition" value="${ sc.condition }"/>
+										<c:param name="keyword" value="${ sc.keyword }"/>
+										<c:param name="start" value="${ sc.start }"/>
+										<c:param name="end" value="${ sc.end }"/>
+										<c:param name="cat" value="1"/>
+										<c:param name="currentPage" value="${ p }"/>
+									</c:url>
+	            					<li class="">
+	            						<a href="${searchUrl}">${ p }</a>
 	            					</li>
 	            				</c:otherwise>
             				</c:choose>
@@ -164,7 +180,17 @@
 							<li class="next"><a href="list.bo?currentPage=${ pi.currentPage + 1 }&cat=1">&gt;</a></li>
 						</c:when>
 						<c:otherwise>
-							<li class="next"><a href="search.bo?currentPage=${ pi.currentPage + 1 }&cat=1&sc=${ sc }">&gt;</a></li>
+							<c:url value="search.bo" var="searchUrl">
+										<c:param name="condition" value="${ sc.condition }"/>
+										<c:param name="keyword" value="${ sc.keyword }"/>
+										<c:param name="start" value="${ sc.start }"/>
+										<c:param name="end" value="${ sc.end }"/>
+										<c:param name="cat" value="1"/>
+										<c:param name="currentPage" value="${  pi.currentPage + 1  }"/>
+							</c:url>
+							<li class="next">
+							<a href="${ searchUrl }">&gt;</a>
+							</li>
 						</c:otherwise>        		
             		</c:choose>
             	</c:if>

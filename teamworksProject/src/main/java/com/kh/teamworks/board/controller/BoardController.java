@@ -39,11 +39,18 @@ public class BoardController {
 	@RequestMapping("search.bo")
 	public String searchList(SearchBoardCondition sc , int cat, int currentPage, Model model) {
 		
-	
-		switch(sc.getCondition()) {
-		case "writer" : sc.setWriter(sc.getKeyword()); break;
-		case "title" : sc.setTitle(sc.getKeyword()); break;
-		case "content" : sc.setContent(sc.getKeyword()); break;
+		
+		if(sc.getKeyword()!=null) {
+			switch(sc.getCondition()) {
+			case "writer" : sc.setWriter(sc.getKeyword()); break;
+			case "title" : sc.setTitle(sc.getKeyword()); break;
+			case "content" : sc.setContent(sc.getKeyword()); break;
+			}
+			
+		}else {
+			sc.setWriter(null);
+			sc.setTitle(null);
+			sc.setContent(null);
 		}
 		
 		sc.setBoardCategory(cat);

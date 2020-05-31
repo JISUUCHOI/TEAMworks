@@ -49,6 +49,7 @@
 			<if test="start != '' and end != ''">
 				and create_date between #{start} and #{end}
 			</if>
+		
 	</select>
 	
 	<select id="searchList" parameterType="sc" resultMap="boardDTOResultSet">
@@ -67,5 +68,6 @@
 			<if test="start != '' and end != ''">
 				and create_date between #{start} and #{end}
 			</if>
+		order by board_sq desc
 	</select>
 </mapper>
