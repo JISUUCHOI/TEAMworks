@@ -41,7 +41,7 @@ public class ScheduleController {
 	
 	
 	@ResponseBody
-	@RequestMapping("detail.sc")
+	@RequestMapping(value="detail.sc", produces="application/json; charset=utf-8")
 	public String selectSchDetail(int schNo) {
 		
 		Schedule sch = scService.selectSchDetail(schNo);

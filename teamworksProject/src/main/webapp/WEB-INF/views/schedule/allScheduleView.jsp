@@ -13,6 +13,7 @@
 <script src='js/interactionMain.js'></script>
 <script src='js/daygridMain.js'></script>
 <script src='js/ko.js'></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 
   body {
