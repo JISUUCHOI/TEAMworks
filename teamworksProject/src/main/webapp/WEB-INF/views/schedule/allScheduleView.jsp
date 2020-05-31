@@ -15,7 +15,8 @@
 <script src='js/ko.js'></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
-
+	@font-face { font-family: 'JSDongkang-Regular'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSDongkang-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
+	@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
   body {
 /*     margin: 40px 10px;
     padding: 0; */
@@ -26,6 +27,17 @@
   #calendar {
     max-width: 900px;
     margin: 0 auto;
+    float:left; 
+    border:1px solid black; 
+    margin-left:180px;
+  }
+  
+  .rightArea {
+  	font-family:'Handon3gyeopsal300g';
+  	float:right; 
+  	border:1px solid #f2f2f2; 
+  	width:400px; 
+  	height:720px;
   }
 
 </style>
@@ -54,7 +66,14 @@
 	      events: events,
 	      locale: 'ko',
 	      eventClick: function(info) {//info.event.id
-		        $.ajax({
+	    	  
+/* 	    	  $('#detailTable tr:first td').text(info.event.id);
+	    	  $('#detailTable tr:nth-child(2) td').text(info.event.title);
+	    	  $('#detailTable tr:nth-child(3) td').text(info.event.start);
+	    	  $('#detailTable tr:nth-child(4) td').text(info.event.end);
+	    	  $('#detailTable tr:nth-child(5) td').text(info.event.id); */
+	    	  
+/* 		        $.ajax({
 		        	url:"detail.sc",
 		        	data:{schNo:info.event.id},
 		        	type:"post",
@@ -63,7 +82,7 @@
 		        	},error:function(){
 		        		console.log("이벤트 상세조회용 ajax 통신 실패!");
 		        	}
-		        });
+		        }); */
 	      }
 	
 	    });
@@ -78,8 +97,36 @@
 	
 	<br><br>
 
-	<div style="width:1250px; float:left;">
+	<div style="width:1500px; float:left;">
 		<div id='calendar'></div>
+		<div class="rightArea" id="detailForm">
+			<h1>일정 상세보기</h1>
+			<table id="detailTable" border="1">
+				<tr>
+					<th>분류</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>일정 제목</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>일정 시작일</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>일정 종료일</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>일정 내용</th>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<div class="rightArea" id="updateForm">
+		
+		</div>
 	</div>
 	
 	

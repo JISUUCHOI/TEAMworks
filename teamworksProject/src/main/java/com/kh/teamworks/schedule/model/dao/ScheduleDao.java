@@ -17,9 +17,9 @@ public class ScheduleDao {
 	}
 	
 	
-	public Schedule selectSchDetail(SqlSessionTemplate sqlSession, int schNo) {
+	public ArrayList<Schedule> selectSchDetail(SqlSessionTemplate sqlSession, int schNo) {
 		
-		return sqlSession.selectOne("scheduleMapper.selectSchDetail", schNo);
+		return (ArrayList)sqlSession.selectList("scheduleMapper.selectSchDetail", schNo);
 	}
 
 }

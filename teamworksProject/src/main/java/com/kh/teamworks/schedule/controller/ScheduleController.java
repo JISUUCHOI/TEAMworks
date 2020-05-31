@@ -7,6 +7,7 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,10 +42,10 @@ public class ScheduleController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="detail.sc", produces="application/json; charset=utf-8")
+	@RequestMapping(value="detail.sc", produces="application/json; charset=utf-8", method=RequestMethod.POST)
 	public String selectSchDetail(int schNo) {
 		
-		Schedule sch = scService.selectSchDetail(schNo);
+		ArrayList<Schedule> sch = scService.selectSchDetail(schNo);
 		
 		return new Gson().toJson(sch);
 	}
