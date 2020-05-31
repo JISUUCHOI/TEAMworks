@@ -37,11 +37,27 @@ public class BoardController {
 	}
 	
 	@RequestMapping("search.bo")
-	public String searchCondition(SearchBoardCondition sc, int cat, Model model) {
+	public String searchCondition(SearchBoardCondition sc , int cat, Model model) {
+		
+		//System.out.println(condition);
+		//System.out.println(keyword);
+		//System.out.println(sc);
+		//System.out.println(cat);
+		
+		switch(sc.getCondition()) {
+		case "writer" : sc.setWriter(sc.getKeyword()); break;
+		case "title" : sc.setTitle(sc.getKeyword()); break;
+		case "content" : sc.setContent(sc.getKeyword()); break;
+		}
+		
 		
 		System.out.println(sc);
 		System.out.println(cat);
-	
+		
+		if(sc.getStart().equals("")) {
+			System.out.println("ddd");
+		}
+		
 		return "";
 	}
 }
