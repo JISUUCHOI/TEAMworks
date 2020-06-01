@@ -687,20 +687,35 @@
 				
 			});
 			
-			/* 적용, 취소 버튼 */
+			/* 적용 버튼 */
 			$("#lineApplyBtn").click(function(){
 				var refedEmp = $('.refedEmpName').text();
 				var refedId = $('.refedEmpId').text();
 				$("#refSch").val(refedEmp);
 				$("#refedId").val(refedId);
+				$("#schInput").val("");
 				
+				$('#empList>tbody>tr').remove();
 				$('#refEmpArea tr').remove();
 				$('#refEmp').modal("hide");
+				
+				$("input:checkbox[name=refChk]").prop("checked", false);
+				$("input:checkbox[name=checkBox]").prop("checked", false);
+				$('.tree3').slideUp();
+				$('.tree2').slideUp();
 			});
 
+			/* 취소 버튼 */
 			$("#lineCancelBtn").click(function(){
 				$('#refEmpArea tr').remove();
 				$('#empList>tbody>tr').remove();
+				$("#schInput").val("");
+				
+				$("input:checkbox[name=refChk]").prop("checked", false);
+				$("input:checkbox[name=checkBox]").prop("checked", false);
+				$('.tree3').slideUp();
+				$('.tree2').slideUp();
+				
 				$("#schInput").val("");
 				$('#refEmp').modal("hide");
 			});

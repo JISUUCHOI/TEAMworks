@@ -26,5 +26,9 @@ public interface ReqApprovalService {
 	// 4. 휴가신청서 insert
 	int insertVacation(Document d);
 	
+	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
+	/*
+	ArrayList<Document> selectDocList(int approveStatus);
+	*/
 	
 }

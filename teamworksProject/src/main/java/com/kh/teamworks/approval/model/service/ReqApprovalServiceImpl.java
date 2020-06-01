@@ -55,7 +55,14 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 	public int insertVacation(Document d) {
 		return raDao.insertVacation(sqlSession, d);
 	}
-	
+
+	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
+	/*
+	@Override
+	public ArrayList<Document> selectDocList(int approveStatus) {
+		return raDao.selectDocList(sqlSession, approveStatus);
+	}
+	*/
 	
 	
 }
