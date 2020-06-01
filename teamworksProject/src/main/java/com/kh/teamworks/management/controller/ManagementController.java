@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.teamworks.management.model.service.ManagementService;
 
-@Controller
+//@Controller
 public class ManagementController {
 	
 	@Autowired
-	private ManagementService mgService;
+	//private ManagementService mgService;
 	
-	@RequestMapping("companyInfo.mg")
+	//@RequestMapping("companyInfo.mg")
 	public String selectCompanyInfo(Model model){
 		
 		CompanyInfo = 
