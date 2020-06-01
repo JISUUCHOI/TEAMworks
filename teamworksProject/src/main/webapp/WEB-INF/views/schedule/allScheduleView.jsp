@@ -69,7 +69,8 @@
     			id:'${e.schNo}',
 	    		title:'${e.schTitle}',
 	    		start:'${e.startDate}',
-	    		end:'${e.endDate}'
+	    		end:'${e.endDate}',
+	    		constraint:'${e.schCategory}'
     		});
 	    </c:forEach>
 	    
@@ -99,10 +100,17 @@
 			    	    $('#detailTable tr:nth-child(3) td').text(sch.startDate);
 			    	    $('#detailTable tr:nth-child(4) td').text(sch.endDate);
 			    	    $('#detailTable tr:nth-child(5) td').text(sch.schContent);
+		        		
+		        		if(sch.schCategory == "개인"){
+		        			var value = '<button class="btn btn-primary" onclick="postFormSubmit(1);">수정</button><button class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>';
+		        			$('.modal-footer').html(value);
+		        		}else{
+		        			var value='<button class="btn btn-danger" data-dismiss="modal">취소</button>';
+		        			$('.modal-footer').html(value);
+		        		}
+		        		
 		                $('#detailModal').modal('show'); // Display Modal
 		        		
-		        		<c:set var="schCategory" value="$('#category').text()"/>
-		        		console.log(${schCategory});
 		        		
 		        	},error:function(){
 		        		console.log("이벤트 상세조회용 ajax 통신 실패");
@@ -164,17 +172,7 @@
 	            </div>
             
 	            <!-- Modal footer -->
-	            <div class="modal-footer">
-	                <c:choose>
-		                <c:when test="${ schCategory eq '개인' }">
-			                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정</button>
-		                	<button class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>
-		            	</c:when>
-		            	<c:otherwise>
-		            		<button class="btn btn-danger" data-dismiss="modal">취소</button>
-		            	</c:otherwise>
-	            	</c:choose>
-	            </div>
+	            <div class="modal-footer"></div>
 	            
 	            <form action="" id="postForm" method="post">
 	            	<input type="hidden" name=""> <!-- schNo 넘겨야됨 -->
