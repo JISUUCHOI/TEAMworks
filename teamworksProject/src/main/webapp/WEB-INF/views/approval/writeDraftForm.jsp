@@ -395,7 +395,8 @@
 	            </table>
 	
 	            <!--썸머노트-->
-	            <div id="summernote" name="docContent"></div>
+	            <textarea id="summernote" name="docContent"></textarea>
+	            <div id="summernote">Hello Summernote</div>
 				
 				
 				<script>
