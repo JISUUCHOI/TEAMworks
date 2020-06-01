@@ -77,7 +77,7 @@
 	
 	/* 문서 리스트 */
 	.docList tr{
-	    height:30px;
+	    height:40px;
 	}
 	.docList, .docList>tbody>tr{
 	    border-top: 1px solid lightgrey;

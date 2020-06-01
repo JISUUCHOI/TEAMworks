@@ -23,8 +23,10 @@ public class requestApprovalController {
 	private ReqApprovalService raService;
 	
 	// 1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) & 조직도 select
-	@RequestMapping("familyEvent.rap")
-	public String selectEmpInfo(HttpServletRequest request, Model model) {
+	@RequestMapping("insertDoc.rap")
+	public String selectEmpInfo(HttpServletRequest request, Model model, String doc) {
+		
+		System.out.println(doc);
 		
 		// 1_1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) select
 		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
@@ -40,8 +42,12 @@ public class requestApprovalController {
 		model.addAttribute("dept", dept);
 		model.addAttribute("list", list);
 		
-		// if/else구문 걸어서 화면단에서 넘어온 값이 경조사면 familyEvetForm으로 return, 휴가면 vacationForm으로 return		
-		return "approval/familyEventForm";
+		// if/else구문 걸어서 화면단에서 넘어온 값이 경조사면 familyEvetForm으로 return, 휴가면 vacationForm으로 return
+		if(doc.equals("경조비신청서")) {
+			return "approval/familyEventForm";
+		}else {
+			return "approval/vacationForm";
+		}
 	}
 	
 	// 2. 결재선/참조자 사원 검색 select
@@ -87,10 +93,11 @@ public class requestApprovalController {
 	
 	
 	// 휴가신청서
+	/*
 	@RequestMapping("vacation.rap")
 	public String vacationForm() {
 		//selectEmpInfo(request, model);
 		return "approval/vacationForm";
 	}
-	
+	*/
 }
