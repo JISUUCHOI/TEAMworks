@@ -84,15 +84,14 @@
 	      eventLimit: true, // allow "more" link when too many events
 	      events: events,
 	      locale: 'ko',
-	      eventClick: function(info) {//info.event.id
-	    	  
+	      eventClick: function(info) { //info.event.id
+	    	  	
  		        $.ajax({
 		        	url:"detail.sc",
 		        	data:{schNo:info.event.id},
 		        	type:"post",
 		        	success:function(sch){
-		        		console.log(sch);
-
+		        		
 		                // Add response in Modal body
 		                //$('.modal-body').html("로그인 성공");
 				        $('#detailTable tr:first td').text(sch.schCategory);
@@ -101,6 +100,9 @@
 			    	    $('#detailTable tr:nth-child(4) td').text(sch.endDate);
 			    	    $('#detailTable tr:nth-child(5) td').text(sch.schContent);
 		                $('#detailModal').modal('show'); // Display Modal
+		        		
+		        		<c:set var="schCategory" value="$('#category').text()"/>
+		        		console.log(${schCategory});
 		        		
 		        	},error:function(){
 		        		console.log("이벤트 상세조회용 ajax 통신 실패");
@@ -140,7 +142,7 @@
 	                <table id="detailTable">
 	                	<tr height="15%">
 	                		<th>분류</th>
-	                		<td></td>
+	                		<td id="category"></td>
 	                	</tr>
 	                	<tr height="15%">
 	                		<th>일정 제목</th>
@@ -163,9 +165,31 @@
             
 	            <!-- Modal footer -->
 	            <div class="modal-footer">
-	                <button type="submit" class="btn btn-primary">수정</button>
-	                <button type="button" class="btn btn-danger" data-dismiss="modal">삭제</button>
+	                <c:choose>
+		                <c:when test="${ schCategory eq '개인' }">
+			                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정</button>
+		                	<button class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>
+		            	</c:when>
+		            	<c:otherwise>
+		            		<button class="btn btn-danger" data-dismiss="modal">취소</button>
+		            	</c:otherwise>
+	            	</c:choose>
 	            </div>
+	            
+	            <form action="" id="postForm" method="post">
+	            	<input type="hidden" name=""> <!-- schNo 넘겨야됨 -->
+	            </form>
+	            
+	            <script>
+	            	function postFormSubmit(num) {
+	            		if(num == 1) {	// 수정하기 클릭 시
+	            			//$("#postForm").attr("action", "updateForm.bo");
+	            		}else {	// 삭제하기 클릭 시
+	            			//$("#postForm").attr("action", "delete.bo");
+	            		}
+	            		$("#postForm").submit();
+	            	}
+	            </script>
             </div>
         </div>
     </div>
