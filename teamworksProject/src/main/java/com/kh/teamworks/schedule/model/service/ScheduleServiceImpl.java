@@ -64,7 +64,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public int deleteSch(int schNo) {
 
-		return 0;
+		return scDao.deleteSch(sqlSession, schNo);
 	}
 
 }

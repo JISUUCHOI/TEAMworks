@@ -109,6 +109,8 @@
 		        			$('.modal-footer').html(value);
 		        		}
 		        		
+		        		$("#inputSchNo").attr("value", sch.schNo);
+		        		
 		                $('#detailModal').modal('show'); // Display Modal
 		        		
 		        		
@@ -175,16 +177,18 @@
 	            <div class="modal-footer"></div>
 	            
 	            <form action="" id="postForm" method="post">
-	            	<input type="hidden" name=""> <!-- schNo 넘겨야됨 -->
+	            	<input type="hidden" name="schNo" id="inputSchNo" value=""> <!-- schNo 넘겨야됨 -->
+	            	<input type="hidden" name="empId" value="${loginUser.empId }">
 	            </form>
 	            
 	            <script>
 	            	function postFormSubmit(num) {
 	            		if(num == 1) {	// 수정하기 클릭 시
-	            			//$("#postForm").attr("action", "updateForm.bo");
+	            			//$("#postForm").attr("action", "updateSch.sc");
 	            		}else {	// 삭제하기 클릭 시
-	            			//$("#postForm").attr("action", "delete.bo");
+	            			$("#postForm").attr("action", "deleteSch.sc");
 	            		}
+	            		
 	            		$("#postForm").submit();
 	            	}
 	            </script>
