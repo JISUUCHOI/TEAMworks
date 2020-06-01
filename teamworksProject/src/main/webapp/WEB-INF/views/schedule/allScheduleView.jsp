@@ -37,15 +37,27 @@
   
   /* 모달 관련 style */
   .modal-content {
-  	width:400px;
+  	width:450px;
   	height:500px;
   }
   #detailTable {
   	width:400px;
   	height:300px;
   	font-size:17px;
+  	table-layout:fixed;
   }
-  #detailTable th{width:90px;}
+  #detailTable th{
+  	width:100px;
+  	padding-left:3px;
+  }
+  #detailTable td {
+  	overflow:auto;
+	word-wrap:break-word;
+  }
+  td.textOverDefault {
+  	white-space : normal;
+  	text-overflow: clip;
+  }
 
 </style>
 </head>
@@ -125,10 +137,6 @@
 
 	            <!-- Modal Body -->
 	            <div class="modal-body">
-<!-- 	                <label for="userId" class="mr-sm-2">ID :</label>
-	                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="userId"> <br>
-	                <label for="userPwd" class="mr-sm-2">Password:</label>
-	                <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter password" id="userPwd"> -->
 	                <table id="detailTable">
 	                	<tr height="15%">
 	                		<th>분류</th>
@@ -147,8 +155,8 @@
 	                		<td></td>
 	                	</tr>
 	                	<tr height="40%">
-	                		<th>일정 내용</th>
-	                		<td></td>
+	                		<th style="vertical-align:top; padding-top:10px;">일정 내용</th>
+	                		<td style="vertical-align:top; padding-top:10px;"></td>
 	                	</tr>
 	                </table>
 	            </div>
