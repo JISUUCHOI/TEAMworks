@@ -117,7 +117,7 @@
 	                    <td style="text-align:center;">1</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form"><a href="writeDaft.ap">기안서</a></td>
+	                    <td style="padding-left:40px;" class="form"><a href="insertDoc.ap?doc=기안서">기안서</a></td>
 	                </tr>
 	                <tr >
 	                    <td style="text-align:center;">2</td>
@@ -135,7 +135,7 @@
 	                    <td style="text-align:center;">4</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">경영지원</td>
-	                    <td style="padding-left:40px;" class="form"><a href="proof.ap">제증명 신청서</a></td>
+	                    <td style="padding-left:40px;" class="form"><a href="insertDoc.ap?doc=제증명신청서">제증명 신청서</a></td>
 	                </tr>
 	                <tr>
 	                    <td style="text-align:center;">5</td>

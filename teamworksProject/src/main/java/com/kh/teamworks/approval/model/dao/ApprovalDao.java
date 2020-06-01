@@ -11,10 +11,6 @@ import com.kh.teamworks.employee.model.vo.Employee;
 
 @Repository("aDao")
 public class ApprovalDao {
-
-	public int insertProof(SqlSessionTemplate sqlSession, Document d) {
-		return sqlSession.insert("documentMapper.insertProof", d);
-	}
 	
 	// 1_1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) select
 	public Employee selectEmpInfo(SqlSessionTemplate sqlSession, String empId) {
@@ -34,6 +30,16 @@ public class ApprovalDao {
 	// 2. 결재선/참조자 사원 검색 select
 	public ArrayList<Employee> selectEmpSch(SqlSessionTemplate sqlSession, ApproveSearchCondition sc) {
 		return (ArrayList)sqlSession.selectList("documentMapper.selectEmpSch", sc);
+	}
+
+	// 제증명신청서 insert
+	public int insertProof(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.insert("documentMapper.insertProof", d);
+	}
+	
+	// 기안서 insert
+	public int insertDraft(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.insert("documentMapper.insertDraft", d);
 	}
 
 }

@@ -19,12 +19,6 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Autowired
 	private ApprovalDao aDao;
 	
-
-	@Override
-	public int insertProof(Document d) {
-		return aDao.insertProof(sqlSession, d);
-	}
-	
 	// 1_1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) select
 	@Override
 	public Employee selectEmpInfo(String empId) {
@@ -47,6 +41,18 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Override
 	public ArrayList<Employee> selectEmpSch(ApproveSearchCondition sc) {
 		return aDao.selectEmpSch(sqlSession, sc);
+	}
+
+	// 제증명 insert
+	@Override
+	public int insertProof(Document d) {
+		return aDao.insertProof(sqlSession, d);
+	}
+	
+	// 기안서 insert
+	@Override
+	public int insertDraft(Document d) {
+		return aDao.insertDraft(sqlSession, d);
 	}
 }
 

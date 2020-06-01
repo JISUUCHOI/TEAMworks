@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.kh.teamworks.approval.model.service.ApprovalService;
+import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.employee.model.vo.Employee;
@@ -31,17 +32,13 @@ public class ApprovalController {
 		return "approval/selectApprovalForm";
 	}
 	
-	// 기안문작성
-	@RequestMapping("writeDaft.ap")
-	public String writeDaftForm() {
-		return "approval/writeDraftForm";
-	}
+
 	
 
 	
 	// 1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) & 조직도 select
-	@RequestMapping("proof.ap")
-	public String selectEmpInfo(HttpServletRequest request, Model model) {
+	@RequestMapping("insertDoc.ap")
+	public String selectEmpInfo(HttpServletRequest request, Model model, String doc) {
 		
 		// 1_1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) select
 		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
@@ -58,7 +55,11 @@ public class ApprovalController {
 		model.addAttribute("list", list);
 		
 		// if/else구문 걸어서 화면단에서 넘어온 값이 경조사면 familyEvetForm으로 return, 휴가면 vacationForm으로 return		
-		return "approval/proofForm";
+		if(doc.equals("기안서")) {
+			return "approval/writeDraftForm";
+		}else {
+			return "approval/proofForm";
+		}
 	}
 	
 	// 2. 결재선/참조자 사원 검색 select
@@ -81,28 +82,36 @@ public class ApprovalController {
 			return new Gson().toJson(schEmp);
 			
 		}	
-	// Document insert
+	// 제증명신청서 insert
 	@RequestMapping("proofInsert.ap")
 	public String insertProof(Document d, Model model, HttpSession session) {
 		
-
-		//model.addAttribute("titleInput", titleInput);
-		
-		 System.out.println(d);
-		
-		
+		 // System.out.println(d);
+				
 	     int result = aService.insertProof(d);
 	  
-	   if(result > 0) {
-	    	
-	    	return "redirect:proof.ap";
+	   if(result > 0) {	    	
+	    	model.addAttribute("msg", "제출완료");
+		   return "approval/selectApprovalForm";
 	    }else {
-	    	return "redirect:proof.ap";
-	    }
-	   
-	   
-		
+	    	return "common/errorPage";
+	    }	
 	}
+	
+	// 기안서 insert
+	@RequestMapping("draftInsert.ap")
+	public String insertDraft(Document d, Model model, HttpSession session) {
+		
+		 System.out.println(d);
+				
+	     int result = aService.insertDraft(d);
+	  
+	   if(result > 0) {	    	
+	    	model.addAttribute("msg", "제출완료");
+		   return "approval/selectApprovalForm";
+	    }else {
+	    	return "common/errorPage";
+	    }
 	
 	// 결재선 insert
 	
@@ -118,4 +127,5 @@ public class ApprovalController {
 	
 	
 	
+	}
 }
