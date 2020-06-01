@@ -1,15 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*, java.text.SimpleDateFormat"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	Date today = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+	String now = sf.format(today);
+	
+	Calendar week = Calendar.getInstance();
+	week.add(Calendar.DATE, +7);
+	String docEnd = new SimpleDateFormat("yyyy-MM-dd").format(week.getTime());
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>기안서작성</title>
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<title>경조비 신청서</title>
+<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+<!-- jQuery 라이브러리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 부트스트랩에서 제공하고 있는 스타일 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- 부트스트랩에서 제공하고 있는 스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
 	/* 전체윤곽 */
 	html, body{height:100%;}
@@ -84,9 +97,9 @@
 	    text-align:center;
 	    font-size:13px;
 	}
-	#refSch, #apprveEndDate{
-	    width:120px;
-	    height:20px;
+	#refSch {
+	    width:175px;
+	    height:26px;
 	    margin-left:10px;
 	}
 	#refBtn:hover{
@@ -95,7 +108,7 @@
 	}
 	#titleInput{
 	    width:580px;
-	    height:20px;
+	    height:26px;
 	    margin-left:10px;
 	}
 	#refBtn{
@@ -108,10 +121,14 @@
 	    margin-right:10px;
 	    font-size:12px;
 	}
+	.readInput{
+		width:75px;
+		border:none;
+	}
 	
 	/* 경조비신청서 */
 	#familyEventTb input, #familyEventTb span{
-	    height:20px;
+	    height:26px;
 	    float:left;
 	    margin-left:10px;
 	}
@@ -120,16 +137,197 @@
 	    height:25px;
 	    width:70px;
 	}
-	#feName, #fePrice, #feDate, #feStartDate, #feEndDate, #feAccountName{
+	#feName, #fePrice, #feDate, #feBank, #feAccountName{
 	    width:120px;
 	}
 	#fePlace{
 	    width:300px;
 	}
-	#feAccount{
+	#feAccount, #feStartDate, #feEndDate{
 	    width: 170px;
 	}
 
+
+	/* 참조 모달용 스타일!!!! */
+    /* 전체윤곽 */
+    #approveLineOuter{
+        width:700px;
+        height:500px;
+        margin:auto;
+    }
+    /* 조직도 */
+    #orgChart{
+        width:50px;
+        height:30px;
+        float:left;
+        border:none;
+        background:rgb(7, 53, 90);
+        color:white;
+        font-family:'Handon3gyeopsal300g';
+        cursor:pointer;
+        font-size:12px;
+        float:left;
+    }
+    #sch{
+        width:50px;
+        height:30px;
+        border:1px solid rgb(7, 53, 90);
+        background:white;
+        color:rgb(7, 53, 90);
+        font-family:'Handon3gyeopsal300g';
+        cursor:pointer;
+        font-size:12px;
+    }
+
+    #chart-container, #sch-container{
+        width:300px;
+        height:450px;
+        border:1px solid rgb(7, 53, 90);
+        font-family: 'Handon3gyeopsal300g';
+        float:left;
+        font-size:13px;
+    }
+    .tree1, .tree2, .tree3{cursor:pointer;}
+    .tree1{
+        margin:10px 0px 5px 15px;
+    }
+    .tree2{
+        margin:10px 0px 5px 45px;
+        display:none;
+    }
+    .tree31, .tree32{
+        margin-top:2px;
+        margin-left:50px;
+        display:none;
+    }
+    .tree31>span, .tree32>span{
+        line-height:180%;
+    }
+    /* 검색 */
+    #schBox{
+        width:270px;
+        height:55px;
+        border:1px solid rgb(7, 53, 90);
+        margin:10px 10px 5px 13px;
+        padding:10px 0px 0px 15px;
+    }
+    #schInput{
+        width:150px;
+        height:28px;
+    }
+    #schBtn{
+        width:40px;
+        height:28px;
+        background: rgb(7, 53, 90);
+        color:white;
+        border:none;
+        font-size:12px;
+    }
+    #schBtn:hover{
+        background:lightsteelblue;
+        cursor:pointer;
+    }
+    #empListArea{
+        width:280px;
+        height:300px;
+        margin-left:10px;
+    }
+
+    #empList{
+        margin-top:20px;
+        margin-left:5px;
+        text-align:center;
+    }
+    #empList, #empList>tbody>tr{
+        border-top: 1px solid lightgrey;
+        border-bottom: 1px solid lightgrey;
+        border-collapse: collapse;
+        font-size:12px;
+    }
+    #empList th{text-align:center;}
+    #empList>thead>tr{
+        border-top-style:groove;
+        border-bottom-style:groove;
+    }
+    #empList tr{height:28px;}
+    #empList>tbody>tr:hover{
+        background:lightsteelblue;
+        color:white;
+    }
+    .chk{margin-top:3px;}
+
+    /* 선택/취소 */
+    #chooseCancel{
+        width:30px;
+        height:100px;
+        margin:140px 10px 0px 10px;
+        float:left;
+    }
+    .choose{
+        border-radius:50%;
+        border:1.2px solid rgb(7, 53, 90);
+        width:30px;
+        height:30px;
+        color:rgb(7, 53, 90);
+        font-weight:600;
+        text-align:center;
+        line-height:1.5;
+        margin-top:10px;
+        cursor:pointer;
+    }
+
+    /* 참조자 */
+    #refEmpList{
+        width:340px;
+        height:450px;
+        border:1px solid rgb(7, 53, 90);
+        font-family: 'Handon3gyeopsal300g';
+        float:left;
+    }
+    #selectedEmp{
+        width:310px;
+        height:380px;
+        border:1px solid rgb(7, 53, 90);
+        margin:10px 10px 5px 13px;
+        padding:10px 0px 0px 10px;
+        font-size:13px;
+    }
+    .refedEmpName, .refedEmpDept{
+    	cursor:pointer
+    }
+    
+    
+    /* 버튼 */
+    #approveLineBtns{
+        width:110px;
+        height:30px;
+        float:left;
+        margin-top:10px;
+        margin-left:530px;
+    }
+    #lineApplyBtn{
+        width:50px;
+        height:28px;
+        background: rgb(7, 53, 90);
+        color:white;
+        border:none;
+        font-size:13px;
+        margin-top:2px;
+    }
+    #lineCancelBtn{
+        width:50px;
+        height:28px;
+        background:white;
+        border:1px solid rgb(7, 53, 90);
+        font-size:12px;
+        font-weight:600;
+        cursor:pointer;
+        margin-left:5px;
+    }
+    #lineApplyBtn:hover{
+        background:lightsteelblue;
+        cursor:pointer;
+    }
 </style>
 </head>
 <body>
@@ -139,11 +337,11 @@
 	<div id="familyEventWrapper">
 		<div id="draftOuter">
 	
-	        <h4>⊙ 기안문 작성</h4>
+	        <h6>⊙ 기안문 작성</h6>
 	        <hr>
 	        <br>
 	
-	        <form id="docForm" action="insertFe.ap" method="post">
+	        <form id="docForm" action="requestFe.rap" method="post">
 	            <!-- 버튼들 -->
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn">결재선</button>
@@ -152,7 +350,8 @@
 	            </div>
 	            <br><br><br>
 	
-	            <h1 style="text-align:center;">경조비신청서</h1>
+	            <h2 style="text-align:center;">경조비신청서</h2>
+	            <input type="hidden" name="docSc" value="경조비신청서">
 	            <br>
 	
 	            <!-- 결재선 -->
@@ -163,7 +362,7 @@
 	                        <td width="70">기안</td>
 	                    </tr>
 	                    <tr height="70">
-	                        <td>최해성</td>
+	                        <td>${ emp.empName }</td>
 	                    </tr>
 	                </table>
 	            </div>
@@ -173,31 +372,38 @@
 	            
 	            <table class="docContents">
 	                <tr>
-	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200" style="text-align:center;">자동부여</td>
-	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200" style="text-align:center;">2020.05.07</td>
+	                    <td width="150" class="th">문서번호</td>
+	                    <td width="250" style="text-align:center;">자동부여</td>
+	                    <td width="150" class="th">기안일자</td>
+	                    <td width="250" style="text-align:center;"><input type="text" class="readInput" name="docDate" value="<%= now %>" readonly></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td style="text-align:center;">최해성</td>
+	                    <td style="text-align:center;">
+	                    	<input type="hidden" name="empId" value="${ loginUser.empId }">
+	                    	${ emp.empName }
+	                    </td>
 	                    <td class="th">기안부서</td>
-	                    <td style="text-align:center;">개발팀</td>
+	                    <td style="text-align:center;"><input type="text" class="readInput" name="docDepartment" value="${ emp.deptName }" readonly></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
 	                    <td>
-	                        <input type="text" id="refSch">
-	                        <button type="button" id="refBtn">참조</button>
+	                    	<input type="hidden" id="refedId" name="docReference">
+	                        <input type="text" id="refSch"  readonly>
+	                        <button type="button" id="refBtn" data-toggle="modal" data-target="#refEmp">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
-	                    <td><input type="date" id="apprveEndDate"></td>
+	                    <td style="text-align:center;"><input type="text" class="readInput" name="docEnd" value="<%= docEnd %>" readonly></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleInput"></td>
+	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" required></td>
 	                </tr>
 	            </table>
+				
+				
+				
 				
 				<br><br>
                 
@@ -205,58 +411,136 @@
 	            <table class="docContents" id="familyEventTb">
 	                <tr width="">
 	                    <td width="100" class="th">신청일자</td>
-	                    <td width="150"><input type="date" id="feDate"></td>
+	                    <td width="150" style="text-align:center;"><%= sf.format(today) %></td>
 	                    <td width="100" class="th">경조구분</td>
                         <td width="200">
-                            <select name="familyEvent" id="feSq">
-                                <option value="marriage">결혼</option>
-                                <option value="sixty">환갑</option>
-                                <option value="seventy">칠순</option>
-                                <option value="funeral">사망</option>
+                            <select name="feSq" id="feSq">
+                                <option value="결혼">결혼</option>
+                                <option value="환갑">환갑</option>
+                                <option value="칠순">칠순</option>
+                                <option value="사망">사망</option>
                             </select>
                         </td>
                         <td width="100" class="th">가족관계</td>
 	                    <td width="150">
-                            <select name="relation" id="feRelation">
-                                <option value="oneself">본인</option>
-                                <option value="parents">부모님</option>
-                                <option value="spouse">배우자</option>
-                                <option value="children">자녀</option>
-                                <option value="siblings">형제자매</option>
+                            <select name="feRelation" id="feRelation">
+                                <option value="본인">본인</option>
+                                <option value="부모님">부모님</option>
+                                <option value="배우자">배우자</option>
+                                <option value="자녀">자녀</option>
+                                <option value="형제자매">형제자매</option>
                             </select>
                         </td>
 	                </tr>
 	                <tr>
 	                    <td class="th">대상자 성명</td>
-	                    <td><input type="text" id="feName"></td>
+	                    <td><input type="text" name="feName" id="feName" required></td>
 	                    <td class="th">경조일자</td>
-                        <td colspan="2"><input type="date" id="feStartDate"> <span>~</span> <input type="date" id="feEndDate"></td>
+                        <td colspan="3"><input type="date" name="feStart" id="feStartDate" required> <span>~</span> <input type="date" name="feEnd" id="feEndDate" required></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">신청금액</td>
-	                    <td><input type="text" id="fePrice"></td>
+	                    <td><input type="text" id="fePrice" name="fePrice" required></td>
 	                    <td class="th">경조장소</td>
-	                    <td colspan="3"><input type="text" id="fePlace"></td>
+	                    <td colspan="3"><input type="text" name="fePlace" id="fePlace" required></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">은행</td>
-	                    <td>
-                            <select name="bank" id="bank">
-                                <option value="">신한</option>
-                                <option value="">국민</option>
-                                <option value="">농협</option>
-                                <option value="">우리</option>
-                            </select>
-                        </td>
+	                    <td><input type="text" id="feBank" name="feBank" required></td>
 	                    <td class="th">계좌번호</td>
-                        <td><input type="text" id="feAccount"></td>
+                        <td><input type="text" id="feAccount" name="feAccount" required></td>
                         <td class="th">예금주</td>
-                        <td><input type="text" id="feAccountName"></td>
+                        <td><input type="text" id="feAccountName" name="feAccountName" required></td>
 	                </tr>
 	            </table>
 	        </form>
-	
 	    </div>
+	    
+	    <!-- 참조 클릭 시 뜨는 모달 -->
+	    <div class="modal fade" id="refEmp">
+	        <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+		            <!-- Modal Header -->
+		            <div class="modal-header">
+		                <h6 class="modal-title">참조자</h6>
+		            </div>
+		
+	                <!-- Modal Body -->
+	                <div class="modal-body">
+	                    <div id="approveLineOuter">
+					        <button type="button" id="orgChart"">조직도</button>
+					        <button type="button" id="sch">검색</button><br>
+					        <div id="chart-container">
+					            <div class="tree1" id="coName">(주)TEAMWORKS</div>
+					           
+					            <% int i = 1;%>
+					            <c:forEach var="d" items="${ dept }">
+					            	<div class="tree2 tree2<%= i %> dName">${ d.deptName }</div>
+					            	<div class="tree3 tree3<%= i %>">
+						            	<c:forEach var="l" items="${ list }">
+						            		<c:choose>
+						            			<c:when test="${ d.deptName eq l.deptName }">
+						            					<input type="hidden" class="refedId" value="${ l.empId }">
+						            					<input type="hidden" value="${ l.deptName }">
+						                				<input type="checkbox" name="refChk" class="refChk" style="visibility:hidden">
+						                				ㄴ<span class="refEmpName">${ l.empName }</span><span class="refEmpDept"> ${ l.jobName }</span><br>
+						            			</c:when>
+						            		</c:choose>
+						            	</c:forEach>
+					            	</div>
+					           		<% i++; %>
+					            </c:forEach>
+					            
+					        </div>
+					        <div id="sch-container">
+					            <div id="schBox">
+					                <font>사원명</font>
+					                <input name="keyword" type="search" id="schInput">
+					                <button type="button" id="schBtn">검색</button>
+					            </div>
+					
+					            <div id="empListArea">
+					                <table id="empList">
+					                    <thead>
+					                        <tr>
+					                            <th width="20"></th>
+					                            <th width="85">부서</th>
+					                            <th width="85">직급</th>
+					                            <th width="60">사원명</th>
+					                        </tr>
+					                    </thead>
+					                    <tbody>
+					                        
+					                    </tbody>
+					                </table>
+					            </div>
+					        </div>
+					
+					        <div id="chooseCancel">
+					            <div class="choose" id="chooseRef"> &gt; </div>
+					            <div class="choose" id="cancelRef"> &lt; </div>
+					        </div>
+					
+					        <div id="refEmpList">
+					            <div style="margin:10px 0px 0px 20px; font-size:13px;">참조자</div>
+					            <div id="selectedEmp">
+					            	<table id="refEmpArea"></table>
+					            </div>
+					        </div>
+					    </div>
+	                </div>
+	                
+	                <!-- Modal footer -->
+	                <div class="modal-footer">
+	                	<div id="approveLineBtns">
+				            <button type="button" id="lineApplyBtn">적용</button>
+				            <button type="button" id="lineCancelBtn">취소</button>
+				        </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    
 	</div>
 	
 	<script>
@@ -266,5 +550,238 @@
 			$("#writeDoc>a").css("color", "deepskyblue");
 		});	
 	</script>
+	
+	<script>
+		
+		
+		<!-- 참조자 모달용 스크립트 -->
+		$(function(){
+			/* 조직도 참조자 선택 */
+			$(".refEmpName").click(function(){
+				
+				var hiddenChk = $(this).prev();
+				
+				if(hiddenChk.is(":checked")){
+					hiddenChk.prop("checked", false);
+					$(this).css("background", "white");
+					$(this).next().css("background", "white");
+				}else{
+					hiddenChk.prop("checked", true);
+					$(this).css("background", "lightsteelblue");
+					$(this).next().css("background", "lightsteelblue");
+				}
+				
+			});
+			
+			/* 참조자 검색 시 */
+			$("#schBtn").click(function(){
+				
+				$.ajax({
+					url:"empSch.rap",
+					data:{keyword:$("#schInput").val()},
+					type:"post",
+					success:function(schEmp){
+						if(schEmp.length > 0) {
+							
+							var value ="";
+							
+							for(var i in schEmp){
+								value += "<tr>" + 
+					                            "<td>" + 
+					                            	"<input type='hidden' class='refedId' value='" + schEmp[i].empId + "'>" +
+					                            	"<input type='hidden' value='" + schEmp[i].deptName + "'>" +
+					                           		"<input type='checkbox' name='refChk' class='chk'>" +
+					                           		"<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
+					                            "<td>" + schEmp[i].deptName + "</td>" + 
+					                            "<td>" + schEmp[i].jobName + "</td>" +
+					                            "<td>" + schEmp[i].empName + "</td>" +
+				                         "</tr>"
+							}
+							
+							$("#empList tbody").html(value);
+							
+						}else {
+							alert("올바른 검색어를 입력하세요.");
+						}
+						
+					}, error:function(){
+						alert("참조자 검색 실패");
+					}
+				});
+				
+			});
+			
+			/* 참조자 선택(왼쪽 => 오른쪽) */
+			$("#chooseRef").click(function(){
+				
+				var refedEmp = [];
+				var refedDept = [];
+				var refedId = [];
+				
+				$("input:checkbox[name=refChk]:checked").each(function(){
+					refedEmp.push($(this).next().text());
+					refedDept.push($(this).prev().val());
+					refedId.push($(this).prevAll(".refedId").val());
+				});
+				
+				var value = "";
+				
+				for(var i=0; i<refedEmp.length; i++){
+					value += "<tr>" +
+								"<td>" + 
+									"<span class='refedEmpId' style='display:none'>" + refedId[i] + " " + "</span>" +
+									"<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
+							 		"<span class='refedEmpName'>" + refedEmp[i] + " " + "</span>" + 
+							 		"<span class='refedEmpDept'> | " + refedDept[i] + "</span>" + 
+							 	"</td>" +
+							 "</tr>";
+				}
+				
+				$("#refEmpArea").html(value);
+				
+				$("input:checkbox[name=refChk]").prop("checked", false);
+				$("input:checkbox[name=refChk]").nextAll().css("background", "white");
+				
+			});
+			
+			/* 참조자 오른쪽에서 삭제 */
+			$("#cancelRef").click(function(){
+				
+				$("input:checkbox[name=checkBox]:checked").each(function(){
+					$(this).parents('tr').remove();
+				});
+				
+			});
+			
+			/* 추가된 참조자 선택 */
+			$("#selectedEmp").on("click", ".refedEmpName", function(){	
+				
+				var hiddenChk2 = $(this).prev();
+				
+				if(hiddenChk2.is(":checked")){
+					hiddenChk2.prop("checked", false);
+					$(this).css("background", "white");
+					$(this).next().css("background", "white");
+				}else{
+					hiddenChk2.prop("checked", true);
+					$(this).css("background", "lightsteelblue");
+					$(this).next().css("background", "lightsteelblue");
+				}
+				
+			});
+			
+			/* 부서 클릭 시 */
+			$("#selectedEmp").on("click", ".refedEmpDept", function(){	
+				
+				var hiddenChk = $(this).prevAll('.checkBox');
+				
+				if(hiddenChk.is(":checked")){
+					hiddenChk.prop("checked", false);
+					$(this).css("background", "white");
+					$(this).siblings('.refedEmpName').css("background", "white");
+				}else{
+					hiddenChk.prop("checked", true);
+					$(this).css("background", "lightsteelblue");
+					$(this).siblings('.refedEmpName').css("background", "lightsteelblue");
+				}
+				
+			});
+			
+			/* 적용, 취소 버튼 */
+			$("#lineApplyBtn").click(function(){
+				var refedEmp = $('.refedEmpName').text();
+				var refedId = $('.refedEmpId').text();
+				$("#refSch").val(refedEmp);
+				$("#refedId").val(refedId);
+				
+				$('#refEmpArea tr').remove();
+				$('#refEmp').modal("hide");
+			});
+
+			$("#lineCancelBtn").click(function(){
+				$('#refEmpArea tr').remove();
+				$('#empList>tbody>tr').remove();
+				$("#schInput").val("");
+				$('#refEmp').modal("hide");
+			});
+			
+		});
+		
+		
+        $(function(){
+			
+	       	/* 조직도 slideDown slideUp */
+            $(".tree1").click(function(){
+                var tree2 = $(this).nextAll(".tree2");
+                var tree31 = $(this).nextAll(".tree31");
+                var tree32 = $(this).nextAll(".tree32");
+
+                if(tree2.css("display") == "none") {
+                    tree2.slideDown();
+
+                }else {
+                    tree2.slideUp();
+                }
+
+                if (tree31.is(':hidden')) {
+                } else {
+                    tree31.slideUp('slow');
+                }
+
+                if (tree32.is(':hidden')) {
+                } else {
+                    tree32.slideUp('slow');
+                }
+            });
+        	
+            $(".tree21").click(function(){
+                var tree31 = $(this).nextAll(".tree31");
+
+                if(tree31.css("display") == "none") {
+                    tree31.slideDown();
+                }else{
+                    tree31.slideUp();
+                }
+            });
+
+            $(".tree22").click(function(){
+                var tree31 = $(this).nextAll(".tree32");
+
+                if(tree31.css("display") == "none") {
+                    tree31.slideDown();
+                }else{
+                    tree31.slideUp();
+                }
+            });
+
+            /* 조직도/검색 클릭 시  */
+            $("#chart-container").show();
+            $("#sch-container").hide();
+
+            $("#orgChart").click(function(){
+                $("#chart-container").show();
+                $("#sch-container").hide();
+                $("#orgChart").css("border", "none");
+                $("#orgChart").css("background", "rgb(7, 53, 90)");
+                $("#orgChart").css("color", "white");
+                $("#sch").css("border", "1px solid rgb(7, 53, 90)");
+                $("#sch").css("background", "white");
+                $("#sch").css("color", "rgb(7, 53, 90)");
+            });
+
+            $("#sch").click(function(){
+                $("#sch-container").show();
+                $("#chart-container").hide();
+                $("#sch").css("border", "none");
+                $("#sch").css("background", "rgb(7, 53, 90)");
+                $("#sch").css("color", "white");
+                $("#orgChart").css("border", "1px solid rgb(7, 53, 90)");
+                $("#orgChart").css("background", "white");
+                $("#orgChart").css("color", "rgb(7, 53, 90)");
+            });
+
+        });
+    </script>
+	
 </body>
 </html>
