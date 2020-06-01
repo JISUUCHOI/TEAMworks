@@ -22,9 +22,8 @@ public class ManagementController {
 	//private ManagementService mgService;
 	
 	//@RequestMapping("companyInfo.mg")
-	public String selectCompanyInfo(Model model){
-		
-		CompanyInfo = 
+	public String selectCompanyInfo(){
+		return "management/companyMainInfo";
 	}
 	
 	

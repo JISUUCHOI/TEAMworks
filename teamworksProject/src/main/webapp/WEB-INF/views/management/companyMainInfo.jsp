@@ -46,7 +46,6 @@
 <body>
 
      <jsp:include page="../common/menubar.jsp"/>
-
   
 
         <div style="width:1250px; float:left;">
