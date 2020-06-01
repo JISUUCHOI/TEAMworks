@@ -1,17 +1,22 @@
 package com.kh.teamworks.schedule.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.teamworks.schedule.model.service.ScheduleService;
 import com.kh.teamworks.schedule.model.vo.Schedule;
 
@@ -42,12 +47,15 @@ public class ScheduleController {
 	
 	
 	@ResponseBody
-	@RequestMapping(value="detail.sc", produces="application/json; charset=utf-8", method=RequestMethod.POST)
-	public String selectSchDetail(int schNo) {
+	@RequestMapping(value="detail.sc", method=RequestMethod.POST)
+	public void selectSchDetail(@RequestParam(value="schNo") int schNo, HttpServletResponse response) throws JsonIOException, IOException {
 		
-		ArrayList<Schedule> sch = scService.selectSchDetail(schNo);
+		Schedule sch = scService.selectSchDetail(schNo);
 		
-		return new Gson().toJson(sch);
+		//return new Gson().toJson(sch);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(sch, response.getWriter());
+		
 	}
 
 }
