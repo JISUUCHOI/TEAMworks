@@ -12,12 +12,12 @@ import com.kh.teamworks.management.model.vo.Vacation;
 
 public interface ManagementService {
 	
-	// 1. È¸»ç Á¤º¸  ¼­ºñ½º
+	// 1. íšŒì‚¬ ì •ë³´ ê´€ë¦¬
 	CompanyInfo selectCompanyInfo(CompanyInfo ci);
 	int updateCompanyLogo();
 	CompanyBsns selectCompanyBsnsInfo(CompanyBsns cb);
 	
-	// 2. »ç¿ø Á¤º¸ ¼­ºñ½º
+	// 2. ì‚¬ì› ì •ë³´ ê´€ë¦¬
 	Employee selectEmployeeInfo(Employee e);
 	ArrayList<Employee> selectEmployeeList();
 	int updateEmpInfo();
@@ -25,7 +25,7 @@ public interface ManagementService {
 	void searchEmpVacation(String keyword);
 	Proof selectProofList();
 	
-	// 3. Á¶Á÷ °ü¸® ¼­ºñ½º
+	// 3. ì¡°ì§ë„ ê´€ë¦¬
 	Department selectDeptList();
 	int insertDept(String keyword); //
 	int updateDept(); //
