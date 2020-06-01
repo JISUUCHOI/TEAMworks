@@ -40,17 +40,17 @@
   	width:450px;
   	height:500px;
   }
-  #detailTable {
+  #detailTable, #updateTable {
   	width:400px;
   	height:300px;
   	font-size:17px;
   	table-layout:fixed;
   }
-  #detailTable th{
+  #detailTable th, #updateTable th {
   	width:100px;
   	padding-left:3px;
   }
-  #detailTable td {
+  #detailTable td, #updateTable td {
   	overflow:auto;
 	word-wrap:break-word;
   }
@@ -101,10 +101,12 @@
 			    	    $('#detailTable tr:nth-child(4) td').text(sch.endDate);
 			    	    $('#detailTable tr:nth-child(5) td').text(sch.schContent);
 		        		
-		        		if(sch.schCategory == "개인"){
-		        			var value = '<button class="btn btn-primary" onclick="postFormSubmit(1);">수정</button><button class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>';
-		        			$('.modal-footer').html(value);
-		        		}else{
+		        		if(sch.schCategory == "개인"){	// 개인 일정일 경우
+		        			if($('div #detailModal')){
+			        			var value = '<a data-toggle="modal" href="#updateModal" class="btn btn-primary">수정</a><button class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>';
+			        			$('.modal-footer').html(value);
+		        			}
+		        		}else{	// 회사 일정일 경우
 		        			var value='<button class="btn btn-danger" data-dismiss="modal">취소</button>';
 		        			$('.modal-footer').html(value);
 		        		}
@@ -143,7 +145,7 @@
             <div class="modal-content">
 	            <!-- Modal Header -->
 	            <div class="modal-header">
-	                <h4 class="modal-title">일정 상세보기</h4>
+	                <h4 class="modal-title"c>일정 상세보기</h4>
 	                <button type="button" class="close" data-dismiss="modal">&times;</button> 
 	            </div>
 
@@ -195,6 +197,70 @@
             </div>
         </div>
     </div>
+    <!-- 이벤트 클릭 시 뜨는 모달 끝 -->
+    
+    <!-- 수정 클릭 시 뜨는 모달 (일정 상세 모달에서 수정버튼 클릭 시 보임) -->
+    <div class="modal fade" id="updateModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+	            <!-- Modal Header -->
+	            <div class="modal-header">
+	                <h4 class="modal-title">일정 수정하기</h4>
+	                <button type="button" class="close" data-dismiss="modal">&times;</button> 
+	            </div>
+
+	            <!-- Modal Body -->
+	            <div class="modal-body">
+	                <table id="updateTable">
+	                	<tr height="15%">
+	                		<th>분류</th>
+	                		<td id="category"></td>
+	                	</tr>
+	                	<tr height="15%">
+	                		<th>일정 제목</th>
+	                		<td></td>
+	                	</tr>
+	                	<tr height="15%">
+	                		<th>시작일</th>
+	                		<td></td>
+	                	</tr>
+	                	<tr height="15%">
+	                		<th>종료일</th>
+	                		<td></td>
+	                	</tr>
+	                	<tr height="40%">
+	                		<th style="vertical-align:top; padding-top:10px;">일정 내용</th>
+	                		<td style="vertical-align:top; padding-top:10px;"></td>
+	                	</tr>
+	                </table>
+	            </div>
+            
+	            <!-- Modal footer -->
+	            <div class="modal-footer">
+	            	<button class="btn btn-primary" onclick="postFormSubmit(1);">수정</button>
+	            	<button class="btn btn-danger">취소</button>
+	            </div>
+	            
+	            <form action="" id="postForm" method="post">
+	            	<input type="hidden" name="schNo" id="inputSchNo" value=""> <!-- schNo 넘겨야됨 -->
+	            	<input type="hidden" name="empId" value="${loginUser.empId }">
+	            </form>
+	            
+	            <script>
+	            	function postFormSubmit(num) {
+	            		if(num == 1) {	// 수정하기 클릭 시
+	            			//$("#postForm").attr("action", "updateSch.sc");
+	            		}else {	// 삭제하기 클릭 시
+	            			$("#postForm").attr("action", "deleteSch.sc");
+	            		}
+	            		
+	            		$("#postForm").submit();
+	            	}
+	            </script>
+            </div>
+        </div>
+    </div>
+    <!-- 수정 클릭 시 뜨는 모달 끝 -->
 	
 </body>
 </html>
