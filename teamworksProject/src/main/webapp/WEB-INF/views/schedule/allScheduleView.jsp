@@ -7,37 +7,56 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- fullCalendar -->
 <link href='css/coreMain.css' rel='stylesheet' />
 <link href='css/daygridMain.css' rel='stylesheet' />
 <script src='js/coreMain.js'></script>
 <script src='js/interactionMain.js'></script>
 <script src='js/daygridMain.js'></script>
 <script src='js/ko.js'></script>
+<!-- jQuery 라이브러리 -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- 부트스트랩에서 제공하고 있는 스타일 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- 부트스트랩에서 제공하고 있는 스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
 	@font-face { font-family: 'JSDongkang-Regular'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSDongkang-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
 	@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
   body {
 /*     margin: 40px 10px;
     padding: 0; */
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    font-family: Handon3gyeopsal300g;
     font-size: 14px;
   }
 
   #calendar {
     max-width: 900px;
     margin: 0 auto;
-    float:left; 
-    border:1px solid black; 
-    margin-left:180px;
   }
   
-  .rightArea {
-  	font-family:'Handon3gyeopsal300g';
-  	float:right; 
-  	border:1px solid #f2f2f2; 
-  	width:400px; 
-  	height:720px;
+  /* 모달 관련 style */
+  .modal-content {
+  	width:450px;
+  	height:500px;
+  }
+  #detailTable {
+  	width:400px;
+  	height:300px;
+  	font-size:17px;
+  	table-layout:fixed;
+  }
+  #detailTable th{
+  	width:100px;
+  	padding-left:3px;
+  }
+  #detailTable td {
+  	overflow:auto;
+	word-wrap:break-word;
+  }
+  td.textOverDefault {
+  	white-space : normal;
+  	text-overflow: clip;
   }
 
 </style>
@@ -65,24 +84,28 @@
 	      eventLimit: true, // allow "more" link when too many events
 	      events: events,
 	      locale: 'ko',
-	      eventClick: function(info) {//info.event.id
-	    	  
+	      eventClick: function(info) { //info.event.id
+	    	  	
  		        $.ajax({
 		        	url:"detail.sc",
 		        	data:{schNo:info.event.id},
 		        	type:"post",
 		        	success:function(sch){
-		        		//console.log(sch);
 		        		
-				    	$('#detailTable tr:first td').text(sch.schCategory);
-				    	$('#detailTable tr:nth-child(2) td').text(sch.schTitle);
-				    	$('#detailTable tr:nth-child(3) td').text(sch.startDate);
-				    	$('#detailTable tr:nth-child(4) td').text(sch.endDate);
-				    	$('#detailTable tr:nth-child(5) td').text(sch.schContent);
+		                // Add response in Modal body
+		                //$('.modal-body').html("로그인 성공");
+				        $('#detailTable tr:first td').text(sch.schCategory);
+			    	    $('#detailTable tr:nth-child(2) td').text(sch.schTitle);
+			    	    $('#detailTable tr:nth-child(3) td').text(sch.startDate);
+			    	    $('#detailTable tr:nth-child(4) td').text(sch.endDate);
+			    	    $('#detailTable tr:nth-child(5) td').text(sch.schContent);
+		                $('#detailModal').modal('show'); // Display Modal
 		        		
+		        		<c:set var="schCategory" value="$('#category').text()"/>
+		        		console.log(${schCategory});
 		        		
 		        	},error:function(){
-		        		console.log("이벤트 상세조회용 ajax 통신 실패!");
+		        		console.log("이벤트 상세조회용 ajax 통신 실패");
 		        	}
 		        });
 	      }
@@ -99,39 +122,77 @@
 	
 	<br><br>
 
-	<div style="width:1500px; float:left;">
+	<div style="width:1250px; float:left;">
 		<div id='calendar'></div>
-		<div class="rightArea" id="detailForm">
-			<h1>일정 상세보기</h1>
-			<table id="detailTable" border="1">
-				<tr>
-					<th>분류</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>일정 제목</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>일정 시작일</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>일정 종료일</th>
-					<td></td>
-				</tr>
-				<tr>
-					<th>일정 내용</th>
-					<td></td>
-				</tr>
-			</table>
-		</div>
-		<div class="rightArea" id="updateForm">
-		
-		</div>
 	</div>
+
 	
-	
+	<!-- 이벤트 클릭 시 뜨는 모달 (기존에는 안보이다가 위의 이벤트 클릭 시 보임) -->
+    <div class="modal fade" id="detailModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+	            <!-- Modal Header -->
+	            <div class="modal-header">
+	                <h4 class="modal-title">일정 상세보기</h4>
+	                <button type="button" class="close" data-dismiss="modal">&times;</button> 
+	            </div>
+
+	            <!-- Modal Body -->
+	            <div class="modal-body">
+	                <table id="detailTable">
+	                	<tr height="15%">
+	                		<th>분류</th>
+	                		<td id="category"></td>
+	                	</tr>
+	                	<tr height="15%">
+	                		<th>일정 제목</th>
+	                		<td></td>
+	                	</tr>
+	                	<tr height="15%">
+	                		<th>시작일</th>
+	                		<td></td>
+	                	</tr>
+	                	<tr height="15%">
+	                		<th>종료일</th>
+	                		<td></td>
+	                	</tr>
+	                	<tr height="40%">
+	                		<th style="vertical-align:top; padding-top:10px;">일정 내용</th>
+	                		<td style="vertical-align:top; padding-top:10px;"></td>
+	                	</tr>
+	                </table>
+	            </div>
+            
+	            <!-- Modal footer -->
+	            <div class="modal-footer">
+	                <c:choose>
+		                <c:when test="${ schCategory eq '개인' }">
+			                <button class="btn btn-primary" onclick="postFormSubmit(1);">수정</button>
+		                	<button class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>
+		            	</c:when>
+		            	<c:otherwise>
+		            		<button class="btn btn-danger" data-dismiss="modal">취소</button>
+		            	</c:otherwise>
+	            	</c:choose>
+	            </div>
+	            
+	            <form action="" id="postForm" method="post">
+	            	<input type="hidden" name=""> <!-- schNo 넘겨야됨 -->
+	            </form>
+	            
+	            <script>
+	            	function postFormSubmit(num) {
+	            		if(num == 1) {	// 수정하기 클릭 시
+	            			//$("#postForm").attr("action", "updateForm.bo");
+	            		}else {	// 삭제하기 클릭 시
+	            			//$("#postForm").attr("action", "delete.bo");
+	            		}
+	            		$("#postForm").submit();
+	            	}
+	            </script>
+            </div>
+        </div>
+    </div>
 	
 </body>
 </html>
