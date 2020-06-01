@@ -41,4 +41,11 @@ public class ReqApprovalDao {
 	public int insertVacation(SqlSessionTemplate sqlSession, Document d) {
 		return sqlSession.insert("approveMapper.insertVacation", d);
 	}
+	
+	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
+	/*
+	public ArrayList<Document> selectDocList(SqlSessionTemplate sqlSession, int approveStatus) {
+		return sqlSession.selectList("approveMapper.selectDocList", approveStatus);
+	}
+	*/
 }
