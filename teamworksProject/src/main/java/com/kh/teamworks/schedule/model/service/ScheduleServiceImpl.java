@@ -41,7 +41,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	// 일정 상세 조회용 서비스
 	@Override
-	public ArrayList<Schedule> selectSchDetail(int schNo) {
+	public Schedule selectSchDetail(int schNo) {
 
 		return scDao.selectSchDetail(sqlSession, schNo);
 	}

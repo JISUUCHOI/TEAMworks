@@ -67,22 +67,24 @@
 	      locale: 'ko',
 	      eventClick: function(info) {//info.event.id
 	    	  
-/* 	    	  $('#detailTable tr:first td').text(info.event.id);
-	    	  $('#detailTable tr:nth-child(2) td').text(info.event.title);
-	    	  $('#detailTable tr:nth-child(3) td').text(info.event.start);
-	    	  $('#detailTable tr:nth-child(4) td').text(info.event.end);
-	    	  $('#detailTable tr:nth-child(5) td').text(info.event.id); */
-	    	  
-/* 		        $.ajax({
+ 		        $.ajax({
 		        	url:"detail.sc",
 		        	data:{schNo:info.event.id},
 		        	type:"post",
 		        	success:function(sch){
-		        		console.log(sch);
+		        		//console.log(sch);
+		        		
+				    	$('#detailTable tr:first td').text(sch.schCategory);
+				    	$('#detailTable tr:nth-child(2) td').text(sch.schTitle);
+				    	$('#detailTable tr:nth-child(3) td').text(sch.startDate);
+				    	$('#detailTable tr:nth-child(4) td').text(sch.endDate);
+				    	$('#detailTable tr:nth-child(5) td').text(sch.schContent);
+		        		
+		        		
 		        	},error:function(){
 		        		console.log("이벤트 상세조회용 ajax 통신 실패!");
 		        	}
-		        }); */
+		        });
 	      }
 	
 	    });
