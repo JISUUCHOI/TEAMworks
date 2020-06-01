@@ -296,7 +296,7 @@ public class EmployeeController {
 			return "fail";
 		}
 	}
-	//출근 시간 갱신
+	//출근 퇴근 시간 갱신
 	@ResponseBody
 	@RequestMapping(value="todayAtt.em", produces="application/json; charset=utf-8")
 	public String selectAttTime(String empId) {
@@ -313,6 +313,7 @@ public class EmployeeController {
 			int result = eService.attUpdate(att);
 			
 			if(result >0) {
+				
 				return "success";
 			}else {
 				return "fail";

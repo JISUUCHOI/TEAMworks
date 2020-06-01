@@ -142,6 +142,7 @@
         					if(status == "success"){
         						selectMyAttendance()
         						$("#endTime").attr('disabled',true);
+        						
         					}else{
         						console.log("퇴근업데이트 실패");
         					}
