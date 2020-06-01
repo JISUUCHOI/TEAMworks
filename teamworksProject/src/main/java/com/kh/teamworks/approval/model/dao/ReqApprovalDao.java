@@ -37,5 +37,8 @@ public class ReqApprovalDao {
 		return sqlSession.insert("approveMapper.insertFamilyEvent", d);
 	}
 	
-	
+	// 4. 휴가신청서 insert
+	public int insertVacation(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.insert("approveMapper.insertVacation", d);
+	}
 }

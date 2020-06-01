@@ -23,7 +23,8 @@ public interface ReqApprovalService {
 	// 3. 경조비신청서 insert
 	int insertFamilyEvent(Document d);
 	
-	
+	// 4. 휴가신청서 insert
+	int insertVacation(Document d);
 	
 	
 }

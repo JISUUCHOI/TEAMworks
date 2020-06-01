@@ -49,6 +49,12 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 	public int insertFamilyEvent(Document d) {
 		return raDao.insertFamilyEvent(sqlSession, d);
 	}
+
+	// 4. 휴가신청서 insert
+	@Override
+	public int insertVacation(Document d) {
+		return raDao.insertVacation(sqlSession, d);
+	}
 	
 	
 	

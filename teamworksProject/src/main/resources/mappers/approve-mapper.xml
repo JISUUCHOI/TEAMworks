@@ -93,5 +93,10 @@
 		values(seq_docno.nextval, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, #{feSq}, #{feRelation}, #{feName}, #{feStart}, #{feEnd}, #{fePlace}, #{fePrice}, #{feBank}, #{feAccount}, #{feAccountName})
 	</insert>
 	
+	<insert id="insertVacation" parameterType="Document">
+		insert into vacation
+		values(seq_docno.nextval, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, #{vcSq}, #{vcDay}, #{vcStart}, #{vcEnd}, #{vcCount}, #{vcContent})
+	</insert>
+	
 
 </mapper>

@@ -284,7 +284,7 @@
 			$("#approveDoc>a").css("color", "dimgray");
 			$("#approveDoc").css("border-bottom-style", "groove");
 			
-			var sts = "${sts}"
+			var sts = "${sts}";
 			
 			switch(sts){
 			case '0': $("#readyForApprove>a").css("color", "deepskyblue"); break;

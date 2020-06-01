@@ -26,8 +26,6 @@ public class requestApprovalController {
 	@RequestMapping("insertDoc.rap")
 	public String selectEmpInfo(HttpServletRequest request, Model model, String doc) {
 		
-		System.out.println(doc);
-		
 		// 1_1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) select
 		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
 		Employee emp = raService.selectEmpInfo(empId);
@@ -83,7 +81,20 @@ public class requestApprovalController {
 		}
 	}
 	
-	// 4. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
+	// 4. 휴가신청서 insert
+	@RequestMapping("requestVac.rap")
+	public String insertVacation(Document d) {
+		int result = raService.insertVacation(d);
+		
+		if(result > 0) {
+			return "approval/selectApprovalForm";
+		}else {
+			return "common/errorPage";
+		}
+	}
+	
+	
+	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
 	@RequestMapping("docList.rap")
 	public String documentListView(int approveStatus, Model model) {
 		model.addAttribute("sts", approveStatus);

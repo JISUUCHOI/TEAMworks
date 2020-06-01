@@ -23,8 +23,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <style>
 	/* 전체윤곽 */
 	html, body{height:100%;}
@@ -100,7 +98,7 @@
 	    font-size:13px;
 	}
 	#refSch {
-	    width:120px;
+	    width:175px;
 	    height:26px;
 	    margin-left:10px;
 	}
@@ -374,10 +372,10 @@
 	            
 	            <table class="docContents">
 	                <tr>
-	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200" style="text-align:center;">자동부여</td>
-	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200" style="text-align:center;"><input type="text" class="readInput" name="docDate" value="<%= now %>" readonly></td>
+	                    <td width="150" class="th">문서번호</td>
+	                    <td width="250" style="text-align:center;">자동부여</td>
+	                    <td width="150" class="th">기안일자</td>
+	                    <td width="250" style="text-align:center;"><input type="text" class="readInput" name="docDate" value="<%= now %>" readonly></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
