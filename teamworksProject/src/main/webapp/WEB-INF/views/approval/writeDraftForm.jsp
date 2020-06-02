@@ -20,6 +20,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<script src="lang/summernote-ko-KR.js"></script>
     <style>
         /* 전체윤곽 */
 		#draftOuter{
@@ -371,6 +372,7 @@
 	                <tr>
 	                    <td class="th">기안자</td>
 	                    <td>${ loginUser.empName }</td>
+	                    <input type="hidden" id="empId" name="empId" value="${ loginUser.empId }">
 	                    <td class="th">기안부서</td>
 	                    <td>${ loginUser.deptName }</td>
 	                    <td><input type="hidden" id="docDepartment" name="docDepartment" value="${ loginUser.deptName }" readonly></td>
@@ -396,28 +398,58 @@
 	
 	            <!--썸머노트-->
 	            <textarea id="summernote" name="docContent"></textarea>
-	            <div id="summernote">Hello Summernote</div>
+	            
 				
 				
 				<script>
 				$(document).ready(function() {
 					$('#summernote').summernote({
-	      				  placeholder: '내용을 입력하세요',
-	      				  tabsize: 2,
-	      				  height: 300,
-	      				  toolbar: [
-	       				   ['style', ['style']],
-	        				  ['font', ['bold', 'underline', 'clear']],
-	       				   ['color', ['color']],
-	        				  ['para', ['ul', 'ol', 'paragraph']],
-	        				  ['table', ['table']],
-	        				  ['insert', ['link', 'picture', 'video']],
-	         				 ['view', ['fullscreen', 'codeview', 'help']]
-	       				 ]
-	    				  });
-					
+						lang: 'ko-KR',
+      				 	placeholder: '내용을 입력하세요',
+	      				tabsize: 2,
+	      				height: 300,
+	      				toolbar: [
+	       				 ['style', ['style']],
+	        			 ['font', ['bold', 'underline', 'clear']],
+	       				 ['color', ['color']],
+	        		 	 ['para', ['ul', 'ol', 'paragraph']],
+	        		 	 ['table', ['table']],
+	        			 ['insert', ['link', 'picture', 'video']],
+	         			 ['view', ['fullscreen', 'codeview', 'help']]
+	       				]
+	    			  });					
+				});  
+				
+				function sendFile(file, el) {
+					var form_data = new FormData();
+					form_data.append('file', file);
+					$.ajax({
+						data: form_data,
+						type : "post",
+						url: 'summer_image',
+						cache :false,
+						contentType : false,
+						enctype : 'multipart/form-data',
+						processData : false,
+						success : function(img_name) {
+							$(el).summernote('editor.insertImage', img_name);
+						}
+					});
+				}
+				$(function() {
+					$('#docContent').summernote({
+						 	placeholder: '최대 500자 작성 가능합니다.',
+					        height: 300,
+					        lang: 'ko-KR',
+					        callbacks: {
+					        	onImageUpload: function(files, editor, welEditable) {
+					        		for(var i = files.length -1; i>=0; i--) {
+					        			sendFile(files[i], this);
+					        		}
+					        	}
+					        }
+					 });
 				});
-   				   
    				</script>
 
 	            

@@ -24,6 +24,13 @@ public class ScheduleDao {
 	}
 	
 	
+	// 일정 수정용
+	public int updateSch(SqlSessionTemplate sqlSession, Schedule sch) {
+		
+		return sqlSession.update("scheduleMapper.updateSch", sch);
+	}
+	
+	
 	// 일정 삭제용
 	public int deleteSch(SqlSessionTemplate sqlSession, int schNo) {
 		

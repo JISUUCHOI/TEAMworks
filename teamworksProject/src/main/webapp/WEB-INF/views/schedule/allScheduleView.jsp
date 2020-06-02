@@ -207,7 +207,7 @@
 	            <script>
 	            	function postFormSubmit(num) {
 	            		if(num == 1) {	// 수정하기 클릭 시
-	            			$("#postForm").attr("action", "updateSch.sc");
+	            			$("#postForm").attr("action", "updateSchForm.sc");
 	            			//$("#updateFormArea").css("display", "block");
 	            		}else {	// 삭제하기 클릭 시
 	            			$("#postForm").attr("action", "deleteSch.sc");

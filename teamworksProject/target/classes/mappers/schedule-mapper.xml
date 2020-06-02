@@ -15,15 +15,21 @@
 	
 	<select id="selectAllSch" parameterType="string" resultMap="scheduleResultSet">
 		SELECT *
-		FROM SCHEDULE
-		WHERE SCH_DEL_STATUS='N' AND (EMP_ID IS NULL or EMP_ID=#{empId})
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND (EMP_ID IS NULL or EMP_ID=#{empId})
 	</select>
 	
 	<select id="selectSchDetail" parameterType="_int" resultMap="scheduleResultSet">
 		SELECT *
-		FROM SCHEDULE
-		WHERE SCH_DEL_STATUS='N' AND SCH_NO=#{schNo}
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND SCH_NO=#{schNo}
 	</select>
+	
+	<update id="updateSch" parameterType="Schedule">
+		UPDATE SCHEDULE
+		   SET SCH_TITLE=#{schTitle}, SCH_CONTENT=#{schContent}, SCH_STR_DATE=#{startDate}, SCH_END_DATE=#{endDate}
+		 WHERE SCH_NO=#{schNo}
+	</update>
 	
 	<update id="deleteSch" parameterType="_int">
 		UPDATE SCHEDULE
