@@ -428,7 +428,7 @@ html, body{height:100%;}
     cursor:pointer;
 }
 
-/* 참조자 */
+/* 선택된 결재선 */
 #apRefEmpList{
     width:340px;
     height:450px;
@@ -447,6 +447,64 @@ html, body{height:100%;}
 .refedEmpName, .refedEmpDept{
 	cursor:pointer
 }
+
+/*추가*/
+ #approvalLine{
+    width:340px;
+    height:450px;
+    border:1px solid rgb(7, 53, 90);
+    font-family: 'Handon3gyeopsal300g';
+    float:left;
+    font-size:13px;
+}
+.frequentLine{
+    width:310px;
+    height:55px;
+    border:1px solid rgb(7, 53, 90);
+    margin:10px 10px 5px 13px;
+    padding:10px 0px 0px 10px;
+}
+#chooseApproveLine{
+    margin-left:8px;
+    width:150px;
+    height:30px;
+    font-size:13px;
+}
+#deleteBtn, #enrollBtn{
+    width:40px;
+    height:28px;
+    margin-left:5px;
+    background:white;
+    border:1px solid rgb(7, 53, 90);
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+}
+#selectedEmp{
+    width:310px;
+    height:250px;
+    border:1px solid rgb(7, 53, 90);
+    margin:10px 10px 5px 13px;
+    padding:10px 0px 0px 10px;
+}
+/* #selectedEmpList, #selectedEmpList tr, #selectedEmpList td{
+    border:1px solid lightgrey;
+    border-collapse:collapse;
+}
+#selectedEmpList tr{
+    height:25px;
+}
+#selectedEmpList td{
+    padding-left:10px;
+} */
+
+#enrollApproveLine{
+    width:140px;
+    height:28px;
+    margin-left:5px;
+}
+
+
 
 /* 버튼 */
 #approveLineBtns{

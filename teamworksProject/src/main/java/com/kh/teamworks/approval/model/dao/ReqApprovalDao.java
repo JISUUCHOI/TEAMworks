@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.employee.model.vo.Employee;
@@ -17,12 +18,12 @@ public class ReqApprovalDao {
 		return sqlSession.selectOne("approveMapper.selectEmpInfo", empId);
 	}
 	
-	// 1_2. 참조자 조직도 부서 select용
+	// 1_2. 결재선/참조자 조직도 부서 select용
 	public ArrayList<Employee> selectDeptName(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("approveMapper.selectDeptName");
 	}
 	
-	// 1_3. 참조자 조직도 사원 select용
+	// 1_3. 결재선/참조자 조직도 사원 select용
 	public ArrayList<Employee> selectOrgChart(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectOrgChart");
 	}
@@ -32,14 +33,19 @@ public class ReqApprovalDao {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectEmpSch", sc);
 	}
 	
-	// 3. 경조비신청서 insert
+	// 3_1. 경조비신청서 insert
 	public int insertFamilyEvent(SqlSessionTemplate sqlSession, Document d) {
 		return sqlSession.insert("approveMapper.insertFamilyEvent", d);
 	}
 	
-	// 4. 휴가신청서 insert
+	// 3_2. 휴가신청서 insert
 	public int insertVacation(SqlSessionTemplate sqlSession, Document d) {
 		return sqlSession.insert("approveMapper.insertVacation", d);
+	}
+	
+	// 3_3. 결재선 insert
+	public int insertApproveLine(SqlSessionTemplate sqlSession, ApproveLine l) {
+		return sqlSession.insert("approveMapper.insertApproveLine", l);
 	}
 	
 	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결

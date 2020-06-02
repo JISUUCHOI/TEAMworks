@@ -1,4 +1,4 @@
- $(function(){
+$(function(){
 	    $("#writeDoc>a").css("color", "deepskyblue");
 });
 
@@ -80,7 +80,6 @@ $(function(){
         });
         
         /*중복값 못 들어가도록 */
-        /*
         var flag = true;
         
         $("#refEmpArea").find(".refedEmpName").each(function(index, item){
@@ -107,9 +106,9 @@ $(function(){
         }else{
         	console.log("못들어감");
         }
-        */
         
         
+        /*
         var flag =[];
         
         $("#refEmpArea").find(".refedEmpName").each(function(index, item){
@@ -141,54 +140,7 @@ $(function(){
     	        	console.log("못들어감");
     	        }
         }
-       
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //var count = $("#refEmpArea .refedEmpName").text();
-        //console.log(count);
-        
-        //var exist = $("#refEmpArea").find(".refedEmpName").text().split(",");
-       // console.log(exist.length);
-        
-        //for(var j=0; j<exist.length; j++){
-        
-        
-        
-        
-        
-        
-        
-        /*for(var i=0; i<refedEmp.length; i++){
-        	
-        	var = $("#refEmpArea>tr>td>3rdChild:contains('" + refedEmp[i] + "')'");
-        	
-        }*/
-        
-        /*console.log(refedEmp);
-        
-        for(var i=0; i<refedEmp.length; i++){
-        
-        	if(!exist.contains(refedEmp[i])){
-        		$("#refEmpArea").append("<tr>" +
-                        "<td>" + 
-                            "<span class='refedEmpId' style='display:none'>" + refedId[i] + " " + "</span>" +
-                            "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-                             "<span class='refedEmpName'>" + refedEmp[i] + " " + "</span>" + 
-                             "<span class='refedEmpDept'> | " + refedDept[i] + "</span>" + 
-                         "</td>" +
-                     "</tr>");
-        	}
-        }*/
-        
-        
+       */
         
         $("input:checkbox[name=refChk]").prop("checked", false);
         $("input:checkbox[name=refChk]").nextAll().css("background", "white");
@@ -240,20 +192,31 @@ $(function(){
     
     /* 적용 버튼 */
     $("#refApplyBtn").click(function(){
-        var refedEmp = $('.refedEmpName').text();
+    	/* 선택된 참조자 값 전달 */
+    	$("input:checkbox[name=checkBox]").prop("checked", true);
+   	 
+   	 	var refedEmp = [];
+   	 
+	   	 $("input:checkbox[name=checkBox]:checked").each(function(){
+	   		refedEmp.push($(this).next().text());
+		 });
+	   	 $("#refSch").val(refedEmp);
+	
         var refedId = $('.refedEmpId').text();
-        $("#refSch").val(refedEmp);
         $("#refedId").val(refedId);
-        $("#schInput").val("");
-        
-        $('#empList>tbody>tr').remove();
-        $('#refEmpArea tr').remove();
+
+        /*모달 닫기*/
         $('#refEmp').modal("hide");
         
-        $("input:checkbox[name=refChk]").prop("checked", false);
-        $("input:checkbox[name=checkBox]").prop("checked", false);
         $('.tree3').slideUp();
         $('.tree2').slideUp();
+        $("input:checkbox[name=refChk]").prop("checked", false);
+        $("#schInput").val("");
+        $('#empList>tbody>tr').remove();
+        
+        $('#refEmpArea tr').remove();
+        $("input:checkbox[name=checkBox]").prop("checked", false);
+        
     });
 
     /* 취소 버튼 */
@@ -352,7 +315,7 @@ $(function(){
 
 /* 결재선 모달용 스크립트 */
  $(function(){
-     /* 조직도 참조자 선택 */
+     /* 결재선 조직도 선택 */
      $(".apRefEmpName").click(function(){
          
          var hiddenChk = $(this).prev();
@@ -369,12 +332,12 @@ $(function(){
          
      });
      
-     /* 참조자 검색 시 */
+     /* 결재선 사원 검색 시 */
      $("#apSchBtn").click(function(){
          
          $.ajax({
              url:"empSch.rap",
-             data:{apKeyword:$("#apSchInput").val()},
+             data:{keyword:$("#apSchInput").val()},
              type:"post",
              success:function(schEmp){
                  if(schEmp.length > 0) {
@@ -401,46 +364,64 @@ $(function(){
                  }
                  
              }, error:function(){
-                 alert("참조자 검색 실패");
+                 alert("결재선 사원 검색 실패");
              }
          });
          
      });
      
-     /* 참조자 선택(왼쪽 => 오른쪽) */
+     /* 결재선선택(왼쪽 => 오른쪽) */
      $("#apChooseRef").click(function(){
          
-         var refedEmp = [];
-         var refedDept = [];
+         var apRefedEmp = [];
+         var apRefedDept = [];
          var apRefedId = [];
          
          $("input:checkbox[name=apRefChk]:checked").each(function(){
-             refedEmp.push($(this).next().text());
-             refedDept.push($(this).prev().val());
+             apRefedEmp.push($(this).next().text());
+             apRefedDept.push($(this).prev().val());
              apRefedId.push($(this).prevAll(".apRefedId").val());
          });
          
-         var value = "";
+         /*중복값 못 들어가도록 */
+         var flag2 = true;
          
-         for(var i=0; i<refedEmp.length; i++){
-             value += "<tr>" +
-                         "<td>" + 
-                             "<span class='refedEmpId' style='display:none'>" + apRefedId[i] + " " + "</span>" +
-                             "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-                              "<span class='refedEmpName'>" + refedEmp[i] + " " + "</span>" + 
-                              "<span class='refedEmpDept'> | " + refedDept[i] + "</span>" + 
-                          "</td>" +
-                      "</tr>";
+         $("#apRefEmpArea").find(".apRefedEmpName").each(function(index, item){
+            
+             for(var j=0; j<apRefedEmp.length; j++){
+             	if(item.innerText == apRefedEmp[j]){
+             		flag2 = false;
+             	}
+             }
+         });
+         
+         var c = $(".apRefedEmpName").length;
+         if(c<4){
+        	 if(flag2){
+              	for(var i=0; i<apRefedEmp.length; i++){
+                  	$("#apRefEmpArea").append("<tr>" +
+     					             			"<td>" + 
+     					             				"<span>" + "결재" + "</span>" +
+     						                        "<span class='apRefedEmpId' style='display:none'>" + apRefedId[i] + "</span>" +
+     						                        "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
+     						                        "<span class='apRefedEmpName'>" + apRefedEmp[i] + "</span>" + 
+     						                        "<span class='apRefedEmpDept'> | " + apRefedDept[i] + "</span>" + 
+     						                     "</td>" +
+          				                     "</tr>");
+                  }
+              }else{
+              	console.log("못들어감");
+              }
+         }else{
+        	 alert("결재선을 4개까지만 추가할 수 있습니다.");
          }
-         
-         $("#apRefEmpArea").html(value);
          
          $("input:checkbox[name=apRefChk]").prop("checked", false);
          $("input:checkbox[name=apRefChk]").nextAll().css("background", "white");
          
      });
      
-     /* 참조자 오른쪽에서 삭제 */
+     /* 결재선 오른쪽에서 삭제 */
      $("#apCancelRef").click(function(){
          
          $("input:checkbox[name=checkBox]:checked").each(function(){
@@ -449,9 +430,10 @@ $(function(){
          
      });
      
-     /* 추가된 참조자 선택 */
-     $("#apSelectedEmp").on("click", ".refedEmpName", function(){	
-         
+     /* 추가된 결재선 선택 */
+     $("#apRefEmpArea").on("click", ".apRefedEmpName", function(){	
+         console.log("클릭됨");
+    	 
          var hiddenChk2 = $(this).prev();
          
          if(hiddenChk2.is(":checked")){
@@ -467,56 +449,113 @@ $(function(){
      });
      
      /* 부서 클릭 시 */
-     $("#apSelectedEmp").on("click", ".refedEmpDept", function(){	
+     $("#apSelectedEmp").on("click", ".apRefedEmpDept", function(){	
          
          var hiddenChk = $(this).prevAll('.checkBox');
          
          if(hiddenChk.is(":checked")){
              hiddenChk.prop("checked", false);
              $(this).css("background", "white");
-             $(this).siblings('.refedEmpName').css("background", "white");
+             $(this).siblings('.apRefedEmpName').css("background", "white");
          }else{
              hiddenChk.prop("checked", true);
              $(this).css("background", "lightsteelblue");
-             $(this).siblings('.refedEmpName').css("background", "lightsteelblue");
+             $(this).siblings('.apRefedEmpName').css("background", "lightsteelblue");
          }
          
      });
      
-     /* 적용 버튼 */
+     /* 결재선 적용 버튼 */
      $("#lineApplyBtn").click(function(){
-         $("#apSchInput").val("");
-         
-         $('#apEmpList>tbody>tr').remove();
-         $('#apRefEmpArea tr').remove();
-         $('#approveLineModal').modal("hide");
-         
-         $("input:checkbox[name=apRefChk]").prop("checked", false);
-         $("input:checkbox[name=checkBox]").prop("checked", false);
-         $('.apTree3').slideUp();
+    	 
+    	 /* 결재선으로 지정된 값들 넘기기 */
+    	 $("input:checkbox[name=checkBox]").prop("checked", true);
+    	 
+    	 var line = [];
+    	 
+    	 $("input:checkbox[name=checkBox]:checked").each(function(){
+    		 line.push($(this).prev().text());
+ 			
+	     });
+
+    	 $("#approver").val(line);
+    	 
+    	 /* 결재선 모달 닫기 */
+    	 $('#approveLineModal').modal("hide");
+    	 
+    	 $('.apTree3').slideUp();
          $('.apTree2').slideUp();
+         $("#apSchInput").val("");
+         $('#apEmpList>tbody>tr').remove();
+         $("input:checkbox[name=apRefChk]").prop("checked", false);
+         
+         $("input:checkbox[name=checkBox]").prop("checked", false);
+         $('#apRefEmpArea tr').remove();
+         
      });
 
-     /* 취소 버튼 */
+     /* 결재선 취소 버튼 */
      $("#lineCancelBtn").click(function(){
-         $('#apRefEmpArea tr').remove();
-         $('#apEmpList>tbody>tr').remove();
-         $("#apSchInput").val("");
-         
-         $("input:checkbox[name=apRefChk]").prop("checked", false);
-         $("input:checkbox[name=checkBox]").prop("checked", false);
-         $('.apTree3').slideUp();
+    	 $('#approveLineModal').modal("hide");
+    	 
+    	 $('.apTree3').slideUp();
          $('.apTree2').slideUp();
-         
+         $("input:checkbox[name=apRefChk]").prop("checked", false);
          $("#apSchInput").val("");
-         $('#approveLineModal').modal("hide");
+         $('#apEmpList>tbody>tr').remove();
+         
+         $("input:checkbox[name=checkBox]").prop("checked", false);
+         $('#apRefEmpArea tr').remove();
+         
      });
+     
+     /* 결재선 지정되지 않으면, 결재요청 버튼 클릭 못하도록 */
+     
+     /*
+     $(function(){
+    	 
+    	 console.log($("#approver").val());
+    	 
+    	 if($("#approver").val() == ""){
+     		$("#approveBtn").attr("disabled", true);
+    	 }else{
+    		 $("#approveBtn").attr("disabled", false);
+    	 }
+     });
+     */
+     /*
+	 $("#approveBtn").click(function(){
+		 
+		 if($("#approver").is(":empty")){
+			 console.log("비었음");
+			 
+			 //$("#approveBtn").attr("disabled", true);
+		 }else{
+			 console.log("결재선");
+			 //$("#approveBtn").attr("disabled", false);
+		 }
+	 });*/
+    	 
+    	 
+    	 
+    	 /*
+    	 console.log(show);
+    	 
+    	if($("#approver")is(:empty)){
+    		$("#approveBtn").attr("type", "button");
+    		$("#approveBtn").click(function(){
+    		});
+    		$("#approveBtn").attr("disabled", true);
+    	}else{
+    		$("#approveBtn").attr("type", "submit");
+    	}*/
+     
      
  });
 
   $(function(){
          
-            /* 조직도 slideDown slideUp */
+            /* 결재선 조직도 slideDown slideUp */
          $(".apTree1").click(function(){
              var apTree2 = $(this).nextAll(".apTree2");
              var apTree31 = $(this).nextAll(".apTree31");
@@ -560,7 +599,7 @@ $(function(){
              }
          });
 
-         /* 조직도/검색 클릭 시  */
+         /* 결재선 조직도/검색 클릭 시  */
          $("#apChart-container").show();
          $("#apSch-container").hide();
 
