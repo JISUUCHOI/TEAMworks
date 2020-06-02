@@ -48,16 +48,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	// 일정 추가용 서비스
 	@Override
-	public int insertSch(Schedule s) {
+	public int insertSch(Schedule sch) {
 
 		return 0;
 	}
 	
 	// 일정 수정용 서비스
 	@Override
-	public int updateSch(Schedule s) {
+	public int updateSch(Schedule sch) {
 
-		return 0;
+		return scDao.updateSch(sqlSession, sch);
 	}
 
 	// 일정 삭제용 서비스

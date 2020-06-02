@@ -83,6 +83,27 @@ public class ScheduleController {
 	}
 	
 	
+	// 일정 수정용
+	@RequestMapping("updateSch.sc")
+	public String updateSch(Schedule sch, HttpServletRequest request, Model model) {
+		
+		int result = scService.updateSch(sch);
+		
+		if(result > 0) { // 일정 수정 성공
+			
+			return "redirect:selectAllSch.sc?empId=" + sch.getEmpId();
+			
+		}else { // 일정 수정 실패
+			
+			model.addAttribute("msg", "실패");
+			return "common/errorPage";
+			
+		}
+		
+		
+	}
+	
+	
 	// 일정 삭제용
 	@RequestMapping("deleteSch.sc")
 	public String deleteSch(int schNo, String empId, HttpServletRequest request, Model model) {

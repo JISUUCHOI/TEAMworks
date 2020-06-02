@@ -19,10 +19,10 @@ public interface ScheduleService {
 	Schedule selectSchDetail(int schNo);
 	
 	// 일정 추가용 서비스
-	int insertSch(Schedule s);
+	int insertSch(Schedule sch);
 	
 	// 일정 수정용 서비스
-	int updateSch(Schedule s);
+	int updateSch(Schedule sch);
 	
 	// 일정 삭제용 서비스
 	int deleteSch(int schNo);

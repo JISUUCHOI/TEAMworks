@@ -102,42 +102,7 @@
 	      editable: true,
 	      eventLimit: true, // allow "more" link when too many events
 	      events: events,
-	      locale: 'ko',
-	      eventClick: function(info) { //info.event.id
-	    	  	
- 		        $.ajax({
-		        	url:"detail.sc",
-		        	data:{schNo:info.event.id},
-		        	type:"post",
-		        	success:function(sch){
-		        		
-		                // Add response in Modal body
-		                //$('.modal-body').html("로그인 성공");
-				        $('#detailTable tr:first td').text(sch.schCategory);
-			    	    $('#detailTable tr:nth-child(2) td').text(sch.schTitle);
-			    	    $('#detailTable tr:nth-child(3) td').text(sch.startDate);
-			    	    $('#detailTable tr:nth-child(4) td').text(sch.endDate);
-			    	    $('#detailTable tr:nth-child(5) td').text(sch.schContent);
-		        		
-		        		if(sch.schCategory == "개인"){	// 개인 일정일 경우
-		        			var value = '<button type="button" class="btn btn-primary" onclick="postFormSubmit(1);">수정</button><button type="button" class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>';
-		        			$('.modal-footer').html(value);
-		        		
-		        		}else{	// 회사 일정일 경우
-		        			var value='<button class="btn btn-danger" data-dismiss="modal">닫기</button>';
-		        			$('.modal-footer').html(value);
-		        		}
-		        		
-		        		$("#inputSchNo").attr("value", sch.schNo);
-		        		
-		                $('#detailModal').modal('show'); // Display Modal
-		        		
-		        		
-		        	},error:function(){
-		        		console.log("이벤트 상세조회용 ajax 통신 실패");
-		        	}
-		        });
-	      }
+	      locale: 'ko'
 	
 	    });
 	
@@ -156,115 +121,61 @@
 		<div id="rightArea">
 			<div id="updateFormArea" style="padding-top:70px;">	<!-- 일정 수정 폼 -->
 				<h3>일정 수정</h3>
-				<table id="updateFormTable">
-                	<tr height="10%">
-                		<th>분류</th>
-                		<td id="category">개인</td>
-                	</tr>
-                	<tr height="10%">
-                		<th>일정 제목</th>
-                		<td><input type="text" name="schTitle" value="${ sch.schTitle }" size="25"></td>
-                	</tr>
-                	<tr height="10%">
-                		<th>시작일</th>
-                		<td><input type="date" name="startDate" value="${ sch.startDate }"></td>
-                	</tr>
-                	<tr height="10%">
-                		<th>종료일</th>
-                		<td><input type="date" name="endDate" value="${ sch.endDate }"></td>
-                	</tr>
-                	<tr height="50%">
-                		<th style="vertical-align:top; padding-top:10px;">일정 내용</th>
-                		<td style="vertical-align:top; padding-top:10px;">
-                			<textarea name="schContent" rows="8" cols="30" style="resize:none;">${ sch.schContent }</textarea>
-                		</td>
-                	</tr>
-                	<tr height="10%">
-                		<td colspan="2">
-                			<div align="right" style="padding-right:10px;">
-	                			<button class="btn btn-primary">수정</button>
-	                			<button class="btn btn-danger">취소</button>
-                			</div>
-                		</td>
-                	</tr>
-                </table>
-                
-                <form>
-                	<input type="hidden" name="" value="">
-                	<input type="hidden" name="" value="">
-                	<input type="hidden" name="" value="">
-                	<input type="hidden" name="" value="">
-                	<input type="hidden" name="" value="">
-                	<input type="hidden" name="" value="">
-                </form>
-                
+				<form id="updateSchForm" action="updateSch.sc" method="post">
+					<table id="updateFormTable">
+	                	<tr height="10%">
+	                		<th>분류</th>
+	                		<td id="category">개인</td>
+	                	</tr>
+	                	<tr height="10%">
+	                		<th>일정 제목</th>
+	                		<td><input type="text" name="schTitle" value="${ sch.schTitle }" size="25" required></td>
+	                	</tr>
+	                	<tr height="10%">
+	                		<th>시작일</th>
+	                		<td><input type="date" name="startDate" id="startDate" value="${ sch.startDate }" required></td>
+	                	</tr>
+	                	<tr height="10%">
+	                		<th>종료일</th>
+	                		<td><input type="date" name="endDate" id="endDate" value="${ sch.endDate }" required></td>
+	                	</tr>
+	                	<tr height="50%">
+	                		<th style="vertical-align:top; padding-top:10px;">일정 내용</th>
+	                		<td style="vertical-align:top; padding-top:10px;">
+	                			<textarea name="schContent" rows="8" cols="30" style="resize:none;" required>${ sch.schContent }</textarea>
+	                		</td>
+	                	</tr>
+	                	<tr height="10%">
+	                		<td colspan="2">
+	                			<div align="right" style="padding-right:10px;">
+		                			<button type="submit" class="btn btn-primary" onclick="return validate();">수정</button>
+		                			<button type="button" class="btn btn-danger" onclick="javascript:history.go(-1);">취소</button>
+	                			</div>
+	                		</td>
+	                	</tr>
+	                </table>
+	            	<input type="hidden" name="schNo" id="inputSchNo" value="${sch.schNo}">
+	            	<input type="hidden" name="empId" value="${loginUser.empId }">
+				</form>
 			</div>
 		</div>
 	</div>
-
 	
-	<!-- 이벤트 클릭 시 뜨는 모달 (기존에는 안보이다가 위의 이벤트 클릭 시 보임) -->
-    <div class="modal fade" id="detailModal">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-	            <!-- Modal Header -->
-	            <div class="modal-header">
-	                <h4 class="modal-title"c>일정 상세보기</h4>
-	                <button type="button" class="close" data-dismiss="modal">&times;</button> 
-	            </div>
-
-	            <!-- Modal Body -->
-	            <div class="modal-body">
-	                <table id="detailTable">
-	                	<tr height="15%">
-	                		<th>분류</th>
-	                		<td id="category"></td>
-	                	</tr>
-	                	<tr height="15%">
-	                		<th>일정 제목</th>
-	                		<td></td>
-	                	</tr>
-	                	<tr height="15%">
-	                		<th>시작일</th>
-	                		<td></td>
-	                	</tr>
-	                	<tr height="15%">
-	                		<th>종료일</th>
-	                		<td></td>
-	                	</tr>
-	                	<tr height="40%">
-	                		<th style="vertical-align:top; padding-top:10px;">일정 내용</th>
-	                		<td style="vertical-align:top; padding-top:10px;"></td>
-	                	</tr>
-	                </table>
-	            </div>
+	<script>
+		function validate() {
+			var startDate = document.getElementById("startDate");
+			var endDate = document.getElementById("endDate");
+			
+            if(startDate.value > endDate.value){
+                alert("일정 시작일이 종료일보다 늦을 수 없습니다. 다시 확인해주세요.");
+                endDate.value = "";
+                endDate.focus();
+                return false;
+            }
             
-	            <!-- Modal footer -->
-	            <div class="modal-footer"></div>
-	            
-	            <form action="" id="postForm" method="post">
-	            	<input type="hidden" name="schNo" id="inputSchNo" value=""> <!-- schNo 넘겨야됨 -->
-	            	<input type="hidden" name="empId" value="${loginUser.empId }">
-	            </form>
-	            
-	            <script>
-	            	function postFormSubmit(num) {
-	            		if(num == 1) {	// 수정하기 클릭 시
-	            			$("#postForm").attr("action", "updateSch.sc");
-	            			//$("#updateFormArea").css("display", "block");
-	            		}else {	// 삭제하기 클릭 시
-	            			$("#postForm").attr("action", "deleteSch.sc");
-	            		}
-	            		
-	            		$("#postForm").submit();
-	            	}
-	            </script>
-            </div>
-        </div>
-    </div>
-    <!-- 이벤트 클릭 시 뜨는 모달 끝 -->
-    
-    
+            return true;
+		}
+	</script>
 
 	
 </body>
