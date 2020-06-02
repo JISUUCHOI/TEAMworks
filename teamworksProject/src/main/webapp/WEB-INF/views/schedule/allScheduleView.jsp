@@ -150,7 +150,7 @@
 	</script>
 
 	<jsp:include page="../common/menubar.jsp"/>
-	<jsp:include page="sidebarSchedule.jsp"/>
+	<jsp:include page="scheduleSidebar.jsp"/>
 	
 	<br><br>
 
