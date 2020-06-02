@@ -141,7 +141,7 @@
 	                    <td style="text-align:center;">5</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form">양식1</td>
+	                    <td style="padding-left:40px;" class="form"><a href="drag.ap">드래그앤드롭 연습</a></td>
 	                </tr>
 	                <tr>
 	                    <td style="text-align:center;">6</td>

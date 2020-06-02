@@ -20,7 +20,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-<script src="lang/summernote-ko-KR.js"></script>
     <style>
         /* 전체윤곽 */
 		#draftOuter{
@@ -403,8 +402,7 @@
 				
 				<script>
 				$(document).ready(function() {
-					$('#summernote').summernote({
-						lang: 'ko-KR',
+					$('#summernote').summernote({						
       				 	placeholder: '내용을 입력하세요',
 	      				tabsize: 2,
 	      				height: 300,
@@ -414,7 +412,7 @@
 	       				 ['color', ['color']],
 	        		 	 ['para', ['ul', 'ol', 'paragraph']],
 	        		 	 ['table', ['table']],
-	        			 ['insert', ['link', 'picture', 'video']],
+	        			 ['insert', ['link']],
 	         			 ['view', ['fullscreen', 'codeview', 'help']]
 	       				]
 	    			  });					
@@ -471,6 +469,8 @@
 	            </div>
 	            <br>
 	            <button type="button" id="fileUpBtn">파일첨부</button>
+	            
+	            
 	
 	        </form>
 	    </div>

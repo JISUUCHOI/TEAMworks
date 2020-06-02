@@ -116,6 +116,10 @@
 	    calendar.render();
 	  });
 
+		$(function(){
+			$("#calender>a").css("color", "dimgray");
+			$("#calender").css("border-bottom-style", "groove");
+		});	
 	</script>
 
 	<jsp:include page="../common/menubar.jsp"/>

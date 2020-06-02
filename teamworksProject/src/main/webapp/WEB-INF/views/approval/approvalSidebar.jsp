@@ -77,6 +77,13 @@
             <div class="subCate" id="requestCallback"><a href="docList.rap?approveStatus=4">회수요청함</a> <span><b>1</b></span></div>
         </div>
    </div>
+   
+   <script>
+	   $(function(){
+		    $("#approveDoc>a").css("color", "dimgray");
+		    $("#approveDoc").css("border-bottom-style", "groove");
+	   });
+   </script>
 
 </body>
 </html>

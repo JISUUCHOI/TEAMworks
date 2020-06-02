@@ -36,7 +36,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public ArrayList<Schedule> selectEmpSch(String empId) {
 
-		return null;
+		return scDao.selectEmpSch(sqlSession, empId);
 	}
 
 	// 일정 상세 조회용 서비스

@@ -68,7 +68,7 @@
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-	<jsp:include page="sidebarReservation.jsp"/>
+	<jsp:include page="reservationSidebar.jsp"/>
 	
 	<br><br>
 	

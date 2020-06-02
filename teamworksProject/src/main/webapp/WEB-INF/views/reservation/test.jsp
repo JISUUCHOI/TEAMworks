@@ -15,6 +15,7 @@
 <script src='js/daygridMain.js'></script>
 <script src='js/timegridMain.js'></script>
 <script src='js/listMain.js'></script>
+<script src='js/ko.js'></script>
 <script>
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -24,12 +25,13 @@
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+      plugins: [ 'timeGrid' ],
       timeZone: initialTimeZone,
+      locale:'ko',
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        right: 'timeGridWeek,timeGridDay'
       },
       defaultDate: '2020-02-12',
       navLinks: true, // can click day/week names to navigate views
@@ -124,7 +126,7 @@
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-	<jsp:include page="sidebarReservation.jsp"/>
+	<jsp:include page="reservationSidebar.jsp"/>
 	
 	<br><br>
 
