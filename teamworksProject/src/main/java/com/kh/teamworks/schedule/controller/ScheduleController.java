@@ -63,6 +63,26 @@ public class ScheduleController {
 	}
 	
 	
+	// 일정 수정폼 이동용
+	@RequestMapping("updateSchForm.sc")
+	public ModelAndView updateSchForm(int schNo, String empId, ModelAndView mv) {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
+		ArrayList<Schedule> events = scService.selectAllSch(empId);
+		Schedule sch = scService.selectSchDetail(schNo);
+		
+		mv.addObject("events", events);
+		mv.addObject("today", today);
+		mv.addObject("sch", sch);
+		mv.setViewName("schedule/updateSchForm");
+		
+		return mv;
+	}
+	
+	
 	// 일정 삭제용
 	@RequestMapping("deleteSch.sc")
 	public String deleteSch(int schNo, String empId, HttpServletRequest request, Model model) {

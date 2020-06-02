@@ -156,40 +156,48 @@
 		<div id="rightArea">
 			<div id="updateFormArea" style="padding-top:70px;">	<!-- 일정 수정 폼 -->
 				<h3>일정 수정</h3>
-				<form>
-					<table id="updateFormTable">
-	                	<tr height="10%">
-	                		<th>분류</th>
-	                		<td id="category">개인</td>
-	                	</tr>
-	                	<tr height="10%">
-	                		<th>일정 제목</th>
-	                		<td><input type="text" name="schTitle" size="25"></td>
-	                	</tr>
-	                	<tr height="10%">
-	                		<th>시작일</th>
-	                		<td><input type="date" name="startDate"></td>
-	                	</tr>
-	                	<tr height="10%">
-	                		<th>종료일</th>
-	                		<td><input type="date" name="endDate"></td>
-	                	</tr>
-	                	<tr height="50%">
-	                		<th style="vertical-align:top; padding-top:10px;">일정 내용</th>
-	                		<td style="vertical-align:top; padding-top:10px;">
-	                			<textarea name="schContent" rows="8" cols="30" style="resize:none;"></textarea>
-	                		</td>
-	                	</tr>
-	                	<tr height="10%">
-	                		<td colspan="2">
-	                			<div align="right" style="padding-right:10px;">
-		                			<button type="submit" class="btn btn-primary">수정</button>
-		                			<button type="button" class="btn btn-danger">취소</button>
-	                			</div>
-	                		</td>
-	                	</tr>
-	                </table>
-				</form>
+				<table id="updateFormTable">
+                	<tr height="10%">
+                		<th>분류</th>
+                		<td id="category">개인</td>
+                	</tr>
+                	<tr height="10%">
+                		<th>일정 제목</th>
+                		<td><input type="text" name="schTitle" value="${ sch.schTitle }" size="25"></td>
+                	</tr>
+                	<tr height="10%">
+                		<th>시작일</th>
+                		<td><input type="date" name="startDate" value="${ sch.startDate }"></td>
+                	</tr>
+                	<tr height="10%">
+                		<th>종료일</th>
+                		<td><input type="date" name="endDate" value="${ sch.endDate }"></td>
+                	</tr>
+                	<tr height="50%">
+                		<th style="vertical-align:top; padding-top:10px;">일정 내용</th>
+                		<td style="vertical-align:top; padding-top:10px;">
+                			<textarea name="schContent" rows="8" cols="30" style="resize:none;">${ sch.schContent }</textarea>
+                		</td>
+                	</tr>
+                	<tr height="10%">
+                		<td colspan="2">
+                			<div align="right" style="padding-right:10px;">
+	                			<button class="btn btn-primary">수정</button>
+	                			<button class="btn btn-danger">취소</button>
+                			</div>
+                		</td>
+                	</tr>
+                </table>
+                
+                <form>
+                	<input type="hidden" name="" value="">
+                	<input type="hidden" name="" value="">
+                	<input type="hidden" name="" value="">
+                	<input type="hidden" name="" value="">
+                	<input type="hidden" name="" value="">
+                	<input type="hidden" name="" value="">
+                </form>
+                
 			</div>
 		</div>
 	</div>

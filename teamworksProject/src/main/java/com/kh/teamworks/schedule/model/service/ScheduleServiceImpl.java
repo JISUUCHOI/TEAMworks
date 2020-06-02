@@ -52,7 +52,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		return 0;
 	}
-
+	
 	// 일정 수정용 서비스
 	@Override
 	public int updateSch(Schedule s) {
@@ -66,5 +66,6 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		return scDao.deleteSch(sqlSession, schNo);
 	}
+
 
 }
