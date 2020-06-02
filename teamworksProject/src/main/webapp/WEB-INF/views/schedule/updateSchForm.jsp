@@ -80,6 +80,13 @@
 </style>
 </head>
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			alertify.alert('message', '${msg}');
+		</script>
+		<c:remove var="msg" scope="session"/>
+	</c:if>
+
 	<script>
 	    var events = [];
 	    <c:forEach var="e" items="${events}">
