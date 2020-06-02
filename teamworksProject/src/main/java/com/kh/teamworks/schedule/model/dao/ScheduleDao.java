@@ -24,6 +24,13 @@ public class ScheduleDao {
 	}
 	
 	
+	// 일정 추가용
+	public int insertSch(SqlSessionTemplate sqlSession, Schedule sch) {
+		
+		return sqlSession.insert("scheduleMapper.insertSch", sch);
+	}
+	
+	
 	// 일정 수정용
 	public int updateSch(SqlSessionTemplate sqlSession, Schedule sch) {
 		

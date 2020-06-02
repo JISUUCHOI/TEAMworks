@@ -50,7 +50,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 	@Override
 	public int insertSch(Schedule sch) {
 
-		return 0;
+		return scDao.insertSch(sqlSession, sch);
 	}
 	
 	// 일정 수정용 서비스

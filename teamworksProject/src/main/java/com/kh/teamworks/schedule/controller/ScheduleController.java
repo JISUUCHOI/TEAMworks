@@ -64,6 +64,43 @@ public class ScheduleController {
 	}
 	
 	
+	// 일정 추가폼 이동용
+	@RequestMapping("insertSchForm.sc")
+	public ModelAndView insertSchForm(String empId, ModelAndView mv) {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
+		ArrayList<Schedule> events = scService.selectAllSch(empId);
+		
+		mv.addObject("events", events);
+		mv.addObject("today", today);
+		mv.setViewName("schedule/insertSchForm");
+		
+		return mv;
+	}
+	
+	
+	// 일정 추가용
+	@RequestMapping("insertSch.sc")
+	public String insertSch(Schedule sch, HttpSession session, Model model) {
+		
+		int result = scService.insertSch(sch);
+		
+		if(result > 0) { // 일정 추가 성공 --> 다시 전체일정 페이지
+			
+			session.setAttribute("msg", "일정이 성공적으로 추가되었습니다.");
+			return "redirect:selectAllSch.sc?empId=" + sch.getEmpId();
+			
+		}else {	// 일정 추가 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
 	// 일정 수정폼 이동용
 	@RequestMapping("updateSchForm.sc")
 	public ModelAndView updateSchForm(int schNo, String empId, ModelAndView mv) {
@@ -99,7 +136,6 @@ public class ScheduleController {
 			
 			model.addAttribute("msg", "실패");
 			return "common/errorPage";
-			
 		}
 		
 		
