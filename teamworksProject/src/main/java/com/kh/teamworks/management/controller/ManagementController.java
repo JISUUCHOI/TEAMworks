@@ -29,6 +29,10 @@ public class ManagementController {
 		return "management/companyMainInfo";
 	}
 	
+	@RequestMapping("enrollEmp.mg")
+	public String employeeEnroll() {
+		return "management/companyMemberInfo";
+	}
 	
 	
 }
