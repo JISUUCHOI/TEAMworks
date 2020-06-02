@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,24 @@ public class ScheduleController {
 	}
 	
 	
+	// 회사 일정 리스트 조회용
+	@RequestMapping("selectTeamSch.sc")
+	public ModelAndView selectTeamSch(ModelAndView mv) {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
+		ArrayList<Schedule> events = scService.selectTeamSch();
+		
+		mv.addObject("events", events);
+		mv.addObject("today", today);
+		mv.setViewName("schedule/teamScheduleView");
+		
+		return mv;
+	}
+	
+	
 	// 일정 상세 조회용
 	@ResponseBody
 	@RequestMapping(value="detail.sc", method=RequestMethod.POST)
@@ -60,6 +79,43 @@ public class ScheduleController {
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(sch, response.getWriter());
 		
+	}
+	
+	
+	// 일정 추가폼 이동용
+	@RequestMapping("insertSchForm.sc")
+	public ModelAndView insertSchForm(String empId, ModelAndView mv) {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
+		ArrayList<Schedule> events = scService.selectAllSch(empId);
+		
+		mv.addObject("events", events);
+		mv.addObject("today", today);
+		mv.setViewName("schedule/insertSchForm");
+		
+		return mv;
+	}
+	
+	
+	// 일정 추가용
+	@RequestMapping("insertSch.sc")
+	public String insertSch(Schedule sch, HttpSession session, Model model) {
+		
+		int result = scService.insertSch(sch);
+		
+		if(result > 0) { // 일정 추가 성공 --> 다시 전체일정 페이지
+			
+			session.setAttribute("msg", "일정이 성공적으로 추가되었습니다.");
+			return "redirect:selectAllSch.sc?empId=" + sch.getEmpId();
+			
+		}else {	// 일정 추가 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "실패");
+			return "common/errorPage";
+		}
 	}
 	
 	
@@ -85,19 +141,19 @@ public class ScheduleController {
 	
 	// 일정 수정용
 	@RequestMapping("updateSch.sc")
-	public String updateSch(Schedule sch, HttpServletRequest request, Model model) {
+	public String updateSch(Schedule sch, HttpSession session, Model model) {
 		
 		int result = scService.updateSch(sch);
 		
-		if(result > 0) { // 일정 수정 성공
+		if(result > 0) { // 일정 수정 성공 --> 다시 전체일정 페이지
 			
+			session.setAttribute("msg", "일정이 성공적으로 수정되었습니다.");
 			return "redirect:selectAllSch.sc?empId=" + sch.getEmpId();
 			
-		}else { // 일정 수정 실패
+		}else { // 일정 수정 실패 --> 에러페이지
 			
 			model.addAttribute("msg", "실패");
 			return "common/errorPage";
-			
 		}
 		
 		
@@ -110,11 +166,11 @@ public class ScheduleController {
 		
 		int result = scService.deleteSch(schNo);
 		
-		if(result > 0) { // 일정 삭제 성공
+		if(result > 0) { // 일정 삭제 성공 --> 다시 전체일정 페이지
 			
 			return "redirect:selectAllSch.sc?empId=" + empId;
 			
-		}else {	// 일정 삭제 실패
+		}else {	// 일정 삭제 실패 --> 에러페이지
 			
 			model.addAttribute("msg", "실패");
 			return "common/errorPage"; 

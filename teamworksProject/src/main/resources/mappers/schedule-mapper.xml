@@ -19,11 +19,28 @@
 		 WHERE SCH_DEL_STATUS='N' AND (EMP_ID IS NULL or EMP_ID=#{empId})
 	</select>
 	
+	<select id="selectTeamSch" resultMap="scheduleResultSet">
+		SELECT *
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND EMP_ID IS NULL
+	</select>
+	
+	<select id="selectEmpSch" parameterType="string" resultMap="scheduleResultSet">
+		SELECT *
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND EMP_ID=#{empId}
+	</select>
+	
 	<select id="selectSchDetail" parameterType="_int" resultMap="scheduleResultSet">
 		SELECT *
 		  FROM SCHEDULE
 		 WHERE SCH_DEL_STATUS='N' AND SCH_NO=#{schNo}
 	</select>
+	
+	<insert id="insertSch" parameterType="Schedule">
+		INSERT INTO SCHEDULE
+		VALUES(SEQ_SCHNO.NEXTVAL, '개인', #{empId}, #{schTitle}, #{schContent}, #{startDate}, #{endDate}, 'N')
+	</insert>
 	
 	<update id="updateSch" parameterType="Schedule">
 		UPDATE SCHEDULE
