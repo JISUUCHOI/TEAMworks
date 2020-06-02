@@ -16,7 +16,36 @@
     <jsp:include page="../common/sidebarMg.jsp"/>
 
     <div class="content">
-		<p>조직도</p>
+		<div class="tree_box">
+	    <div class="con">
+	        <ul id="tree_menu" class="tree_menu">
+	            <li class="depth_1"><strong>전체</strong>
+	                <ul class="depth_2" >
+	                    <li>
+	                        <a href="#none"><em>폴더</em> 팀 명 1 </a>
+	                        <ul class="depth_3">
+	                            <li><a href="#none">사원정보1</a></li>
+	                            <li><a href="#none">사원정보2</a></li>
+	                            <li><a href="#none">사원정보3</a></li>
+	                            <li><a href="#none">사원정보4</a></li>
+	                            <li><a href="#none">사원정보5</a></li>
+	                        </ul>
+	                    </li>
+	                    <li class="last">
+	                        <a href="#none"><em>폴더</em> 팀 명 2 </a>
+	                        <ul class="depth_3">
+	                            <li><a href="#none">사원정보1</a></li>
+	                            <li><a href="#none">사원정보2</a></li>
+	                            <li><a href="#none">사원정보3</a></li>
+	                            <li><a href="#none">사원정보4</a></li>
+	                            <li class="end"><a href="#none">사원정보5</a></li>
+	                        </ul>
+	                    </li>
+	                </ul>
+	            </li>
+	        </ul>
+	    </div>
+	</div>
     </div>
 
 
