@@ -18,6 +18,7 @@
 .job{width: 300px;height: 200px;}
 .job th{width: 40%;}
 .job td{text-align: center;vertical-align: middle;}
+.content{margin-left:20%;}
 </style>
 </head>
 <body>
@@ -26,12 +27,12 @@
      <jsp:include page="../common/sidebarMg.jsp"/>
      
 
-     <div class="content" style="width:1250px; float:left; margin-left:20%;">
+     <div class="content">
      	
      	<h1>인사 정보 등록</h1>
       	<hr align="left" style="border: solid 1px grey; width: 90%;">
         <h3>인적사항</h3>
-        <img src="../../../resources/images/sampleImg.jpg" width="100px" style="float: left;">
+        <img src="/teamworks/resources/images/sampleImg.jpg" class="img-circle" width="100px" style="float: left;">
             <table class="tg">
                 <thead>
                     <tr>

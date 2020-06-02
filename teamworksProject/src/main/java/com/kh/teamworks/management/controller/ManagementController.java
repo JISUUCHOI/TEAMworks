@@ -34,5 +34,14 @@ public class ManagementController {
 		return "management/companyMemberInfo";
 	}
 	
+	@RequestMapping("empList.mg")
+	public String empList() {
+		return "management/companyMemberList";
+	}
+	
+	@RequestMapping("org.mg")
+	public String orgList() {
+		return "management/companyOrganization";
+	}
 	
 }

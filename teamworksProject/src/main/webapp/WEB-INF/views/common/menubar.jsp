@@ -117,7 +117,7 @@
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/logo_white.png" height="35px">               
             </div>
             <div id="center">
-                <div class="menu" id="home"><a href="">홈</a></div>
+                <div class="menu" id="home"><a href="${ pageContext.servletContext.contextPath }">홈</a></div>
                 <div class="menu" id="approveDoc"><a href="formList.ap">전자결재</a></div>
                 <div class="menu" id="email"><a href="">메일</a></div>
                 <div class="menu" id="board"><a href="list.bo?currentPage=1&cat=1">게시판</a></div>

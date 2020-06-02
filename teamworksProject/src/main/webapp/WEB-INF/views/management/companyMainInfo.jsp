@@ -40,7 +40,9 @@
             padding-bottom: 130px;
             padding-left:30px;
         }
-
+		.content{
+			margin-left:20%;
+		}
     </style>
 </head>
 <body>
@@ -49,7 +51,7 @@
      <jsp:include page="../common/sidebarMg.jsp"/>
      
   
-        <div style="width:1250px; float:left; margin-left:20%;">
+        <div class="content">
             
             <h1>회사 정보</h1>
             <hr align="left" style="border: solid 1px grey; width: 80%;">
@@ -57,12 +59,12 @@
             <div>
                 <div id="t2">
                     <p style="font-size: 15px;"><b>회사 로고</b></p>
-                    <img src="../../../resources/images/No-image-available.png">
+                    <img src="/teamworks/resources/images/No-image-available.png">
                 </div>
                 
                 <div id="t3" >
               		서비스 이용중 표시되는 로고를 등록 할 수 있습니다.<br>
-                    <img src="../../../resources/icons/redMark.png" width="30px">최대 사이즈 : 150*60 px, 용량 500KB 미만, 확장자 PNG
+                    <img src="/teamworks/resources/icons/redMark.png"  class="img-rounded" width="30px">최대 사이즈 : 150*60 px, 용량 500KB 미만, 확장자 PNG
                     <br><button>등록</button>&nbsp;<button>삭제</button>
                     <!-- <input type="file"> 등록 누르면 팝업창으로 뜨게 설정하기 -->
                 </div>
@@ -123,8 +125,8 @@
                       </tr>
                       <tr rowspan="3">
                         <td class="tg-amwm" >직인</td>
-                        <td class="tg-0lax" colspan="3"><div><img src="../../../resources/images/No-image-available.png" width="70" height="70" style="float: left;"></div>
-                            <div><img src="../../../resources/icons/red_Exclamation_mark.png" width="30"><p style="font-size: 11px;">최대 사이즈 : 70*70px, 용량 300Kb 미만, 확장자 PNG</p><br><button>등록</button>&nbsp;<button>삭제</button></div></td>
+                        <td class="tg-0lax" colspan="3"><div><img src="/teamworks/resources/images/No-image-available.png" width="70" height="70" style="float: left;"></div>
+                            <div><img src="/teamworks/resources/icons/redMark.png" width="30"><p style="font-size: 11px;">최대 사이즈 : 70*70px, 용량 300Kb 미만, 확장자 PNG</p><br><button>등록</button>&nbsp;<button>삭제</button></div></td>
                       </tr>
                     </tbody>
                 </table>
