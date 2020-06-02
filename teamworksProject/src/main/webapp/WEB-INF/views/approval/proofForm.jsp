@@ -386,13 +386,14 @@
 	        <form id="docForm"  action="proofInsert.ap" method="post">
 	            <!-- 버튼들 -->
 	            <div id="btns">
-	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#refEmp">결재선</button>
+	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#approveEmp">결재선</button>
 	                <button type="submit" id="approveBtn">결재요청</button>
 	                <button type="button" id="cancelBtn">취소</button>
 	            </div>
 	            <br><br><br>
 	
 	            <h1 style="text-align:center;">제증명 신청서</h1>
+	            <input type="hidden" name="docSc" value="제증명신청서">
 	            <br>
 	
 	            <!-- 결재선 -->
@@ -496,11 +497,7 @@
 		            <div class="modal-header">
 		                <h6 class="modal-title">참조자</h6>
 		            </div>
-		            
-		            
-		            
-		            
-		
+		      
 	                <!-- Modal Body -->
 	                <div class="modal-body">
 	                    <div id="approveLineOuter">
@@ -576,6 +573,94 @@
 	            </div>
 	        </div>
 	    </div>
+	    
+	     <!-- 결재선 클릭 시 뜨는 모달 -->
+	    <div class="modal fade" id="approveEmp">
+	        <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+		            <!-- Modal Header -->
+		            <div class="modal-header">
+		                <h6 class="modal-title">결재선</h6>
+		            </div>
+		            
+		            	                <!-- Modal Body -->
+	                <div class="modal-body">
+	                    <div id="approveLineOuter">
+					        <button type="button" id="orgChart"">조직도</button>
+					        <button type="button" id="sch">검색</button><br>
+					        <div id="chart-container">
+					            <div class="tree1" id="coName">(주)TEAMWORKS</div>
+					           
+					            <% int j = 1;%>
+					            <c:forEach var="d" items="${ dept }">
+					            	<div class="tree2 tree2<%= i %> dName">${ d.deptName }</div>
+					            	<div class="tree3 tree3<%= i %>">
+						            	<c:forEach var="l" items="${ list }">
+						            		<c:choose>
+						            			<c:when test="${ d.deptName eq l.deptName }">
+						            					<input type="hidden" class="refedId" value="${ l.empId }">
+						            					<input type="hidden" value="${ l.deptName }">
+						                				<input type="checkbox" name="refChk" class="refChk" style="visibility:hidden">
+						                				ㄴ<span class="refEmpName">${ l.empName }</span><span class="refEmpDept"> ${ l.jobName }</span><br>
+						            			</c:when>
+						            		</c:choose>
+						            	</c:forEach>
+					            	</div>
+					           		<% i++; %>
+					            </c:forEach>
+					            
+					        </div>
+					        <div id="sch-container">
+					            <div id="schBox">
+					                <font>사원명</font>
+					                <input name="keyword" type="search" id="schInput">
+					                <button type="button" id="schBtn">검색</button>
+					            </div>
+					
+					            <div id="empListArea">
+					                <table id="empList">
+					                    <thead>
+					                        <tr>
+					                            <th width="20"></th>
+					                            <th width="85">부서</th>
+					                            <th width="85">직급</th>
+					                            <th width="60">사원명</th>
+					                        </tr>
+					                    </thead>
+					                    <tbody>
+					                        
+					                    </tbody>
+					                </table>
+					            </div>
+					        </div>
+					
+					        <div id="chooseCancel">
+					            <div class="choose" id="chooseRef"> &gt; </div>
+					            <div class="choose" id="cancelRef"> &lt; </div>
+					        </div>
+					
+					        <div id="refEmpList">
+					            <div style="margin:10px 0px 0px 20px; font-size:13px;">참조자</div>
+					            <div id="selectedEmp">
+					            	<table id="refEmpArea"></table>
+					            </div>
+					        </div>
+					    </div>
+	                </div>
+	                
+	                <!-- Modal footer -->
+	                <div class="modal-footer">
+	                	<div id="approveLineBtns">
+				            <button type="button" id="lineApplyBtn">적용</button>
+				            <button type="button" id="lineCancelBtn">취소</button>
+				        </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+		            
+		            
+	    
 	    
 	</div>
 	
@@ -819,5 +904,6 @@
         });
    
         </script>
+
 </body>
 </html>
