@@ -65,7 +65,7 @@
             <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
             <div id="logout"><a href="">logout</a></div>
             
-            <div class="category"><a href="">회사 정보 관리</a></div>
+            <div class="category"><a href="main.mg">회사 정보 관리</a></div>
             
             <div class="category">사원 정보 관리</div>
             <div class="subCate"><a href="">인사 정보 등록</a></div>

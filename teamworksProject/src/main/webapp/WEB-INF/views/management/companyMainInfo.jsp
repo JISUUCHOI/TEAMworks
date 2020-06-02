@@ -46,9 +46,10 @@
 <body>
 
      <jsp:include page="../common/menubar.jsp"/>
+     <jsp:include page="../common/sidebarMg.jsp"/>
+     
   
-
-        <div style="width:1250px; float:left;">
+        <div style="width:1250px; float:left; margin-left:25%;">
             
             <h1>회사 정보</h1>
             <hr align="left" style="border: solid 1px grey; width: 80%;">
@@ -131,7 +132,6 @@
 
         </div>
 
-    <jsp:include page="../common/sidebarMg.jsp"/>
     
 </body>
 </html>

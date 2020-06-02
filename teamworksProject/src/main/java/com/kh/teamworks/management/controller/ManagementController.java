@@ -12,16 +12,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
 
 import com.kh.teamworks.management.model.service.ManagementService;
 
-//@Controller
+@Controller
 public class ManagementController {
 	
 	@Autowired
-	//private ManagementService mgService;
+	private ManagementService mgService;
 	
-	//@RequestMapping("companyInfo.mg")
+	@RequestMapping("main.mg")
 	public String selectCompanyInfo(){
 		return "management/companyMainInfo";
 	}

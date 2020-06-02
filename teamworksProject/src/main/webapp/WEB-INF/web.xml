@@ -39,6 +39,8 @@
 		<url-pattern>*.sc</url-pattern>
 		<url-pattern>*.css</url-pattern>
 		<url-pattern>*.js</url-pattern>
+		<url-pattern>*.mg</url-pattern>
+		
 	</servlet-mapping>
 	
 	
