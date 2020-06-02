@@ -1,6 +1,13 @@
 package com.kh.teamworks.approval.controller;
 
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -100,11 +107,14 @@ public class ApprovalController {
 	
 	// 기안서 insert
 	@RequestMapping("draftInsert.ap")
-	public String insertDraft(Document d, Model model, HttpSession session) {
+	public String insertDraft(Document d, Model model, HttpSession request,
+							  @RequestParam(name="uploadFile", required=false) MultipartFile file) {
 		
 		 System.out.println(d);
 				
-	     int result = aService.insertDraft(d);
+
+		 
+		 int result = aService.insertDraft(d);
 	  
 	   if(result > 0) {	    	
 	    	model.addAttribute("msg", "제출완료");

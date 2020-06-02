@@ -47,7 +47,7 @@ public class Document {
 	private String vcContent;		// 휴가사유
 	
 	// 기안서
-	private Clob docContent;		// 문서내용
+	private String docContent;		// 문서내용
 	private String fileName;		// 파일명
 	private String filePath;		// 파일경로
 	
