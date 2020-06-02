@@ -22,6 +22,12 @@ public class ScheduleDao {
 		return (ArrayList)sqlSession.selectList("scheduleMapper.selectTeamSch");
 	}
 	
+	// 개인 일정 리스트 조회용
+	public ArrayList<Schedule> selectEmpSch(SqlSessionTemplate sqlSession, String empId) {
+		
+		return (ArrayList)sqlSession.selectList("scheduleMapper.selectEmpSch", empId);
+	}
+	
 	// 일정 상세 조회용
 	public Schedule selectSchDetail(SqlSessionTemplate sqlSession, int schNo) {
 		

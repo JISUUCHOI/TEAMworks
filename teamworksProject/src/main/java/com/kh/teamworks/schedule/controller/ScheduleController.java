@@ -68,6 +68,24 @@ public class ScheduleController {
 	}
 	
 	
+	// 개인 일정 리스트 조회용
+	@RequestMapping("selectEmpSch.sc")
+	public ModelAndView selectEmpSch(String empId, ModelAndView mv) {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
+		ArrayList<Schedule> events = scService.selectEmpSch(empId);
+		
+		mv.addObject("events", events);
+		mv.addObject("today", today);
+		mv.setViewName("schedule/empScheduleView");
+		
+		return mv;
+	}
+	
+	
 	// 일정 상세 조회용
 	@ResponseBody
 	@RequestMapping(value="detail.sc", method=RequestMethod.POST)

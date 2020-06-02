@@ -72,7 +72,7 @@
             <div class="subCate" id="mainSchedule"><a href="insertSchForm.sc?empId=${loginUser.empId}" >일정 추가</a></div>
             <div class="subCate" id="mainSchedule"><a href="selectAllSch.sc?empId=${loginUser.empId}">전체 일정</a></div>
             <div class="subCate" id="teamSchedule"><a href="selectTeamSch.sc">회사 일정</a></div>
-            <div class="subCate" id="empSchedule"><a href="selectEmpSch.sc=${loginUser.empId}">개인 일정</a></div>
+            <div class="subCate" id="empSchedule"><a href="selectEmpSch.sc?empId=${loginUser.empId}">개인 일정</a></div>
         </div>
     </div>
 
