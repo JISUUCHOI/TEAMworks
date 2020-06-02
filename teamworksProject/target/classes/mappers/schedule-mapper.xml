@@ -19,6 +19,18 @@
 		 WHERE SCH_DEL_STATUS='N' AND (EMP_ID IS NULL or EMP_ID=#{empId})
 	</select>
 	
+	<select id="selectTeamSch" resultMap="scheduleResultSet">
+		SELECT *
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND EMP_ID IS NULL
+	</select>
+	
+	<select id="selectEmpSch" parameterType="string" resultMap="scheduleResultSet">
+		SELECT *
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND EMP_ID=#{empId}
+	</select>
+	
 	<select id="selectSchDetail" parameterType="_int" resultMap="scheduleResultSet">
 		SELECT *
 		  FROM SCHEDULE

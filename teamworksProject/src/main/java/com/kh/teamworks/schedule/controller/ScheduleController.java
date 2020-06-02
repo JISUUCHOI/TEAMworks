@@ -50,6 +50,24 @@ public class ScheduleController {
 	}
 	
 	
+	// 회사 일정 리스트 조회용
+	@RequestMapping("selectTeamSch.sc")
+	public ModelAndView selectTeamSch(ModelAndView mv) {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
+		ArrayList<Schedule> events = scService.selectTeamSch();
+		
+		mv.addObject("events", events);
+		mv.addObject("today", today);
+		mv.setViewName("schedule/teamScheduleView");
+		
+		return mv;
+	}
+	
+	
 	// 일정 상세 조회용
 	@ResponseBody
 	@RequestMapping(value="detail.sc", method=RequestMethod.POST)
