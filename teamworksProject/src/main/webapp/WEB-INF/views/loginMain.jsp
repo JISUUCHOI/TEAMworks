@@ -83,7 +83,7 @@
           
         </form>
           <br>
-          <a id="pwdChange" onclick="searchPwd();">비밀번호 변경</a>
+          <a id="pwdChange" onclick="searchPwd();">비밀번호 찾기</a>
       </div>
     </div>
     </c:when>

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	html, body{height:100%; /* position:relative; */}
+	html, body{height:100%;}
 	div{box-sizing:border-box;}
 	
 	#sidebarOuter{
@@ -67,16 +67,23 @@
             <div class="category">기안</div>
             <div class="subCate" id="writeDoc"><a href="">기안문작성</a></div>
             <div class="subCate" id="requestApprove"><a href="">결재요청함</a></div>
-            <div class="subCate" id="callbackDoc"><a href="">결재회수함</a></div>
+            <div class="subCate" id="callbackDoc"><a href="docList.rap?approveStatus=5">결재회수함</a></div>
             <div class="category">결재</div>
-            <div class="subCate" id="readyForApprove"><a href="">결재대기함</a> <span><b>1</b></span></div>
-            <div class="subCate" id="pendingApprove"><a href="">결재진행함</a> <span><b>1</b></span></div>
-            <div class="subCate" id="doneApprove"><a href="">완료문서함</a> <span><b>1</b></span></div>
-            <div class="subCate" id="refuseApprove"><a href="">반려문서함</a> <span><b>1</b></span></div>
+            <div class="subCate" id="readyForApprove"><a href="docList.rap?approveStatus=0">결재대기함</a> <span><b>1</b></span></div>
+            <div class="subCate" id="pendingApprove"><a href="docList.rap?approveStatus=1">결재진행함</a> <span><b>1</b></span></div>
+            <div class="subCate" id="doneApprove"><a href="docList.rap?approveStatus=2">완료문서함</a> <span><b>1</b></span></div>
+            <div class="subCate" id="refuseApprove"><a href="docList.rap?approveStatus=3">반려문서함</a> <span><b>1</b></span></div>
             <div class="subCate" id="refDoc"><a href="">참조문서함</a> <span><b>1</b></span></div>
-            <div class="subCate" id="requestCallback"><a href="">회수요청함</a> <span><b>1</b></span></div>
+            <div class="subCate" id="requestCallback"><a href="docList.rap?approveStatus=4">회수요청함</a> <span><b>1</b></span></div>
         </div>
    </div>
+   
+   <script>
+	   $(function(){
+		    $("#approveDoc>a").css("color", "dimgray");
+		    $("#approveDoc").css("border-bottom-style", "groove");
+	   });
+   </script>
 
 </body>
 </html>

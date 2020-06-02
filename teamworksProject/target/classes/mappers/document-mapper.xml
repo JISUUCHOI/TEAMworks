@@ -4,6 +4,16 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="documentMapper">
 
+	<resultMap id="empInfoResultSet" type="Employee">
+		<id column="emp_id" property="empId"/>
+		<result column="emp_name" property="empName"/>
+		<result column="dept_code" property="deptCode" />
+		<result column="dept_name" property="deptName" />
+		<result column="job_code" property="jobCode" />
+		<result column="job_name" property="jobName" />
+	</resultMap>
+
+	<!-- 공통 -->
 	<resultMap type="Document" id="documentResultSet">
 		<result column="DOC_NO" property="docNo"/>					<!-- 문서코드 -->
 		<result column="EMP_ID" property="empId"/>					<!-- 기안자 사원번호 -->
@@ -15,14 +25,75 @@
 		<result column="DOC_END" property="docEnd"/>				<!-- 마감일자 -->
 		<result column="DOC_DEPARTMENT" property="docDepartment"/>	<!-- 개발팀, 경영지원팀 -->
 		
+		<!-- 제증명 -->
+		<result column="PF_SQ" property="pfSq"/>					<!-- 재직증명서,  경력증명서, 퇴직증명서 -->
+		<result column="PF_PURPOSE" property="pfPurpose"/>			<!-- 용도 -->
+		<result column="PF_STATUS" property="pfStatus"/>			<!-- 발행확인 되면 Y값 변경 -->
+		
+		<!-- 기안서 -->
+		<result column="DOC_CONTENT" property="docContent"/>		<!-- 문서내용 -->
+		<result column="FILE_NAME" property="fileName"/>			<!-- 첨부파일명 -->
+		<result column="FILE_PATH" property="filePath"/>			<!-- 첨부파일저장경로 -->
+		
 	</resultMap>
 	
+		<select id="selectEmpInfo" parameterType="string" resultMap="empInfoResultSet">
+		select emp_id, emp_name, dept_name
+		  from employee
+		  join department using(dept_code)
+		 where emp_id = #{empId} and emp_status = 'Y'
+	</select>
+
+	<select id="selectDeptName" resultMap="empInfoResultSet">
+		select dept_code, dept_name
+		  from department
+		 order by dept_code
+	</select>
+
+
+	<select id="selectOrgChart" resultMap="empInfoResultSet">
+		select emp_id, emp_name, e.dept_code, dept_name, e.job_code, job_name
+		  from employee e
+		  join department d on(e.dept_code = d.dept_code)
+		  join job j on(e.job_code = j.job_code)
+		 where emp_status = 'Y'
+         order by e.dept_code, e.job_code
+	</select>
+
+	<select id="selectEmpSch" parameterType="com.kh.teamworks.approval.model.vo.ApproveSearchCondition" resultMap="empInfoResultSet">
+		select emp_id, emp_name, e.dept_code, dept_name, e.job_code, job_name
+		  from employee e
+		  join department d on(e.dept_code = d.dept_code)
+		  join job j on(e.job_code = j.job_code)
+		 where emp_status = 'Y'
+		 	<choose>
+		 		<when test="deptName != null">
+		 					and dept_name like '%' || #{deptName} || '%'
+		 			order by job_code
+		 		</when>	
+		 		<when test="jobName != null">
+		 					and job_name like '%' || #{jobName} || '%'
+		 			order by dept_code
+		 		</when>
+		 		<when test="empName != null">
+		 					and emp_name like '%' || #{empName} || '%'
+		 			order by dept_code, job_code
+		 		</when>
+		 	</choose>
+	</select>
+	
+	<!-- 제증명신청서 insert -->
 	<insert id="insertProof" parameterType="Document">
-		insert into document
-		values(SEQ_DOCNO.NEXTVAL, #{empId}, '제증명', 0, #{docTitle}, '최해성', #{docDate}, #{docEnd}, #{docDepartment})
+		insert into proof
+		values(SEQ_DOCNO.NEXTVAL, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, 
+				#{pfSq}, #{pfPurpose}, 'Y' )
+	</insert>
+	
+	<!-- 기안서 insert -->
+	<insert id="insertDraft" parameterType="Document">
+		insert into draft
+		values(SEQ_DOCNO.NEXTVAL, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, 
+				#{docContent}, '첨부파일명', '첨부파일저장경로' )
 	</insert>
 
 </mapper>
-
-
-

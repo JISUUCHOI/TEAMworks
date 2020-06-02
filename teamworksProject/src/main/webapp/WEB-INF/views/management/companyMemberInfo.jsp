@@ -18,18 +18,22 @@
 .job{width: 300px;height: 200px;}
 .job th{width: 40%;}
 .job td{text-align: center;vertical-align: middle;}
+.content{margin-left:20%;}
 </style>
 </head>
 <body>
 
      <jsp:include page="../common/menubar.jsp"/>
+     <jsp:include page="../common/sidebarMg.jsp"/>
+     
 
-      <h2>인사 정보 등록</h2>
-      <hr align="left" style="border: solid 1px grey; width: 90%;">
      <div class="content">
+     	
+     	<h1>인사 정보 등록</h1>
+      	<hr align="left" style="border: solid 1px grey; width: 90%;">
         <h3>인적사항</h3>
-        <img src="../../../resources/images/sampleImg.jpg" width="100px" style="float: left;">
-            <table class="tg" style="float:left">
+        <img src="/teamworks/resources/images/sampleImg.jpg" class="img-circle" width="100px" style="float: left;">
+            <table class="tg">
                 <thead>
                     <tr>
                       <th class="tg-uzvj">사원번호</th>
@@ -59,13 +63,26 @@
                     </tr>
                     <tr>
                         <th class="tg-0lax" rowspan="2"><b>자택주소</b></th>
-                        <td class="tg-0lax" colspan="3"><button>우편번호 검색 api 집어넣고</button></td>
+                        <td class="tg-0lax" colspan="3"><button onclick="addressSearch()">주소 검색</button></td>
                     </tr>
                     <tr>
                       <td class="tg-0lax" colspan="3">상세주소</td>
                     </tr>
                 </table>
-
+				
+				<!-- 주소 검색 API -->
+				<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+				<script>
+					function addressSearch() {
+					    new daum.Postcode({
+					        oncomplete: function(data) {
+					            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+					            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
+					        }
+					    }).open();
+					}	
+				</script>
+				
                 <br><br>
                 
                 <table style="float: left" border="1px" class="job">
@@ -127,17 +144,14 @@
                 <table border="1px" style="width: 600px;height: 40px;">
                   <tr>
                     <th style="width: 40%;">비고</th>
-                    <th>빈칸</th>
+                    <th>비고 내용</th>
                   </tr>
                 </table>
-                    
-
          </div>
         
 
     </div>
 
-    <jsp:include page="../common/sidebarSample.jsp"/>
 
 </body>
 </html>

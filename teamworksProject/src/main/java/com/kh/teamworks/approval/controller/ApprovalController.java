@@ -1,5 +1,16 @@
 package com.kh.teamworks.approval.controller;
 
+import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Iterator;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,10 +18,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.google.gson.Gson;
 import com.kh.teamworks.approval.model.service.ApprovalService;
+import com.kh.teamworks.approval.model.vo.ApproveLine;
+import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.employee.model.vo.Employee;
 
@@ -26,50 +43,153 @@ public class ApprovalController {
 		return "approval/selectApprovalForm";
 	}
 	
-	// 기안문작성
-	@RequestMapping("writeDaft.ap")
-	public String writeDaftForm() {
-		return "approval/writeDraftForm";
+
+	
+
+	
+	// 1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) & 조직도 select
+	@RequestMapping("insertDoc.ap")
+	public String selectEmpInfo(HttpServletRequest request, Model model, String doc) {
+		
+		// 1_1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) select
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+		Employee emp = aService.selectEmpInfo(empId);
+		
+		// 1_2. 결재선/참조자 조직도 부서 select용
+		ArrayList<Employee> dept = aService.selectDeptName();
+		
+		// 1_3. 결재선/참조자 조직도 사원 select용
+		ArrayList<Employee> list = aService.selectOrgChart();
+		
+		model.addAttribute("emp", emp);
+		model.addAttribute("dept", dept);
+		model.addAttribute("list", list);
+		
+		// if/else구문 걸어서 화면단에서 넘어온 값이 경조사면 familyEvetForm으로 return, 휴가면 vacationForm으로 return		
+		if(doc.equals("기안서")) {
+			return "approval/writeDraftForm";
+		}else {
+			return "approval/proofForm";
+		}
 	}
 	
-	// 제증명신청서
-	@RequestMapping("proof.ap")
-	public String proofForm() {
-		return "approval/proofForm";
-	}
-	
-	
-	
-	
-	
-	
-	// Document insert
+	// 2. 결재선/참조자 사원 검색 select
+		@ResponseBody
+		@RequestMapping(value="empSch.ap", produces="application/json; charset=utf-8")
+		public String selectEmpSch(String keyword) {
+			
+			ApproveSearchCondition sc = new ApproveSearchCondition();
+			
+			if(keyword.contains("경영") || keyword.contains("지원") || keyword.contains("개발") || keyword.contains("팀")) {
+				sc.setDeptName(keyword);
+			}else if(keyword.contains("대표") || keyword.contains("이사") || keyword.contains("팀장") || keyword.contains("사원")) {
+				sc.setJobName(keyword);
+			}else {
+				sc.setEmpName(keyword);
+			}
+			
+			ArrayList<Employee> schEmp = aService.selectEmpSch(sc);
+
+			return new Gson().toJson(schEmp);
+			
+		}	
+	// 제증명신청서 insert
 	@RequestMapping("proofInsert.ap")
 	public String insertProof(Document d, Model model, HttpSession session) {
 		
-
-		//model.addAttribute("titleInput", titleInput);
-		
-		 System.out.println(d);
-		
-		
+		 // System.out.println(d);
+				
 	     int result = aService.insertProof(d);
 	  
-	   if(result > 0) {
-	    	
-	    	return "redirect:proof.ap";
+	   if(result > 0) {	    	
+	    	model.addAttribute("msg", "제출완료");
+		   return "approval/selectApprovalForm";
 	    }else {
-	    	return "redirect:proof.ap";
-	    }
-		
+	    	return "common/errorPage";
+	    }	
 	}
+	
+	// 기안서 insert
+	@RequestMapping("draftInsert.ap")
+	public String insertDraft(Document d, Model model, HttpSession request,
+							  @RequestParam(name="uploadFile", required=false) MultipartFile file) {
+		
+		 System.out.println(d);
+			
+
+
+		 
+		 int result = aService.insertDraft(d);
+	  
+	   if(result > 0) {	    	
+	    	model.addAttribute("msg", "제출완료");
+		   return "approval/selectApprovalForm";
+	    }else {
+	    	return "common/errorPage";
+	    }
+	}
+	
+	// 결재선 insert
+	
+	
+	
+
 
 	
 	// 기안문insert
 	// @RequestMapping("draftInsert.ap")
 	// public String insertDraft
-	
-	
-	
-	
+	   
+	    @RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
+	    public String dragAndDrop(Model model) {
+	        
+	        return "fileUpload";
+	        
+	    }
+	    
+	    @RequestMapping(value = "/fileUpload/post") //ajax에서 호출하는 부분
+	    @ResponseBody
+	    public String upload(MultipartHttpServletRequest multipartRequest) { //Multipart로 받는다.
+	         
+	        Iterator<String> itr =  multipartRequest.getFileNames();
+	        
+	        String filePath = "C:/test"; //설정파일로 뺀다.
+	        
+	        while (itr.hasNext()) { //받은 파일들을 모두 돌린다.
+	            
+	            /* 기존 주석처리
+	            MultipartFile mpf = multipartRequest.getFile(itr.next());
+	            String originFileName = mpf.getOriginalFilename();
+	            System.out.println("FILE_INFO: "+originFileName); //받은 파일 리스트 출력'
+	            */
+	            
+	            MultipartFile mpf = multipartRequest.getFile(itr.next());
+	     
+	            String originalFilename = mpf.getOriginalFilename(); //파일명
+	     
+	            String fileFullPath = filePath+"/"+originalFilename; //파일 전체 경로
+	     
+	            try {
+	                //파일 저장
+	                mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서 처리
+	                
+	                System.out.println("originalFilename => "+originalFilename);
+	                System.out.println("fileFullPath => "+fileFullPath);
+	     
+	            } catch (Exception e) {
+	                System.out.println("postTempFile_ERROR======>"+fileFullPath);
+	                e.printStackTrace();
+	            }
+	                         
+	       }
+	         
+	        return "success";
+	    }
+	    
+	    @RequestMapping("drag.ap")
+	    public String enrollForm()
+	    {
+	        return "approval/drag";
+	    }
+	    
 }

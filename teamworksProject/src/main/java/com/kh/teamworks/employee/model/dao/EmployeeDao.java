@@ -1,8 +1,10 @@
 package com.kh.teamworks.employee.model.dao;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Repository("eDao")
@@ -26,4 +28,24 @@ public class EmployeeDao {
 	public int myUpdatePwd(SqlSession sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.myUpdatePwd", e);
 	}
+
+
+	public int attInsert(SqlSessionTemplate sqlSession, Attendance att) {
+		
+		return sqlSession.insert("employeeMapper.attInsert", att);
+	}
+
+
+	public Attendance selectAttTime(SqlSessionTemplate sqlSession, String empId) {
+		
+		return sqlSession.selectOne("employeeMapper.selectAttTime", empId);
+	}
+
+
+	public int attUpdate(SqlSessionTemplate sqlSession, Attendance att) {
+		
+		return sqlSession.update("employeeMapper.attUpdate", att);
+	}
+
+
 }

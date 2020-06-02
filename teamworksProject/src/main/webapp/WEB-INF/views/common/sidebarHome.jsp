@@ -83,8 +83,8 @@
                         </a>
                     </div>
                     <div class="caption">
-                        <h5><b>강보람 대표이사</b></h5>
-                        <h6>경영지원팀</h6>
+                        <h5><b>${loginUser.empName } </b></h5>
+                        <h6>${loginUser.jobName }</h6>
                         <a href="myPage.em" class="btn btn-info">개인정보 수정</a>
                     </div>
                 </div>
@@ -96,17 +96,81 @@
                 <div class="thumbnail">
                     <br>
                     <span><b>출근시간</b></span> &nbsp;
-                    <span style="color:rgb(7, 53, 90)">09:00:00</span><br>
+                 
+                    <span style="color:rgb(7, 53, 90)"id="atStart"></span><br>
+                   
                     <span><b>퇴근시간</b></span> &nbsp;
-                    <span style="color:rgb(7, 53, 90)">09:00:00</span>
+                    <span style="color:rgb(7, 53, 90)" id="atEnd"></span>
                     <div class="caption">
-                        <button class="btn btn-info">출근</button> &nbsp; &nbsp;
-                        <button class="btn btn-info">퇴근</button>
+                        <button class="btn btn-info" id="startTime">출근</button> &nbsp; &nbsp;
+                        <button class="btn btn-info" id="endTime">퇴근</button>
                     </div>
                 </div>
-                
             </div>
         </div>
+         <script>
+         	//출근
+        	$(function(){
+        		selectMyAttendance()
+        		$("#startTime").click(function(){
+        			$.ajax({
+        				url:"attinsert.em",
+        				data:{empId:"${loginUser.empId}"},
+        				type:"post",
+        				success:function(status){
+        					//console.log(status)
+        					if(status == "success"){
+        						selectMyAttendance()
+        						$("#startTime").attr('disabled',true);
+        						
+        					}
+        					
+        				},errorPage:function(){
+        					console.log("출근 실패");
+        				}
+        			})
+        		});
+        	});
+        	//퇴근
+        	$(function(){
+        		$("#endTime").click(function(){
+        			$.ajax({
+        				url:"attupdate.em",
+        				data:{empId:"${loginUser.empId}"},
+        				type:"post",
+        				success:function(status){
+        					if(status == "success"){
+        						selectMyAttendance()
+        						$("#endTime").attr('disabled',true);
+        						
+        					}else{
+        						console.log("퇴근업데이트 실패");
+        					}
+        					
+        				},errorPage:function(){
+        					console.log("퇴근실패");
+        				}
+        				
+        			})
+        		});
+        	});
+        	//출퇴근 시간 조회
+        	function selectMyAttendance(){
+        		$.ajax({
+        			url:"todayAtt.em",
+        			data:{empId:"${loginUser.empId}"},
+        			type:"post",
+        			success:function(att){
+        				console.log(att);
+        				$("#atStart").html(att.startTime);
+        				$("#atEnd").html(att.endTime);
+        				
+        			},errorPage:function(){
+        				console.log("출석 갱신 실패");
+        			}
+        		});
+        	}
+        </script>
         <div align="left">
             <div class="subCate"><a href="myAtt.em">내근태관리</a></div>
             <div class="subCate"><a href="">휴가현황</a></div>

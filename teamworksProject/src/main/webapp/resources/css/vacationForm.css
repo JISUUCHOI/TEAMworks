@@ -1,0 +1,481 @@
+@charset "UTF-8";
+
+/* 전체윤곽 */
+html, body{height:100%;}
+
+#vacationWrapper{
+	width:1250px;
+	height:100%;
+	float:left;
+}
+#draftOuter{
+    width:800px;
+    height:850px;
+   	margin:auto;
+   	margin-top:50px;
+}
+
+/* 버튼 */
+#btns{
+    width:200px;
+    float:right;
+}
+#approveLineBtn, #approveBtn{
+    width:60px;
+    height:28px;
+    background: rgb(7, 53, 90);
+    color:white;
+    border:none;
+    font-size:12px;
+}
+#approveLineBtn:hover, #approveBtn:hover, #refBtn:hover{
+    background:deepskyblue;
+    cursor:pointer;
+}
+#cancelBtn{
+    width:60px;
+    height:28px;
+    background:white;
+    border:1px solid rgb(7, 53, 90);
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* 결재선 */
+#appoveLine{
+    float:right;
+}
+#approveLineTb, #approveLineTb tr, #approveLineTb td, #approveLineTb th{
+    border:1.2px solid lightgrey;
+    border-collapse: collapse;
+    font-size:12px;
+}
+#approveLineTb{
+    text-align:center;
+}
+
+/* 기안문서 */
+.docContents{margin:auto;}
+.docContents, .docContents tr, .docContents td{
+    border-collapse: collapse;
+    font-size:13px;
+}
+.docContents tr{
+    height:35px;
+    border-top:1px solid lightgrey;
+    border-bottom:1px solid lightgrey;
+}
+.th{
+    background:lightsteelblue;
+    color:white;
+    font-weight:600;
+    text-align:center;
+    font-size:13px;
+}
+#refSch, #apprveEndDate {
+    width:175px;
+    height:26px;
+    margin-left:10px;
+}
+#refBtn:hover{
+	background:lightsteelblue;
+	cursor:pointer;
+}
+#titleInput, #vcReason{
+    width:580px;
+    height:26px;
+    margin-left:10px;
+}
+#refBtn{
+    width:40px;
+    height:26px;
+    background: rgb(7, 53, 90);
+    border:none;
+    color:white;
+    margin-left:5px;
+    margin-right:10px;
+    font-size:12px;
+}
+.readInput{
+	width:75px;
+	border:none;
+}
+   
+/* 휴가신청서 */
+#requestVacation input, #requestVacation span{
+    height:26px;
+    float:left;
+    margin-left:10px;
+}
+#requestVacation select{
+    margin-left:10px;
+    height:25px;
+    width:80px;
+}
+
+/* 참조 모달용 스타일!!!! */
+   /* 전체윤곽 */
+   #approveLineOuter{
+       width:700px;
+       height:500px;
+       margin:auto;
+   }
+   /* 조직도 */
+   #orgChart{
+       width:50px;
+       height:30px;
+       float:left;
+       border:none;
+       background:rgb(7, 53, 90);
+       color:white;
+       font-family:'Handon3gyeopsal300g';
+       cursor:pointer;
+       font-size:12px;
+       float:left;
+   }
+   #sch{
+       width:50px;
+       height:30px;
+       border:1px solid rgb(7, 53, 90);
+       background:white;
+       color:rgb(7, 53, 90);
+       font-family:'Handon3gyeopsal300g';
+       cursor:pointer;
+       font-size:12px;
+   }
+
+   #chart-container, #sch-container{
+       width:300px;
+       height:450px;
+       border:1px solid rgb(7, 53, 90);
+       font-family: 'Handon3gyeopsal300g';
+       float:left;
+       font-size:13px;
+   }
+   .tree1, .tree2, .tree3{cursor:pointer;}
+   .tree1{
+       margin:10px 0px 5px 15px;
+   }
+   .tree2{
+       margin:10px 0px 5px 45px;
+       display:none;
+   }
+   .tree31, .tree32{
+       margin-top:2px;
+       margin-left:50px;
+       display:none;
+   }
+   .tree31>span, .tree32>span{
+       line-height:180%;
+   }
+   /* 검색 */
+   #schBox{
+       width:270px;
+       height:55px;
+       border:1px solid rgb(7, 53, 90);
+       margin:10px 10px 5px 13px;
+       padding:10px 0px 0px 15px;
+   }
+   #schInput{
+       width:150px;
+       height:28px;
+   }
+   #schBtn{
+       width:40px;
+       height:28px;
+       background: rgb(7, 53, 90);
+       color:white;
+       border:none;
+       font-size:12px;
+   }
+   #schBtn:hover{
+       background:lightsteelblue;
+       cursor:pointer;
+   }
+   #empListArea{
+       width:280px;
+       height:300px;
+       margin-left:10px;
+   }
+
+   #empList{
+       margin-top:20px;
+       margin-left:5px;
+       text-align:center;
+   }
+   #empList, #empList>tbody>tr{
+       border-top: 1px solid lightgrey;
+       border-bottom: 1px solid lightgrey;
+       border-collapse: collapse;
+       font-size:12px;
+   }
+   #empList th{text-align:center;}
+   #empList>thead>tr{
+       border-top-style:groove;
+       border-bottom-style:groove;
+   }
+   #empList tr{height:28px;}
+   #empList>tbody>tr:hover{
+       background:lightsteelblue;
+       color:white;
+   }
+   .chk{margin-top:3px;}
+
+   /* 선택/취소 */
+   #chooseCancel{
+       width:30px;
+       height:100px;
+       margin:140px 10px 0px 10px;
+       float:left;
+   }
+   .choose{
+       border-radius:50%;
+       border:1.2px solid rgb(7, 53, 90);
+       width:30px;
+       height:30px;
+       color:rgb(7, 53, 90);
+       font-weight:600;
+       text-align:center;
+       line-height:1.5;
+       margin-top:10px;
+       cursor:pointer;
+   }
+
+   /* 참조자 */
+   #refEmpList{
+       width:340px;
+       height:450px;
+       border:1px solid rgb(7, 53, 90);
+       font-family: 'Handon3gyeopsal300g';
+       float:left;
+   }
+   #selectedEmp{
+       width:310px;
+       height:380px;
+       border:1px solid rgb(7, 53, 90);
+       margin:10px 10px 5px 13px;
+       padding:10px 0px 0px 10px;
+       font-size:13px;
+   }
+   .refedEmpName, .refedEmpDept{
+   	cursor:pointer
+   }
+   
+   
+   /* 버튼 */
+   #referenceBtns{
+       width:110px;
+       height:30px;
+       float:left;
+       margin-top:10px;
+       margin-left:530px;
+   }
+   #refApplyBtn{
+       width:50px;
+       height:28px;
+       background: rgb(7, 53, 90);
+       color:white;
+       border:none;
+       font-size:13px;
+       margin-top:2px;
+   }
+   #refCancelBtn{
+       width:50px;
+       height:28px;
+       background:white;
+       border:1px solid rgb(7, 53, 90);
+       font-size:12px;
+       font-weight:600;
+       cursor:pointer;
+       margin-left:5px;
+   }
+   #refApplyBtn:hover{
+       background:lightsteelblue;
+       cursor:pointer;
+   }
+
+
+
+
+
+
+/* 결재선 모달용 스타일!!!! */
+/* 전체윤곽 */
+#approveLineOuter{
+    width:700px;
+    height:500px;
+    margin:auto;
+}
+/* 조직도 */
+#apOrgChart{
+    width:50px;
+    height:30px;
+    float:left;
+    border:none;
+    background:rgb(7, 53, 90);
+    color:white;
+    font-family:'Handon3gyeopsal300g';
+    cursor:pointer;
+    font-size:12px;
+    float:left;
+}
+#apSch{
+    width:50px;
+    height:30px;
+    border:1px solid rgb(7, 53, 90);
+    background:white;
+    color:rgb(7, 53, 90);
+    font-family:'Handon3gyeopsal300g';
+    cursor:pointer;
+    font-size:12px;
+}
+
+#apChart-container, #apSch-container{
+    width:300px;
+    height:450px;
+    border:1px solid rgb(7, 53, 90);
+    font-family: 'Handon3gyeopsal300g';
+    float:left;
+    font-size:13px;
+}
+.apTree1, .apTree2, .apTree3{cursor:pointer;}
+.apTree1{
+    margin:10px 0px 5px 15px;
+}
+.apTree2{
+    margin:10px 0px 5px 45px;
+    display:none;
+}
+.apTree31, .apTree32{
+    margin-top:2px;
+    margin-left:50px;
+    display:none;
+}
+.apTree31>span, .apTree32>span{
+    line-height:180%;
+}
+/* 검색 */
+#apSchBox{
+    width:270px;
+    height:55px;
+    border:1px solid rgb(7, 53, 90);
+    margin:10px 10px 5px 13px;
+    padding:10px 0px 0px 15px;
+}
+#apSchInputs{
+    width:150px;
+    height:28px;
+}
+#apSchBtn{
+    width:40px;
+    height:28px;
+    background: rgb(7, 53, 90);
+    color:white;
+    border:none;
+    font-size:12px;
+}
+#apSchBtn:hover{
+    background:lightsteelblue;
+    cursor:pointer;
+}
+#apEmpListArea{
+    width:280px;
+    height:300px;
+    margin-left:10px;
+}
+
+#apEmpList{
+    margin-top:20px;
+    margin-left:5px;
+    text-align:center;
+}
+#apEmpList, #apEmpList>tbody>tr{
+    border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey;
+    border-collapse: collapse;
+    font-size:12px;
+}
+#apEmpList th{text-align:center;}
+#apEmpList>thead>tr{
+    border-top-style:groove;
+    border-bottom-style:groove;
+}
+#apEmpList tr{height:28px;}
+#apEmpList>tbody>tr:hover{
+    background:lightsteelblue;
+    color:white;
+}
+.chk{margin-top:3px;}
+
+/* 선택/취소 */
+#apChooseCancel{
+    width:30px;
+    height:100px;
+    margin:140px 10px 0px 10px;
+    float:left;
+}
+.apChoose{
+    border-radius:50%;
+    border:1.2px solid rgb(7, 53, 90);
+    width:30px;
+    height:30px;
+    color:rgb(7, 53, 90);
+    font-weight:600;
+    text-align:center;
+    line-height:1.5;
+    margin-top:10px;
+    cursor:pointer;
+}
+
+/* 참조자 */
+#apRefEmpList{
+    width:340px;
+    height:450px;
+    border:1px solid rgb(7, 53, 90);
+    font-family: 'Handon3gyeopsal300g';
+    float:left;
+}
+#apSelectedEmp{
+    width:310px;
+    height:380px;
+    border:1px solid rgb(7, 53, 90);
+    margin:10px 10px 5px 13px;
+    padding:10px 0px 0px 10px;
+    font-size:13px;
+}
+.refedEmpName, .refedEmpDept{
+	cursor:pointer
+}
+
+/* 버튼 */
+#approveLineBtns{
+    width:110px;
+    height:30px;
+    float:left;
+    margin-top:10px;
+    margin-left:530px;
+}
+#lineApplyBtn{
+    width:50px;
+    height:28px;
+    background: rgb(7, 53, 90);
+    color:white;
+    border:none;
+    font-size:13px;
+    margin-top:2px;
+}
+#lineCancelBtn{
+    width:50px;
+    height:28px;
+    background:white;
+    border:1px solid rgb(7, 53, 90);
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    margin-left:5px;
+}
+#lineApplyBtn:hover{
+    background:lightsteelblue;
+    cursor:pointer;
+}

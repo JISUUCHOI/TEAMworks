@@ -2,4 +2,56 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="scheduleMapper">
 
+	<resultMap type="Schedule" id="scheduleResultSet">
+		<id column="SCH_NO" property="schNo"/>
+		<result column="SCH_CATEGORY" property="schCategory"/>
+		<result column="EMP_ID" property="empId"/>
+		<result column="SCH_TITLE" property="schTitle"/>
+		<result column="SCH_CONTENT" property="schContent"/>
+		<result column="SCH_STR_DATE" property="startDate"/>
+		<result column="SCH_END_DATE" property="endDate"/>
+		<result column="SCH_DEL_STATUS" property="deleteStatus"/>
+	</resultMap>
+	
+	<select id="selectAllSch" parameterType="string" resultMap="scheduleResultSet">
+		SELECT *
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND (EMP_ID IS NULL or EMP_ID=#{empId})
+	</select>
+	
+	<select id="selectTeamSch" resultMap="scheduleResultSet">
+		SELECT *
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND EMP_ID IS NULL
+	</select>
+	
+	<select id="selectEmpSch" parameterType="string" resultMap="scheduleResultSet">
+		SELECT *
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND EMP_ID=#{empId}
+	</select>
+	
+	<select id="selectSchDetail" parameterType="_int" resultMap="scheduleResultSet">
+		SELECT *
+		  FROM SCHEDULE
+		 WHERE SCH_DEL_STATUS='N' AND SCH_NO=#{schNo}
+	</select>
+	
+	<insert id="insertSch" parameterType="Schedule">
+		INSERT INTO SCHEDULE
+		VALUES(SEQ_SCHNO.NEXTVAL, '개인', #{empId}, #{schTitle}, #{schContent}, #{startDate}, #{endDate}, 'N')
+	</insert>
+	
+	<update id="updateSch" parameterType="Schedule">
+		UPDATE SCHEDULE
+		   SET SCH_TITLE=#{schTitle}, SCH_CONTENT=#{schContent}, SCH_STR_DATE=#{startDate}, SCH_END_DATE=#{endDate}
+		 WHERE SCH_NO=#{schNo}
+	</update>
+	
+	<update id="deleteSch" parameterType="_int">
+		UPDATE SCHEDULE
+		   SET SCH_DEL_STATUS='Y'
+		 WHERE SCH_NO=#{schNo}
+	</update>
+
 </mapper>

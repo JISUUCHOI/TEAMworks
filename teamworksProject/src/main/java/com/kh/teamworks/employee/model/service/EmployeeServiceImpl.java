@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.teamworks.employee.model.dao.EmployeeDao;
+import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Service("eService")
@@ -33,6 +34,24 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int insertProfile(Employee e) {
 		return eDao.insertProfile(sqlSession,e);
+	}
+
+	@Override
+	public int attInsert(Attendance att) {
+		
+		return eDao.attInsert(sqlSession,att);
+	}
+
+	@Override
+	public Attendance selectAttTime(String empId) {
+		
+		return eDao.selectAttTime(sqlSession,empId);
+	}
+
+	@Override
+	public int attUpdate(Attendance att) {
+		
+		return eDao.attUpdate(sqlSession,att);
 	}
 
 }

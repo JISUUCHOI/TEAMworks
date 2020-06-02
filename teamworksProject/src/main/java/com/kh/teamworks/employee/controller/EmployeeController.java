@@ -4,11 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +23,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.GsonBuilder;
 import com.kh.teamworks.employee.model.service.EmployeeService;
+import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
-
-import oracle.net.aso.s;
 
 @Controller
 public class EmployeeController {
@@ -30,7 +35,8 @@ public class EmployeeController {
 	private EmployeeService eService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
-	
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@RequestMapping("login.em")
 	public ModelAndView loginEmployee(Employee e, HttpSession session, ModelAndView mv) {
@@ -171,7 +177,57 @@ public class EmployeeController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping("auth.em")
+	public String authMailSending(String email) {
+		
+		Random r = new Random();
+		int dice = r.nextInt() + 50106;
+		
+		String setfrom = "twgroupware@gmail.com";
+		String tomail=email;
+		String title="TEAMworks 인증 메일 입니다.";
+		String content =
+		
+			   System.getProperty("line.separator")+
+			   "인증번호는 " + dice + " 입니다." +
+			   System.getProperty("line.separator")+
+			   "받으신 인증번호를 사이트에서 입력하시면 비밀번호를 변경하실 수 있습니다.";
+		
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom(setfrom);
+			messageHelper.setTo(tomail);
+			messageHelper.setSubject(title);
+			messageHelper.setText(content);
+			
+			mailSender.send(message);
+			
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+		return String.valueOf(dice);
+	}
 	
+	@ResponseBody
+	@RequestMapping("changePwd.em")
+	public String changePwd(Employee e) {
+		
+		String encPwd = bcryptPasswordEncoder.encode(e.getEmpPwd());
+		e.setEmpPwd(encPwd);
+		int result = eService.myUpdatePwd(e);
+		
+		if(result>0) {
+			
+			return "success";
+		}else {
+			
+			return "fail";
+		}
+	}
 	
 	@RequestMapping("updatePwd.em")
 	public String myUpdatePwd(Employee e, Model model, HttpServletRequest request) {
@@ -226,4 +282,42 @@ public class EmployeeController {
 	public String myAtt() {
 		return "employee/myAttendance";
 	}
+	
+	//출근도장 
+	@ResponseBody
+	@RequestMapping("attinsert.em")
+	public String attInsert(Attendance att) {
+		//System.out.println(att);
+		int result = eService.attInsert(att);
+		
+		if(result >0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	//출근 퇴근 시간 갱신
+	@ResponseBody
+	@RequestMapping(value="todayAtt.em", produces="application/json; charset=utf-8")
+	public String selectAttTime(String empId) {
+		
+		Attendance att =  eService.selectAttTime(empId);
+	
+		return new GsonBuilder().create().toJson(att);
+	}
+	//퇴근 도장
+		@ResponseBody
+		@RequestMapping("attupdate.em")
+		public String attUpdate(Attendance att) {
+			//System.out.println(att);
+			int result = eService.attUpdate(att);
+			
+			if(result >0) {
+				
+				return "success";
+			}else {
+				return "fail";
+			}
+		}
+	// 내 근태 
 }

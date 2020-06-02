@@ -6,16 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.content{
+		margin-left:20%;
+	}
+</style>
 </head>
 <body>
 
-     <jsp:include page="../common/menubar.jsp"/>
+	<jsp:include page="../common/menubar.jsp"/>
+    <jsp:include page="../common/sidebarMg.jsp"/>
 
-     <div class="content">
-
+    <div class="content">
+		<p>사원명부</p>
     </div>
 
-    <jsp:include page="../common/sidebarSample.jsp"/>
 
 </body>
 </html>

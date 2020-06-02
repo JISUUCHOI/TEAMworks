@@ -16,6 +16,9 @@
       <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800" rel="stylesheet">
       <!-- 아이콘 -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+	  <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <style>
  html, body{height:100%; position:relative;}
 	
@@ -92,7 +95,7 @@
        <div class="attendanceOuter">
             <div class="at-search">
                 <span >조회기간</span> <button tyep="button" class="btn btn-info">1개월</button>
-                <input type="date">~<input type="date" id="Date"> <button type="button" class="btn btn-info">검색</button>
+                <input type="text" id="startDate">~<input type="text" id="endDate"> <button type="button" id="click-btn" class="btn btn-info">검색</button>
             </div>
             <div class="table-responsive myat-board">
                     <table  class="table table-bordered table-hover" align="center">
@@ -139,12 +142,58 @@
             </div>
        </div>
    </div>
-   <script>
-       $(function() {
-    $( "#Date" ).datepicker({
-    });
-});
-   </script>
+<script>
+	
+	$(document).ready(function () {
+	        $.datepicker.setDefaults($.datepicker.regional['ko']); 
+	        $('#datepicker').datepicker({
+	            format: 'mm/dd/yyyy',
+	            startDate: '-1d'
+	        });
+	        $( "#startDate" ).datepicker({
+	             changeMonth: true, 
+	             changeYear: true,
+	             nextText: '다음 달',
+	             prevText: '이전 달', 
+	             dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+	             dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+	             monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	             monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	             dateFormat: "yymmdd",
+	             maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+	             onClose: function( selectedDate ) {    
+	                  //시작일(startDate) datepicker가 닫힐때
+	                  //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+	                 $("#endDate").datepicker( "option", "minDate", selectedDate );
+	             }    
+	
+	        });
+	        $( "#endDate" ).datepicker({
+	             changeMonth: true, 
+	             changeYear: true,
+	             nextText: '다음 달',
+	             prevText: '이전 달', 
+	             dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
+	             dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
+	             monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	             monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+	             dateFormat: "yymmdd",
+	             maxDate: 0,                       // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가)
+	             onClose: function( selectedDate ) {    
+	                 // 종료일(endDate) datepicker가 닫힐때
+	                 // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정
+	                 $("#startDate").datepicker( "option", "maxDate", selectedDate );
+	             }    
+	
+	        });    
+	});
+	
+	$('#click-btn').on('click', function(){
+		var date = $('#dateRangePicker').val();
+		alert(date);
+	});
+				
+</script>
 
 
 </body>

@@ -34,7 +34,7 @@
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-	<jsp:include page="sidebarReservation.jsp"/>
+	<jsp:include page="reservationSidebar.jsp"/>
 
 
 	    <h2>나의 예약 목록</h2>

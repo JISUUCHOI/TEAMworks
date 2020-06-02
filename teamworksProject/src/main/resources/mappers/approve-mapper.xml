@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="approveMapper">
+
+	<resultMap id="empInfoResultSet" type="Employee">
+		<id column="emp_id" property="empId"/>
+		<result column="emp_name" property="empName"/>
+		<result column="dept_code" property="deptCode" />
+		<result column="dept_name" property="deptName" />
+		<result column="job_code" property="jobCode" />
+		<result column="job_name" property="jobName" />
+	</resultMap>
+	
+	
+	<resultMap id="reqApprovalResultSet" type="Document">
+		<id column="doc_no" property="docNo"/>
+		<result column="emp_id" property="empId"/>
+		<result column="doc_sc" property="docSc"/>
+		<result column="doc_status" property="docStatus"/>
+		<result column="doc_title" property="docTitle"/>
+		<result column="doc_reference" property="docReference"/>
+		<result column="doc_date" property="docDate"/>
+		<result column="doc_end" property="docEnd"/>
+		<result column="doc_department" property="docDepartment"/>
+		
+		<result column="fe_sq" property="feSq"/>
+		<result column="fe_relation" property="feRelation"/>
+		<result column="fe_start" property="feStart"/>
+		<result column="fe_end" property="feEnd"/>
+		<result column="fe_place" property="fePlace"/>
+		<result column="fe_bank" property="feBank"/>
+		<result column="fe_account" property="feAccount"/>
+		<result column="fe_account_name" property="feAccountName"/>
+		
+		<result column="vc_sq" property="vcSq"/>
+		<result column="vc_day" property="vcDay"/>
+		<result column="vc_start" property="vcStart"/>
+		<result column="vc_end" property="vcEnd"/>
+		<result column="vc_count" property="vcCount"/>
+		<result column="vc_content" property="vcContent"/>
+	</resultMap>
+
+
+	<select id="selectEmpInfo" parameterType="string" resultMap="empInfoResultSet">
+		select emp_id, emp_name, dept_name
+		  from employee
+		  join department using(dept_code)
+		 where emp_id = #{empId} and emp_status = 'Y'
+	</select>
+
+	<select id="selectDeptName" resultMap="empInfoResultSet">
+		select dept_code, dept_name
+		  from department
+		 order by dept_code
+	</select>
+
+
+	<select id="selectOrgChart" resultMap="empInfoResultSet">
+		select emp_id, emp_name, e.dept_code, dept_name, e.job_code, job_name
+		  from employee e
+		  join department d on(e.dept_code = d.dept_code)
+		  join job j on(e.job_code = j.job_code)
+		 where emp_status = 'Y'
+         order by e.dept_code, e.job_code
+	</select>
+
+	<select id="selectEmpSch" parameterType="com.kh.teamworks.approval.model.vo.ApproveSearchCondition" resultMap="empInfoResultSet">
+		select emp_id, emp_name, e.dept_code, dept_name, e.job_code, job_name
+		  from employee e
+		  join department d on(e.dept_code = d.dept_code)
+		  join job j on(e.job_code = j.job_code)
+		 where emp_status = 'Y'
+		 	<choose>
+		 		<when test="deptName != null">
+		 					and dept_name like '%' || #{deptName} || '%'
+		 			order by job_code
+		 		</when>	
+		 		<when test="jobName != null">
+		 					and job_name like '%' || #{jobName} || '%'
+		 			order by dept_code
+		 		</when>
+		 		<when test="empName != null">
+		 					and emp_name like '%' || #{empName} || '%'
+		 			order by dept_code, job_code
+		 		</when>
+		 	</choose>
+	</select>
+
+	<insert id="insertFamilyEvent" parameterType="Document">
+		insert into FAMILY_EVENT
+		values(seq_docno.nextval, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, #{feSq}, #{feRelation}, #{feName}, #{feStart}, #{feEnd}, #{fePlace}, #{fePrice}, #{feBank}, #{feAccount}, #{feAccountName})
+	</insert>
+	
+	<insert id="insertVacation" parameterType="Document">
+		insert into vacation
+		values(seq_docno.nextval, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, #{vcSq}, #{vcDay}, #{vcStart}, #{vcEnd}, #{vcCount}, #{vcContent})
+	</insert>
+	
+
+</mapper>

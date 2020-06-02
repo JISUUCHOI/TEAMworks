@@ -14,7 +14,7 @@
 <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <style>
-  #date{
+  #todayDate{
     font-size: 30px;
     padding-left: 20px;
     padding-right: 20px;
@@ -68,7 +68,7 @@
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-	<jsp:include page="sidebarReservation.jsp"/>
+	<jsp:include page="reservationSidebar.jsp"/>
 	
 	<br><br>
 	
@@ -76,7 +76,7 @@
 	<div style="width:1250px; float:left;">
 		<div align="center">
 		  <button class="pointBtn" id="beforeBtn">&lt;</button>
-		  <b id="date">${ today }</b>
+		  <b id="todayDate">${ today }</b>
 		  <button class="pointBtn" id="afterBtn">&gt;</button>
 		</div>
 		
@@ -333,14 +333,16 @@
 	    </div>
 	  </div>
 	</div>
-	
+
 	
 	<script>
 	var dayIndex;
 	var check = 0;
+	
+		// 이전 날짜 버튼 눌렀을 때
 		$(function(){
 			$('#beforeBtn').click(function(){
-				if(check == 0){
+ 				if(check == 0){
 					check = 1;	
 					dayIndex = ${dayIndex};	
 				}
@@ -351,16 +353,25 @@
 					
 				}
 				
-				$.ajax({
-					url:"selectDayRes.re",
-					data:{dayIndex:dayIndex},
-					success:function(dayList){
-						console.log(dayList);
-					},error:function(){
-						console.log("전날 이동 ajax 통신 실패!");
-					}
-				});
+				console.log(dayIndex);
+			});
+		});
+		
+		// 다음 날짜 버튼 눌렀을 때
+		$(function(){
+			$('#afterBtn').click(function(){
+				if(check == 0){
+					check = 1;	
+					dayIndex = ${dayIndex};	
+				}
 				
+				if(dayIndex < 6){
+					dayIndex += 1;
+				}else{
+					
+				}
+				
+
 				console.log(dayIndex);
 			});
 		});

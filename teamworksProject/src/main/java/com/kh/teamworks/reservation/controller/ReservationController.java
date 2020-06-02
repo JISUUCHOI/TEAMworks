@@ -24,7 +24,7 @@ public class ReservationController {
 	public ReservationService reService;
 
 	@RequestMapping("selectList.re")
-	public ModelAndView selectReservationList(int dayIndex, ModelAndView mv) {
+	public ModelAndView selectReservationList(ModelAndView mv) {
 
 		Calendar cal = Calendar.getInstance(); 
 		cal.setTime(new Date()); 
@@ -38,9 +38,9 @@ public class ReservationController {
 			days[i] = new String(df.format(cal.getTime())); 
 			cal.add(Calendar.DATE, 1);
 		 
-			if(i == dayIndex) { 
+//			if(i == dayIndex) { 
 				today = days[i]; 
-			} 
+//			} 
 		}
 		
 
@@ -48,8 +48,10 @@ public class ReservationController {
 
 		mv.addObject("list", list);
 		mv.addObject("today", today);
-		mv.addObject("dayIndex", dayIndex);
-		mv.setViewName("reservation/reservationList");
+		mv.addObject("days", days);
+//		mv.addObject("dayIndex", dayIndex);
+		mv.setViewName("reservation/test");
+		
 
 		return mv;
 	}

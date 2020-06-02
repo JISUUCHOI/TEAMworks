@@ -117,13 +117,13 @@
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/logo_white.png" height="35px">               
             </div>
             <div id="center">
-                <div class="menu" id="home"><a href="">홈</a></div>
+                <div class="menu" id="home"><a href="${ pageContext.servletContext.contextPath }">홈</a></div>
                 <div class="menu" id="approveDoc"><a href="formList.ap">전자결재</a></div>
                 <div class="menu" id="email"><a href="">메일</a></div>
-                <div class="menu" id="board"><a href="">게시판</a></div>
-                <div class="menu" id="calender"><a href="">일정</a></div>
-                <div class="menu" id="book"><a href="selectList.re?dayIndex=3">예약</a></div>
-                <div class="menu" id="orgManage"><a href="">조직관리</a></div>
+                <div class="menu" id="board"><a href="list.bo?currentPage=1&cat=1">게시판</a></div>
+                <div class="menu" id="calender"><a href="selectAllSch.sc?empId=${loginUser.empId }">일정</a></div>
+                <div class="menu" id="book"><a href="selectList.re">예약</a></div>
+                <div class="menu" id="orgManage"><a href="main.mg">조직관리</a></div>
             </div>
         </div>
 
