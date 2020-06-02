@@ -22,302 +22,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<style>
-    /* 전체윤곽 */
-    html, body{height:100%;}
-    
-    #vacationWrapper{
-    	width:1250px;
-    	height:100%;
-    	float:left;
-    }
-    #draftOuter{
-        width:800px;
-        height:850px;
-       	margin:auto;
-       	margin-top:50px;
-    }
-
-    /* 버튼 */
-	#btns{
-	    width:200px;
-	    float:right;
-	}
-	#approveLineBtn, #approveBtn{
-	    width:60px;
-	    height:28px;
-	    background: rgb(7, 53, 90);
-	    color:white;
-	    border:none;
-	    font-size:12px;
-	}
-	#approveLineBtn:hover, #approveBtn:hover, #refBtn:hover{
-	    background:deepskyblue;
-	    cursor:pointer;
-	}
-	#cancelBtn{
-	    width:60px;
-	    height:28px;
-	    background:white;
-	    border:1px solid rgb(7, 53, 90);
-	    font-size:12px;
-	    font-weight:600;
-	    cursor:pointer;
-	}
-	
-	/* 결재선 */
-	#appoveLine{
-	    float:right;
-	}
-	#approveLineTb, #approveLineTb tr, #approveLineTb td, #approveLineTb th{
-	    border:1.2px solid lightgrey;
-	    border-collapse: collapse;
-	    font-size:12px;
-	}
-	#approveLineTb{
-	    text-align:center;
-	}
-	
-	/* 기안문서 */
-	.docContents{margin:auto;}
-	.docContents, .docContents tr, .docContents td{
-	    border-collapse: collapse;
-	    font-size:13px;
-	}
-	.docContents tr{
-	    height:35px;
-	    border-top:1px solid lightgrey;
-	    border-bottom:1px solid lightgrey;
-	}
-	.th{
-	    background:lightsteelblue;
-	    color:white;
-	    font-weight:600;
-	    text-align:center;
-	    font-size:13px;
-	}
-	#refSch, #apprveEndDate {
-	    width:175px;
-	    height:26px;
-	    margin-left:10px;
-	}
-	#refBtn:hover{
-		background:lightsteelblue;
-		cursor:pointer;
-	}
-	#titleInput, #vcReason{
-	    width:580px;
-	    height:26px;
-	    margin-left:10px;
-	}
-	#refBtn{
-	    width:40px;
-	    height:26px;
-	    background: rgb(7, 53, 90);
-	    border:none;
-	    color:white;
-	    margin-left:5px;
-	    margin-right:10px;
-	    font-size:12px;
-	}
-	.readInput{
-		width:75px;
-		border:none;
-	}
-    
-    /* 휴가신청서 */
-    #requestVacation input, #requestVacation span{
-        height:26px;
-        float:left;
-        margin-left:10px;
-    }
-    #requestVacation select{
-        margin-left:10px;
-        height:25px;
-        width:80px;
-    }
-    
-    /* 참조 모달용 스타일!!!! */
-    /* 전체윤곽 */
-    #approveLineOuter{
-        width:700px;
-        height:500px;
-        margin:auto;
-    }
-    /* 조직도 */
-    #orgChart{
-        width:50px;
-        height:30px;
-        float:left;
-        border:none;
-        background:rgb(7, 53, 90);
-        color:white;
-        font-family:'Handon3gyeopsal300g';
-        cursor:pointer;
-        font-size:12px;
-        float:left;
-    }
-    #sch{
-        width:50px;
-        height:30px;
-        border:1px solid rgb(7, 53, 90);
-        background:white;
-        color:rgb(7, 53, 90);
-        font-family:'Handon3gyeopsal300g';
-        cursor:pointer;
-        font-size:12px;
-    }
-
-    #chart-container, #sch-container{
-        width:300px;
-        height:450px;
-        border:1px solid rgb(7, 53, 90);
-        font-family: 'Handon3gyeopsal300g';
-        float:left;
-        font-size:13px;
-    }
-    .tree1, .tree2, .tree3{cursor:pointer;}
-    .tree1{
-        margin:10px 0px 5px 15px;
-    }
-    .tree2{
-        margin:10px 0px 5px 45px;
-        display:none;
-    }
-    .tree31, .tree32{
-        margin-top:2px;
-        margin-left:50px;
-        display:none;
-    }
-    .tree31>span, .tree32>span{
-        line-height:180%;
-    }
-    /* 검색 */
-    #schBox{
-        width:270px;
-        height:55px;
-        border:1px solid rgb(7, 53, 90);
-        margin:10px 10px 5px 13px;
-        padding:10px 0px 0px 15px;
-    }
-    #schInput{
-        width:150px;
-        height:28px;
-    }
-    #schBtn{
-        width:40px;
-        height:28px;
-        background: rgb(7, 53, 90);
-        color:white;
-        border:none;
-        font-size:12px;
-    }
-    #schBtn:hover{
-        background:lightsteelblue;
-        cursor:pointer;
-    }
-    #empListArea{
-        width:280px;
-        height:300px;
-        margin-left:10px;
-    }
-
-    #empList{
-        margin-top:20px;
-        margin-left:5px;
-        text-align:center;
-    }
-    #empList, #empList>tbody>tr{
-        border-top: 1px solid lightgrey;
-        border-bottom: 1px solid lightgrey;
-        border-collapse: collapse;
-        font-size:12px;
-    }
-    #empList th{text-align:center;}
-    #empList>thead>tr{
-        border-top-style:groove;
-        border-bottom-style:groove;
-    }
-    #empList tr{height:28px;}
-    #empList>tbody>tr:hover{
-        background:lightsteelblue;
-        color:white;
-    }
-    .chk{margin-top:3px;}
-
-    /* 선택/취소 */
-    #chooseCancel{
-        width:30px;
-        height:100px;
-        margin:140px 10px 0px 10px;
-        float:left;
-    }
-    .choose{
-        border-radius:50%;
-        border:1.2px solid rgb(7, 53, 90);
-        width:30px;
-        height:30px;
-        color:rgb(7, 53, 90);
-        font-weight:600;
-        text-align:center;
-        line-height:1.5;
-        margin-top:10px;
-        cursor:pointer;
-    }
-
-    /* 참조자 */
-    #refEmpList{
-        width:340px;
-        height:450px;
-        border:1px solid rgb(7, 53, 90);
-        font-family: 'Handon3gyeopsal300g';
-        float:left;
-    }
-    #selectedEmp{
-        width:310px;
-        height:380px;
-        border:1px solid rgb(7, 53, 90);
-        margin:10px 10px 5px 13px;
-        padding:10px 0px 0px 10px;
-        font-size:13px;
-    }
-    .refedEmpName, .refedEmpDept{
-    	cursor:pointer
-    }
-    
-    /* 버튼 */
-    #approveLineBtns{
-        width:110px;
-        height:30px;
-        float:left;
-        margin-top:10px;
-        margin-left:530px;
-    }
-    #lineApplyBtn{
-        width:50px;
-        height:28px;
-        background: rgb(7, 53, 90);
-        color:white;
-        border:none;
-        font-size:13px;
-        margin-top:2px;
-    }
-    #lineCancelBtn{
-        width:50px;
-        height:28px;
-        background:white;
-        border:1px solid rgb(7, 53, 90);
-        font-size:12px;
-        font-weight:600;
-        cursor:pointer;
-        margin-left:5px;
-    }
-    #lineApplyBtn:hover{
-        background:lightsteelblue;
-        cursor:pointer;
-    }
-    
-</style>
+<!-- css 연결 -->
+<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/vacationForm.css">
+<!-- js 연결 -->
+<script src="${ pageContext.servletContext.contextPath }/resources/js/vacationForm.js" rel="javascript" type="text/javascript"></script>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
@@ -333,7 +41,7 @@
 	        <form id="docForm" action="requestVac.rap" method="post">
 	            <!-- 버튼들 -->
 	            <div id="btns">
-	                <button type="button" id="approveLineBtn">결재선</button>
+	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#approveLineModal">결재선</button>
 	                <button type="submit" id="approveBtn">결재요청</button>
 	                <button type="button" id="cancelBtn">취소</button>
 	            </div>
@@ -442,7 +150,7 @@
 	                <!-- Modal Body -->
 	                <div class="modal-body">
 	                    <div id="approveLineOuter">
-					        <button type="button" id="orgChart"">조직도</button>
+					        <button type="button" id="orgChart">조직도</button>
 					        <button type="button" id="sch">검색</button><br>
 					        <div id="chart-container">
 					            <div class="tree1" id="coName">(주)TEAMWORKS</div>
@@ -506,6 +214,91 @@
 	                
 	                <!-- Modal footer -->
 	                <div class="modal-footer">
+	                	<div id="referenceBtns">
+				            <button type="button" id="refApplyBtn">적용</button>
+				            <button type="button" id="refCancelBtn">취소</button>
+				        </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	    
+	    <!-- 결재선 모달 -->
+	    <div class="modal fade" id="approveLineModal">
+	        <div class="modal-dialog modal-lg">
+	            <div class="modal-content">
+		            <!-- Modal Header -->
+		            <div class="modal-header">
+		                <h6 class="modal-title">결재선</h6>
+		            </div>
+		
+	                <!-- Modal Body -->
+	                <div class="modal-body">
+	                    <div id="approveLineOuter">
+					        <button type="button" id="apOrgChart">조직도</button>
+					        <button type="button" id="apSch">검색</button><br>
+					        <div id="apChart-container">
+					            <div class="apTree1" id="apCoName">(주)TEAMWORKS</div>
+					           
+					            <% int j = 1;%>
+					            <c:forEach var="d" items="${ dept }">
+					            	<div class="apTree2 apTree2<%= j %>">${ d.deptName }</div>
+					            	<div class="apTree3 apTree3<%= j %>">
+						            	<c:forEach var="l" items="${ list }">
+						            		<c:choose>
+						            			<c:when test="${ d.deptName eq l.deptName }">
+						            					<input type="hidden" class="apRefedId" value="${ l.empId }">
+						            					<input type="hidden" value="${ l.deptName }">
+						                				<input type="checkbox" name="apRefChk" class="apRefChk" style="visibility:hidden">
+						                				ㄴ<span class="apRefEmpName">${ l.empName }</span><span class="apRefEmpDept"> ${ l.jobName }</span><br>
+						            			</c:when>
+						            		</c:choose>
+						            	</c:forEach>
+					            	</div>
+					           		<% j++; %>
+					            </c:forEach>
+					            
+					        </div>
+					        <div id="apSch-container">
+					            <div id="apSchBox">
+					                <font>사원명</font>
+					                <input name="apKeyword" type="search" id="apSchInput">
+					                <button type="button" id="apSchBtn">검색</button>
+					            </div>
+					
+					            <div id="apEmpListArea">
+					                <table id="apEmpList">
+					                    <thead>
+					                        <tr>
+					                            <th width="20"></th>
+					                            <th width="85">부서</th>
+					                            <th width="85">직급</th>
+					                            <th width="60">사원명</th>
+					                        </tr>
+					                    </thead>
+					                    <tbody>
+					                        
+					                    </tbody>
+					                </table>
+					            </div>
+					        </div>
+					
+					        <div id="apChooseCancel">
+					            <div class="apChoose" id="apChooseRef"> &gt; </div>
+					            <div class="apChoose" id="apCancelRef"> &lt; </div>
+					        </div>
+					
+					        <div id="apRefEmpList">
+					            <div style="margin:10px 0px 0px 20px; font-size:13px;">참조자</div>
+					            <div id="apSelectedEmp">
+					            	<table id="apRefEmpArea"></table>
+					            </div>
+					        </div>
+					    </div>
+	                </div>
+	                
+	                <!-- Modal footer -->
+	                <div class="modal-footer">
 	                	<div id="approveLineBtns">
 				            <button type="button" id="lineApplyBtn">적용</button>
 				            <button type="button" id="lineCancelBtn">취소</button>
@@ -515,268 +308,7 @@
 	        </div>
 	    </div>
 	    
-	    
 	</div>
-	
-	<script>
-		$(function(){
-			$("#approveDoc>a").css("color", "dimgray");
-			$("#approveDoc").css("border-bottom-style", "groove");
-			$("#writeDoc>a").css("color", "deepskyblue");
-		});
-		
-		function numberOnly(){
-			if(event.keyCode<48 || event.keyCode>57){
-				event.returnValue=false;
-				alert("숫자만 입력해주세요.");
-			}
-		}
-		
-		
-		/* 참조자 모달용 스크립트 */
-		$(function(){
-			/* 조직도 참조자 선택 */
-			$(".refEmpName").click(function(){
-				
-				var hiddenChk = $(this).prev();
-				
-				if(hiddenChk.is(":checked")){
-					hiddenChk.prop("checked", false);
-					$(this).css("background", "white");
-					$(this).next().css("background", "white");
-				}else{
-					hiddenChk.prop("checked", true);
-					$(this).css("background", "lightsteelblue");
-					$(this).next().css("background", "lightsteelblue");
-				}
-				
-			});
-			
-			/* 참조자 검색 시 */
-			$("#schBtn").click(function(){
-				
-				$.ajax({
-					url:"empSch.rap",
-					data:{keyword:$("#schInput").val()},
-					type:"post",
-					success:function(schEmp){
-						if(schEmp.length > 0) {
-							
-							var value ="";
-							
-							for(var i in schEmp){
-								value += "<tr>" + 
-					                            "<td>" + 
-					                            	"<input type='hidden' class='refedId' value='" + schEmp[i].empId + "'>" +
-					                            	"<input type='hidden' value='" + schEmp[i].deptName + "'>" +
-					                           		"<input type='checkbox' name='refChk' class='chk'>" +
-					                           		"<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
-					                            "<td>" + schEmp[i].deptName + "</td>" + 
-					                            "<td>" + schEmp[i].jobName + "</td>" +
-					                            "<td>" + schEmp[i].empName + "</td>" +
-				                         "</tr>"
-							}
-							
-							$("#empList tbody").html(value);
-							
-						}else {
-							alert("올바른 검색어를 입력하세요.");
-						}
-						
-					}, error:function(){
-						alert("참조자 검색 실패");
-					}
-				});
-				
-			});
-			
-			/* 참조자 선택(왼쪽 => 오른쪽) */
-			$("#chooseRef").click(function(){
-				
-				var refedEmp = [];
-				var refedDept = [];
-				var refedId = [];
-				
-				$("input:checkbox[name=refChk]:checked").each(function(){
-					refedEmp.push($(this).next().text());
-					refedDept.push($(this).prev().val());
-					refedId.push($(this).prevAll(".refedId").val());
-				});
-				
-				var value = "";
-				
-				for(var i=0; i<refedEmp.length; i++){
-					value += "<tr>" +
-								"<td>" + 
-									"<span class='refedEmpId' style='display:none'>" + refedId[i] + " " + "</span>" +
-									"<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-							 		"<span class='refedEmpName'>" + refedEmp[i] + " " + "</span>" + 
-							 		"<span class='refedEmpDept'> | " + refedDept[i] + "</span>" + 
-							 	"</td>" +
-							 "</tr>";
-				}
-				
-				$("#refEmpArea").html(value);
-				
-				$("input:checkbox[name=refChk]").prop("checked", false);
-				$("input:checkbox[name=refChk]").nextAll().css("background", "white");
-				
-			});
-			
-			/* 참조자 오른쪽에서 삭제 */
-			$("#cancelRef").click(function(){
-				
-				$("input:checkbox[name=checkBox]:checked").each(function(){
-					$(this).parents('tr').remove();
-				});
-				
-			});
-			
-			/* 추가된 참조자 선택 */
-			$("#selectedEmp").on("click", ".refedEmpName", function(){	
-				
-				var hiddenChk2 = $(this).prev();
-				
-				if(hiddenChk2.is(":checked")){
-					hiddenChk2.prop("checked", false);
-					$(this).css("background", "white");
-					$(this).next().css("background", "white");
-				}else{
-					hiddenChk2.prop("checked", true);
-					$(this).css("background", "lightsteelblue");
-					$(this).next().css("background", "lightsteelblue");
-				}
-				
-			});
-			
-			/* 부서 클릭 시 */
-			$("#selectedEmp").on("click", ".refedEmpDept", function(){	
-				
-				var hiddenChk = $(this).prevAll('.checkBox');
-				
-				if(hiddenChk.is(":checked")){
-					hiddenChk.prop("checked", false);
-					$(this).css("background", "white");
-					$(this).siblings('.refedEmpName').css("background", "white");
-				}else{
-					hiddenChk.prop("checked", true);
-					$(this).css("background", "lightsteelblue");
-					$(this).siblings('.refedEmpName').css("background", "lightsteelblue");
-				}
-				
-			});
-			
-			/* 적용 버튼 */
-			$("#lineApplyBtn").click(function(){
-				var refedEmp = $('.refedEmpName').text();
-				var refedId = $('.refedEmpId').text();
-				$("#refSch").val(refedEmp);
-				$("#refedId").val(refedId);
-				$("#schInput").val("");
-				
-				$('#empList>tbody>tr').remove();
-				$('#refEmpArea tr').remove();
-				$('#refEmp').modal("hide");
-				
-				$("input:checkbox[name=refChk]").prop("checked", false);
-				$("input:checkbox[name=checkBox]").prop("checked", false);
-				$('.tree3').slideUp();
-				$('.tree2').slideUp();
-			});
-
-			/* 취소 버튼 */
-			$("#lineCancelBtn").click(function(){
-				$('#refEmpArea tr').remove();
-				$('#empList>tbody>tr').remove();
-				$("#schInput").val("");
-				
-				$("input:checkbox[name=refChk]").prop("checked", false);
-				$("input:checkbox[name=checkBox]").prop("checked", false);
-				$('.tree3').slideUp();
-				$('.tree2').slideUp();
-				
-				$("#schInput").val("");
-				$('#refEmp').modal("hide");
-			});
-			
-		});
-		
-		 $(function(){
-				
-		       	/* 조직도 slideDown slideUp */
-	            $(".tree1").click(function(){
-	                var tree2 = $(this).nextAll(".tree2");
-	                var tree31 = $(this).nextAll(".tree31");
-	                var tree32 = $(this).nextAll(".tree32");
-
-	                if(tree2.css("display") == "none") {
-	                    tree2.slideDown();
-
-	                }else {
-	                    tree2.slideUp();
-	                }
-
-	                if (tree31.is(':hidden')) {
-	                } else {
-	                    tree31.slideUp('slow');
-	                }
-
-	                if (tree32.is(':hidden')) {
-	                } else {
-	                    tree32.slideUp('slow');
-	                }
-	            });
-	        	
-	            $(".tree21").click(function(){
-	                var tree31 = $(this).nextAll(".tree31");
-
-	                if(tree31.css("display") == "none") {
-	                    tree31.slideDown();
-	                }else{
-	                    tree31.slideUp();
-	                }
-	            });
-
-	            $(".tree22").click(function(){
-	                var tree31 = $(this).nextAll(".tree32");
-
-	                if(tree31.css("display") == "none") {
-	                    tree31.slideDown();
-	                }else{
-	                    tree31.slideUp();
-	                }
-	            });
-
-	            /* 조직도/검색 클릭 시  */
-	            $("#chart-container").show();
-	            $("#sch-container").hide();
-
-	            $("#orgChart").click(function(){
-	                $("#chart-container").show();
-	                $("#sch-container").hide();
-	                $("#orgChart").css("border", "none");
-	                $("#orgChart").css("background", "rgb(7, 53, 90)");
-	                $("#orgChart").css("color", "white");
-	                $("#sch").css("border", "1px solid rgb(7, 53, 90)");
-	                $("#sch").css("background", "white");
-	                $("#sch").css("color", "rgb(7, 53, 90)");
-	            });
-
-	            $("#sch").click(function(){
-	                $("#sch-container").show();
-	                $("#chart-container").hide();
-	                $("#sch").css("border", "none");
-	                $("#sch").css("background", "rgb(7, 53, 90)");
-	                $("#sch").css("color", "white");
-	                $("#orgChart").css("border", "1px solid rgb(7, 53, 90)");
-	                $("#orgChart").css("background", "white");
-	                $("#orgChart").css("color", "rgb(7, 53, 90)");
-	            });
-
-	        });
-		
-		
-	</script>
 	
 </body>
 </html>
