@@ -16,7 +16,7 @@ import lombok.ToString;
 public class Document {
 	
 	// 결재문서
-	private int docNo;				// 문서코드
+	private String docNo;				// 문서코드
 	private String empId;			// 사원번호
 	private String docSc;			// 문서양식명		// 기안서, 경조사, 휴가, 제증명
 	private int docStatus;			// 문서상태		// 0:대기 1: 진행 2: 완료 3: 반려 4:회수
@@ -56,10 +56,12 @@ public class Document {
 	private String pfPurpose;		// 용도
 	private String pfStatus;		// 발행상태		// 발행확인 되면 Y값 변경
 	
+	// 결재선
+	private String approver;		// 화면에서 컨트롤러로 넘어갈 결재자사원번호
 	
 	
 	
-	public Document(int docNo, String empId, String docSc, int docStatus, String docTitle, String docReference,
+	public Document(String docNo, String empId, String docSc, int docStatus, String docTitle, String docReference,
 			String docDate, String docEnd, String docDepartment, String pfSq, String pfPurpose, String pfStatus) {
 		super();
 		this.docNo = docNo;

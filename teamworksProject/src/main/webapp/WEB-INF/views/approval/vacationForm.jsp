@@ -39,6 +39,8 @@
 	        <br>
 	
 	        <form id="docForm" action="requestVac.rap" method="post">
+	        	<!-- 결재선으로 선택된 값들 -->
+	        	<input type="hidden" id="approver" name="approver">
 	            <!-- 버튼들 -->
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#approveLineModal">결재선</button>
@@ -287,11 +289,25 @@
 					            <div class="apChoose" id="apChooseRef"> &gt; </div>
 					            <div class="apChoose" id="apCancelRef"> &lt; </div>
 					        </div>
-					
-					        <div id="apRefEmpList">
-					            <div style="margin:10px 0px 0px 20px; font-size:13px;">참조자</div>
-					            <div id="apSelectedEmp">
-					            	<table id="apRefEmpArea"></table>
+							
+							<div id="approvalLine">
+								<div style="margin:10px 0px 0px 20px; font-size:13px;">결재선 정보</div>
+					            <div class="frequentLine">
+					                <font>사용자 결재선</font>
+					                <select name="freApproveLine" id="chooseApproveLine">
+					                    <option value="freArroveLine1">결재선 즐겨찾기</option>
+					                    <option value="freArroveLine2">경영지원팀 결재선</option>
+					                    <option value="freArroveLine3">개발팀 결재선</option>
+					                </select>
+					                <button type="button" id="deleteBtn">삭제</button>
+					            </div>
+					            <div id="selectedEmp">
+					                <table id="apRefEmpArea" style="margin:5px 0px 0px 15px;"></table>
+					            </div>
+					            <div class="frequentLine">
+					                <font>사용자 결재선명</font>
+					                <input id="enrollApproveLine">
+					                <button type="button" id="enrollBtn">저장</button>
 					            </div>
 					        </div>
 					    </div>
