@@ -76,7 +76,7 @@
             
             <div class="category">조직도 관리</div>
             <div class="subCate"><a href="org.mg">조직도</a></div>
-            <div class="subCate"><a href="">직급 관리</a></div>
+            <div class="subCate"><a href="orgJobCode.mg">직급 관리</a></div>
         </div>
     </div>
 </body>

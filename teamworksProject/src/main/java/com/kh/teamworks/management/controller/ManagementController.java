@@ -44,4 +44,9 @@ public class ManagementController {
 		return "management/companyOrganization";
 	}
 	
+	@RequestMapping("orgJobCode.mg")
+	public String orgJobCode() {
+		return "management/companyOrganizationOrder";
+	}
+	
 }
