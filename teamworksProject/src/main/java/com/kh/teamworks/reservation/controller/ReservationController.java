@@ -26,31 +26,25 @@ public class ReservationController {
 	@RequestMapping("selectList.re")
 	public ModelAndView selectReservationList(ModelAndView mv) {
 
-		Calendar cal = Calendar.getInstance(); 
-		cal.setTime(new Date()); 
-		DateFormat df = new SimpleDateFormat("yyyy.MM.dd");
-		
-		cal.add(Calendar.DATE, -3);
-		
-		String today = ""; 
-		String[] days = new String[7]; 
-		for(int i=0; i<days.length; i++) { 
-			days[i] = new String(df.format(cal.getTime())); 
-			cal.add(Calendar.DATE, 1);
-		 
-//			if(i == dayIndex) { 
-				today = days[i]; 
-//			} 
-		}
-		
-
-		ArrayList<Reservation> list = reService.selectReservationList(today);
-
-		mv.addObject("list", list);
-		mv.addObject("today", today);
-		mv.addObject("days", days);
-//		mv.addObject("dayIndex", dayIndex);
-		mv.setViewName("reservation/test");
+		/*
+		 * Calendar cal = Calendar.getInstance(); cal.setTime(new Date()); DateFormat df
+		 * = new SimpleDateFormat("yyyy.MM.dd");
+		 * 
+		 * cal.add(Calendar.DATE, -3);
+		 * 
+		 * String today = ""; String[] days = new String[7]; for(int i=0; i<days.length;
+		 * i++) { days[i] = new String(df.format(cal.getTime())); cal.add(Calendar.DATE,
+		 * 1);
+		 * 
+		 * if(i == dayIndex) { today = days[i]; } }
+		 * 
+		 * 
+		 * ArrayList<Reservation> list = reService.selectReservationList(today);
+		 * 
+		 * mv.addObject("list", list); mv.addObject("today", today);
+		 * mv.addObject("days", days); mv.addObject("dayIndex", dayIndex);
+		 */
+		mv.setViewName("reservation/reservationList2");
 		
 
 		return mv;
