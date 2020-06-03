@@ -49,4 +49,13 @@ public class ManagementController {
 		return "management/companyOrganizationOrder";
 	}
 	
+	@RequestMapping("vacationList.mg")
+	public String vacationList() {
+		return "management/companyVacationList";
+	}
+	
+	@RequestMapping("empDocument.mg")
+	public String empDocument() {
+		return "management/companyMemberDocument";
+	}
 }
