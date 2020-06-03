@@ -22,6 +22,7 @@
 		<typeAlias type="com.kh.teamworks.board.model.vo.SearchBoardCondition" alias="sc"/>
 		<typeAlias type="com.kh.teamworks.approval.model.vo.ApproveSearchCondition" alias="asc"/>
 		<typeAlias type="com.kh.teamworks.approval.model.vo.ApproveLine" alias="al"/>
+		<typeAlias type="com.kh.teamworks.approval.model.vo.FrequentApprovalLine" alias="fal"/>
 	</typeAliases>
 	
 	<mappers>
