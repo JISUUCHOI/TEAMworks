@@ -20,6 +20,8 @@
 		<typeAlias type="com.kh.teamworks.board.model.vo.BoardReply" alias="BoardReply"/>
 		<typeAlias type="com.kh.teamworks.board.model.vo.BoardReplyDTO" alias="ReplyDTO"/>
 		<typeAlias type="com.kh.teamworks.board.model.vo.SearchBoardCondition" alias="sc"/>
+		<typeAlias type="com.kh.teamworks.approval.model.vo.ApproveSearchCondition" alias="asc"/>
+		<typeAlias type="com.kh.teamworks.approval.model.vo.ApproveLine" alias="al"/>
 	</typeAliases>
 	
 	<mappers>
