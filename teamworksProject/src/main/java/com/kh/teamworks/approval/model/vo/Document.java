@@ -59,6 +59,9 @@ public class Document {
 	// 결재선
 	private String approver;		// 화면에서 컨트롤러로 넘어갈 결재자사원번호
 	
+	// 보관함
+	private int approveStatus;
+	
 	
 	
 	public Document(String docNo, String empId, String docSc, int docStatus, String docTitle, String docReference,
