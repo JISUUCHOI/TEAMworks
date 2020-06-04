@@ -41,30 +41,16 @@ public class ReservationController {
 		  DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		  DateFormat dowf = new SimpleDateFormat("(EEE)");
 		  
-//		  cal.add(Calendar.DATE, -3);
-		  
 		  String currentDate = df.format(cal.getTime());
 		  String dayOfWeek = dowf.format(cal.getTime());
-/*		  String[] days = new String[7]; 
-		  for(int i=0; i<days.length; i++) { 
-			  days[i] = new String(df.format(cal.getTime())); 
-			  cal.add(Calendar.DATE, 1);
-		  }*/
 		  
 		  ArrayList<Reservation> list = reService.selectReservationList(currentDate);
 		  
 		  ReservationDto rdto = new ReservationDto(list, currentDate, dayOfWeek);
 		  
-		  
-		  
-//		  mv.addObject("list", list); 
-//		  mv.addObject("currentDate", currentDate);
-//		  mv.addObject("dayOfWeek", dayOfWeek);
 		  mv.addObject("rdto", rdto);
-		  mv.setViewName("reservation/reservationList2");
-		
-//		  System.out.println(list);
-//		  System.out.println(today + dayOfWeek);
+		  mv.setViewName("reservation/reservationList");
+
 
 		  return mv;
 	}
@@ -125,8 +111,6 @@ public class ReservationController {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat dowf = new SimpleDateFormat("(EEE)");
 		  
-//		  cal.add(Calendar.DATE, -3);
-		  
 		currentDate = df.format(cal.getTime());
 		String dayOfWeek = dowf.format(cal.getTime());
 		
@@ -137,6 +121,7 @@ public class ReservationController {
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(rdto, response.getWriter());
 	}
+	
 	
 	// 다음 버튼 클릭 시 하루 뒤 날짜로 예약 리스트 재 조회 후 리스트와 날짜를 리턴하는 메소드
 	@ResponseBody
@@ -151,8 +136,6 @@ public class ReservationController {
 		
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		DateFormat dowf = new SimpleDateFormat("(EEE)");
-		  
-//		  cal.add(Calendar.DATE, -3);
 		  
 		currentDate = df.format(cal.getTime());
 		String dayOfWeek = dowf.format(cal.getTime());
