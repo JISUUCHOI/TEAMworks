@@ -41,8 +41,12 @@
 <jsp:include page="sidebarBoard.jsp"/>
  <div class="outer" align="center">
         <div class="inner">
+        <c:if test="${ b.boardCategory eq 1 }">
             <h4>공지사항</h4>
-            
+         </c:if>
+         <c:if test="${ b.boardCategory eq 2 }">
+            <h4>자유게시판</h4>
+         </c:if>   
             <br>
             <table class="table text-center">
                 <tr>
@@ -174,9 +178,9 @@
      				var value="";
      				for(var i in list){
      					value+="<tr><td><hr><input type='hidden' name='replyNo' value='"+ list[i].replyNo + "'></td></tr>" +
-     						   "<tr>"+ 
+     						   "<tr>"+
      						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
-     									"<span><i class='far fa-edit'></i> <i class='far fa-trash-alt'></i> </span>"+
+     									"&nbsp; &nbsp; <span><i id='replyUpdate' class='far fa-edit'></i> &nbsp;<i id='replyDelete' class='far fa-trash-alt'></i> </span>"+
      								"</td>"+
      							"</tr>"+
      							"<tr>" +

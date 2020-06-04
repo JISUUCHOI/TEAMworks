@@ -83,7 +83,7 @@
         <div class="inner">
        
 	         <div align="right">
-	         	<button class="btn btn-info">글쓰기</button>
+	         	<button onclick="location.href='enrollForm.bo?cat=2'" class="btn btn-info">글쓰기</button>
 	         </div>
          
             <hr>
@@ -122,6 +122,16 @@
                   </c:forEach>
                 </tbody>
             </table>
+              <script>
+            	$(function(){
+            		$("#boardList tbody tr").click(function(){
+            			
+            			location.href="detail.bo?bno="+ $(this).children().eq(0).html();
+            			
+            		});
+            	});
+            	
+            </script>
             <br>
             <ul class="pagination">
             	<c:if test="${ pi.currentPage ne 1 }">
