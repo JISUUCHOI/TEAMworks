@@ -18,6 +18,9 @@
 @font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
 	
 	body {font-family: Handon3gyeopsal300g;}
+	p {
+		margin-bottom:0px;
+	}
 	
   #todayDate{
     font-size: 30px;
@@ -91,114 +94,114 @@
 		<table id="reservationTable" align="center">
 		  <thead>
 		    <tr>
-		      <th width="25%"></th>
-		      <th width="25%">회의실1</th>
-		      <th width="25%">회의실2</th>
-		      <th width="25%">회의실3</th>
+		    	<th width="25%"><p>&nbsp;</p></th>
+		    	<th width="25%"><p>회의실1</p></th>
+		    	<th width="25%"><p>회의실2</p></th>
+		    	<th width="25%"><p>회의실3</p></th>
 		    </tr>
 		  </thead>
 		  <tbody>
-		      <tr>
-		        <th>07:00</th>
-		        <td><a data-toggle="modal" data-target="#loginModal"></a></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="07:00" class="">
+		      	<th>07:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>08:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="08:00" class="">
+		      	<th>08:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>09:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="09:00" class="">
+		      	<th>09:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>10:00</th>
-		        <td style="background:#d4f4fa;"><a>최부장 | 개발팀 <br> 10:00 - 11:00</a></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="10:00" class="">
+		      	<th>10:00</th>
+		        <td class="001" style="background:#d4f4fa;"><p>최부장 | 개발팀 <br> 10:00 - 11:00</p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>11:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="11:00" class="">
+		      	<th>11:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>12:00</th>
-		        <td></td>
-		        <td style="background:#d4f4fa;"><a>라이사 | 경영지원팀 <br> 12:00 - 13:00</a></td>
-		        <td></td>
+		      <tr id="12:00" class="">
+		      	<th>12:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002" style="background:#d4f4fa;"><p>라이사 | 경영지원팀 <br> 12:00 - 13:00</p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>13:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="13:00" class="">
+		      	<th>13:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>14:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="14:00" class="">
+		      	<th>14:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>15:00</th>
-		        <td></td>
-		        <td></td>
-		        <td style="background:#d4f4fa;"><a>이부장 | 경영지원팀 <br> 15:00 - 16:00</a></td>
+		      <tr id="15:00" class="">
+		      	<th>15:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td style="background:#d4f4fa;"><p>이부장 | 경영지원팀 <br> 15:00 - 16:00</p></td>
 		      </tr>
-		      <tr>
-		        <th>16:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="16:00" class="">
+		      	<th>16:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>17:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="17:00" class="">
+		      	<th>17:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>18:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="18:00" class="">
+		      	<th>18:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>19:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="19:00" class="">
+		      	<th>19:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>20:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="20:00" class="">
+		      	<th>20:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>21:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="21:00" class="">
+		      	<th>21:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>22:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="22:00" class="">
+		      	<th>22:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr>
-		        <th>23:00</th>
-		        <td></td>
-		        <td></td>
-		        <td></td>
+		      <tr id="23:00" class="">
+		      	<th>23:00</th>
+		        <td class="001"><p></p></td>
+		        <td class="002"><p></p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
     		</tbody>
 		</table>
