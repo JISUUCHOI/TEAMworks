@@ -29,5 +29,6 @@ public interface BoardService {
 	int deleteBoardAttachment(int bdFileNo);
 	
 	BoardLike selectBoardLike(BoardLike bl);
+	int increaseLike(BoardLike bl);
 	int insertBoardLike(BoardLike bl);
 }

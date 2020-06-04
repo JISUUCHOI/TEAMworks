@@ -171,6 +171,19 @@ public class BoardController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="confirmLike.bo", produces="text/html; charset=utf-8")
+	public String confirmLike(BoardLike bl) {
+		
+		BoardLike like = bService.selectBoardLike(bl);
+
+		if(like !=null) { // 이미추천함
+			return "y";
+		}else {
+			return "n";
+		}
+	}
+	
 	@RequestMapping("delete.bo")
 	public String deleteBoard(int bno,int cat, HttpServletRequest request, Model model) {
 		//System.out.println(bno);
@@ -202,12 +215,20 @@ public class BoardController {
 		if(like != null) { // 이미 추천을 한적 있음
 			return "fail";
 		}else { // 추천한적 없음
-			int result = bService.insertBoardLike(bl);
-			if(result>0) {
-				return "success";
-			}else { // 테이블 insert실패
-				return "none";
+			int result1 = bService.increaseLike(bl);
+			
+			if(result1>0) {
+				int result = bService.insertBoardLike(bl);
+				
+				if(result>0) {
+					return "success";
+				}else { // 테이블 insert실패
+					return "none";
+				}
+			}else {
+				return "fail";
 			}
+			
 		}
 	}
 	

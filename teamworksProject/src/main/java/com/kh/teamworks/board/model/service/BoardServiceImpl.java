@@ -88,6 +88,11 @@ public class BoardServiceImpl implements BoardService {
 		return bDao.insertBoardLike(sqlSession, bl);
 	}
 
+	@Override
+	public int increaseLike(BoardLike bl) {
+		return bDao.increaseLike(sqlSession, bl);
+	}
+
 
 
 	

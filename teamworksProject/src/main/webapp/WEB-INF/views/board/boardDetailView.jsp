@@ -151,7 +151,25 @@
    			
    			$("#postForm").submit();
      	}
+     	$(document).ready(function() {
+			$.ajax({
+				url:"confirmLike.bo",
+				data:{boardNo:${ b.boardNo}, empId:'${loginUser.empId}'},
+				type:"post",
+				success:function(result){
+					if(result =="y"){
+						$("#recommendCount").text("1+");
+					}else{
+						$("#recommendCount").text("0+");
+					}
+				},
+				error:function(){
+					console.log("ajax실패");
+				}
+			});
+			
      	
+     	});
      	$(function(){
      		$("#recommend").on('click',function(){
      			if(confirm("추천하시겠습니까?")){
@@ -159,8 +177,9 @@
      					url:"like.bo",
      					data:{boardNo:${ b.boardNo}, empId:'${loginUser.empId}'},
      					type:"post",
-     					succes:function(result){
+     					success:function(result){
      						if(result=="success"){
+     							$("#recommendCount").text("");
      							$("#recommendCount").text("1+");
      						}else if(result=="fail"){
      							alert("이미 추천하셨습니다.");

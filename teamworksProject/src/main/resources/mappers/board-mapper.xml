@@ -137,4 +137,10 @@
 		insert into board_like
 		values(#{empId}, #{boardNo}, SYSDATE)
 	</insert>
+	
+	<update id="increaseLike" parameterType="BoardLike">
+		update board
+		   set bd_like = bd_like + 1
+		 where board_sq = #{ boardNo}
+	</update>
 </mapper>

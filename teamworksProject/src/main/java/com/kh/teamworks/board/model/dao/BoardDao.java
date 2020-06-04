@@ -72,4 +72,8 @@ public class BoardDao {
 	public int insertBoardLike(SqlSession sqlSession, BoardLike bl) {
 		return sqlSession.insert("boardMapper.insertBoardLike", bl);
 	}
+	
+	public int increaseLike(SqlSession sqlSession, BoardLike bl) {
+		return sqlSession.update("boardMapper.increaseLike", bl);
+	}
 }
