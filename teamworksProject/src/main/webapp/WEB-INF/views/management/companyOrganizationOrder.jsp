@@ -32,7 +32,7 @@
 		<h1>직급 관리</h1>
 		<hr>
 		<br> <br>
-		<table class="table" style="width: 80%;">
+		<table class="table border" style="width: 80%;">
 			<thead class="thead-light">
 				<tr>
 					<th scope="col">No.</th>

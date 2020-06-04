@@ -18,8 +18,9 @@
 .content {
 	margin-left: 20%;
 }
-.container td{
-	height:40px;
+
+.container td {
+	height: 40px;
 }
 </style>
 </head>
@@ -34,7 +35,8 @@
 		<br>
 
 		<div class="container">
-			<table class="table table-bordered" style="table-layout: fixed; text-align:center;">
+			<table class="table table-bordered"
+				style="table-layout: fixed; text-align: center;">
 				<thead class="thead-light">
 					<tr>
 						<th>사원명</th>
@@ -150,6 +152,14 @@
 					</tr>
 				</tbody>
 			</table>
+
+			<ul class="pagination justify-content-center" style="margin: 20px 0">
+				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+				<li class="page-item active"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+			</ul>
 		</div>
 	</div>
 

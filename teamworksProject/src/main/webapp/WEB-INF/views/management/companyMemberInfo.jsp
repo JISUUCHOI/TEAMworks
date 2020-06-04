@@ -38,7 +38,7 @@
      	<h1>인사 정보 등록</h1>
       	<hr align="left" style="border: solid 1px grey; width: 90%;">
         <h3>인적사항</h3>
-        <img src="/teamworks/resources/images/sampleImg.jpg" class="img-circle" width="100px" style="float: left;">
+        <img src="/teamworks/resources/images/sampleImg.jpg" class="rounded" width="100px" style="float: left;">
             <table class="tg">
                 <thead>
                     <tr>
