@@ -89,7 +89,7 @@
             <hr>
             
            
-            <table class="table table-hover text-center">
+            <table id="boardList" class="table table-hover text-center">
                 <thead>
                     <tr>
                         <td width="60px"><b>NO</b></td>

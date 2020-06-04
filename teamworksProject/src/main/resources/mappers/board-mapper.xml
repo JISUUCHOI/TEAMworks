@@ -9,6 +9,7 @@
 		<result column="bd_category" property="boardCategory"/>	
 		<result column="bd_title" property="boardTitle"/>	
 		<result column="emp_name" property="empName"/>	
+		<result column="emp_id" property="empId"/>	
 		<result column="bd_content" property="boardContent"/>	
 		<result column="create_date" property="createDate"/>	
 		<result column="modify_date" property="modifyDate"/>	
@@ -16,6 +17,16 @@
 		<result column="bd_like" property="like"/>	
 		<result column="bd_status" property="status"/>	
 		<result column="files" property="boardFiles"/>	
+	</resultMap>
+	
+	<resultMap type="BoardAttachment" id="boardAttachmentResultSet">
+		<id column="bd_file_no" property="bdFileNo"/>
+		<result column="ref_board_sq" property="refBoardNo"/>
+		<result column="ba_origin_name" property="baOriginName"/>
+		<result column="ba_change_name" property="baChangeName"/>
+		<result column="ba_file_path" property="baFilePath"/>
+		<result column="update_date" property="updateDate"/>
+		<result column="status" property="status"/>
 	</resultMap>
 
 	<select id="selectListCount" parameterType="_int" resultType="_int">
@@ -80,4 +91,22 @@
 		insert into board_attachment
 		values(SEQ_BANO.NEXTVAL, SEQ_BDNO.CURRVAL, #{baOriginName}, #{baChangeName}, #{baFilePath}, SYSDATE, 'Y')
 	</insert>
+	
+	<update id="increaseCount" parameterType="_int">
+		update board
+		   set bd_count = bd_count+1
+		 where board_sq = #{bno} and bd_status='Y'
+	</update>
+	
+	<select id="selectBoardAttachment" parameterType="_int" resultMap="boardAttachmentResultSet">
+		select *
+    	  from board_attachment
+		 where ref_board_sq = #{bno} and status ='Y'
+	</select>
+	
+	<select id="selectBoard" parameterType="_int" resultMap="boardDTOResultSet">
+		select *
+		  from v_board_list
+		 where board_sq = #{bno}
+	</select>
 </mapper>

@@ -42,4 +42,17 @@ public class BoardDao {
 	public int insertBoardAttachment(SqlSession sqlSession, BoardAttachment ba) {
 		return sqlSession.insert("boardMapper.insertBoardAttachment", ba);
 	}
+	
+	public int increaseCount(SqlSession sqlSession, int bno) {
+		return sqlSession.update("boardMapper.increaseCount", bno);
+	}
+	
+	public ArrayList<BoardAttachment> selectBoardAttachment(SqlSession sqlSession, int bno) {
+		return (ArrayList)sqlSession.selectList("boardMapper.selectBoardAttachment", bno);
+	}
+	
+	public BoardDTO selectBoard(SqlSession sqlSession, int bno) {
+		return sqlSession.selectOne("boardMapper.selectBoard", bno);
+				
+	}
 }

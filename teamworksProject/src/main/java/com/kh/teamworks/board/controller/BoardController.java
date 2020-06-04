@@ -148,6 +148,29 @@ public class BoardController {
 		
 	}
 	
+	@RequestMapping("detail.bo")
+	public String selectBoard(int bno, Model model) {
+		
+		// 조회수
+		int result = bService.increaseCount(bno);
+		
+		if(result>0) { // 게시글 조회 성공
+			// 첨부파일 조회
+			ArrayList<BoardAttachment> attachList = bService.selectBoardAttachment(bno);
+			BoardDTO b = bService.selectBoard(bno);
+			
+			model.addAttribute("attachList", attachList);
+			model.addAttribute("b", b);
+			return "board/boardDetailView";
+			
+		}else { // 게시글 조회 실패 
+			model.addAttribute("msg", "게시글 조회 실패");
+			return "common/errorPage";
+		}
+		
+	}
+	
+	
 	public String uploadFile(MultipartFile file, HttpServletRequest request) {
 		
 		String resources = request.getSession().getServletContext().getRealPath("resources"); 

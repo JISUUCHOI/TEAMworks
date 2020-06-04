@@ -52,6 +52,21 @@ public class BoardServiceImpl implements BoardService {
 		return bDao.insertBoardAttachment(sqlSession, ba);
 	}
 
+	@Override
+	public int increaseCount(int bno) {
+		return bDao.increaseCount(sqlSession, bno);
+	}
+
+	@Override
+	public ArrayList<BoardAttachment> selectBoardAttachment(int bno) {
+		return bDao.selectBoardAttachment(sqlSession, bno);
+	}
+
+	@Override
+	public BoardDTO selectBoard(int bno) {
+		return bDao.selectBoard(sqlSession, bno);
+	}
+
 
 
 	

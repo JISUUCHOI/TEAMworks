@@ -89,7 +89,7 @@
             <hr>
             
            
-            <table class="table table-hover text-center">
+            <table id="noticeList" class="table table-hover text-center">
                 <thead>
                     <tr>
                         <td width="60px"><b>NO</b></td>
@@ -122,6 +122,17 @@
                   </c:forEach>
                 </tbody>
             </table>
+            
+            <script>
+            	$(function(){
+            		$("#noticeList tbody tr").click(function(){
+            			
+            			location.href="detail.bo?bno="+ $(this).children().eq(0).html();
+            			
+            		});
+            	});
+            	
+            </script>
             <br>
             <ul class="pagination">
             	<c:if test="${ pi.currentPage ne 1 }">

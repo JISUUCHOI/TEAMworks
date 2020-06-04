@@ -19,4 +19,8 @@ public interface BoardService {
 	int insertBoard(Board b);
 	
 	int insertBoardAttachment(BoardAttachment ba);
+	
+	int increaseCount(int bno);
+	ArrayList<BoardAttachment> selectBoardAttachment(int bno);
+	BoardDTO selectBoard(int bno);
 }
