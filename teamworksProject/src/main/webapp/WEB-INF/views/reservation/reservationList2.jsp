@@ -85,7 +85,7 @@
 	
 		<div align="center">
 		  <button class="pointBtn" id="beforeBtn">&lt;</button>
-		  <b id="todayDate">2020.03.02 (월)</b>
+		  <b id="todayDate">${ today }&nbsp;${ dayOfWeek }</b>
 		  <button class="pointBtn" id="afterBtn">&gt;</button>
 		</div>
 		
@@ -208,6 +208,10 @@
 		
 		<br><br><br><br>
 	</div>
+	
+	<script>
+		
+	</script>
 
 	
 	
