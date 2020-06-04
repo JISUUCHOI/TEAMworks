@@ -42,19 +42,21 @@
  <div class="outer" align="center">
         <div class="inner">
             <h4>공지사항</h4>
-            <button style="float: right;" class="btn btn-default" onclick="location.href='list.bo?currentPage=1&cat='+${b.boardCategory}">목록</button>
-            <br><br>
+            
+            <br>
             <table class="table text-center">
                 <tr>
+                    <td>
+                    	<c:if test="${ loginUser.empId eq b.empId }">
+                        	<button type="button" class="btn btn-primary btn-sm" style="margin-right: 20px;" onclick="postFormSubmit(1);">수정</button>
+                        	<button type="button" class="btn btn-danger btn-sm"  style="margin-right: 20px;" onclick="postFormSubmit(2);">삭제</button>  
+                     	</c:if>
+                    </td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td align="right">
-                    <c:if test="${ loginUser.empId eq b.empId }">
-                        <button type="button" class="btn btn-primary btn-sm" style="margin-right: 20px;">수정</button>
-                        <button type="button" class="btn btn-danger btn-sm"  style="margin-right: 20px;">삭제</button>  
-                     </c:if>
+                    <td>
+                  <button style="float: right;" class="btn btn-default" onclick="location.href='list.bo?currentPage=1&cat='+${b.boardCategory}">목록</button>
                 	</td>
                 </tr>
                 <tr>
@@ -79,7 +81,7 @@
                     <td align="left">${ b.createDate }</td>
                 </tr>
                 <tr>
-                    <td colspan="5" align="left">
+                    <td colspan="5" align="left" height="300px">
                        ${b.boardContent}
                     </td>
                 </tr>
@@ -133,7 +135,22 @@
                 </tbody>
             </table>
         </div>
-       
+              
     </div>
+     <form id="postForm" action="" method="post">
+       	<input type="hidden" name="bno" value="${ b.boardNo }">
+       	<input type="hidden" name="cat" value="${ b.boardCategory }">
+     </form>
+     <script>
+     	function postFormSubmit(num){
+     		if(num == 1){ // 수정하기
+   				$("#postForm").attr("action","updateForm.bo");
+   			}else{ // 삭제하기
+   				$("#postForm").attr("action","delete.bo");
+   			}
+   			
+   			$("#postForm").submit();
+     	}
+     </script>
 </body>
 </html>

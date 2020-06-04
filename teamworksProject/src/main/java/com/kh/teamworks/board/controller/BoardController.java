@@ -170,6 +170,28 @@ public class BoardController {
 		
 	}
 	
+	@RequestMapping("delete.bo")
+	public String deleteBoard(int bno,int cat, HttpServletRequest request, Model model) {
+		//System.out.println(bno);
+		
+		int result1 = bService.deleteBoard(bno);
+		
+		if(result1>0) { // 게시판 삭제 성공
+			ArrayList<BoardAttachment> attachList = bService.selectBoardAttachment(bno);
+			if(attachList != null) { // 첨부파일이 있을 때
+				for(BoardAttachment ba: attachList) {
+					int result2= bService.deleteBoardAttachment(ba.getBdFileNo());
+					deleteFile(ba.getBaChangeName(), request);
+				}
+			}
+			
+			return "redirect:list.bo?currentPage=1&cat="+ cat;
+		}else {
+			model.addAttribute("msg", "게시글 삭제 실패");
+			return "common/erorrPage";
+		}
+		
+	}
 	
 	public String uploadFile(MultipartFile file, HttpServletRequest request) {
 		

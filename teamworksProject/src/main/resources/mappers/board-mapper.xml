@@ -109,4 +109,15 @@
 		  from v_board_list
 		 where board_sq = #{bno}
 	</select>
+	
+	<update id="deleteBoard" parameterType="_int">
+		update board
+		   set bd_status ='N'
+		 where board_sq = #{bno}
+	</update>
+	<update id="deleteBoardAttachment" parameterType="_int">
+		update board_attachment
+		   set status = 'N'
+		 where bd_file_no = #{bcFileNo}
+	</update>
 </mapper>

@@ -55,4 +55,12 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.selectBoard", bno);
 				
 	}
+	
+	public int deleteBoard(SqlSession sqlSession, int bno) {
+		return sqlSession.update("boardMapper.deleteBoard", bno);
+	}
+	
+	public int deleteBoardAttachment(SqlSession sqlSession, int bdFileNo) {
+		return sqlSession.update("boardMapper.deleteBoardAttachment", bdFileNo);
+	}
 }

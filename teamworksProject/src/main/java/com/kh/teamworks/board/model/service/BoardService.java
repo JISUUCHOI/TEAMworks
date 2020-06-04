@@ -23,4 +23,7 @@ public interface BoardService {
 	int increaseCount(int bno);
 	ArrayList<BoardAttachment> selectBoardAttachment(int bno);
 	BoardDTO selectBoard(int bno);
+	
+	int deleteBoard(int bno);
+	int deleteBoardAttachment(int bdFileNo);
 }
