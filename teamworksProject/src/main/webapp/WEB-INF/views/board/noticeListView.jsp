@@ -83,7 +83,7 @@
         <div class="inner">
         <c:if test="${loginUser.deptCode eq 1001 }">
 	         <div align="right">
-	         	<button class="btn btn-info">글쓰기</button>
+	         	<button onclick="location.href='enrollForm.bo?cat=1'" class="btn btn-info">글쓰기</button>
 	         </div>
          </c:if>
             <hr>

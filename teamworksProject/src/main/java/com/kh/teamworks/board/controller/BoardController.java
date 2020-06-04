@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.teamworks.board.model.service.BoardService;
 import com.kh.teamworks.board.model.vo.BoardDTO;
@@ -73,5 +74,12 @@ public class BoardController {
 			return "board/boardListView";
 		}
 	
+	}
+	
+	@RequestMapping("enrollForm.bo")
+	public ModelAndView boardEnrollForm(int cat, ModelAndView mv) {
+		
+		mv.addObject("cat", cat).setViewName("board/boardEnrollForm");
+		return mv;
 	}
 }
