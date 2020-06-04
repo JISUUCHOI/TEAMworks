@@ -19,6 +19,9 @@ public class FrequentApprovalLine {
 	private int approveStep;
 	
 	private String approver;
+	
+	private String empName;
+	private String deptName;
 
 	public FrequentApprovalLine(String lineName, String empId, String authorizedEmpid, int approveStep) {
 		super();

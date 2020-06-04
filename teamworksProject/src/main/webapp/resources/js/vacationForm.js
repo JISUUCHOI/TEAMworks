@@ -11,6 +11,77 @@ function numberOnly(){
 
 /*참조자 모달용 스크립트*/
 $(function(){
+	
+	   /* 조직도 slideDown slideUp */
+    $(".tree1").click(function(){
+        var tree2 = $(this).nextAll(".tree2");
+        var tree31 = $(this).nextAll(".tree31");
+        var tree32 = $(this).nextAll(".tree32");
+
+        if(tree2.css("display") == "none") {
+            tree2.slideDown();
+
+        }else {
+            tree2.slideUp();
+        }
+
+        if (tree31.is(':hidden')) {
+        } else {
+            tree31.slideUp('slow');
+        }
+
+        if (tree32.is(':hidden')) {
+        } else {
+            tree32.slideUp('slow');
+        }
+    });
+    
+    $(".tree21").click(function(){
+        var tree31 = $(this).nextAll(".tree31");
+
+        if(tree31.css("display") == "none") {
+            tree31.slideDown();
+        }else{
+            tree31.slideUp();
+        }
+    });
+
+    $(".tree22").click(function(){
+        var tree31 = $(this).nextAll(".tree32");
+
+        if(tree31.css("display") == "none") {
+            tree31.slideDown();
+        }else{
+            tree31.slideUp();
+        }
+    });
+
+    /* 조직도/검색 클릭 시  */
+    $("#chart-container").show();
+    $("#sch-container").hide();
+
+    $("#orgChart").click(function(){
+        $("#chart-container").show();
+        $("#sch-container").hide();
+        $("#orgChart").css("border", "none");
+        $("#orgChart").css("background", "rgb(7, 53, 90)");
+        $("#orgChart").css("color", "white");
+        $("#sch").css("border", "1px solid rgb(7, 53, 90)");
+        $("#sch").css("background", "white");
+        $("#sch").css("color", "rgb(7, 53, 90)");
+    });
+
+    $("#sch").click(function(){
+        $("#sch-container").show();
+        $("#chart-container").hide();
+        $("#sch").css("border", "none");
+        $("#sch").css("background", "rgb(7, 53, 90)");
+        $("#sch").css("color", "white");
+        $("#orgChart").css("border", "1px solid rgb(7, 53, 90)");
+        $("#orgChart").css("background", "white");
+        $("#orgChart").css("color", "rgb(7, 53, 90)");
+    });
+	
     /* 조직도 참조자 선택 */
     $(".refEmpName").click(function(){
         
@@ -237,84 +308,81 @@ $(function(){
 });
 
 
-$(function(){
-    
-       /* 조직도 slideDown slideUp */
-    $(".tree1").click(function(){
-        var tree2 = $(this).nextAll(".tree2");
-        var tree31 = $(this).nextAll(".tree31");
-        var tree32 = $(this).nextAll(".tree32");
-
-        if(tree2.css("display") == "none") {
-            tree2.slideDown();
-
-        }else {
-            tree2.slideUp();
-        }
-
-        if (tree31.is(':hidden')) {
-        } else {
-            tree31.slideUp('slow');
-        }
-
-        if (tree32.is(':hidden')) {
-        } else {
-            tree32.slideUp('slow');
-        }
-    });
-    
-    $(".tree21").click(function(){
-        var tree31 = $(this).nextAll(".tree31");
-
-        if(tree31.css("display") == "none") {
-            tree31.slideDown();
-        }else{
-            tree31.slideUp();
-        }
-    });
-
-    $(".tree22").click(function(){
-        var tree31 = $(this).nextAll(".tree32");
-
-        if(tree31.css("display") == "none") {
-            tree31.slideDown();
-        }else{
-            tree31.slideUp();
-        }
-    });
-
-    /* 조직도/검색 클릭 시  */
-    $("#chart-container").show();
-    $("#sch-container").hide();
-
-    $("#orgChart").click(function(){
-        $("#chart-container").show();
-        $("#sch-container").hide();
-        $("#orgChart").css("border", "none");
-        $("#orgChart").css("background", "rgb(7, 53, 90)");
-        $("#orgChart").css("color", "white");
-        $("#sch").css("border", "1px solid rgb(7, 53, 90)");
-        $("#sch").css("background", "white");
-        $("#sch").css("color", "rgb(7, 53, 90)");
-    });
-
-    $("#sch").click(function(){
-        $("#sch-container").show();
-        $("#chart-container").hide();
-        $("#sch").css("border", "none");
-        $("#sch").css("background", "rgb(7, 53, 90)");
-        $("#sch").css("color", "white");
-        $("#orgChart").css("border", "1px solid rgb(7, 53, 90)");
-        $("#orgChart").css("background", "white");
-        $("#orgChart").css("color", "rgb(7, 53, 90)");
-    });
-
-});
-
-
 
 /* 결재선 모달용 스크립트 */
  $(function(){
+	 
+	   /* 결재선 조직도 slideDown slideUp */
+     $(".apTree1").click(function(){
+         var apTree2 = $(this).nextAll(".apTree2");
+         var apTree31 = $(this).nextAll(".apTree31");
+         var apTree32 = $(this).nextAll(".apTree32");
+
+         if(apTree2.css("display") == "none") {
+        	 apTree2.slideDown();
+
+         }else {
+        	 apTree2.slideUp();
+         }
+
+         if (apTree31.is(':hidden')) {
+         } else {
+        	 apTree31.slideUp('slow');
+         }
+
+         if (apTree32.is(':hidden')) {
+         } else {
+        	 apTree32.slideUp('slow');
+         }
+     });
+     
+     $(".apTree21").click(function(){
+         var apTree31 = $(this).nextAll(".apTree31");
+
+         if(apTree31.css("display") == "none") {
+        	 apTree31.slideDown();
+         }else{
+        	 apTree31.slideUp();
+         }
+     });
+
+     $(".apTree22").click(function(){
+         var apTree31 = $(this).nextAll(".apTree32");
+
+         if(apTree31.css("display") == "none") {
+        	 apTree31.slideDown();
+         }else{
+        	 apTree31.slideUp();
+         }
+     });
+
+     /* 결재선 조직도/검색 클릭 시  */
+     $("#apChart-container").show();
+     $("#apSch-container").hide();
+
+     $("#apOrgChart").click(function(){
+         $("#apChart-container").show();
+         $("#apSch-container").hide();
+         $("#apOrgChart").css("border", "none");
+         $("#apOrgChart").css("background", "rgb(7, 53, 90)");
+         $("#apOrgChart").css("color", "white");
+         $("#apSch").css("border", "1px solid rgb(7, 53, 90)");
+         $("#apSch").css("background", "white");
+         $("#apSch").css("color", "rgb(7, 53, 90)");
+     });
+
+     $("#apSch").click(function(){
+         $("#apSch-container").show();
+         $("#apChart-container").hide();
+         $("#apSch").css("border", "none");
+         $("#apSch").css("background", "rgb(7, 53, 90)");
+         $("#apSch").css("color", "white");
+         $("#apOrgChart").css("border", "1px solid rgb(7, 53, 90)");
+         $("#apOrgChart").css("background", "white");
+         $("#apOrgChart").css("color", "rgb(7, 53, 90)");
+     });
+	 
+	 
      /* 결재선 조직도 선택 */
      $(".apRefEmpName").click(function(){
          
@@ -475,10 +543,10 @@ $(function(){
     	 
     	 $("input:checkbox[name=checkBox]:checked").each(function(){
     		 line.push($(this).prev().text());
- 			
 	     });
 
     	 $("#approver").val(line);
+    	 $("#line").val(line);
     	 
     	 /* 결재선 모달 닫기 */
     	 $('#approveLineModal').modal("hide");
@@ -551,77 +619,157 @@ $(function(){
     	}*/
      
      
+     /* 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인 */
+     
+     
+     /*결재선 즐겨찾기 조회*/
+     selectFreLineList();
+     
+     /* 결재선 즐겨찾기 저장 */
+	 $("#enrollBtn").click(function(){
+		 
+		 /* 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인 */
+		 $.ajax({
+			url:"selectName.rap",
+			data:{lineName:$("#lineName").val(),
+				   empId:$("#empId").val()},
+			type:"post",
+			success:function(count){
+				
+				if(count > 0){
+					alert("같은 결재선 즐겨찾기명이 있습니다. 다른 즐겨찾기명을 입력하세요.");
+				}else{
+					
+					/* 결재선 즐겨찾기 추가 */
+					 $("input:checkbox[name=checkBox]").prop("checked", true);
+			    	 
+			    	 var line = [];
+			    	 
+			    	 $("input:checkbox[name=checkBox]:checked").each(function(){
+			    		 line.push($(this).prev().text());
+				     });
+
+			    	 $("#line").val(line);
+					
+					 $.ajax({
+						url:"insertFreLine.rap",
+						data:{lineName:$("#lineName").val(),
+							 empId:$("#empId").val(),
+							 approver:$("#line").val()},
+						type:"post",
+			 			success:function(status){
+			 				
+			 				if(status == "success"){
+			 					selectFreLineList();
+			 				}else{
+			 					
+			 				}
+			 				
+			 			}, error:function(){
+			 				console.log("결재선 즐겨찾기 저장 ajax 통신 실패!");
+			 			}
+			 			
+					 });
+					 
+					 $("#lineName").val("");
+				}
+				
+			}, error:function(){
+				console.log("결재선 즐겨찾기명 중복값 조회 ajax 통신 실패!");
+			}
+			 
+		 });
+		 
+	 });
+    	 
+     
+     /* 결재선 즐겨찾기 리스트 조회 */
+     function selectFreLineList(){
+    	 
+    	 $.ajax({
+    		url:"flist.rap",
+    		data:{empId:$("#empId").val()},
+    		type:"post",
+    		success:function(count){
+    			
+    			var value = "";
+    			
+    			for(var i=0; i<count.length; i++){
+    				value += "<option value='" + count[i].lineName + "'>"  + count[i].lineName + "</option>";
+    			}
+    			
+    			$("#chooseApproveLine").html(value);
+    			
+    		}, error:function(){
+    			console.log("결재선 즐겨찾기 리스트 조회용 ajax 통신실패!!");
+    		}
+    	 });
+    	 
+     }
+     
+     /* 결재선 즐겨찾기 리스트 선택시 결재라인 조회 */
+     $(document).on("click", "#selectBtn", function(){
+		 var lineName = $("#chooseApproveLine option:selected").val();
+		 
+		 $.ajax({
+			url:"lineDetail.rap",
+			data:{empId:$("#empId").val(),
+				  lineName:lineName},
+		    type:"post",
+			success:function(f){
+				
+				var value = "";
+				
+				for(var i=0; i<f.length; i++){
+                  	value += "<tr>" +
+		             			"<td>" + 
+		             				"<span>" + "결재" + "</span>" +
+			                        "<span class='apRefedEmpId' style='display:none'>" + f[i].authorizedEmpid + "</span>" +
+			                        "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
+			                        "<span class='apRefedEmpName'>" + f[i].empName + "</span>" + 
+			                        "<span class='apRefedEmpDept'> | " + f[i].deptName + "</span>" + 
+			                     "</td>" +
+		                     "</tr>";
+                  }
+				
+				$("#apRefEmpArea").html(value);
+			
+			}, error:function(){
+				console.log("결재선 즐겨찾기 조회용 ajax 통신실패!!");
+			}
+		 });
+		 
+	 });
+    
+     /* 결재선 즐겨찾기 삭제 */
+     $(document).on("click", "#deleteBtn", function(){
+		 var lineName = $("#chooseApproveLine option:selected").val();
+		 
+		 $.ajax({
+			url:"lineDelete.rap",
+			data:{empId:$("#empId").val(),
+				  lineName:lineName},
+			type:"post",
+			success:function(status){
+			
+				console.log(status);
+				
+				if(status == "success"){
+ 					selectFreLineList();
+ 				}else{
+ 					
+ 				}
+				
+			}, error:function(){
+				console.log("결재선 즐겨찾기 조회용 ajax 통신실패!!");
+			}
+		 });
+		 
+		 $('#apRefEmpArea tr').remove();
+		 
+	 });
+     
+     
+     
  });
 
-  $(function(){
-         
-            /* 결재선 조직도 slideDown slideUp */
-         $(".apTree1").click(function(){
-             var apTree2 = $(this).nextAll(".apTree2");
-             var apTree31 = $(this).nextAll(".apTree31");
-             var apTree32 = $(this).nextAll(".apTree32");
-
-             if(apTree2.css("display") == "none") {
-            	 apTree2.slideDown();
-
-             }else {
-            	 apTree2.slideUp();
-             }
-
-             if (apTree31.is(':hidden')) {
-             } else {
-            	 apTree31.slideUp('slow');
-             }
-
-             if (apTree32.is(':hidden')) {
-             } else {
-            	 apTree32.slideUp('slow');
-             }
-         });
-         
-         $(".apTree21").click(function(){
-             var apTree31 = $(this).nextAll(".apTree31");
-
-             if(apTree31.css("display") == "none") {
-            	 apTree31.slideDown();
-             }else{
-            	 apTree31.slideUp();
-             }
-         });
-
-         $(".apTree22").click(function(){
-             var apTree31 = $(this).nextAll(".apTree32");
-
-             if(apTree31.css("display") == "none") {
-            	 apTree31.slideDown();
-             }else{
-            	 apTree31.slideUp();
-             }
-         });
-
-         /* 결재선 조직도/검색 클릭 시  */
-         $("#apChart-container").show();
-         $("#apSch-container").hide();
-
-         $("#apOrgChart").click(function(){
-             $("#apChart-container").show();
-             $("#apSch-container").hide();
-             $("#apOrgChart").css("border", "none");
-             $("#apOrgChart").css("background", "rgb(7, 53, 90)");
-             $("#apOrgChart").css("color", "white");
-             $("#apSch").css("border", "1px solid rgb(7, 53, 90)");
-             $("#apSch").css("background", "white");
-             $("#apSch").css("color", "rgb(7, 53, 90)");
-         });
-
-         $("#apSch").click(function(){
-             $("#apSch-container").show();
-             $("#apChart-container").hide();
-             $("#apSch").css("border", "none");
-             $("#apSch").css("background", "rgb(7, 53, 90)");
-             $("#apSch").css("color", "white");
-             $("#apOrgChart").css("border", "1px solid rgb(7, 53, 90)");
-             $("#apOrgChart").css("background", "white");
-             $("#apOrgChart").css("color", "rgb(7, 53, 90)");
-         });
-});

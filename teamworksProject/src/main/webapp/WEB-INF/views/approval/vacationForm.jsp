@@ -79,7 +79,7 @@
 	                <tr>
 	                    <td class="th">기안자</td>
 	                    <td style="text-align:center;">
-	                    	<input type="hidden" name="empId" value="${ loginUser.empId }">
+	                    	<input type="hidden" id="empId" name="empId" value="${ loginUser.empId }">
 	                    	${ emp.empName }
 	                    </td>
 	                    <td class="th">기안부서</td>
@@ -292,22 +292,22 @@
 							
 							<div id="approvalLine">
 								<div style="margin:10px 0px 0px 20px; font-size:13px;">결재선 정보</div>
-					            <div class="frequentLine">
+					            <div id="deleteLine">
 					                <font>사용자 결재선</font>
-					                <select name="freApproveLine" id="chooseApproveLine">
-					                    <option value="freArroveLine1">결재선 즐겨찾기</option>
-					                    <option value="freArroveLine2">경영지원팀 결재선</option>
-					                    <option value="freArroveLine3">개발팀 결재선</option>
-					                </select>
-					                <button type="button" id="deleteBtn">삭제</button>
+					                <select name="freApproveLine" id="chooseApproveLine"></select><br>
+					                <div id="freLineBtns">
+						                <button type="button" id="selectBtn">조회</button>
+						                <button type="button" id="deleteBtn">삭제</button>
+					                </div>
 					            </div>
 					            <div id="selectedEmp">
 					                <table id="apRefEmpArea" style="margin:5px 0px 0px 15px;"></table>
 					            </div>
-					            <div class="frequentLine">
+					            <div id="frequentLine">
 					                <font>사용자 결재선명</font>
-					                <input id="enrollApproveLine">
-					                <button type="button" id="enrollBtn">저장</button>
+					                <input type="hidden" id="line">
+					                <input id="lineName" name="lineName">
+					                <button type="submit" id="enrollBtn">저장</button>
 					            </div>
 					        </div>
 					    </div>

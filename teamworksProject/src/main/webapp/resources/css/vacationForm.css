@@ -333,7 +333,7 @@ html, body{height:100%;}
 
 #apChart-container, #apSch-container{
     width:300px;
-    height:450px;
+    height:470px;
     border:1px solid rgb(7, 53, 90);
     font-family: 'Handon3gyeopsal300g';
     float:left;
@@ -451,13 +451,20 @@ html, body{height:100%;}
 /*추가*/
  #approvalLine{
     width:340px;
-    height:450px;
+    height:470px;
     border:1px solid rgb(7, 53, 90);
     font-family: 'Handon3gyeopsal300g';
     float:left;
     font-size:13px;
 }
-.frequentLine{
+#deleteLine{
+    width:310px;
+    height:90px;
+    border:1px solid rgb(7, 53, 90);
+    margin:10px 10px 5px 13px;
+    padding:10px 0px 0px 10px;
+}
+#frequentLine{
     width:310px;
     height:55px;
     border:1px solid rgb(7, 53, 90);
@@ -466,11 +473,18 @@ html, body{height:100%;}
 }
 #chooseApproveLine{
     margin-left:8px;
-    width:150px;
+    width:200px;
     height:30px;
     font-size:13px;
 }
-#deleteBtn, #enrollBtn{
+#freLineBtns{
+	width:100px;
+    height:30px;
+    margin-top:10px;
+    margin-left:190px;
+}
+
+#deleteBtn, #selectBtn, #enrollBtn{
     width:40px;
     height:28px;
     margin-left:5px;
@@ -487,24 +501,12 @@ html, body{height:100%;}
     margin:10px 10px 5px 13px;
     padding:10px 0px 0px 10px;
 }
-/* #selectedEmpList, #selectedEmpList tr, #selectedEmpList td{
-    border:1px solid lightgrey;
-    border-collapse:collapse;
-}
-#selectedEmpList tr{
-    height:25px;
-}
-#selectedEmpList td{
-    padding-left:10px;
-} */
 
-#enrollApproveLine{
+#lineName{
     width:140px;
     height:28px;
     margin-left:5px;
 }
-
-
 
 /* 버튼 */
 #approveLineBtns{

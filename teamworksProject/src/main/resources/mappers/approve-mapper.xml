@@ -41,6 +41,15 @@
 		<result column="vc_count" property="vcCount"/>
 		<result column="vc_content" property="vcContent"/>
 	</resultMap>
+	
+	<resultMap id="freLineResultSet" type="fal">
+		<result column="line_name" property="lineName"/>
+		<result column="emp_id" property="empId"/>
+		<result column="authorized_empid" property="authorizedEmpid"/>
+		<result column="emp_name" property="empName"/>
+		<result column="dept_name" property="deptName"/>
+		<result column="approve_step" property="approveStep"/>
+	</resultMap>
 
 
 	<select id="selectEmpInfo" parameterType="string" resultMap="empInfoResultSet">
@@ -102,5 +111,39 @@
 		insert into approve_line
 		values(#{approverEmpid}, #{docNo}, #{approveStep}, #{approveReject}, #{approveStatus}, null, null)
 	</insert>
+	
+	<select id="selectLineName" parameterType="fal" resultType="_int">
+		select count(*)
+		  from frequent_approval_line
+		 where emp_id = #{empId} and line_name = #{lineName}
+	</select>
+	
+	<insert id="insertFreLine" parameterType="fal">
+		insert into frequent_approval_line
+		values(#{lineName}, #{empId}, #{authorizedEmpid}, #{approveStep})
+	</insert>
+	
+	<select id="selectFreLine" parameterType="String" resultMap="freLineResultSet">
+		select line_name
+		  from frequent_approval_line
+		 where emp_id = #{empId}
+		 group by line_name
+		 order by line_name
+	</select>
+
+	<select id="selectLineDetail" parameterType="fal" resultMap="freLineResultSet">
+		select f.line_name, f.emp_id, f.authorized_empid, e.emp_name, d.dept_name, f.approve_step
+		  from frequent_approval_line f
+		  join employee e on(f.authorized_empid = e.emp_id)
+		  join department d on(e.dept_code = d.dept_code)
+		 where f.emp_id = #{empId} and f.line_name = #{lineName}
+		 order by f.approve_step
+	</select>
+
+	<delete id="deleteLine" parameterType="fal">
+		delete from frequent_approval_line
+		 where emp_id = #{empId} and line_name = #{lineName}
+	</delete>
+
 
 </mapper>

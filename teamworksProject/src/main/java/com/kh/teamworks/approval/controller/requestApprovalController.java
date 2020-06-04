@@ -17,6 +17,7 @@ import com.kh.teamworks.approval.model.service.ReqApprovalService;
 import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.approval.model.vo.FrequentApprovalLine;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Controller
@@ -72,7 +73,7 @@ public class requestApprovalController {
 		
 	}
 	
-	// 3. 경조비신청서 insert
+	// 3_1. 경조비신청서 insert
 	@RequestMapping("requestFe.rap")
 	public String insertFamilyEvent(Document d) {
 		
@@ -85,7 +86,7 @@ public class requestApprovalController {
 		}
 	}
 	
-	// 4. 휴가신청서 insert
+	// 3_2. 휴가신청서 insert
 	@RequestMapping("requestVac.rap")
 	public String insertVacation(Document d) {
 
@@ -133,6 +134,71 @@ public class requestApprovalController {
 			return "common/errorPage";
 		}
 	}
+	
+	// 4_0. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
+	@ResponseBody
+	@RequestMapping(value="selectName.rap")
+	public int selectLineName(FrequentApprovalLine f) {
+		int count = raService.selectLineName(f);
+		return count;
+	}
+	
+	// 4_1. 결재선 즐겨찾기 추가
+	@ResponseBody
+	@RequestMapping(value="insertFreLine.rap")
+	public String insertFreLine(FrequentApprovalLine f) {
+		
+		String line = f.getApprover();
+		String[] list = null;
+		FrequentApprovalLine fal = null;
+		int result = 0;
+		
+		if(line != null) {
+			list = line.split(",");
+		}
+		
+		for(int i=0; i<list.length; i++) {
+			fal = new FrequentApprovalLine(f.getLineName(), f.getEmpId(), list[i], i);
+			
+			result = raService.insertFreLine(fal);
+		}
+		
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+	// 4_2. 결재선 즐겨찾기 리스트 조회
+	@ResponseBody
+	@RequestMapping(value="flist.rap", produces="application/json; charset=utf-8")
+	public String selectFreLine(String empId) {
+		ArrayList<FrequentApprovalLine> count = raService.selectFreLine(empId);
+		return new Gson().toJson(count);
+	}
+	
+	// 4_3. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
+	@ResponseBody
+	@RequestMapping(value="lineDetail.rap", produces="application/json; charset=utf-8")
+	public String selectLineDetail(FrequentApprovalLine f) {
+		ArrayList<FrequentApprovalLine> list = raService.selectLineDetail(f);
+		return new Gson().toJson(list);
+	}
+	
+	// 4_4. 결재선 즐겨찾기 삭제
+	@ResponseBody
+	@RequestMapping(value="lineDelete.rap")
+	public String deleteLine(FrequentApprovalLine f) {
+		int result = raService.deleteLine(f);
+		if(result > 0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
 	
 	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
 	@RequestMapping("docList.rap")

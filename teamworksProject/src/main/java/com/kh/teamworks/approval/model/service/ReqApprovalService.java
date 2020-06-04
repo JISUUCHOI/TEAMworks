@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.approval.model.vo.FrequentApprovalLine;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 public interface ReqApprovalService {
@@ -29,6 +30,22 @@ public interface ReqApprovalService {
 	
 	// 3_3. 결재선 insert
 	int insertApproveLine(ApproveLine l);
+	
+	// 4_0. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
+	int selectLineName(FrequentApprovalLine f);
+	
+	// 4_1. 결재선 즐겨찾기 추가
+	int insertFreLine(FrequentApprovalLine fal);
+	
+	// 4_2. 결재선 즐겨찾기 리스트 조회
+	ArrayList<FrequentApprovalLine> selectFreLine(String empId);
+	
+	// 4_3. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
+	ArrayList<FrequentApprovalLine> selectLineDetail(FrequentApprovalLine f);
+	
+	// 4_4. 결재선 즐겨찾기 삭제
+	int deleteLine(FrequentApprovalLine f);
+	
 	
 	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
 	/*

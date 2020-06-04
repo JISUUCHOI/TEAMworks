@@ -10,6 +10,7 @@ import com.kh.teamworks.approval.model.dao.ReqApprovalDao;
 import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.approval.model.vo.FrequentApprovalLine;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Service("raService")
@@ -62,7 +63,39 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 	public int insertApproveLine(ApproveLine l) {
 		return raDao.insertApproveLine(sqlSession, l);
 	}
+	
+	// 4_0. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
+	@Override
+	public int selectLineName(FrequentApprovalLine f) {
+		return raDao.selectLineName(sqlSession, f);
+	}
+	
 
+	// 4_1. 결재선 즐겨찾기 추가
+	@Override
+	public int insertFreLine(FrequentApprovalLine fal) {
+		return raDao.insertFreLine(sqlSession, fal);
+	}
+
+	// 4_2. 결재선 즐겨찾기 리스트 개수 조회
+	@Override
+	public ArrayList<FrequentApprovalLine> selectFreLine(String empId) {
+		return raDao.selectFreLine(sqlSession, empId);
+	}
+	
+	// 4_3. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
+	@Override
+	public ArrayList<FrequentApprovalLine> selectLineDetail(FrequentApprovalLine f) {
+		return raDao.selectLineDetail(sqlSession, f);
+	}
+
+	// 4_4. 결재선 즐겨찾기 삭제
+	@Override
+	public int deleteLine(FrequentApprovalLine f) {
+		return raDao.deleteLine(sqlSession, f);
+	}
+
+	
 
 
 	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
