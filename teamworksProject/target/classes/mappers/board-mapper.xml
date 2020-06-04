@@ -28,6 +28,26 @@
 		<result column="update_date" property="updateDate"/>
 		<result column="status" property="status"/>
 	</resultMap>
+	
+	<resultMap type="BoardLike" id="boardLikeResultSet">
+		<id column="emp_id" property="empId"/>
+		<id column="board_sq" property="boardNo"/>
+		<result column="bd_date" property="blDate"/>
+	</resultMap>
+	
+	<resultMap type="ReplyDTO" id="replyDTOresultSet">
+		<id column="reply_no" property="replyNo"/>
+		<result column="emp_id" property="empId"/>
+		<result column="emp_name" property="empName"/>
+		<result column="dept_name" property="deptName"/>
+		<result column="job_name" property="jobName"/>
+		<result column="ref_board_sq" property="refBoardNo"/>
+		<result column="reply_content" property="replyContent"/>
+		<result column="create_date" property="createDate"/>
+		<result column="modify_date" property="modifyDate"/>
+		<result column="status" property="status"/>
+	</resultMap>
+
 
 	<select id="selectListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
@@ -120,4 +140,31 @@
 		   set status = 'N'
 		 where bd_file_no = #{bcFileNo}
 	</update>
+	
+	<select id="selectBoardLike" parameterType="BoardLike" resultMap="boardLikeResultSet">
+		select * 
+		  from board_like
+		 where emp_id = #{empId} and board_sq = #{boardNo}
+	</select>
+	
+	<insert id="insertBoardLike" parameterType="BoardLike">
+		insert into board_like
+		values(#{empId}, #{boardNo}, SYSDATE)
+	</insert>
+	
+	<update id="increaseLike" parameterType="BoardLike">
+		update board
+		   set bd_like = bd_like + 1
+		 where board_sq = #{ boardNo}
+	</update>
+	
+	<select id="selectReplyList" parameterType="_int" resultMap="replyDTOresultSet">
+		select * 
+		  from v_reply_list
+		 where status='Y' 
+		   and ref_board_sq = #{bno}
+		 order by reply_no desc 
+	</select>
+	
+
 </mapper>

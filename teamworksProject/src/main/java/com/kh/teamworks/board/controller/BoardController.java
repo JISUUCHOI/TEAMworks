@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.GsonBuilder;
 import com.kh.teamworks.board.model.service.BoardService;
 import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
+import com.kh.teamworks.board.model.vo.BoardLike;
+import com.kh.teamworks.board.model.vo.BoardReplyDTO;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
@@ -170,6 +173,19 @@ public class BoardController {
 		
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="confirmLike.bo", produces="text/html; charset=utf-8")
+	public String confirmLike(BoardLike bl) {
+		
+		BoardLike like = bService.selectBoardLike(bl);
+
+		if(like !=null) { // 이미추천함
+			return "y";
+		}else {
+			return "n";
+		}
+	}
+	
 	@RequestMapping("delete.bo")
 	public String deleteBoard(int bno,int cat, HttpServletRequest request, Model model) {
 		//System.out.println(bno);
@@ -191,6 +207,40 @@ public class BoardController {
 			return "common/erorrPage";
 		}
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="like.bo", produces="text/html; charset=utf-8")
+	public String likeBoard(BoardLike bl) {
+		// 추천이 있는지 없는 지 조회 
+		BoardLike like = bService.selectBoardLike(bl);
+		if(like != null) { // 이미 추천을 한적 있음
+			return "fail";
+		}else { // 추천한적 없음
+			int result1 = bService.increaseLike(bl);
+			
+			if(result1>0) {
+				int result = bService.insertBoardLike(bl);
+				
+				if(result>0) {
+					return "success";
+				}else { // 테이블 insert실패
+					return "none";
+				}
+			}else {
+				return "fail";
+			}
+			
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rlist.bo", produces="application/json; charset=utf-8")
+	public String replyList(int bno) {
+		System.out.println(bno);
+		ArrayList<BoardReplyDTO> list = bService.selectReplyList(bno);
+		
+		return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create().toJson(list);
 	}
 	
 	public String uploadFile(MultipartFile file, HttpServletRequest request) {

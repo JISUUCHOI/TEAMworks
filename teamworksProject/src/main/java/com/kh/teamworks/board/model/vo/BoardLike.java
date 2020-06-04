@@ -16,7 +16,7 @@ import lombok.ToString;
 public class BoardLike {
 	
 	private String empId;
-	private int BoardNo;
+	private int boardNo;
 	private Date blDate;
 
 }

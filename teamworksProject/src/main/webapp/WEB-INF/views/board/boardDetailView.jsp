@@ -66,7 +66,7 @@
                     <td><b>제목</b></td>
                     <td colspan="3">${ b.boardTitle }</td>
                     <td rowspan="2" align="center" width="200px">
-                        <div class="recommend">
+                        <div class="recommend" id="recommend">
                             <a id="recommend" href="#a" class="" > 							
                                 <p class="num"><span id="recommendCount">0+</span></p>							   
                                 <p class="doc"><i class="far fa-thumbs-up"></i> 추천</p>
@@ -105,10 +105,10 @@
             </table>
         </div>
         <div class="inner2">
-            <table id="tables" width="800px">
+            <table id="replyTables" width="800px">
                 <thead>
                 <tr>
-                    <td><i class="far fa-comments" style="color: rgb(43, 93, 228);"></i><span>3</span></td>
+                    <td><i class="far fa-comments" style="color: rgb(43, 93, 228);"></i><span id="rCount">0</span></td>
                 </tr>
                     <tr>
                         <th colspan="2"> 
@@ -123,15 +123,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><hr></td></tr>
-                    <tr>
-                        <td>라공주 | 경영지원팀 | 2020-05-01 
-                            <span><i class="far fa-edit"></i> <i class="far fa-trash-alt"></i> </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>댓글 내용</td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
@@ -151,6 +143,85 @@
    			
    			$("#postForm").submit();
      	}
+     	$(document).ready(function() {
+			$.ajax({
+				url:"confirmLike.bo",
+				data:{boardNo:${ b.boardNo}, empId:'${loginUser.empId}'},
+				type:"post",
+				success:function(result){
+					if(result =="y"){
+						$("#recommendCount").text("1+");
+					}else{
+						$("#recommendCount").text("0+");
+					}
+				},
+				error:function(){
+					console.log("ajax실패");
+				}
+			});
+     		
+			selectReplyList();
+     	});
+     	
+     	function selectReplyList(){
+     		
+     		$.ajax({
+     			url:"rlist.bo",
+     			data:{bno:${b.boardNo}},
+     			type:"post",
+     			success:function(list){
+     				
+     				var value="";
+     				for(var i in list){
+     					value+="<tr><td><hr><input type='hidden' name='replyNo' value='"+ list[i].replyNo + "'></td></tr>" +
+     						   "<tr>"+ 
+     						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
+     									"<span><i class='far fa-edit'></i> <i class='far fa-trash-alt'></i> </span>"+
+     								"</td>"+
+     							"</tr>"+
+     							"<tr>" +
+     								"<td>" + list[i].replyContent + "</td>"+
+     							"</tr>"
+     				
+     				}
+     				
+     				$("#rCount").text(list.length);
+     				$("#replyTables>tbody").html(value);
+     				
+     			},
+     			error:function(){
+     				console.log("통신 실패");
+     			}
+     			
+     		});s
+     	}
+     	
+     	$(function(){
+     		$("#recommend").on('click',function(){
+     			if(confirm("추천하시겠습니까?")){
+     				$.ajax({
+     					url:"like.bo",
+     					data:{boardNo:${ b.boardNo}, empId:'${loginUser.empId}'},
+     					type:"post",
+     					success:function(result){
+     						if(result=="success"){
+     							$("#recommendCount").text("");
+     							$("#recommendCount").text("1+");
+     						}else if(result=="fail"){
+     							alert("이미 추천하셨습니다.");
+     						}else{
+     							alert("오류입니다.");
+     						}
+     						
+     					},
+     					error:function(){
+     						console.log("추천 ajax통신 실패");
+     					}
+     					
+     				});
+     			}
+     		});
+     	});
      </script>
 </body>
 </html>
