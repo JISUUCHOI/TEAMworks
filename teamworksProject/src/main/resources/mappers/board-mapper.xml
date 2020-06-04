@@ -34,6 +34,20 @@
 		<id column="board_sq" property="boardNo"/>
 		<result column="bd_date" property="blDate"/>
 	</resultMap>
+	
+	<resultMap type="ReplyDTO" id="replyDTOresultSet">
+		<id column="reply_no" property="replyNo"/>
+		<result column="emp_id" property="empId"/>
+		<result column="emp_name" property="empName"/>
+		<result column="dept_name" property="deptName"/>
+		<result column="job_name" property="jobName"/>
+		<result column="ref_board_sq" property="refBoardNo"/>
+		<result column="reply_content" property="replyContent"/>
+		<result column="create_date" property="createDate"/>
+		<result column="modify_date" property="modifyDate"/>
+		<result column="status" property="status"/>
+	</resultMap>
+
 
 	<select id="selectListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
@@ -143,4 +157,14 @@
 		   set bd_like = bd_like + 1
 		 where board_sq = #{ boardNo}
 	</update>
+	
+	<select id="selectReplyList" parameterType="_int" resultMap="replyDTOresultSet">
+		select * 
+		  from v_reply_list
+		 where status='Y' 
+		   and ref_board_sq = #{bno}
+		 order by reply_no desc 
+	</select>
+	
+
 </mapper>

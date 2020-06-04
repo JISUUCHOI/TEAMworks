@@ -11,6 +11,7 @@ import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
 import com.kh.teamworks.board.model.vo.BoardLike;
+import com.kh.teamworks.board.model.vo.BoardReplyDTO;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
 
@@ -91,6 +92,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int increaseLike(BoardLike bl) {
 		return bDao.increaseLike(sqlSession, bl);
+	}
+
+	@Override
+	public ArrayList<BoardReplyDTO> selectReplyList(int bno) {
+		return bDao.selectReplyList(sqlSession, bno);
 	}
 
 

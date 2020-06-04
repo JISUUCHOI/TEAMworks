@@ -105,10 +105,10 @@
             </table>
         </div>
         <div class="inner2">
-            <table id="tables" width="800px">
+            <table id="replyTables" width="800px">
                 <thead>
                 <tr>
-                    <td><i class="far fa-comments" style="color: rgb(43, 93, 228);"></i><span>3</span></td>
+                    <td><i class="far fa-comments" style="color: rgb(43, 93, 228);"></i><span id="rCount">0</span></td>
                 </tr>
                     <tr>
                         <th colspan="2"> 
@@ -123,15 +123,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td><hr></td></tr>
-                    <tr>
-                        <td>라공주 | 경영지원팀 | 2020-05-01 
-                            <span><i class="far fa-edit"></i> <i class="far fa-trash-alt"></i> </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>댓글 내용</td>
-                    </tr>
+                    
                 </tbody>
             </table>
         </div>
@@ -167,9 +159,43 @@
 					console.log("ajax실패");
 				}
 			});
-			
-     	
+     		
+			selectReplyList();
      	});
+     	
+     	function selectReplyList(){
+     		
+     		$.ajax({
+     			url:"rlist.bo",
+     			data:{bno:${b.boardNo}},
+     			type:"post",
+     			success:function(list){
+     				
+     				var value="";
+     				for(var i in list){
+     					value+="<tr><td><hr><input type='hidden' name='replyNo' value='"+ list[i].replyNo + "'></td></tr>" +
+     						   "<tr>"+ 
+     						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
+     									"<span><i class='far fa-edit'></i> <i class='far fa-trash-alt'></i> </span>"+
+     								"</td>"+
+     							"</tr>"+
+     							"<tr>" +
+     								"<td>" + list[i].replyContent + "</td>"+
+     							"</tr>"
+     				
+     				}
+     				
+     				$("#rCount").text(list.length);
+     				$("#replyTables>tbody").html(value);
+     				
+     			},
+     			error:function(){
+     				console.log("통신 실패");
+     			}
+     			
+     		});s
+     	}
+     	
      	$(function(){
      		$("#recommend").on('click',function(){
      			if(confirm("추천하시겠습니까?")){

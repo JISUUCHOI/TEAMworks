@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.GsonBuilder;
 import com.kh.teamworks.board.model.service.BoardService;
 import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
 import com.kh.teamworks.board.model.vo.BoardLike;
+import com.kh.teamworks.board.model.vo.BoardReplyDTO;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
@@ -230,6 +232,15 @@ public class BoardController {
 			}
 			
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rlist.bo", produces="application/json; charset=utf-8")
+	public String replyList(int bno) {
+		System.out.println(bno);
+		ArrayList<BoardReplyDTO> list = bService.selectReplyList(bno);
+		
+		return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create().toJson(list);
 	}
 	
 	public String uploadFile(MultipartFile file, HttpServletRequest request) {
