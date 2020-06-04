@@ -169,7 +169,7 @@ html, body{height:100%;}
    .tree31>span, .tree32>span{
        line-height:180%;
    }
-   /* 검색 */
+   /* 검색  */
    #schBox{
        width:270px;
        height:55px;
@@ -296,10 +296,6 @@ html, body{height:100%;}
    }
 
 
-
-
-
-
 /* 결재선 모달용 스타일!!!! */
 /* 전체윤곽 */
 #approveLineOuter{
@@ -355,7 +351,7 @@ html, body{height:100%;}
 .apTree31>span, .apTree32>span{
     line-height:180%;
 }
-/* 검색 */
+/* 검색  */
 #apSchBox{
     width:270px;
     height:55px;
@@ -448,7 +444,7 @@ html, body{height:100%;}
 	cursor:pointer
 }
 
-/*추가*/
+/* 결재선 즐겨찾기 */
  #approvalLine{
     width:340px;
     height:470px;

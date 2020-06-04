@@ -68,7 +68,6 @@
 	            <br><br><br><br><br><br><br><br>
 	
 	            <!-- 기안문서 -->
-	            
 	            <table class="docContents">
 	                <tr>
 	                    <td width="150" class="th">문서번호</td>

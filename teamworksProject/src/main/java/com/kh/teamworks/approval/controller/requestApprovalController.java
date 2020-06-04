@@ -77,20 +77,55 @@ public class requestApprovalController {
 	@RequestMapping("requestFe.rap")
 	public String insertFamilyEvent(Document d) {
 		
-		int result = raService.insertFamilyEvent(d);
+		/* 문서번호 발생 */
+		Date now = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+		String today = sf.format(now);
 		
-		if(result > 0) {
+		int ran = (int)(Math.random()*899999 + 100000);
+		
+		String docNo = today + "-" + ran;
+		d.setDocNo(docNo);
+		
+		/* 경조비 신청서 insert */
+		int result1 = raService.insertFamilyEvent(d);
+		
+		/* 결재선 insert */
+		String approver = d.getApprover();
+		
+		String[] aList = null;
+		
+		if(approver != null) {
+			aList = approver.split(",");
+		}
+		
+		ApproveLine l = null;
+		int result2 = 0;
+		
+		for(int i=0; i<aList.length; i++) {
+			if(i==0) {
+				l = new ApproveLine(aList[i], docNo, i, "진행", 0);
+			}else {
+				l = new ApproveLine(aList[i], docNo, i, "미결", 0);
+			}
+			
+			result2 = raService.insertApproveLine(l);
+		}
+		
+		/* 반환 */
+		if(result1 * result2 > 0) {
 			return "approval/selectApprovalForm";
 		}else {
 			return "common/errorPage";
 		}
+		
 	}
 	
 	// 3_2. 휴가신청서 insert
 	@RequestMapping("requestVac.rap")
 	public String insertVacation(Document d) {
 
-		/*문서번호 발생*/
+		/* 문서번호 발생 */
 		Date now = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 		String today = sf.format(now);

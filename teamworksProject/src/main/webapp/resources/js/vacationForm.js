@@ -83,25 +83,35 @@ $(function(){
     });
 	
     /* 조직도 참조자 선택 */
+    /* 본인을 참조자로 선택하지 못하도록 */
     $(".refEmpName").click(function(){
-        
+    	var userId = $("#empId").val();
+      	var clickedId = $(this).prevAll(".refedId").val();
+    	
         var hiddenChk = $(this).prev();
         
-        if(hiddenChk.is(":checked")){
-            hiddenChk.prop("checked", false);
+        if(userId == clickedId){
+        	hiddenChk.prop("checked", false);
             $(this).css("background", "white");
             $(this).next().css("background", "white");
         }else{
-            hiddenChk.prop("checked", true);
-            $(this).css("background", "lightsteelblue");
-            $(this).next().css("background", "lightsteelblue");
+	        if(hiddenChk.is(":checked")){
+	            hiddenChk.prop("checked", false);
+	            $(this).css("background", "white");
+	            $(this).next().css("background", "white");
+	        }else{
+	            hiddenChk.prop("checked", true);
+	            $(this).css("background", "lightsteelblue");
+	            $(this).next().css("background", "lightsteelblue");
+	        }
         }
-        
     });
     
     /* 참조자 검색 시 */
     $("#schBtn").click(function(){
         
+    	var userId = $("#empId").val();
+    	
         $.ajax({
             url:"empSch.rap",
             data:{keyword:$("#schInput").val()},
@@ -110,18 +120,35 @@ $(function(){
                 if(schEmp.length > 0) {
                     
                     var value ="";
+                    var userId = $("#empId").val();
                     
                     for(var i in schEmp){
-                        value += "<tr>" + 
-                                        "<td>" + 
-                                            "<input type='hidden' class='refedId' value='" + schEmp[i].empId + "'>" +
-                                            "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
-                                               "<input type='checkbox' name='refChk' class='chk'>" +
-                                               "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
-                                        "<td>" + schEmp[i].deptName + "</td>" + 
-                                        "<td>" + schEmp[i].jobName + "</td>" +
-                                        "<td>" + schEmp[i].empName + "</td>" +
-                                 "</tr>"
+                    	
+                    	 if(userId == schEmp[i].empId){
+                    	
+	                        value += "<tr>" + 
+	                                        "<td>" + 
+	                                            "<input type='hidden' class='refedId' value='" + schEmp[i].empId + "'>" +
+	                                            "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
+	                                            "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
+	                                        "<td>" + schEmp[i].deptName + "</td>" + 
+	                                        "<td>" + schEmp[i].jobName + "</td>" +
+	                                        "<td>" + schEmp[i].empName + "</td>" +
+	                                 "</tr>"
+                                        
+                    	 }else{
+                    		 value += "<tr>" + 
+				                             "<td>" + 
+				                                "<input type='hidden' class='refedId' value='" + schEmp[i].empId + "'>" +
+				                                "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
+				                         		"<input type='checkbox' name='refChk' class='chk'>" +
+				                                "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
+				                             "<td>" + schEmp[i].deptName + "</td>" + 
+				                             "<td>" + schEmp[i].jobName + "</td>" +
+				                             "<td>" + schEmp[i].empName + "</td>" +
+				                      "</tr>"
+                    	 }
+                                        
                     }
                     
                     $("#empList tbody").html(value);
@@ -381,25 +408,35 @@ $(function(){
          $("#apOrgChart").css("background", "white");
          $("#apOrgChart").css("color", "rgb(7, 53, 90)");
      });
-	 
-	 
+     
+     
      /* 결재선 조직도 선택 */
+     /* 본인을 결재자로 선택하지 못하도록 */
      $(".apRefEmpName").click(function(){
-         
-         var hiddenChk = $(this).prev();
-         
-         if(hiddenChk.is(":checked")){
-             hiddenChk.prop("checked", false);
+    	 var userId = $("#empId").val();
+    	 var clickedId = $(this).prevAll(".apRefedId").val();
+    	 
+    	 var hiddenChk = $(this).prev();
+    	 
+    	 if(userId == clickedId){
+    		 hiddenChk.prop("checked", false);
              $(this).css("background", "white");
              $(this).next().css("background", "white");
-         }else{
-             hiddenChk.prop("checked", true);
-             $(this).css("background", "lightsteelblue");
-             $(this).next().css("background", "lightsteelblue");
-         }
-         
+    	 }else{
+    		 if(hiddenChk.is(":checked")){
+                 hiddenChk.prop("checked", false);
+                 $(this).css("background", "white");
+                 $(this).next().css("background", "white");
+             }else{
+                 hiddenChk.prop("checked", true);
+                 $(this).css("background", "lightsteelblue");
+                 $(this).next().css("background", "lightsteelblue");
+             }
+    	 }
+    	 
      });
-     
+	 
+
      /* 결재선 사원 검색 시 */
      $("#apSchBtn").click(function(){
          
@@ -411,18 +448,34 @@ $(function(){
                  if(schEmp.length > 0) {
                      
                      var value ="";
+                     var userId = $("#empId").val();
                      
                      for(var i in schEmp){
-                         value += "<tr>" + 
-                                         "<td>" + 
-                                             "<input type='hidden' class='apRefedId' value='" + schEmp[i].empId + "'>" +
-                                             "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
-                                                "<input type='checkbox' name='apRefChk' class='chk'>" +
-                                                "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
-                                         "<td>" + schEmp[i].deptName + "</td>" + 
-                                         "<td>" + schEmp[i].jobName + "</td>" +
-                                         "<td>" + schEmp[i].empName + "</td>" +
-                                  "</tr>"
+                    	 
+                    	 if(userId == schEmp[i].empId){
+                    		 value += "<tr>" + 
+				                             "<td>" + 
+				                                 "<input type='hidden' class='apRefedId' value='" + schEmp[i].empId + "'>" +
+				                                 "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
+				                                    "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
+				                             "<td>" + schEmp[i].deptName + "</td>" + 
+				                             "<td>" + schEmp[i].jobName + "</td>" +
+				                             "<td>" + schEmp[i].empName + "</td>" +
+				                      "</tr>"
+                    		 
+                    	 }else{
+	                         value += "<tr>" + 
+	                                         "<td>" + 
+	                                             "<input type='hidden' class='apRefedId' value='" + schEmp[i].empId + "'>" +
+	                                             "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
+	                                                "<input type='checkbox' name='apRefChk' class='chk'>" +
+	                                                "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
+	                                         "<td>" + schEmp[i].deptName + "</td>" + 
+	                                         "<td>" + schEmp[i].jobName + "</td>" +
+	                                         "<td>" + schEmp[i].empName + "</td>" +
+	                                  "</tr>"
+                    	 }
+                    	 
                      }
                      
                      $("#apEmpList tbody").html(value);
@@ -578,19 +631,18 @@ $(function(){
      });
      
      /* 결재선 지정되지 않으면, 결재요청 버튼 클릭 못하도록 */
-     
      /*
-     $(function(){
+     $("#approver").on("propertychange change keyup paste input", function() {
+    	 console.log(변경됨);
     	 
-    	 console.log($("#approver").val());
-    	 
-    	 if($("#approver").val() == ""){
-     		$("#approveBtn").attr("disabled", true);
-    	 }else{
+    	 if($("#approver").val().length > 0){
     		 $("#approveBtn").attr("disabled", false);
+    	 }else{
+    		 $("#approveBtn").attr("disabled", true);
     	 }
      });
-     */
+	*/
+     
      /*
 	 $("#approveBtn").click(function(){
 		 
@@ -617,9 +669,6 @@ $(function(){
     	}else{
     		$("#approveBtn").attr("type", "submit");
     	}*/
-     
-     
-     /* 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인 */
      
      
      /*결재선 즐겨찾기 조회*/
@@ -768,8 +817,6 @@ $(function(){
 		 $('#apRefEmpArea tr').remove();
 		 
 	 });
-     
-     
      
  });
 
