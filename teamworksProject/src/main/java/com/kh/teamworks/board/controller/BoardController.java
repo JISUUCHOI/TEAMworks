@@ -209,6 +209,68 @@ public class BoardController {
 		
 	}
 	
+	@RequestMapping("updateForm.bo")
+	public String boardUpdateForm(int bno, int cat, Model model) {
+		BoardDTO b = bService.selectBoard(bno);
+		ArrayList<BoardAttachment> attachList = bService.selectBoardAttachment(bno);
+		model.addAttribute("attachList", attachList);
+		model.addAttribute("b", b);
+		model.addAttribute("cat", cat);
+		return "board/boardUpdateForm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="update.bo", produces="text/html; charset=utf-8")
+	public String updateBoard(Board b, HttpServletRequest request, String[] deleteFiles,
+			                  @RequestParam(name="uploadFile", required=false) MultipartFile[] file) {
+		//System.out.println(deleteFiles);
+		
+		if(deleteFiles.length>0) { // 지워야할 예전 파일이 있다.
+			for(int i=0; i<deleteFiles.length; i++) {
+				int result2 = bService.updateBoardAttachment(deleteFiles[i]); // 첨부파일 디비 수정
+				if(result2>0) {
+					deleteFile(deleteFiles[i], request); // 서버에서 삭제
+				}
+			}
+		}
+		
+		ArrayList<BoardAttachment> attachList = new ArrayList<>();
+		if(file.length>0) { // 새로운 첨부파일이 있다.
+			String resources = request.getSession().getServletContext().getRealPath("resources"); 
+			String savePath = resources + "\\boardUploadFiles\\";
+			
+			for(int i=0; i<file.length; i++) {
+				BoardAttachment ba = new BoardAttachment();
+				// System.out.println(file[i].getOriginalFilename());
+				ba.setBaOriginName(file[i].getOriginalFilename());
+				String changeName  = uploadFile(file[i],request);
+				ba.setBaChangeName(changeName);
+				ba.setBaFilePath(savePath + changeName);
+				ba.setRefBoardNo(b.getBoardNo());
+				attachList.add(ba);
+			}
+		}
+		
+		int result = bService.updateBoard(b);
+		if(result>0) { // 게시글 수정 성공 -->첨부파일 변경된 것 db에 올리기
+				int result3 =0;
+				for(BoardAttachment ba: attachList) {
+					result3 = bService.updateBoardAttachment(ba);
+				}
+				if(result>0) {
+					return "success";
+				}else {
+					return "fail";
+				}
+		}else { // 게시글 수정 실패 -- 서버 올린 첨부파일 삭제 
+			for(BoardAttachment ba: attachList) {
+				deleteFile(ba.getBaChangeName(), request);
+			}
+			return "fail";
+		}
+		
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="like.bo", produces="text/html; charset=utf-8")
 	public String likeBoard(BoardLike bl) {
@@ -237,7 +299,7 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value="rlist.bo", produces="application/json; charset=utf-8")
 	public String replyList(int bno) {
-		System.out.println(bno);
+		//System.out.println(bno);
 		ArrayList<BoardReplyDTO> list = bService.selectReplyList(bno);
 		
 		return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create().toJson(list);

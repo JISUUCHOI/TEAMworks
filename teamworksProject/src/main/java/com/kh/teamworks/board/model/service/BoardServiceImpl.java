@@ -99,6 +99,21 @@ public class BoardServiceImpl implements BoardService {
 		return bDao.selectReplyList(sqlSession, bno);
 	}
 
+	@Override
+	public int updateBoardAttachment(String changename) {
+		return bDao.updateBoardAttachment(sqlSession, changename);
+	}
+
+	@Override
+	public int updateBoard(Board b) {
+		return bDao.updateBoard(sqlSession, b);
+	}
+
+	@Override
+	public int updateBoardAttachment(BoardAttachment ba) {
+		return bDao.updateBoardAttachment(sqlSession, ba);
+	}
+
 
 
 	

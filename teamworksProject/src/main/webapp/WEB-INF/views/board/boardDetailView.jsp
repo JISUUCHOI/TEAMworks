@@ -90,7 +90,7 @@
                         <div>
                        	 <b>첨부파일</b> <br>
                             <c:choose>
-                            	<c:when test="${ !empty b.boardFiles}">
+                            	<c:when test="${ !empty attachList}">
                             		<c:forEach var="a" items="${ attachList }">
                             			<a href="${ pageContext.servletContext.contextPath}/resources/boardUploadFiles/${ a.baChangeName }" download="${ a.baOriginName }">${ a.baOriginName }</a><br>
                             		</c:forEach>

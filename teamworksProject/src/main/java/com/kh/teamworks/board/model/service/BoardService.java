@@ -34,4 +34,8 @@ public interface BoardService {
 	int insertBoardLike(BoardLike bl);
 	
 	ArrayList<BoardReplyDTO> selectReplyList(int bno);
+	
+	int updateBoardAttachment(String changename);
+	int updateBoard(Board b);
+	int updateBoardAttachment(BoardAttachment ba);
 }

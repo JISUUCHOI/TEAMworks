@@ -81,4 +81,16 @@ public class BoardDao {
 	public ArrayList<BoardReplyDTO> selectReplyList(SqlSession sqlSession, int bno){
 		return (ArrayList)sqlSession.selectList("boardMapper.selectReplyList", bno);
 	}
+	
+	public int updateBoardAttachment(SqlSession sqlSession, String changeName) {
+		return sqlSession.update("boardMapper.updateBoardAttachment", changeName);
+	}
+	
+	public int updateBoard(SqlSession sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.updateBoard", b);
+	}
+	
+	public int updateBoardAttachment(SqlSession sqlSession, BoardAttachment ba) {
+		return sqlSession.insert("boardMapper.newUpdateBoardAttachment", ba);
+	}
 }

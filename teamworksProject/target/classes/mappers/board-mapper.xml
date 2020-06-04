@@ -166,5 +166,21 @@
 		 order by reply_no desc 
 	</select>
 	
+	<update id="updateBoardAttachment" parameterType="string">
+		update board_attachment
+		   set status ='N'
+		 where ba_change_name=#{changeName}
+	</update>
+	
+	<update id="updateBoard" parameterType="Board">
+		update board
+		   set bd_title = #{boardTitle}, bd_content=#{boardContent}, modify_date=SYSDATE
+		 where board_sq = #{boardNo}
+	</update>
+	
+	<insert id="newUpdateBoardAttachment" parameterType="BoardAttachment">
+	 	insert into board_attachment
+		values(SEQ_BANO.NEXTVAL, #{refBoardNo}, #{baOriginName}, #{baChangeName}, #{baFilePath}, SYSDATE, 'Y')
+	</insert>
 
 </mapper>
