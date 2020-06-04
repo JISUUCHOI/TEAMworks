@@ -47,9 +47,8 @@ public interface ReqApprovalService {
 	int deleteLine(FrequentApprovalLine f);
 	
 	
-	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
-	/*
-	ArrayList<Document> selectDocList(int approveStatus);
-	*/
+	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 리스트 조회
+	ArrayList<Document> selectDocList(Document d);
+	
 	
 }

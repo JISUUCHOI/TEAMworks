@@ -77,7 +77,7 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.insertFreLine(sqlSession, fal);
 	}
 
-	// 4_2. 결재선 즐겨찾기 리스트 개수 조회
+	// 4_2. 결재선 즐겨찾기 리스트 조회
 	@Override
 	public ArrayList<FrequentApprovalLine> selectFreLine(String empId) {
 		return raDao.selectFreLine(sqlSession, empId);
@@ -95,16 +95,12 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.deleteLine(sqlSession, f);
 	}
 
-	
-
-
-	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
-	/*
+	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 리스트 조회
 	@Override
-	public ArrayList<Document> selectDocList(int approveStatus) {
-		return raDao.selectDocList(sqlSession, approveStatus);
+	public ArrayList<Document> selectDocList(Document d) {
+		return raDao.selectDocList(sqlSession, d);
 	}
-	*/
+	
 	
 	
 }

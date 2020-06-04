@@ -19,14 +19,14 @@
 	}
 	
 	#docListOuter{
-	    width:800px;
+	    width:1000px;
 	    height:670px;
 	    margin:auto;
 	    margin-top:50px;
 	}
 	/* 본문 */
 	#docListArea{
-	    width:800px;
+	    width:1000px;
 	}
 	table th{text-align:center;}
 	
@@ -134,19 +134,19 @@
 	        <div id="docListArea">
 	            <!-- 조건:대기/진행/완료/반려/회수요청/회수 -->
 	            <c:choose>
-					<c:when test="${sts eq '0'}">
+					<c:when test="${ sts eq 0 }">
 			            <h4>⊙ 결재대기함</h4>
 		        	</c:when>
-		        	<c:when test="${sts eq '1'}">
+		        	<c:when test="${ sts eq 1 }">
 			            <h4>⊙ 결재진행함</h4>
 		        	</c:when>
-		        	<c:when test="${sts eq '2'}">
+		        	<c:when test="${ sts eq 2 }">
 			            <h4>⊙ 결재완료함</h4>
 		        	</c:when>
-		        	<c:when test="${sts eq '3'}">
+		        	<c:when test="${ sts eq 3 }">
 			            <h4>⊙ 반려문서함</h4>
 		        	</c:when>
-		        	<c:when test="${sts eq '4'}">
+		        	<c:when test="${ sts eq 4 }">
 			            <h4>⊙ 회수요청함</h4>
 		        	</c:when>
 		        	<c:otherwise>
@@ -160,8 +160,8 @@
 	            <form action="">
 	                <table id="search">
 	                    <tr height="90">
-	                        <th width="100">기안일</th>
-	                        <td width="700">
+	                        <th width="150">기안일</th>
+	                        <td width="850">
 	                            <div id=periodBtns>
 	                                <input type="button" class="period" name="period" value="1주일">
 	                                <input type="button" class="period"" name="period" value="1개월">
@@ -196,71 +196,44 @@
 	            <table class="docList">
 	                <thead>
 	                    <tr>
-	                        <th width="120">품의번호</th>
-	                        <th width="70">문서분류</th>
-	                        <th width="280">문서제목</th>
+	                        <th width="150">문서번호</th>
+	                        <th width="100">문서분류</th>
+	                        <th width="450">문서제목</th>
 	                        <th width="70">기안자</th>
-	                        <th width="70">기안부서</th>
-	                        <th width="100">기안일</th>
-	                        <th width="90">상태</th>
+	                        <th width="80">기안부서</th>
+	                        <th width="90">기안일</th>
+	                        <th width="60">상태</th>
 	                    </tr>
 	                </thead>
 	                <!-- 조건절:대기/진행/완료/반려/회수/회수요청, 반복문 -->
 	                <tbody>
-	                    <tr>
-	                        <td style="text-align:center;">20200508-0001</td>
-	                        <td style="text-align:center;">기안서</td>
-	                        <td style="padding-left:30px;">A프로젝트건 기안</td>
-	                        <td style="text-align:center;">최해성</td>
-	                        <td style="text-align:center;">개발팀</td>
-	                        <td style="text-align:center;">20.05.08</td>
-	                        <td style="text-align:center;">대기</td>
-	                    </tr>
-	                    <tr>
-	                        <td style="text-align:center;">20200508-0001</td>
-	                        <td style="text-align:center;">경조사</td>
-	                        <td style="padding-left:30px;">A프로젝트건 기안</td>
-	                        <td style="text-align:center;">최해성</td>
-	                        <td style="text-align:center;">개발팀</td>
-	                        <td style="text-align:center;">20.05.08</td>
-	                        <td style="text-align:center;">진행</td>
-	                    </tr>
-	                    <tr>
-	                        <td style="text-align:center;">20200508-0001</td>
-	                        <td style="text-align:center;">휴가신청</td>
-	                        <td style="padding-left:30px;">A프로젝트건 기안</td>
-	                        <td style="text-align:center;">최해성</td>
-	                        <td style="text-align:center;">개발팀</td>
-	                        <td style="text-align:center;">20.05.08</td>
-	                        <td style="text-align:center;">완료</td>
-	                    </tr>
-	                    <tr>
-	                        <td style="text-align:center;">20200508-0001</td>
-	                        <td style="text-align:center;">제증명</td>
-	                        <td style="padding-left:30px;">A프로젝트건 기안</td>
-	                        <td style="text-align:center;">최해성</td>
-	                        <td style="text-align:center;">개발팀</td>
-	                        <td style="text-align:center;">20.05.08</td>
-	                        <td style="text-align:center;">반려</td>
-	                    </tr>
-	                    <tr>
-	                        <td style="text-align:center;">20200508-0001</td>
-	                        <td style="text-align:center;">기안서</td>
-	                        <td style="padding-left:30px;">A프로젝트건 기안</td>
-	                        <td style="text-align:center;">최해성</td>
-	                        <td style="text-align:center;">개발팀</td>
-	                        <td style="text-align:center;">20.05.08</td>
-	                        <td style="text-align:center;">회수요청</td>
-	                    </tr>
-	                    <tr>
-	                        <td style="text-align:center;">20200508-0001</td>
-	                        <td style="text-align:center;">기안서</td>
-	                        <td style="padding-left:30px;">A프로젝트건 기안</td>
-	                        <td style="text-align:center;">최해성</td>
-	                        <td style="text-align:center;">개발팀</td>
-	                        <td style="text-align:center;">20.05.08</td>
-	                        <td style="text-align:center;">회수</td>
-	                    </tr>
+	                	<c:forEach var="l" items="${ list }">
+		                    <tr>
+		                        <td style="text-align:center;">${ l.docNo }</td>
+		                        <td style="text-align:center;">${ l.docSc }</td>
+		                        <td style="padding-left:30px;">${ l.docTitle }</td>
+		                        <td style="text-align:center;">${ l.empName }</td>
+		                        <td style="text-align:center;">${ l.docDepartment}</td>
+		                        <td style="text-align:center;">${ l.docDate }</td>
+		                        <c:choose>
+		                        	<c:when test="${ l.approveStatus eq 0 }">
+				                        <td style="text-align:center;">대기</td>
+		                        	</c:when>
+		                        	<c:when test="${ l.approveStatus eq 1 }">
+				                        <td style="text-align:center;">진행</td>
+		                        	</c:when>
+		                        	<c:when test="${ l.approveStatus eq 2 }">
+				                        <td style="text-align:center;">완료</td>
+		                        	</c:when>
+		                        	<c:when test="${ l.approveStatus eq 3 }">
+				                        <td style="text-align:center;">반려</td>
+		                        	</c:when>
+		                        	<c:when test="${ l.approveStatus eq 4 }">
+				                        <td style="text-align:center;">회수요청</td>
+		                        	</c:when>
+		                        </c:choose>
+		                    </tr>
+	                    </c:forEach>
 	                </tbody>
 	            </table>
 	            <br>

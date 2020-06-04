@@ -235,13 +235,17 @@ public class requestApprovalController {
 	}
 	
 	
-	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
+	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 리스트 조회
 	@RequestMapping("docList.rap")
-	public String documentListView(int approveStatus, Model model) {
+	public String documentListView(HttpServletRequest request, int approveStatus, Model model) {
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+		Document d = new Document();
+		d.setEmpId(empId);
+		d.setApproveStatus(approveStatus);
+		ArrayList<Document> list = raService.selectDocList(d);
+		
+		model.addAttribute("list", list);
 		model.addAttribute("sts", approveStatus);
-		
-		//ArrayList<Document> list = raService.selectDocList(approveStatus);
-		
 		return "approval/documentList";
 	}
 	

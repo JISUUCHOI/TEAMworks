@@ -60,7 +60,8 @@ public class Document {
 	private String approver;		// 화면에서 컨트롤러로 넘어갈 결재자사원번호
 	
 	// 보관함
-	private int approveStatus;
+	private int approveStatus;		// 결재자의 보관함 상태 (0:대기, 1:진행, 2:완료, 3:반려, 4:회수요청)
+	private String empName;			// 보관함, 문서상세페이지 에 보여질 기안자 이름
 	
 	
 	

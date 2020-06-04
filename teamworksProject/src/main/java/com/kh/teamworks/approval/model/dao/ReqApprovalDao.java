@@ -59,7 +59,7 @@ public class ReqApprovalDao {
 		return sqlSession.insert("approveMapper.insertFreLine", fal);
 	}
 	
-	// 4_2. 결재선 즐겨찾기 리스트 개수 조회
+	// 4_2. 결재선 즐겨찾기 리스트 조회
 	public ArrayList<FrequentApprovalLine> selectFreLine(SqlSessionTemplate sqlSession, String empId) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectFreLine", empId);
 	}
@@ -74,13 +74,8 @@ public class ReqApprovalDao {
 		return sqlSession.delete("approveMapper.deleteLine", f);
 	}
 	
-	
-	
-	
 	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
-	/*
-	public ArrayList<Document> selectDocList(SqlSessionTemplate sqlSession, int approveStatus) {
-		return sqlSession.selectList("approveMapper.selectDocList", approveStatus);
+	public ArrayList<Document> selectDocList(SqlSessionTemplate sqlSession, Document d) {
+		return (ArrayList)sqlSession.selectList("approveMapper.selectDocList", d);
 	}
-	*/
 }
