@@ -21,6 +21,7 @@ import com.kh.teamworks.board.model.service.BoardService;
 import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
+import com.kh.teamworks.board.model.vo.BoardLike;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
@@ -191,6 +192,23 @@ public class BoardController {
 			return "common/erorrPage";
 		}
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="like.bo", produces="text/html; charset=utf-8")
+	public String likeBoard(BoardLike bl) {
+		// 추천이 있는지 없는 지 조회 
+		BoardLike like = bService.selectBoardLike(bl);
+		if(like != null) { // 이미 추천을 한적 있음
+			return "fail";
+		}else { // 추천한적 없음
+			int result = bService.insertBoardLike(bl);
+			if(result>0) {
+				return "success";
+			}else { // 테이블 insert실패
+				return "none";
+			}
+		}
 	}
 	
 	public String uploadFile(MultipartFile file, HttpServletRequest request) {

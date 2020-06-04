@@ -66,7 +66,7 @@
                     <td><b>제목</b></td>
                     <td colspan="3">${ b.boardTitle }</td>
                     <td rowspan="2" align="center" width="200px">
-                        <div class="recommend">
+                        <div class="recommend" id="recommend">
                             <a id="recommend" href="#a" class="" > 							
                                 <p class="num"><span id="recommendCount">0+</span></p>							   
                                 <p class="doc"><i class="far fa-thumbs-up"></i> 추천</p>
@@ -151,6 +151,32 @@
    			
    			$("#postForm").submit();
      	}
+     	
+     	$(function(){
+     		$("#recommend").on('click',function(){
+     			if(confirm("추천하시겠습니까?")){
+     				$.ajax({
+     					url:"like.bo",
+     					data:{boardNo:${ b.boardNo}, empId:'${loginUser.empId}'},
+     					type:"post",
+     					succes:function(result){
+     						if(result=="success"){
+     							$("#recommendCount").text("1+");
+     						}else if(result=="fail"){
+     							alert("이미 추천하셨습니다.");
+     						}else{
+     							alert("오류입니다.");
+     						}
+     						
+     					},
+     					error:function(){
+     						console.log("추천 ajax통신 실패");
+     					}
+     					
+     				});
+     			}
+     		});
+     	});
      </script>
 </body>
 </html>

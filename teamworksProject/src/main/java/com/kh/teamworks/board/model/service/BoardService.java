@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
+import com.kh.teamworks.board.model.vo.BoardLike;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
 
@@ -26,4 +27,7 @@ public interface BoardService {
 	
 	int deleteBoard(int bno);
 	int deleteBoardAttachment(int bdFileNo);
+	
+	BoardLike selectBoardLike(BoardLike bl);
+	int insertBoardLike(BoardLike bl);
 }

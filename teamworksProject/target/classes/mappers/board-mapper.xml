@@ -28,6 +28,12 @@
 		<result column="update_date" property="updateDate"/>
 		<result column="status" property="status"/>
 	</resultMap>
+	
+	<resultMap type="BoardLike" id="boardLikeResultSet">
+		<id column="emp_id" property="empId"/>
+		<id column="board_sq" property="boardNo"/>
+		<result column="bd_date" property="blDate"/>
+	</resultMap>
 
 	<select id="selectListCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*)
@@ -120,4 +126,15 @@
 		   set status = 'N'
 		 where bd_file_no = #{bcFileNo}
 	</update>
+	
+	<select id="selectBoardLike" parameterType="BoardLike" resultMap="boardLikeResultSet">
+		select * 
+		  from board_like
+		 where emp_id = #{empId} and board_sq = #{boardNo}
+	</select>
+	
+	<insert id="insertBoardLike" parameterType="BoardLike">
+		insert into board_like
+		values(#{empId}, #{boardNo}, SYSDATE)
+	</insert>
 </mapper>

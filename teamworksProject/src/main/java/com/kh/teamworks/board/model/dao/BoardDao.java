@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
+import com.kh.teamworks.board.model.vo.BoardLike;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
 
@@ -62,5 +63,13 @@ public class BoardDao {
 	
 	public int deleteBoardAttachment(SqlSession sqlSession, int bdFileNo) {
 		return sqlSession.update("boardMapper.deleteBoardAttachment", bdFileNo);
+	}
+	
+	public BoardLike selectBoardLike(SqlSession sqlSession, BoardLike bl) {
+		return sqlSession.selectOne("boardMapper.selectBoardLike", bl);
+	}
+	
+	public int insertBoardLike(SqlSession sqlSession, BoardLike bl) {
+		return sqlSession.insert("boardMapper.insertBoardLike", bl);
 	}
 }
