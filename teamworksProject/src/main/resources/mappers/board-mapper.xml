@@ -70,4 +70,14 @@
 			</if>
 		order by board_sq desc
 	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+		insert into board
+		values(SEQ_BDNO.NEXTVAL, #{boardCategory}, #{boardWriter}, #{boardTitle}, #{boardContent}, SYSDATE, SYSDATE, 0, 'Y', 0)
+	</insert>
+	
+	<insert id="insertBoardAttachment" parameterType="BoardAttachment">
+		insert into board_attachment
+		values(SEQ_BANO.NEXTVAL, SEQ_BDNO.CURRVAL, #{baOriginName}, #{baChangeName}, #{baFilePath}, SYSDATE, 'Y')
+	</insert>
 </mapper>

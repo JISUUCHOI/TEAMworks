@@ -78,13 +78,13 @@
         <div class="inner">
             <h4>작성하기</h4>
             <hr>
-            <form action="insert.bo" id="boardEnrollForm" method="post" enctype="multipart/form-data">
-            	<input type="hidden" name="empId" value=${ loginUser.empId }>
+            <form id="boardEnrollForm" method="post" onSubmit="return false" enctype="multipart/form-data">
+            	<input type="hidden" name="boardWriter" value=${ loginUser.empId }>
             	<input type="hidden" name="boardCategory" value="${ cat }">
                 <table class="table" width="100%">
                     <tr>
                         <th>제목</th>
-                        <td colspan="5"><input type="text" name="boardTitle" class="form-control"></td>
+                        <td colspan="5"><input type="text" id="title" name="boardTitle" class="form-control" required></td>
                     </tr>
                     <tr>
                         <th>작성자</th>
@@ -92,7 +92,7 @@
                     </tr>
                     <tr>
                         <td colspan="6">
-                            <textarea id="summernote" name="boardContent"></textarea>
+                            <textarea id="summernote" id="content" name="boardContent" required></textarea>
                           
                         </td>
                     </tr>
@@ -223,7 +223,33 @@
                     formData.append('uploadFile', file, file.name);
                     
                 });
-                  
+                if($("#title").val()== "" || $("#content").val()== ""){
+                	alert("제목과 내용을 입력해주세요.");
+                }else{
+               	   $.ajax({
+                      	url:"insert.bo",
+                      	data:formData,
+                      	type:"post",
+                      	contentType:false,
+      					processData: false,
+      					success:function(result){
+      						if(result == "success"){
+      							alert("게시글 등록 완료");
+      							location.href="list.bo?currentPage=1&cat=" + ${cat};
+      						}else if(result == "insertFail"){
+      							alert("게시판 등록에 실패하셨습니다.");
+      						}else{
+      							alert("첨부파일 업로드에 실패하셨습니다.");
+      						}
+      					},
+      					error:function(){
+      						console.log("board ajax통신 실패");
+      					}
+                      });
+                       
+                }
+                
+             
                 // for (var key of formData.keys()) {
                 //     console.log(key);
                 // }

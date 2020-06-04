@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.teamworks.board.model.dao.BoardDao;
+import com.kh.teamworks.board.model.vo.Board;
+import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
@@ -38,6 +40,19 @@ public class BoardServiceImpl implements BoardService {
 	public ArrayList<BoardDTO> searchList(SearchBoardCondition sc, PageInfo pi) {
 		return bDao.searchList(sqlSession, sc, pi);
 	}
+
+	
+	@Override
+	public int insertBoard(Board b) {
+		return bDao.insertBoard(sqlSession, b);
+	}
+
+	@Override
+	public int insertBoardAttachment(BoardAttachment ba) {
+		return bDao.insertBoardAttachment(sqlSession, ba);
+	}
+
+
 
 	
 	
