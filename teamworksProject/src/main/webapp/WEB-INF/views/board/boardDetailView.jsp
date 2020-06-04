@@ -112,13 +112,13 @@
                 </tr>
                     <tr>
                         <th colspan="2"> 
-                            <textarea class="form-control" name="" id="" cols="30" rows="2" style="resize: none; width: 100%;"></textarea>
+                            <textarea class="form-control" name="" id="replyContent" cols="30" rows="2" style="resize: none; width: 100%;"></textarea>
                         </th>
                       
                     </tr>
                     <tr>
                         <td style="text-align: right;">
-                            <button type="button" class="btn btn-info"><i class="fas fa-comment-dots"></i></button>
+                            <button type="button" id="addReply" class="btn btn-info"><i class="fas fa-comment-dots"></i></button>
                         </td>
                     </tr>
                 </thead>
@@ -193,7 +193,7 @@
      				console.log("통신 실패");
      			}
      			
-     		});s
+     		});
      	}
      	
      	$(function(){
@@ -220,6 +220,28 @@
      					
      				});
      			}
+     		});
+     		
+     		$("#addReply").click(function(){
+     			$.ajax({
+     				url:"rinsert.bo",
+     				data:{
+     					replyWriter:"${loginUser.empId}",
+     					replyContent:$("#replyContent").val(),
+     					refBoardNo:${b.boardNo}
+     				},
+     				success:function(status){
+     					if(status=="success"){
+     						$("#replyContent").val("");
+     						selectReplyList();
+     					}else{
+     						alert("댓글 등록 실패!!");
+     					}
+     				},
+     				error:function(){
+     					console.log("댓글 insert ajax 통신 실패");
+     				}
+     			});
      		});
      	});
      </script>

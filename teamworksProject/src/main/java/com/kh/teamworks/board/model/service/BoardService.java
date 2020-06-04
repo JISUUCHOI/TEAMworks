@@ -6,6 +6,7 @@ import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
 import com.kh.teamworks.board.model.vo.BoardLike;
+import com.kh.teamworks.board.model.vo.BoardReply;
 import com.kh.teamworks.board.model.vo.BoardReplyDTO;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
@@ -38,4 +39,6 @@ public interface BoardService {
 	int updateBoardAttachment(String changename);
 	int updateBoard(Board b);
 	int updateBoardAttachment(BoardAttachment ba);
+	
+	int insertReply(BoardReply r);
 }

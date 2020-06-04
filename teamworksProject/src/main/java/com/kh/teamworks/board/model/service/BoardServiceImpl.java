@@ -11,6 +11,7 @@ import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
 import com.kh.teamworks.board.model.vo.BoardLike;
+import com.kh.teamworks.board.model.vo.BoardReply;
 import com.kh.teamworks.board.model.vo.BoardReplyDTO;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
@@ -114,7 +115,12 @@ public class BoardServiceImpl implements BoardService {
 		return bDao.updateBoardAttachment(sqlSession, ba);
 	}
 
+	@Override
+	public int insertReply(BoardReply r) {
+		return bDao.insertReply(sqlSession, r);
+	}
 
+	
 
 	
 	

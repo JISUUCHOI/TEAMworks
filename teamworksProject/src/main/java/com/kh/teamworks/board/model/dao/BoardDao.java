@@ -10,6 +10,7 @@ import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
 import com.kh.teamworks.board.model.vo.BoardLike;
+import com.kh.teamworks.board.model.vo.BoardReply;
 import com.kh.teamworks.board.model.vo.BoardReplyDTO;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
@@ -92,5 +93,9 @@ public class BoardDao {
 	
 	public int updateBoardAttachment(SqlSession sqlSession, BoardAttachment ba) {
 		return sqlSession.insert("boardMapper.newUpdateBoardAttachment", ba);
+	}
+	
+	public int insertReply(SqlSession sqlSession, BoardReply r) {
+		return sqlSession.insert("boardMapper.insertReply", r);
 	}
 }

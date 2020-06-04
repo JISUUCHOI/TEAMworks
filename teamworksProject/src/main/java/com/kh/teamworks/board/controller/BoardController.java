@@ -23,6 +23,7 @@ import com.kh.teamworks.board.model.vo.Board;
 import com.kh.teamworks.board.model.vo.BoardAttachment;
 import com.kh.teamworks.board.model.vo.BoardDTO;
 import com.kh.teamworks.board.model.vo.BoardLike;
+import com.kh.teamworks.board.model.vo.BoardReply;
 import com.kh.teamworks.board.model.vo.BoardReplyDTO;
 import com.kh.teamworks.board.model.vo.SearchBoardCondition;
 import com.kh.teamworks.common.model.vo.PageInfo;
@@ -303,6 +304,21 @@ public class BoardController {
 		ArrayList<BoardReplyDTO> list = bService.selectReplyList(bno);
 		
 		return new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create().toJson(list);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="rinsert.bo", produces="text/html; charset=utf-8")
+	public String insertReply(BoardReply r) {
+		
+		int result = bService.insertReply(r);
+		if(result>0) {
+			
+			return "success"; 
+		}else {
+			
+			return "fail"; 
+		}
+		
 	}
 	
 	public String uploadFile(MultipartFile file, HttpServletRequest request) {

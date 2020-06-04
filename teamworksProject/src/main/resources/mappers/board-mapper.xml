@@ -182,5 +182,10 @@
 	 	insert into board_attachment
 		values(SEQ_BANO.NEXTVAL, #{refBoardNo}, #{baOriginName}, #{baChangeName}, #{baFilePath}, SYSDATE, 'Y')
 	</insert>
+	
+	<insert id="insertReply" parameterType="BoardReply">
+		insert into bd_reply
+		values(SEQ_BRNO.NEXTVAL, #{replyWriter}, #{refBoardNo}, #{replyContent}, SYSDATE, SYSDATE, 'Y')
+	</insert>
 
 </mapper>
