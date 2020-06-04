@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.teamworks.reservation.model.vo.ReservationDto"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -84,9 +84,9 @@
 	<div style="width:1250px; float:left;">
 	
 		<div align="center">
-		  <button class="pointBtn" id="beforeBtn">&lt;</button>
-		  <b id="todayDate">${ today }&nbsp;${ dayOfWeek }</b>
-		  <button class="pointBtn" id="afterBtn">&gt;</button>
+		  <button class="pointBtn" id="beforeBtn" onclick="absAday();">&lt;</button>
+		  <b id="todayDate">${ rdto.currentDate }&nbsp;${ rdto.dayOfWeek }</b>
+		  <button class="pointBtn" id="afterBtn" onclick="addAday();">&gt;</button>
 		</div>
 		
 		<br>
@@ -210,7 +210,41 @@
 	</div>
 	
 	<script>
+		function absAday() {
+			
+			$.ajax({
+				url:"reSelectAbs.re",
+				data:{currentDate:$('#todayDate').text()},
+				type:"post",
+				success:function(rdto){
+					
+					var dateInfo = rdto.currentDate + " " + rdto.dayOfWeek;
+					$('#todayDate').text(dateInfo);
+					
+				},error:function(){
+					console.log("이전 날짜 조회용 ajax 통신 실패");
+				}
+			});
+			
+		}
 		
+		function addAday() {
+			
+			$.ajax({
+				url:"reSelectAdd.re",
+				data:{currentDate:$('#todayDate').text()},
+				type:"post",
+				success:function(rdto){
+					
+					var dateInfo = rdto.currentDate + " " + rdto.dayOfWeek;
+					$('#todayDate').text(dateInfo);
+					
+				},error:function(){
+					console.log("다음 날짜 조회용 ajax 통신 실패");
+				}
+			});
+			
+		}
 	</script>
 
 	
