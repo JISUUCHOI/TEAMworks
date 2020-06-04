@@ -42,4 +42,6 @@ public class ApprovalDao {
 		return sqlSession.insert("documentMapper.insertDraft", d);
 	}
 
+
+
 }

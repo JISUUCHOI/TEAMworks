@@ -468,7 +468,8 @@
 	               	 이곳에 파일을 드래그 하세요.
 	            </div>
 	            <br>
-	            <button type="button" id="fileUpBtn">파일첨부</button>
+	            <!-- <button type="button" id="fileUpBtn">파일첨부</button> -->
+	            <input type="file" id="upfile" name="uploadFile">
 	            
 	            
 	

@@ -28,5 +28,7 @@ public interface ApprovalService {
 	// 2. 결재선/참조자 사원 검색 select
 	ArrayList<Employee> selectEmpSch(ApproveSearchCondition sc);
 
+
+
 	
 }

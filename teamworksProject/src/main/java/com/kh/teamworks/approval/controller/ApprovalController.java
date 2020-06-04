@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.kh.teamworks.approval.model.service.ApprovalService;
 import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
@@ -44,9 +46,6 @@ public class ApprovalController {
 	}
 	
 
-	
-
-	
 	// 1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) & 조직도 select
 	@RequestMapping("insertDoc.ap")
 	public String selectEmpInfo(HttpServletRequest request, Model model, String doc) {
@@ -111,14 +110,18 @@ public class ApprovalController {
 	
 	// 기안서 insert
 	@RequestMapping("draftInsert.ap")
-	public String insertDraft(Document d, Model model, HttpSession request,
+	public String insertDraft(Document d, Model model, HttpServletRequest request, HttpSession session, 
 							  @RequestParam(name="uploadFile", required=false) MultipartFile file) {
 		
-		 System.out.println(d);
+
+		if(!file.getOriginalFilename().equals("")) {
+			String changeName = saveFile(file, request);
 			
-
-
-		 
+			d.setFileName(file.getOriginalFilename());
+		}
+		
+		System.out.println(d);
+	 
 		 int result = aService.insertDraft(d);
 	  
 	   if(result > 0) {	    	
@@ -129,7 +132,34 @@ public class ApprovalController {
 	    }
 	}
 	
-	// 결재선 insert
+	@RequestMapping("dragInsert.ap")
+	public String insertDrag(Document d, Model model, HttpServletRequest request, HttpSession session, 
+							  @RequestParam(name="uploadFile", required=false) MultipartFile file) {
+		
+
+
+			saveFile(file, request);
+			
+
+		
+		
+
+		return null;
+	 
+
+	  
+
+	}
+	
+	// 결재요청함, 참조문서함 연결
+	@RequestMapping("docList.ap")
+	public String documentListView(int approveStatus, Model model) {
+		model.addAttribute("sts", approveStatus);
+		
+		//ArrayList<Document> list = raService.selectDocList(approveStatus);
+		
+		return "approval/refDocListjsp";
+	}
 	
 	
 	
@@ -140,56 +170,46 @@ public class ApprovalController {
 	// @RequestMapping("draftInsert.ap")
 	// public String insertDraft
 	   
-	    @RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
-	    public String dragAndDrop(Model model) {
-	        
-	        return "fileUpload";
-	        
-	    }
+
+
+	
 	    
-	    @RequestMapping(value = "/fileUpload/post") //ajax에서 호출하는 부분
-	    @ResponseBody
-	    public String upload(MultipartHttpServletRequest multipartRequest) { //Multipart로 받는다.
-	         
-	        Iterator<String> itr =  multipartRequest.getFileNames();
-	        
-	        String filePath = "C:/test"; //설정파일로 뺀다.
-	        
-	        while (itr.hasNext()) { //받은 파일들을 모두 돌린다.
-	            
-	            /* 기존 주석처리
-	            MultipartFile mpf = multipartRequest.getFile(itr.next());
-	            String originFileName = mpf.getOriginalFilename();
-	            System.out.println("FILE_INFO: "+originFileName); //받은 파일 리스트 출력'
-	            */
-	            
-	            MultipartFile mpf = multipartRequest.getFile(itr.next());
-	     
-	            String originalFilename = mpf.getOriginalFilename(); //파일명
-	     
-	            String fileFullPath = filePath+"/"+originalFilename; //파일 전체 경로
-	     
-	            try {
-	                //파일 저장
-	                mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서 처리
-	                
-	                System.out.println("originalFilename => "+originalFilename);
-	                System.out.println("fileFullPath => "+fileFullPath);
-	     
-	            } catch (Exception e) {
-	                System.out.println("postTempFile_ERROR======>"+fileFullPath);
-	                e.printStackTrace();
-	            }
-	                         
-	       }
-	         
-	        return "success";
-	    }
-	    
-	    @RequestMapping("drag.ap")
-	    public String enrollForm()
-	    {
-	        return "approval/drag";
-	    }
+		public String saveFile(MultipartFile file,  HttpServletRequest request) {
+			String resources = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = resources + "\\approveUploadFiles\\";
+			
+			String originName = file.getOriginalFilename();
+			
+			String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+			
+
+			
+			String changeName = currentTime;
+			
+			try {
+				file.transferTo(new File(savePath + changeName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			return changeName;
+		}
+		
+		// 드래그앤드롭연습
+		@RequestMapping("drag.ap")
+		public String insertDrag() {
+			return "approval/drag";
+		}
+		// 드랍존
+		@RequestMapping("dropZone.ap")
+		public String insertDropzone() {
+			return "approval/dropZone";
+		}
+		
+		
+		
+		
 	    
 }

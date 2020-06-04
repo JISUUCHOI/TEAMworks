@@ -9,9 +9,18 @@
 <title>참조문서함</title>
 <style>
 	/* 전체 윤곽 */
+	html, body{height:100%;}
+	#docListWrapper{
+		width:1250px;
+		height:100%;
+		float:left;
+	}
+	
 	#docListOuter{
-	    width:1200px;
-	    padding-top:20px;
+	    width:800px;
+	    height:670px;
+	    margin:auto;
+	    margin-top:50px;
 	}
 	/* 본문 */
 	#docListArea{
@@ -111,6 +120,11 @@
 </style>
 </head>
 <body>
+	<jsp:include page="../common/menubar.jsp"/>
+	<jsp:include page="approvalSidebar.jsp"/>
+
+	<div id="docListWrapper">
+    
     <div id="docListOuter">
 
         <!-- 사이드 바 -->
@@ -121,10 +135,16 @@
         <!-- 본문 -->
         <div id="docListArea">
             <!-- 조건:결재요청함/참조문서함 -->
-            <h4>⊙ 참조문서함</h4>
-            <hr>
-            <br>
-
+			<c:choose>
+				<c:when test="${sts eq '11'}">
+		            <h4>⊙ 결재요청함</h4>
+	        	</c:when>
+	        	<c:otherwise>
+		            <h4>⊙ 참조문서함</h4>
+	        	</c:otherwise>
+		    </c:choose>
+	            <hr>
+	            <br>
             <!-- 검색 -->
             <form action="">
                 <table id="search">
@@ -255,7 +275,7 @@
                 <a class="page">&gt;</a>
             </div>
         </div>
-
+      </div>
     </div>
 </body>
 </html>

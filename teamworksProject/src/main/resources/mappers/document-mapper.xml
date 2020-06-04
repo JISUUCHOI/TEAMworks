@@ -95,5 +95,6 @@
 		values(SEQ_DOCNO.NEXTVAL, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, 
 				#{docContent}, '첨부파일명', '첨부파일저장경로' )
 	</insert>
+	
 
 </mapper>

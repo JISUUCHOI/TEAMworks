@@ -54,5 +54,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public int insertDraft(Document d) {
 		return aDao.insertDraft(sqlSession, d);
 	}
+	
+
 }
 
