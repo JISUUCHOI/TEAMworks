@@ -46,6 +46,14 @@
 		<result column="approve_status" property="approveStatus"/>
 		<result column="emp_name" property="empName"/>
 		
+		<result column="approver_empid" property="approverEmpid"/>
+		<result column="approver_name" property="approverName"/>
+		<result column="approve_step" property="approveStep"/>
+		<result column="approve_reject" property="approveReject"/>
+		<result column="approve_status" property="approveStatus"/>
+		<result column="approve_comment" property="approveComment"/>
+		<result column="approve_date" property="approveDate"/>
+		
 	</resultMap>
 	
 	<resultMap id="freLineResultSet" type="fal">
@@ -158,6 +166,19 @@
 
 
 
+	<select id="selectListCount" parameterType="Document" resultType="_int">
+		select count(*)
+		  from (select v.doc_no
+        		  from vacation v
+        		  join approve_line a on(v.doc_no = a.doc_no)
+        		 where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
+      			 UNION ALL
+      			select f.doc_no
+        		  from family_event f
+        		  join approve_line a on(f.doc_no = a.doc_no)
+        		 where a.approver_empid=#{empId} and a.approve_status=#{approveStatus})
+	</select>
+	
 	<select id="selectDocList" parameterType="Document" resultMap="reqApprovalResultSet">
 		select *
 		  from (select *
@@ -177,6 +198,32 @@
               	 		 order by f.doc_date asc)
       		  )
 		order by doc_date asc
+	</select>
+
+	<select id="selectFeDetail" parameterType="Document" resultMap="reqApprovalResultSet">
+		select f.doc_no, f.emp_id, e.emp_name, f.doc_sc, f.doc_status, f.doc_title, f.doc_reference, f.doc_date, f.doc_end, f.doc_department,
+			   f.fe_sq, f.fe_relation, f.fe_name, f.fe_start, f.fe_end, f.fe_place, f.fe_price, f.fe_bank, f.fe_account, f.fe_account_name,
+			   a.approver_empid, (select emp_name
+	                    			from employee
+	                   			   where emp_id = a.approver_empid) approver_name, a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date
+		from family_event f
+		join employee e on(f.emp_id = e.emp_id)
+		join approve_line a on(f.doc_no = a.doc_no)
+	   where f.doc_no=#{docNo}
+	   order by f.doc_date
+	</select>
+	
+	<select id="selectVacDetail" parameterType="Document" resultMap="reqApprovalResultSet">
+		select v.doc_no, v.emp_id, e.emp_name, v.doc_sc, v.doc_status, v.doc_title, v.doc_reference, v.doc_date, v.doc_end, v.doc_department,
+				v.vc_sq, vc_day, vc_start, vc_end, vc_count, vc_content,
+				a.approver_empid, (select emp_name
+				                    from employee
+				                    where emp_id = a.approver_empid) approver_name, a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date				
+		 from vacation v
+		 join employee e on(v.emp_id = e.emp_id)
+		 join approve_line a on(v.doc_no = a.doc_no)
+		where v.doc_no=#{docNo}
+		order by v.doc_date
 	</select>
 
 </mapper>

@@ -18,6 +18,8 @@ import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.approval.model.vo.FrequentApprovalLine;
+import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Controller
@@ -237,26 +239,40 @@ public class requestApprovalController {
 	
 	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 리스트 조회
 	@RequestMapping("docList.rap")
-	public String documentListView(HttpServletRequest request, int approveStatus, Model model) {
+	public String documentListView(HttpServletRequest request, int approveStatus, int currentPage, Model model) {
+		
 		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
 		Document d = new Document();
+		
 		d.setEmpId(empId);
 		d.setApproveStatus(approveStatus);
-		ArrayList<Document> list = raService.selectDocList(d);
 		
-		model.addAttribute("list", list);
+		// 5_1. 문서 총 개수 조회
+		int listCount = raService.selectListCount(d);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		// 5_2. 문서 리스트 조회
+		ArrayList<Document> list = raService.selectDocList(d, pi);
+		
 		model.addAttribute("sts", approveStatus);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
 		return "approval/documentList";
 	}
 	
-	
-	
-	// 휴가신청서
-	/*
-	@RequestMapping("vacation.rap")
-	public String vacationForm() {
-		//selectEmpInfo(request, model);
-		return "approval/vacationForm";
+	// 6. 문서 상세조회
+	@RequestMapping("detailDoc.rap")
+	public String selectDocDetail(Document doc, Model model) {
+		
+		String docSc = doc.getDocSc();
+		ArrayList<Document> d = new ArrayList<Document>();
+		
+		switch(docSc) {
+		case "경조비신청서" : d = raService.selectFeDetail(doc); model.addAttribute("d", d); return "approval/familyEventSubmit";
+		default :  d = raService.selectVacDetail(doc); model.addAttribute("d", d); return "approval/vacationSubmit";
+		}
+		
 	}
-	*/
+	
 }
