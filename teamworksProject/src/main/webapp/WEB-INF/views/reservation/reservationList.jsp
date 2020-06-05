@@ -64,6 +64,7 @@
   }
 
   .modal-content{width:400px;}
+  .modalTable {width:300px;}
   .modalTable th, .modalTable td{
     height:40px;
     text-align:center;
@@ -330,12 +331,12 @@
 					}
 					var meetingRoom = '회의실' + $(this).attr('class').substring(2);
 
-					$('#meetingRoom').text(meetingRoom);
-					$('#reservationDateTd').text($('#todayDate').text());
-					$('#roomNo').attr('value', $(this).attr('class').substring(2));
-					$('#reservationDate').attr('value', $('#todayDate').text());
-					$('#startTime').attr('value', startTime);
-					$('#endTime').attr('value', endTime);
+					$('#insertModal #meetingRoom').text(meetingRoom);
+					$('#insertModal #reservationDateTd').text($('#todayDate').text());
+					$('#insertModal #roomNo').attr('value', $(this).attr('class').substring(2));
+					$('#insertModal #reservationDate').attr('value', $('#todayDate').text());
+					$('#insertModal #startTime').attr('value', startTime);
+					$('#insertModal #endTime').attr('value', endTime);
 					
 					
 					$('#insertModal').modal('show');
@@ -351,14 +352,18 @@
 						type:"post",
 						success:function(detail){
 							
-							console.log(detail);
+							$('#detailModal #meetingRoom').text('회의실' + detail.roomNo);
+							$('#detailModal #empName').text(detail.empName);
+							$('#detailModal #reservationDateTd').text(detail.reservationDate);
+							$('#detailModal #reservationTime').text(detail.startTime + ':00 ~ ' + detail.endTime + ':00');
+							$('#detailModal #purpose').text(detail.purpose);
 							
+							$('#detailModal').modal('show');
+					
 						},error:function(){
 							console.log('예약 상세 조회용 ajax 통신 실패');
 						}
 					});
-					
-					$('#detailModal').modal('show');
 					
 				}
 			});
@@ -443,49 +448,36 @@
 	          <button type="button" class="close" data-dismiss="modal">&times;</button> 
 	      </div>
 	
-	      <form action="예약상세조회서버" method="post">
-	          <!-- Modal Body -->
-	          <div class="modal-body">
-	              <table align="center" class="modalTable">
-	                <tr>
-	                  <th width="30%">회의실</th>
-	                  <td width="70%" id="meetingRoom"></td>
-	                </tr>
-	                <tr>
-	                  <th>사용자</th>
-	                  <td id="empName">${ loginUser.empName }</td>
-	                </tr>
-	                <tr>
-	                  <th>날짜</th>
-	                  <td id="reservationDateTd"></td>
-	                </tr>
-	                <tr>
-	                  <th>예약시간</th>
-	                  <td>
-	                    <input type=number id="startTime" name="startTime" value="" readonly> : 00
-	                    ~
-	                    <input type=number id="endTime" name="endTime" value="" readonly> : 00
-	                  </td>
-	                </tr>
-	                <tr>
-	                  <th>사용용도</th>
-	                  <td>
-	                    <input type="radio" name="purpose" id="team" value="팀 사용" checked>
-	                    <label for="team">팀 사용</label> <br>
-	                    <input type="radio" name="purpose" id="outside" value="외부 사용">
-	                    <label for="outside">외부 사용</label> <br>
-	                    <input type="radio" name="purpose" id="etc" value="기타">
-	                    <label for="etc">기타</label>
-	                  </td>
-	                </tr>
-	              </table>
-	          </div>
-	          
-	          <!-- Modal footer -->
-	          <div class="modal-footer">
-	              <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-	          </div>
-	      </form>
+          <!-- Modal Body -->
+          <div class="modal-body">
+              <table align="center" class="modalTable">
+                <tr>
+                  <th width="30%">회의실</th>
+                  <td width="70%" id="meetingRoom"></td>
+                </tr>
+                <tr>
+                  <th>사용자</th>
+                  <td id="empName"></td>
+                </tr>
+                <tr>
+                  <th>날짜</th>
+                  <td id="reservationDateTd"></td>
+                </tr>
+                <tr>
+                  <th>예약시간</th>
+                  <td id="reservationTime"></td>
+                </tr>
+                <tr>
+                  <th>사용용도</th>
+                  <td id="purpose"></td>
+                </tr>
+              </table>
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+          </div>
 	    </div>
 	  </div>
 	</div>
