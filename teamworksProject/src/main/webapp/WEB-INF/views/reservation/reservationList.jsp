@@ -337,9 +337,26 @@
 					$('#startTime').attr('value', startTime);
 					$('#endTime').attr('value', endTime);
 					
+					
 					$('#insertModal').modal('show');
 					
 				}else {	// 예약 있음 --> 상세 모달
+					var startTime = $(this).siblings('th').text().substring(0,2);
+					
+					$.ajax({
+						url:"selectDetail.re",
+						data:{roomNo:$(this).attr('class').substring(2),
+							  reservationDate:$('#todayDate').text(),
+							  startTime:startTime},
+						type:"post",
+						success:function(detail){
+							
+							console.log(detail);
+							
+						},error:function(){
+							console.log('예약 상세 조회용 ajax 통신 실패');
+						}
+					});
 					
 					$('#detailModal').modal('show');
 					
@@ -432,36 +449,30 @@
 	              <table align="center" class="modalTable">
 	                <tr>
 	                  <th width="30%">회의실</th>
-	                  <td width="70%">
-	                    <select>
-	                      <option value="회의실1">회의실1</option>
-	                      <option value="회의실2">회의실2</option>
-	                      <option value="회의실3">회의실3</option>
-	                    </select>
-	                  </td>
+	                  <td width="70%" id="meetingRoom"></td>
 	                </tr>
 	                <tr>
 	                  <th>사용자</th>
-	                  <td>${ loginUser.empName }</td>
+	                  <td id="empName">${ loginUser.empName }</td>
 	                </tr>
 	                <tr>
 	                  <th>날짜</th>
-	                  <td>${ today }</td>
+	                  <td id="reservationDateTd"></td>
 	                </tr>
 	                <tr>
 	                  <th>예약시간</th>
 	                  <td>
-	                    <input type=number id="startTime" name="startTime" min="8" max="23" required> : 00
+	                    <input type=number id="startTime" name="startTime" value="" readonly> : 00
 	                    ~
-	                    <input type=number id="endTime" name="endTime" min="8" max="23" required> : 00
+	                    <input type=number id="endTime" name="endTime" value="" readonly> : 00
 	                  </td>
 	                </tr>
 	                <tr>
 	                  <th>사용용도</th>
 	                  <td>
-	                    <input type="radio" name="purpose" id="team" value="팀사용">
+	                    <input type="radio" name="purpose" id="team" value="팀 사용" checked>
 	                    <label for="team">팀 사용</label> <br>
-	                    <input type="radio" name="purpose" id="outside" value="외부사용">
+	                    <input type="radio" name="purpose" id="outside" value="외부 사용">
 	                    <label for="outside">외부 사용</label> <br>
 	                    <input type="radio" name="purpose" id="etc" value="기타">
 	                    <label for="etc">기타</label>

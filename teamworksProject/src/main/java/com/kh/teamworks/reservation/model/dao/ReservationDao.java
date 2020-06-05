@@ -17,10 +17,10 @@ public class ReservationDao {
 	}
 	
 	
-	// 
-	public ArrayList<Reservation> selectDayReservation(SqlSessionTemplate sqlSession, String today) {
+	// 예약 상세 조회용
+	public Reservation selectReservation(SqlSessionTemplate sqlSession, Reservation r) {
 		
-		return (ArrayList)sqlSession.selectList("reservationMapper.selectDayReservation", today);
+		return sqlSession.selectOne("reservationMapper.selectReservation", r);
 	}
 	
 	

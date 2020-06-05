@@ -65,31 +65,16 @@ public class ReservationController {
 	}
 
 	
+	// 예약 상세 조회용
 	@ResponseBody
-	@RequestMapping(value = "selectDayRes.re", produces = "application/json; charset=utf-8")
-	public String selectDayReservation(int dayIndex, Model model) {
+	@RequestMapping(value="selectDetail.re", method=RequestMethod.POST)
+	public void selectReservation(Reservation r, HttpServletResponse response) throws JsonIOException, IOException {
 		
-		Calendar cal = Calendar.getInstance(); 
-		cal.setTime(new Date()); 
-		DateFormat df = new SimpleDateFormat("yyyy.MM.dd");
+		Reservation detail = reService.selectReservation(r);
 		
-		cal.add(Calendar.DATE, -3);
-		
-		String today = ""; 
-		String[] days = new String[7]; 
-		for(int i=0; i<days.length; i++) { 
-			days[i] = new String(df.format(cal.getTime())); 
-			cal.add(Calendar.DATE, 1);
-		 
-			if(i == dayIndex) { 
-				today = days[i]; 
-			} 
-		}
-		
-
-		ArrayList<Reservation> dayList = reService.selectDayReservation(today);
-
-		return new Gson().toJson(dayList);
+//		System.out.println(r); // roomNo=2, reservationDate=2020-06-05, startTime=07
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(detail, response.getWriter());
 	}
 	
 	
