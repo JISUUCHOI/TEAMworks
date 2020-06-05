@@ -84,10 +84,10 @@ public class ReservationController {
 		
 		int result = reService.insertReservation(r);
 		
-		if(result > 0) { // 예약 추가 성공 --> 다시 예약리스트 페이지
+		if(result > 0) { // 예약 추가 성공 --> 나의 예약 목록 페이지로
 			
 			session.setAttribute("msg", "회의실이 예약되었습니다.");
-			return "redirect:showListView.re";
+			return "redirect:myResList.re?empId=" + r.getEmpId();
 			
 		}else {	// 예약 추가 실패 --> 에러페이지
 			
@@ -104,7 +104,8 @@ public class ReservationController {
 
 		mv.addObject("list", list);
 		mv.setViewName("reservation/myReservation");
-
+		
+		//System.out.println(list);
 
 		return mv;
 	}
