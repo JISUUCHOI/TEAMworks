@@ -32,12 +32,16 @@ public class ReservationController {
 	@Autowired
 	public ReservationService reService;
 	
+	
+	// 메뉴바에서 예약 버튼 클릭 시 reservationList.jsp 보여주는 메소드
 	@RequestMapping("showListView.re")
 	public String showListView() {
 		
 		return "reservation/reservationList";
 	}
 
+	
+	// reservationList.jsp 페이지 로딩 시 ajax로 날짜 및 예약 리스트 보내는 메소드
 	@ResponseBody
 	@RequestMapping(value="selectList.re", method=RequestMethod.POST)
 	public void selectReservationList(HttpServletResponse response) throws JsonIOException, IOException {
@@ -64,6 +68,7 @@ public class ReservationController {
 		  new Gson().toJson(rdto, response.getWriter());
 	}
 
+	
 	@ResponseBody
 	@RequestMapping(value = "selectDayRes.re", produces = "application/json; charset=utf-8")
 	public String selectDayReservation(int dayIndex, Model model) {
@@ -91,6 +96,7 @@ public class ReservationController {
 		return new Gson().toJson(dayList);
 	}
 
+	
 	@RequestMapping("myResList.re")
 	public ModelAndView selectMyReservationList(String empId, ModelAndView mv) {
 
