@@ -27,4 +27,5 @@ public class BoardDTO {
 	private int like;
 	private String status;
 	private String boardFiles;
+	private int rcount;
 }

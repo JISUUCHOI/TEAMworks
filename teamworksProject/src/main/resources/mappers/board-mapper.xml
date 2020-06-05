@@ -17,6 +17,7 @@
 		<result column="bd_like" property="like"/>	
 		<result column="bd_status" property="status"/>	
 		<result column="files" property="boardFiles"/>	
+		<result column="rcount" property="rcount"/>	
 	</resultMap>
 	
 	<resultMap type="BoardAttachment" id="boardAttachmentResultSet">

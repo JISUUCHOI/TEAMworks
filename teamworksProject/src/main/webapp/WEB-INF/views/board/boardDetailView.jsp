@@ -23,7 +23,7 @@
 		
 		 }
         .inner{width: 900px;}
-        .inner2{width: 900px; background-color:rgb(212, 239, 240); padding: 20px; border-radius: 5px;}
+        .inner2{width: 900px; background-color:rgb(242, 242, 242); padding: 20px; border-radius: 5px;}
         .recommend{
             border: 1px solid lightblue; 
             border-radius: 5px;
@@ -34,6 +34,11 @@
             text-decoration: none;
         }
         #tables *{margin: 5px;}
+        #replyUpdate:hover, #replyDelete:hover{
+        	cursor: pointer;
+        	color: rgb(102, 217, 255);
+        }
+        #rCount{padding:4px}
     </style>
 </head>
 <body>
@@ -176,17 +181,31 @@
      			success:function(list){
      				
      				var value="";
-     				for(var i in list){
-     					value+="<tr><td><hr><input type='hidden' name='replyNo' value='"+ list[i].replyNo + "'></td></tr>" +
-     						   "<tr>"+
-     						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
-     									"&nbsp; &nbsp; <span><i id='replyUpdate' class='far fa-edit'></i> &nbsp;<i id='replyDelete' class='far fa-trash-alt'></i> </span>"+
-     								"</td>"+
-     							"</tr>"+
-     							"<tr>" +
-     								"<td>" + list[i].replyContent + "</td>"+
-     							"</tr>"
      				
+     				for(var i in list){
+     					if(list[i].empId == '${loginUser.empId}'){
+     						value+="<tr><td><hr><input type='hidden' name='replyNo' value='"+ list[i].replyNo + "'></td></tr>" +
+  						   "<tr>"+
+  						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
+  									"&nbsp; &nbsp; <span><i id='replyUpdate' class='far fa-edit'></i> &nbsp;<i id='replyDelete' class='far fa-trash-alt'></i> </span>"+
+  								"</td>"+
+  							"</tr>"+
+  							"<tr>" +
+  								"<td>" + list[i].replyContent + "</td>"+
+  							"</tr>";
+     					}else{
+     						value+="<tr><td><hr><input type='hidden' name='replyNo' value='"+ list[i].replyNo + "'></td></tr>" +
+  						   "<tr>"+
+  						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
+  						
+  								"</td>"+
+  							"</tr>"+
+  							"<tr>" +
+  								"<td>" + list[i].replyContent + "</td>"+
+  							"</tr>";
+     					}
+     					
+     				 // console.log(list[i].empId);
      				}
      				
      				$("#rCount").text(list.length);
