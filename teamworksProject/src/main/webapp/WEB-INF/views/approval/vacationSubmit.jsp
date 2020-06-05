@@ -44,7 +44,7 @@
             background:deepskyblue;
             cursor:pointer;
         }
-        #cancelBtn{
+        #listBtn{
             width:60px;
             height:28px;
             background:white;
@@ -195,7 +195,7 @@
 	            <div id="btns">
 	                <button type="button" id="modifyBtn">수정</button>
 	                <button type="submit" id="deleteBtn">삭제</button>
-	                <button type="button" id="cancelBtn">취소</button>
+	                <button type="button" id="listBtn">목록</button>
 	            </div>
 	            <br><br><br>
 	

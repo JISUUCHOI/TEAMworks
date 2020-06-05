@@ -260,9 +260,9 @@
 	            <!-- 페이징바 -->
 	            <div id="pagingArea" align="center">
 	                
+	                
 					<c:choose>
 						<c:when test="${ pi.currentPage eq 1 }">
-							<button disabled class="page">&lt;</button>
 						</c:when>
 						<c:otherwise>
 							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage - 1 }'">&lt;</button>
@@ -282,7 +282,6 @@
 					
 					<c:choose>
 						<c:when test="${ pi.currentPage eq pi.maxPage }">
-							<button disabled class="page">&gt;</button>
 						</c:when>
 						<c:otherwise>
 							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage + 1 }'">&gt;</button>
