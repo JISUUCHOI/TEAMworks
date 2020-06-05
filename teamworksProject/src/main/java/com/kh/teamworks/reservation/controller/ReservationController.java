@@ -31,9 +31,16 @@ public class ReservationController {
 
 	@Autowired
 	public ReservationService reService;
+	
+	@RequestMapping("showListView.re")
+	public String showListView() {
+		
+		return "reservation/reservationList";
+	}
 
-	@RequestMapping("selectList.re")
-	public ModelAndView selectReservationList(ModelAndView mv) {
+	@ResponseBody
+	@RequestMapping(value="selectList.re", method=RequestMethod.POST)
+	public void selectReservationList(HttpServletResponse response) throws JsonIOException, IOException {
 
 		
 		  Calendar cal = Calendar.getInstance(); 
@@ -48,14 +55,13 @@ public class ReservationController {
 		  
 		  ReservationDto rdto = new ReservationDto(list, currentDate, dayOfWeek);
 		  
-		  mv.addObject("list", list);
-		  mv.addObject("rdto", rdto);
-		  mv.setViewName("reservation/reservationList");
+			/*
+			 * mv.addObject("list", list); mv.addObject("rdto", rdto);
+			 * mv.setViewName("reservation/reservationList"); return mv;
+			 */
 		  
-		  System.out.println(list);
-		  System.out.println(rdto);
-
-		  return mv;
+		  response.setContentType("application/json; charset=utf-8");
+		  new Gson().toJson(rdto, response.getWriter());
 	}
 
 	@ResponseBody
@@ -93,7 +99,6 @@ public class ReservationController {
 		mv.addObject("list", list);
 		mv.setViewName("reservation/myReservation");
 
-		System.out.println(list);
 
 		return mv;
 	}
@@ -103,7 +108,7 @@ public class ReservationController {
 	// 이전 버튼 클릭 시 하루 전 날짜로 예약 리스트 재 조회 후 리스트와 날짜를 리턴하는 메소드
 	@ResponseBody
 	@RequestMapping(value="reSelectAbs.re", method=RequestMethod.POST)
-	public void absAday(@RequestParam(value="currentDate") String currentDate, HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
+	public void absAday(@RequestParam(value="currentDate") String currentDate, HttpServletResponse response) throws JsonIOException, IOException {
 
 		Calendar cal = Calendar.getInstance();
 
@@ -125,11 +130,11 @@ public class ReservationController {
 		new Gson().toJson(rdto, response.getWriter());
 	}
 	
-	
+	// 공유해서 쓸 수 있게끔 따로 정의해놓은 메소드
 	// 다음 버튼 클릭 시 하루 뒤 날짜로 예약 리스트 재 조회 후 리스트와 날짜를 리턴하는 메소드
 	@ResponseBody
 	@RequestMapping(value="reSelectAdd.re", method=RequestMethod.POST)
-	public void addAday(@RequestParam(value="currentDate") String currentDate, HttpSession session, HttpServletResponse response) throws JsonIOException, IOException {
+	public void addAday(@RequestParam(value="currentDate") String currentDate, HttpServletResponse response) throws JsonIOException, IOException {
 
 		Calendar cal = Calendar.getInstance();
 

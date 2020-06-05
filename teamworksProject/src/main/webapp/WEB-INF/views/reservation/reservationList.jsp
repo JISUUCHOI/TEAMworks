@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="com.kh.teamworks.reservation.model.vo.ReservationDto"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,11 +75,6 @@
 </style>
 </head>
 <body>
-	<script>
-
-	</script>
-
-
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="reservationSidebar.jsp"/>
 	
@@ -213,6 +209,38 @@
 	</div>
 	
 	<script>
+		$(function(){
+			
+			$.ajax({
+				url:"selectList.re",
+				data:{},
+				type:"post",
+				success:function(rdto){
+					
+					// 현재 날짜 보여주기
+					$('#todayDate').text(rdto.currentDate);
+					$('#todayOfWeek').text(rdto.dayOfWeek);
+					
+					// 새로 조회해온 현재 날짜의 예약 리스트 보여주기
+					for(var r=0; r<rdto.list.length; r++) {
+						
+						var selector = '#' + rdto.list[r].startTime + ' .00' + rdto.list[r].roomNo;
+						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' + rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
+						
+						$(selector).html(rInfo);
+						$(selector).css('background', '#d4f4fa');
+
+					}
+					
+				},error:function(){
+					console.log("처음 페이지 로딩 시 실행되는 ajax 통신 실패");
+				}
+			});
+			
+		});
+	
+		
+		// 이전 버튼 클릭 시 하루 전 날짜로 예약 리스트 재 조회 후 리스트와 날짜 가져오는 function
 		function absAday() {
 			
 			$.ajax({
@@ -220,18 +248,20 @@
 				data:{currentDate:$('#todayDate').text()},
 				type:"post",
 				success:function(rdto){
-					
+					// 이전 날짜의 예약 정보 지우기
 					$('#reservationTable td').text('');
 					$('#reservationTable td').css('background', '');
 					
+					// 현재 날짜 보여주기
 					$('#todayDate').text(rdto.currentDate);
 					$('#todayOfWeek').text(rdto.dayOfWeek);
 					
-					
+					// 새로 조회해온 현재 날짜의 예약 리스트 보여주기
 					for(var r=0; r<rdto.list.length; r++) {
 						
 						var selector = '#' + rdto.list[r].startTime + ' .00' + rdto.list[r].roomNo;
 						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' + rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
+						
 						$(selector).html(rInfo);
 						$(selector).css('background', '#d4f4fa');
 
@@ -244,6 +274,7 @@
 			
 		}
 		
+		// 다음 버튼 클릭 시 하루 뒤 날짜로 예약 리스트 재 조회 후 리스트와 날짜 가져오는 function
 		function addAday() {
 			
 			$.ajax({
@@ -251,17 +282,20 @@
 				data:{currentDate:$('#todayDate').text()},
 				type:"post",
 				success:function(rdto){
-					
+					// 이전 날짜의 예약 정보 지우기
 					$('#reservationTable td').text('');
 					$('#reservationTable td').css('background', '');
 					
+					// 현재 날짜 보여주기
 					$('#todayDate').text(rdto.currentDate);
 					$('#todayOfWeek').text(rdto.dayOfWeek);
 					
+					// 새로 조회해온 현재 날짜의 예약 리스트 보여주기
 					for(var r=0; r<rdto.list.length; r++) {
 						
 						var selector = '#' + rdto.list[r].startTime + ' .00' + rdto.list[r].roomNo;
 						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' + rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
+						
 						$(selector).html(rInfo);
 						$(selector).css('background', '#d4f4fa');
 						
