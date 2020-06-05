@@ -74,6 +74,11 @@
 </style>
 </head>
 <body>
+	<script>
+
+	</script>
+
+
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="reservationSidebar.jsp"/>
 	
@@ -99,103 +104,103 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-		      <tr id="07:00" class="">
+		      <tr id="07" class="">
 		      	<th>07:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="08:00" class="">
+		      <tr id="08" class="">
 		      	<th>08:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="09:00" class="">
+		      <tr id="09" class="">
 		      	<th>09:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="10:00" class="">
+		      <tr id="10" class="">
 		      	<th>10:00</th>
-		        <td class="001" style="background:#d4f4fa;"><p>최부장 | 개발팀 <br> 10:00 - 11:00</p></td>
+		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="11:00" class="">
+		      <tr id="11" class="">
 		      	<th>11:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="12:00" class="">
+		      <tr id="12" class="">
 		      	<th>12:00</th>
 		        <td class="001"><p></p></td>
-		        <td class="002" style="background:#d4f4fa;"><p>라이사 | 경영지원팀 <br> 12:00 - 13:00</p></td>
+		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="13:00" class="">
+		      <tr id="13" class="">
 		      	<th>13:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="14:00" class="">
+		      <tr id="14" class="">
 		      	<th>14:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="15:00" class="">
+		      <tr id="15" class="">
 		      	<th>15:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
-		        <td style="background:#d4f4fa;"><p>이부장 | 경영지원팀 <br> 15:00 - 16:00</p></td>
+		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="16:00" class="">
+		      <tr id="16" class="">
 		      	<th>16:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="17:00" class="">
+		      <tr id="17" class="">
 		      	<th>17:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="18:00" class="">
+		      <tr id="18" class="">
 		      	<th>18:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="19:00" class="">
+		      <tr id="19" class="">
 		      	<th>19:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="20:00" class="">
+		      <tr id="20" class="">
 		      	<th>20:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="21:00" class="">
+		      <tr id="21" class="">
 		      	<th>21:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="22:00" class="">
+		      <tr id="22" class="">
 		      	<th>22:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
 		        <td class="003"><p></p></td>
 		      </tr>
-		      <tr id="23:00" class="">
+		      <tr id="23" class="">
 		      	<th>23:00</th>
 		        <td class="001"><p></p></td>
 		        <td class="002"><p></p></td>
@@ -216,8 +221,21 @@
 				type:"post",
 				success:function(rdto){
 					
+					$('#reservationTable td').text('');
+					$('#reservationTable td').css('background', '');
+					
 					$('#todayDate').text(rdto.currentDate);
 					$('#todayOfWeek').text(rdto.dayOfWeek);
+					
+					
+					for(var r=0; r<rdto.list.length; r++) {
+						
+						var selector = '#' + rdto.list[r].startTime + ' .00' + rdto.list[r].roomNo;
+						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' + rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
+						$(selector).html(rInfo);
+						$(selector).css('background', '#d4f4fa');
+
+					}
 					
 				},error:function(){
 					console.log("이전 날짜 조회용 ajax 통신 실패");
@@ -234,8 +252,20 @@
 				type:"post",
 				success:function(rdto){
 					
+					$('#reservationTable td').text('');
+					$('#reservationTable td').css('background', '');
+					
 					$('#todayDate').text(rdto.currentDate);
 					$('#todayOfWeek').text(rdto.dayOfWeek);
+					
+					for(var r=0; r<rdto.list.length; r++) {
+						
+						var selector = '#' + rdto.list[r].startTime + ' .00' + rdto.list[r].roomNo;
+						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' + rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
+						$(selector).html(rInfo);
+						$(selector).css('background', '#d4f4fa');
+						
+					}
 					
 				},error:function(){
 					console.log("다음 날짜 조회용 ajax 통신 실패");

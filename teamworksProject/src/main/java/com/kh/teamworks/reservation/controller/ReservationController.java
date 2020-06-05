@@ -48,9 +48,12 @@ public class ReservationController {
 		  
 		  ReservationDto rdto = new ReservationDto(list, currentDate, dayOfWeek);
 		  
+		  mv.addObject("list", list);
 		  mv.addObject("rdto", rdto);
 		  mv.setViewName("reservation/reservationList");
-
+		  
+		  System.out.println(list);
+		  System.out.println(rdto);
 
 		  return mv;
 	}
