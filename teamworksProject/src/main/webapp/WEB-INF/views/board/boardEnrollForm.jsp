@@ -143,21 +143,29 @@
                 var files = e.originalEvent.dataTransfer.files;
                 //console.log(files.length);
                 //console.log(uploadFiles.length);
-                if(files.length<6){
-                    if(uploadFiles.length<5){ 
-                    for(var i = 0; i < files.length; i++) {
-                        var file = files[i];
-                        // console.log(file);
-                        var size = uploadFiles.push(file); //업로드 목록에 추가
-                        preview(file, size - 1); //미리보기 만들기
-                    }
-                }else{
-                    alert("최대 5개까지만 첨부가능합니다.");
-                }
+                
+                	 if(files.length<6){
+                         if(uploadFiles.length<5){ 
+                        	 if((uploadFiles.length+files.length)<6){
+                        		 for(var i = 0; i < files.length; i++) {
+                                  	var file = files[i];
+                                  	// console.log(file);
+                                 	 var size = uploadFiles.push(file); //업로드 목록에 추가
+                                  	preview(file, size - 1); //미리보기 만들기
+                              	}
+                        	 }else{
+                        		 alert("최대 5개까지만 첨부가능합니다.");
+                        	 }
+                         	
+                     	 }else{
+                         	alert("최대 5개까지만 첨부가능합니다.");
+                     	 }
+                    
+                     }else{
+                         alert("최대 5개까지만 첨부가능합니다.");
+                     }
+                
                
-                }else{
-                    alert("최대 5개까지만 첨부가능합니다.");
-                }
               
                 // console.log(uploadFiles);
            
@@ -170,21 +178,29 @@
                 $('input[type="file"]').on('change', function(e){
                     var files = this.files;
                     //console.log(files);
-                    if(files.length<6){
-                        if(uploadFiles.length<5){ 
-                            for(var i = 0; i < files.length; i++) {
-                                var file = files[i];
-                                // console.log(file);
-                                var size = uploadFiles.push(file); //업로드 목록에 추가
-                                preview(file, size - 1); //미리보기 만들기
-                            }
-                        }else{
-                            alert("최대 5개까지만 첨부가능합니다.");
-                    }
-                    }else{
-                        alert("최대 5개까지만 첨부가능합니다.");
-                    }
                     
+                    	   if(files.length<6){
+                               if(uploadFiles.length<5){ 
+                            	   if((uploadFiles.length+files.length)<6){
+                            		   for(var i = 0; i < files.length; i++) {
+                                           var file = files[i];
+                                           // console.log(file);
+                                           var size = uploadFiles.push(file); //업로드 목록에 추가
+                                           preview(file, size - 1); //미리보기 만들기
+                                       }
+                            	   }else{
+                            		   alert("최대 5개까지만 첨부가능합니다.");
+                            	   }
+                                
+                               }else{
+                                   alert("최대 5개까지만 첨부가능합니다.");
+                           }
+                           }else{
+                               alert("최대 5개까지만 첨부가능합니다.");
+                           }
+                           
+                     
+                 
                   
                 });
             });
