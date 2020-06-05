@@ -324,7 +324,9 @@
 					var meetingRoom = '회의실' + $(this).attr('class').substring(2);
 
 					$('#meetingRoom').text(meetingRoom);
-					$('#reservationDate').text($('#todayDate').text());
+					$('#reservationDateTd').text($('#todayDate').text());
+					$('#roomNo').attr('value', $(this).attr('class').substring(2));
+					$('#reservationDate').attr('value', $('#todayDate').text());
 					$('#startTime').attr('value', startTime);
 					$('#endTime').attr('value', endTime);
 					
@@ -351,7 +353,7 @@
 	          <button type="button" class="close" data-dismiss="modal">&times;</button> 
 	      </div>
 	
-	      <form action="예약요청받아주는서버" method="post">
+	      <form action="insert.re" method="post">
 	          <!-- Modal Body -->
 	          <div class="modal-body">
 	              <table align="center" class="modalTable">
@@ -365,7 +367,7 @@
 	                </tr>
 	                <tr>
 	                  <th>날짜</th>
-	                  <td id="reservationDate"></td>
+	                  <td id="reservationDateTd"></td>
 	                </tr>
 	                <tr>
 	                  <th>예약시간</th>
@@ -390,8 +392,12 @@
 	              </table>
 	          </div>
 	          
-	          <input type="hidden" name="reservationDate" value="${ rdto.currentDate }">	<!-- 예약 날짜 -->
 	          <input type="hidden" name="empId" value="${ loginUser.empId }">
+	          <input type="hidden" name="roomNo" id="roomNo" value="">
+	          <input type="hidden" name="reservationDate" id="reservationDate" value="">	<!-- 예약 날짜 -->
+	          <!-- <input type="hidden" name="startTime" value="">
+	          <input type="hidden" name="endTime" value=""> -->
+	          
 	          
 	          <!-- Modal footer -->
 	          <div class="modal-footer">
@@ -451,9 +457,8 @@
 	                    <label for="team">팀 사용</label> <br>
 	                    <input type="radio" name="purpose" id="outside" value="외부사용">
 	                    <label for="outside">외부 사용</label> <br>
-	                    <input type="radio" name="purpose" id="etc">
+	                    <input type="radio" name="purpose" id="etc" value="기타">
 	                    <label for="etc">기타</label>
-	                    <input type="text" name="purpose" size="15">
 	                  </td>
 	                </tr>
 	              </table>

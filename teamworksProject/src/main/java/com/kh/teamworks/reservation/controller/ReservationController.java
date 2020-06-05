@@ -41,6 +41,7 @@ public class ReservationController {
 	}
 
 	
+	// 예약 현황 조회용
 	// reservationList.jsp 페이지 로딩 시 ajax로 날짜 및 예약 리스트 보내는 메소드
 	@ResponseBody
 	@RequestMapping(value="selectList.re", method=RequestMethod.POST)
@@ -94,6 +95,20 @@ public class ReservationController {
 		ArrayList<Reservation> dayList = reService.selectDayReservation(today);
 
 		return new Gson().toJson(dayList);
+	}
+	
+	
+	// 예약 추가용
+	@RequestMapping("insert.re")
+	public void insertReservation(Reservation r) {
+		
+		int result = reService.insertReservation(r);
+		
+		if(result > 0) { // 예약 추가 성공 -->
+			
+		}else {	// 예약 추가 실패 -->
+			
+		}
 	}
 
 	

@@ -34,19 +34,19 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	
-	// 예약 추가용 서비스
-	@Override
-	public int insertReservation(Reservation r) {
-
-		return 0;
-	}
-	
-	
 	// 나의 예약 목록 조회용 서비스
 	@Override
 	public ArrayList<Reservation> selectMyReservationList(String empId) {
 
 		return reDao.selectMyReservationList(sqlSession, empId);
+	}
+	
+	
+	// 예약 추가용 서비스
+	@Override
+	public int insertReservation(Reservation r) {
+		
+		return reDao.insertReservation(sqlSession, r);
 	}
 	
 	
