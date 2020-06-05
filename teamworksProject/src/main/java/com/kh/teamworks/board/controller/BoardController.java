@@ -321,6 +321,39 @@ public class BoardController {
 		
 	}
 	
+	@RequestMapping("replyUpdateForm.bo")
+	public String replyUpdateForm(BoardReply br, Model model) {
+		
+		BoardReplyDTO updateReply = bService.selectReply(br);
+		model.addAttribute("updateReply", updateReply);
+		return "board/replyUpdateForm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="updateReply.bo", produces="text/html; charset=utf-8")
+	public String updateReply(BoardReply r) {
+		
+		int result = bService.updateReply(r);
+		
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteReply.bo", produces="text/html; charset=utf-8")
+	public String deleteReply(BoardReply r) {
+		int result = bService.deleteReply(r);
+		
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
 	public String uploadFile(MultipartFile file, HttpServletRequest request) {
 		
 		String resources = request.getSession().getServletContext().getRealPath("resources"); 

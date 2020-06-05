@@ -184,10 +184,11 @@
      				
      				for(var i in list){
      					if(list[i].empId == '${loginUser.empId}'){
-     						value+="<tr><td><hr><input type='hidden' name='replyNo' value='"+ list[i].replyNo + "'></td></tr>" +
+     						value+="<tr><td><hr></td></tr>" +
   						   "<tr>"+
   						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
-  									"&nbsp; &nbsp; <span><i id='replyUpdate' class='far fa-edit'></i> &nbsp;<i id='replyDelete' class='far fa-trash-alt'></i> </span>"+
+  									"&nbsp; &nbsp; <span><i id='replyUpdate' onclick='replyUpdate("+ list[i].replyNo+");' class='far fa-edit'></i>"+
+  									"&nbsp;<i id='replyDelete' onclick='replyDelete(" + list[i].replyNo + ")' class='far fa-trash-alt'></i> </span>"+
   								"</td>"+
   							"</tr>"+
   							"<tr>" +
@@ -266,7 +267,41 @@
      				}
      			});
      		});
+     		
+     		
      	});
+     	
+     	function replyUpdate(replyNo){
+     		
+     		window.open("replyUpdateForm.bo?replyNo="+replyNo,"댓글 수정", "width=700px, height=120px");
+     		
+     		// alert(replyNo);
+     	}
+     	
+     	function replyDelete(replyNo){
+     		// alert(replyNo);
+     		if(confirm("정말 삭제하시겠습니까?")){
+     			$.ajax({
+     				url:"deleteReply.bo",
+     				data:{replyNo:replyNo},
+     				type:"post",
+     				success:function(result){
+     					if(result=="success"){
+    	 					selectReplyList();
+	     					alert("삭제했습니다.");
+     						
+     					}else{
+     						alert("삭제에 실패했습니다.");
+     					}
+     				},
+     				error:function(){
+     					console.log("통신 실패");
+     				}
+     				
+     			});
+     		}
+     		
+     	}
      </script>
 </body>
 </html>

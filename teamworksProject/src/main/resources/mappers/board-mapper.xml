@@ -188,5 +188,23 @@
 		insert into bd_reply
 		values(SEQ_BRNO.NEXTVAL, #{replyWriter}, #{refBoardNo}, #{replyContent}, SYSDATE, SYSDATE, 'Y')
 	</insert>
+	
+	<select id="selectReply" parameterType="BoardReply" resultMap="replyDTOresultSet">
+		select * 
+		  from v_reply_list
+		 where status='Y' and reply_no=#{replyNo}
+	</select>
+	
+	<update id="updateReply" parameterType="BoardReply">
+		update bd_reply
+		   set reply_content = #{replyContent}, modify_date = SYSDATE
+		 where reply_no =#{replyNo}
+	</update>
+	
+	<update id="deleteReply" parameterType="BoardReply">
+		update bd_reply
+		   set status='N'
+		 where reply_no=#{replyNo}
+	</update>
 
 </mapper>

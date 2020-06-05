@@ -41,4 +41,7 @@ public interface BoardService {
 	int updateBoardAttachment(BoardAttachment ba);
 	
 	int insertReply(BoardReply r);
+	BoardReplyDTO selectReply(BoardReply r);
+	int updateReply(BoardReply r);
+	int deleteReply(BoardReply r);
 }
