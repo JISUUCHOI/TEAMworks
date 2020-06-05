@@ -105,9 +105,8 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public Job selectJobCode() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Job> selectJobList() {
+		return mgDao.selectJobCode(sqlSession);
 	}
 
 	@Override

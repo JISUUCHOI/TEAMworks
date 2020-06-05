@@ -31,7 +31,7 @@ public interface ManagementService {
 	int updateDept(); //
 	int deleteDept(); //
 	
-	Job selectJobCode();
+	ArrayList<Job> selectJobList();
 	void searchEmpInfo(); //
 	int updateJobCode(); //
 	int deleteJobCode(); //
