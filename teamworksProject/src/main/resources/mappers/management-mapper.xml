@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="vacation_total" property="vacationTotal" />
 		<result column="vacation_count" property="vacationCount" />
 	</resultMap>
-	
+
 	<resultMap id="companyInfoResultSet" type="companyInfo">
 		<id column="company_no" property="companyNo" />
 		<result column="hom_no" property="homNo" />
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="company_adr" property="companyAdrs" />
 		<result column="company_exno" property="companyExno" />
 	</resultMap>
-	
+
 	<resultMap id="companyBsnsResultSet" type="companyBsns">
 		<id column="hom_no" property="homNo" />
 		<result column="hom_name" property="homName" />
@@ -42,6 +42,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="logo_change_name" property="logoChangeName" />
 		<result column="logo_path" property="logoPath" />
 	</resultMap>
+
+	<resultMap id="empProofResultSet" type="empProof">
+		<id column="doc_no" property="docNo" />
+		<result column="pf_sq" property="pfSq" />
+		<result column="pf_purpose" property="pfPurpose" />
+		<result column="doc_status" property="docStatus" />
+	</resultMap>
+
+	<resultMap type="mgEmpResultSet" id="mgEmp">
+		<id column="emp_Id" property="empId" />
+		<result column="dept_code" property="deptCode" />
+		<result column="job_code" property="jobCode" />
+		<result column="emp_name" property="empName" />
+		<result column="emp_pwd" property="empPwd" />
+		<result column="emp_no" property="empNo" />
+		<result column="emp_phone" property="phone" />
+		<result column="emp_email" property="email" />
+		<result column="postcode" property="postcode" />
+		<result column="address" property="empAdd" />
+		<result column="address_dt" property="empAddDetail" />
+		<result column="hire_date" property="hireDate" />
+		<result column="retire_date" property="retireDate" />
+		<result column="sal_type" property="salType" />
+		<result column="modify_date" property="modifyDate" />
+		<result column="emp_status" property="status" />
+		<result column="emp_note" property="empNote" />
+		<result column="origin_name" property="originName" />
+		<result column="change_name" property="changeName" />
+		<result column="hom_no" property="homNo" />
+	</resultMap>
+
+	<select id="selectJobCode" parameterType="MgJob" resultMap="Job">
+		SELECT JOB_NAME
+		  FROM JOB
+	  ORDER BY JOB_CODE
+	</select>
 
 
 </mapper>
