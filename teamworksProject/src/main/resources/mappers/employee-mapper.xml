@@ -71,18 +71,49 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="attInsert" parameterType="com.kh.teamworks.employee.model.vo.Attendance">
 		insert into Attendance values
-		(TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{empId},TO_CHAR(SYSDATE,'HH24:MI:SS'),DEFAULT,DEFAULT)
+		(TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{empId},TO_CHAR(SYSDATE,'HH24:MI'),DEFAULT,DEFAULT)
 	</insert>
+	
+	<insert id="QRattInsert" parameterType="com.kh.teamworks.employee.model.vo.Attendance">
+		insert into Attendance values
+		(TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{empId},TO_CHAR(SYSDATE,'HH24:MI'),DEFAULT,DEFAULT)
+	</insert>
+	
+	
 	
 	<select id="selectAttTime" parameterType="com.kh.teamworks.employee.model.vo.Attendance" resultMap="attendanceResultSet"> 
 		SELECT ATT_DATE,EMP_ID,START_TIME,END_TIME,AT_TYPE
 		  FROM ATTENDANCE
 		 WHERE EMP_ID=#{empId} and ATT_DATE=(TO_CHAR(SYSDATE,'YYYY-MM-DD'))
 	</select>
+	
+	
 	<update id="attUpdate"  parameterType="com.kh.teamworks.employee.model.vo.Attendance">
-		UPDATE ATTENDANCE
-   	       SET END_TIME=TO_CHAR(SYSDATE,'HH24:MI:SS')
-         where emp_id=#{empId} and ATT_DATE=(TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+		<![CDATA[
+		update attendance
+	       set END_TIME=TO_CHAR(SYSDATE,'HH24:MI'),
+               AT_TYPE=case
+                when (SUBSTR(start_time, 1,2) <9 and TO_CHAR(SYSDATE,'HH24')>=18) then 0 
+                when (SUBSTR(START_TIME, 1,2)>=9 AND SUBSTR(START_TIME,1,2)<13 AND TO_CHAR(SYSDATE,'HH24')>18) then 1 
+                when ((SUBSTR(START_TIME,1,2)>=9 AND TO_CHAR(SYSDATE,'HH24')<13)
+                OR (SUBSTR(START_TIME,1,2)>=9 AND TO_CHAR(SYSDATE,'HH24')<18)
+                OR(SUBSTR(START_TIME,1,2)>13 AND TO_CHAR(SYSDATE,'HH24')<18)
+                OR(SUBSTR(START_TIME,1,2)<=9 AND TO_CHAR(SYSDATE,'HH24')<18)
+                OR(SUBSTR(START_TIME,1,2)>13 AND TO_CHAR(SYSDATE,'HH24')>18))
+                then 2 
+            end 
+		  where EMP_ID=#{empId} AND ATT_DATE=(TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+        	]]>
 	</update>
+	
+	
+	<select id="selectAtt" parameterType="com.kh.teamworks.employee.model.vo.Attendance" resultMap="attendanceResultSet"> 
+		SELECT ATT_DATE,EMP_ID,START_TIME,END_TIME,AT_TYPE
+		  FROM ATTENDANCE
+		 WHERE EMP_ID=#{empId} and ATT_DATE=(TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+	</select>
+	
+	
+	
 	
 </mapper>

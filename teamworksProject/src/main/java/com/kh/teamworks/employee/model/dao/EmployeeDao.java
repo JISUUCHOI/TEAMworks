@@ -47,5 +47,23 @@ public class EmployeeDao {
 		return sqlSession.update("employeeMapper.attUpdate", att);
 	}
 
+	
+	
+
+	public int insertDate(SqlSessionTemplate sqlSession, String empId) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("employeeMapper.insertDate", empId);
+	}
+	public Attendance selectAtt(SqlSessionTemplate sqlSession, String empId) {
+		return sqlSession.selectOne("employeeMapper.selectAtt", empId);
+	}
+
+
+	public int QRattInsert(SqlSessionTemplate sqlSession, String empId) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("employeeMapper.QRattInsert", empId);
+	}
+
+
 
 }

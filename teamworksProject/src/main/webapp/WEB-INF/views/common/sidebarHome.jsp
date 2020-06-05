@@ -96,22 +96,45 @@
                 <div class="thumbnail">
                     <br>
                     <span><b>출근시간</b></span> &nbsp;
-                 
-                    <span style="color:rgb(7, 53, 90)"id="atStart"></span><br>
+                        <span style="color:rgb(7, 53, 90)"id="atStart">${att.startTime }</span><br>
                    
                     <span><b>퇴근시간</b></span> &nbsp;
-                    <span style="color:rgb(7, 53, 90)" id="atEnd"></span>
+                    <span style="color:rgb(7, 53, 90)" id="atEnd">${att.endTime }</span>
                     <div class="caption">
                         <button class="btn btn-info" id="startTime">출근</button> &nbsp; &nbsp;
                         <button class="btn btn-info" id="endTime">퇴근</button>
+                        <a href="QRAtt.em" class="btn btn-info" id="QR" >QRAtt</a>
+                        <a href="QRLogin.em" class="btn btn-info" >QRView</a>
                     </div>
                 </div>
             </div>
         </div>
          <script>
-         	//출근
+         	
         	$(function(){
+        		$.ajax({
+        			url:"selectAtt.em",
+        			data:{empId:"${loginUser.empId}"},
+        			type:"post",
+        			success:function(att){
+        				if(att == null){
+        					
+        				}else if(att.startTime != null ){
+        					$("#startTime").attr('disabled',true);
+        					
+        				}else if(att.endTime != null){
+        					$("#endTime").attr('disabled',true);
+        				}else{
+        					
+        				}
+        			},errorPage:function(){
+        				console.log("조회에러");
+        			}
+        		});
+        		
+        		
         		selectMyAttendance()
+        		//출근
         		$("#startTime").click(function(){
         			$.ajax({
         				url:"attinsert.em",
@@ -122,6 +145,7 @@
         					if(status == "success"){
         						selectMyAttendance()
         						$("#startTime").attr('disabled',true);
+        						
         						
         					}
         					
@@ -140,9 +164,11 @@
         				type:"post",
         				success:function(status){
         					if(status == "success"){
-        						selectMyAttendance()
-        						$("#endTime").attr('disabled',true);
+        						selectMyAttendance();
         						
+        						$("#endTime").attr('disabled',true);
+	        						
+	        						
         					}else{
         						console.log("퇴근업데이트 실패");
         					}
@@ -151,7 +177,7 @@
         					console.log("퇴근실패");
         				}
         				
-        			})
+        			});
         		});
         	});
         	//출퇴근 시간 조회
@@ -159,11 +185,13 @@
         		$.ajax({
         			url:"todayAtt.em",
         			data:{empId:"${loginUser.empId}"},
-        			type:"post",
+        			type:"get",
         			success:function(att){
-        				console.log(att);
+        				//console.log(att);
+        			
         				$("#atStart").html(att.startTime);
         				$("#atEnd").html(att.endTime);
+        				
         				
         			},errorPage:function(){
         				console.log("출석 갱신 실패");
