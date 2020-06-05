@@ -105,7 +105,14 @@
               	<c:forEach var="b" items="${ list }">
                     <tr>
                         <td>${ b.boardNo }</td>
-                        <td>${ b.boardTitle }</td>
+                        <c:choose>
+                        	<c:when test="${ b.rcount ne 0}">
+                        		<td>${ b.boardTitle } (${ b.rcount })</td>
+                        	</c:when>
+                        	<c:otherwise>
+                        		<td>${ b.boardTitle }</td>
+                        	</c:otherwise>
+                        </c:choose>
                         <td>${ b.empName }</td>
                         <td>${ b.createDate }</td>
                         <td>${ b.count }</td>

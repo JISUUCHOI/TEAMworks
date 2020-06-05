@@ -23,7 +23,7 @@
 		
 		 }
         .inner{width: 900px;}
-        .inner2{width: 900px; background-color:rgb(212, 239, 240); padding: 20px; border-radius: 5px;}
+        .inner2{width: 900px; background-color:rgb(242, 242, 242); padding: 20px; border-radius: 5px;}
         .recommend{
             border: 1px solid lightblue; 
             border-radius: 5px;
@@ -34,6 +34,11 @@
             text-decoration: none;
         }
         #tables *{margin: 5px;}
+        #replyUpdate:hover, #replyDelete:hover{
+        	cursor: pointer;
+        	color: rgb(102, 217, 255);
+        }
+        #rCount{padding:4px}
     </style>
 </head>
 <body>
@@ -176,17 +181,32 @@
      			success:function(list){
      				
      				var value="";
-     				for(var i in list){
-     					value+="<tr><td><hr><input type='hidden' name='replyNo' value='"+ list[i].replyNo + "'></td></tr>" +
-     						   "<tr>"+
-     						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
-     									"&nbsp; &nbsp; <span><i id='replyUpdate' class='far fa-edit'></i> &nbsp;<i id='replyDelete' class='far fa-trash-alt'></i> </span>"+
-     								"</td>"+
-     							"</tr>"+
-     							"<tr>" +
-     								"<td>" + list[i].replyContent + "</td>"+
-     							"</tr>"
      				
+     				for(var i in list){
+     					if(list[i].empId == '${loginUser.empId}'){
+     						value+="<tr><td><hr></td></tr>" +
+  						   "<tr>"+
+  						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
+  									"&nbsp; &nbsp; <span><i id='replyUpdate' onclick='replyUpdate("+ list[i].replyNo+");' class='far fa-edit'></i>"+
+  									"&nbsp;<i id='replyDelete' onclick='replyDelete(" + list[i].replyNo + ")' class='far fa-trash-alt'></i> </span>"+
+  								"</td>"+
+  							"</tr>"+
+  							"<tr>" +
+  								"<td>" + list[i].replyContent + "</td>"+
+  							"</tr>";
+     					}else{
+     						value+="<tr><td><hr><input type='hidden' name='replyNo' value='"+ list[i].replyNo + "'></td></tr>" +
+  						   "<tr>"+
+  						    	"<td>"+list[i].empName+ " | " + list[i].deptName+  " | " + list[i].createDate +
+  						
+  								"</td>"+
+  							"</tr>"+
+  							"<tr>" +
+  								"<td>" + list[i].replyContent + "</td>"+
+  							"</tr>";
+     					}
+     					
+     				 // console.log(list[i].empId);
      				}
      				
      				$("#rCount").text(list.length);
@@ -247,7 +267,42 @@
      				}
      			});
      		});
+     		
+     		
      	});
+     	
+     	function replyUpdate(replyNo){
+     		var popupX = (window.screen.width/2)-(700/2);
+     		var popupY = (window.screen.height/2)-(120/2);
+     		window.open("replyUpdateForm.bo?replyNo="+replyNo,"댓글 수정", "status=no,width=700px, height=120px, left="+popupX+",top="+popupY+",screenX="+popupX+",screenY="+popupY);
+     		
+     		// alert(replyNo);
+     	}
+     	
+     	function replyDelete(replyNo){
+     		// alert(replyNo);
+     		if(confirm("정말 삭제하시겠습니까?")){
+     			$.ajax({
+     				url:"deleteReply.bo",
+     				data:{replyNo:replyNo},
+     				type:"post",
+     				success:function(result){
+     					if(result=="success"){
+    	 					selectReplyList();
+	     					alert("삭제했습니다.");
+     						
+     					}else{
+     						alert("삭제에 실패했습니다.");
+     					}
+     				},
+     				error:function(){
+     					console.log("통신 실패");
+     				}
+     				
+     			});
+     		}
+     		
+     	}
      </script>
 </body>
 </html>

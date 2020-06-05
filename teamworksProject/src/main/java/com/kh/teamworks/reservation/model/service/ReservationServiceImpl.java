@@ -26,19 +26,11 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	
-	// 전달받은 날짜의 예약 리스트 조회용 서비스
+	// 예약 상세 조회용 서비스
 	@Override
-	public ArrayList<Reservation> selectDayReservation(String today) {
-		
-		return reDao.selectDayReservation(sqlSession, today);
-	}
-	
-	
-	// 예약 추가용 서비스
-	@Override
-	public int insertReservation(Reservation r) {
+	public Reservation selectReservation(Reservation r) {
 
-		return 0;
+		return reDao.selectReservation(sqlSession, r);
 	}
 	
 	
@@ -47,6 +39,14 @@ public class ReservationServiceImpl implements ReservationService {
 	public ArrayList<Reservation> selectMyReservationList(String empId) {
 
 		return reDao.selectMyReservationList(sqlSession, empId);
+	}
+	
+	
+	// 예약 추가용 서비스
+	@Override
+	public int insertReservation(Reservation r) {
+		
+		return reDao.insertReservation(sqlSession, r);
 	}
 	
 	

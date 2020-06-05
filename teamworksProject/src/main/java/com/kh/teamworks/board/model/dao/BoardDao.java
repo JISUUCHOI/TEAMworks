@@ -98,4 +98,16 @@ public class BoardDao {
 	public int insertReply(SqlSession sqlSession, BoardReply r) {
 		return sqlSession.insert("boardMapper.insertReply", r);
 	}
+	
+	public BoardReplyDTO selectReply(SqlSession sqlSession, BoardReply r) {
+		return sqlSession.selectOne("boardMapper.selectReply", r);
+	}
+	
+	public int updateReply(SqlSession sqlSession, BoardReply r) {
+		return sqlSession.update("boardMapper.updateReply", r);
+	}
+	
+	public int deleteReply(SqlSession sqlSession, BoardReply r) {
+		return sqlSession.update("boardMapper.deleteReply", r);
+	}
 }

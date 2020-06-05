@@ -120,6 +120,21 @@ public class BoardServiceImpl implements BoardService {
 		return bDao.insertReply(sqlSession, r);
 	}
 
+	@Override
+	public BoardReplyDTO selectReply(BoardReply r) {
+		return bDao.selectReply(sqlSession, r);
+	}
+
+	@Override
+	public int updateReply(BoardReply r) {
+		return bDao.updateReply(sqlSession, r);
+	}
+
+	@Override
+	public int deleteReply(BoardReply r) {
+		return bDao.deleteReply(sqlSession, r);
+	}
+
 	
 
 	
