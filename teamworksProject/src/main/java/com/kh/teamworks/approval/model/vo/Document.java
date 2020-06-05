@@ -63,6 +63,13 @@ public class Document {
 	private int approveStatus;		// 결재자의 보관함 상태 (0:대기, 1:진행, 2:완료, 3:반려, 4:회수요청)
 	private String empName;			// 보관함, 문서상세페이지 에 보여질 기안자 이름
 	
+	// 문서 상세조회 시 결재선
+	private String approverEmpid;	// 결재자사원번호
+	private String approverName;	// 결재자이름
+	private int approveStep;		// 결재우선순위
+	private String approveReject;	// '미결, 진행, 승인, 반려'
+	private String approveComment;	// 결재/회수 의견
+	private String approveDate;		// 결재일자
 	
 	
 	public Document(String docNo, String empId, String docSc, int docStatus, String docTitle, String docReference,
