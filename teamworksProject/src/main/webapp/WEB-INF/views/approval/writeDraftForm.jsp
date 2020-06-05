@@ -122,7 +122,6 @@
         #fileTb{margin:auto;}
         #fileUpload{
             width:798px;
-            height:100px;
             border:1px solid lightgrey;
             margin:auto;
             text-align:center;
@@ -415,7 +414,72 @@
 	        			 ['insert', ['link']],
 	         			 ['view', ['fullscreen', 'codeview', 'help']]
 	       				]
-	    			  });					
+	    			  });
+
+					$('.fileUpload').on("dragover drop",
+							function(e) {
+								$(this).css("background", "#BBBBFF");
+									e.preventDefault();
+									})
+							.on("drop", function(e) {
+										$("#upfile").prop("files", e.originalEvent.dataTransfer.files).closest("form");
+								displayAttachFile();
+								$(this).css("background", "#FFFFFF");
+					});
+
+					//
+					$('.fileUpload').click(function(e) {
+						e.preventDefault();
+						$('#upfile').click();
+					});
+
+					$('#upfile').change(function(e) {
+						displayAttachFile();
+					});
+
+					var displayAttachFile = function() {
+
+						if ($("#upfile").val() != '') {
+							var html = "";
+
+							var files = $('#upfile')[0].files;
+
+							html = '<table>';
+
+							var contentHTML = "";
+							for (var i = 0; i < files.length; i++) {
+								var fileName = files[i].name;
+								var size = 0
+								if (files[i].size != 0) {
+									size = Math
+											.floor(Math
+													.log(files[i].size)
+													/ Math
+															.log(1024));
+								}
+
+								contentHTML = contentHTML
+										+ '<tr><td width="600px">'
+										+ fileName
+										+ '</td>'
+										+ '<td width="200px">'
+										+ size
+										+ 'mb</td></tr>';
+
+							}
+
+							html = html + contentHTML;
+							html = html + '</table>'
+
+							$('.fileUpLoad').html(html);
+
+						} else {
+							var html = "이곳에 파일을 드래그 하세요.";
+							$('.fileUpLoad').html(html);
+						}
+					};
+
+					  
 				});  
 				
 				function sendFile(file, el) {
@@ -464,13 +528,12 @@
 	                    <td width="200px">크기</td>
 	                </tr>
 	            </table>
-	            <div id="fileUpload">
+	            <div id="fileUpload" class="fileUpLoad"> 
 	               	 이곳에 파일을 드래그 하세요.
 	            </div>
 	            <br>
-	            <!-- <button type="button" id="fileUpBtn">파일첨부</button> -->
-	            <input type="file" id="upfile" name="uploadFile">
-	            
+				<input type="file" multiple="multiple" id="upfile"
+					name="uploadFile">
 	            
 	
 	        </form>

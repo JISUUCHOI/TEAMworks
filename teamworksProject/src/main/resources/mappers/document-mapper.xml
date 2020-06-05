@@ -85,15 +85,15 @@
 	<!-- 제증명신청서 insert -->
 	<insert id="insertProof" parameterType="Document">
 		insert into proof
-		values(SEQ_DOCNO.NEXTVAL, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, 
+		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, 
 				#{pfSq}, #{pfPurpose}, 'Y' )
 	</insert>
 	
 	<!-- 기안서 insert -->
 	<insert id="insertDraft" parameterType="Document">
 		insert into draft
-		values(SEQ_DOCNO.NEXTVAL, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, 
-				#{docContent}, '첨부파일명', '첨부파일저장경로' )
+		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, 
+				#{docContent}, #{fileName}, '첨부파일저장경로' )
 	</insert>
 	
 

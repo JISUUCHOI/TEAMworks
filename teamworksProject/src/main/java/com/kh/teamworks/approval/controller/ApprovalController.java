@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Iterator;
 
@@ -96,7 +97,17 @@ public class ApprovalController {
 	@RequestMapping("proofInsert.ap")
 	public String insertProof(Document d, Model model, HttpSession session) {
 		
-		 // System.out.println(d);
+		/* 문서번호 발생 */
+		Date now = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+		String today = sf.format(now);
+		
+		int ran = (int)(Math.random()*899999 + 100000);
+		
+		String docNo = today + "-" + ran;
+		d.setDocNo(docNo); 
+		
+		// System.out.println(d);
 				
 	     int result = aService.insertProof(d);
 	  
@@ -111,14 +122,37 @@ public class ApprovalController {
 	// 기안서 insert
 	@RequestMapping("draftInsert.ap")
 	public String insertDraft(Document d, Model model, HttpServletRequest request, HttpSession session, 
-							  @RequestParam(name="uploadFile", required=false) MultipartFile file) {
+							  MultipartHttpServletRequest mtfRequest) {					  
+								  
+		/* 문서번호 발생 */
+		Date now = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+		String today = sf.format(now);
 		
-
+		int ran = (int)(Math.random()*899999 + 100000);
+		
+		String docNo = today + "-" + ran;
+		d.setDocNo(docNo);
+		
+		List<MultipartFile> fileList = mtfRequest.getFiles("uploadFile");
+		String fileName = "";
+		for (MultipartFile file : fileList) {
+			if(!file.getOriginalFilename().equals("")) {
+				String changeName = saveFile(file, request);
+				
+				fileName = fileName + file.getOriginalFilename() + ";";
+			}
+		}
+		
+		d.setFileName(fileName); 
+		
+		/*
 		if(!file.getOriginalFilename().equals("")) {
 			String changeName = saveFile(file, request);
 			
 			d.setFileName(file.getOriginalFilename());
 		}
+		*/
 		
 		System.out.println(d);
 	 
@@ -173,7 +207,7 @@ public class ApprovalController {
 
 
 	
-	    
+	    	// 파일
 		public String saveFile(MultipartFile file,  HttpServletRequest request) {
 			String resources = request.getSession().getServletContext().getRealPath("resources");
 			String savePath = resources + "\\approveUploadFiles\\";
