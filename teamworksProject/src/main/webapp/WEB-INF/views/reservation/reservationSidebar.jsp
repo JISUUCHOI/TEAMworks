@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="com.kh.teamworks.employee.model.vo.Employee"%>
+<%
+	Employee loginUser = (Employee)request.getSession().getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,11 +66,11 @@
 		<!-- 사이드바 -->
         <div id="sidebar">
             <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
-            <div id="logout"><a href="">logout</a></div>
+            <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category">예약</div>
-            <div class="subCate" id="reservationList"><a href="selectList.re">예약 현황</a></div>
-            <div class="subCate" id="myReservation"><a href="myResList.re">나의 예약 목록</a></div>
+            <div class="subCate" id="reservationList"><a href="showListView.re">예약 현황</a></div>
+            <div class="subCate" id="myReservation"><a href="myResList.re?empId=${loginUser.empId }">나의 예약 목록</a></div>
         </div>
     </div>
 

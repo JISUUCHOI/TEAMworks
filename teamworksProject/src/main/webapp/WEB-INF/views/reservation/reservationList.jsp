@@ -76,7 +76,7 @@
 </style>
 </head>
 <body>
-	<c:if test="${ !empty msg }">
+ 	<c:if test="${ !empty msg }">
 		<script>
 			alert('${msg}');
 		</script>
@@ -217,6 +217,12 @@
 	</div>
 	
 	<script>
+		$(function(){
+			$("#book>a").css("color", "dimgray");
+			$("#book").css("border-bottom-style", "groove");
+			$("#reservationList>a").css("color", "deepskyblue");
+		});	
+	
 		// 페이지 로딩 시 오늘 날짜와 그에 해당하는 예약 리스트 가져옴
 		$(function(){
 			
