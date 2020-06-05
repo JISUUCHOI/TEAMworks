@@ -60,6 +60,9 @@
 
 
      <div class="content">
+     <h1>직급 관리</h1>
+     <hr align="left" style="border: solid 1px grey; width: 90%;">
+     
 		  <ul class="tree">
 		    <li>
 		      <input type="checkbox" id="root">

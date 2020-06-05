@@ -116,6 +116,20 @@
 .content {
 	margin-left: 20%;
 }
+
+.content div {
+	display: inline-block;
+	vertical-align: middle;
+	height: 100%;
+}
+
+.content t3 {
+	margin: 0 auto;
+	text-align: center;
+}
+div {
+	border: 1px solid black;
+}
 </style>
 </head>
 <body>
@@ -127,29 +141,31 @@
 	<div class="content">
 
 		<h1>회사 정보</h1>
-		<hr align="left" style="border: solid 1px grey; width: 80%;">
+		<hr align="left" style="border: solid 1px grey; width: 90%;">
 
-		<div>
+		<div id="d1-logo">
 			<div id="t2">
-				<p style="font-size: 15px;">
+				<p style="font-size: 13px;">
 					<b>회사 로고</b>
 				</p>
 				<img src="/teamworks/resources/images/No-image-available.png">
 			</div>
 
-			<div id="t3">
-				서비스 이용중 표시되는 로고를 등록 할 수 있습니다.<br> <img
-					src="/teamworks/resources/icons/redMark.png" class="img-rounded"
-					width="30px">최대 사이즈 : 150*60 px, 용량 500KB 미만, 확장자 PNG <br>
-				<button>등록</button>
-				&nbsp;
-				<button>삭제</button>
-				<!-- <input type="file"> 등록 누르면 팝업창으로 뜨게 설정하기 -->
+			<div id="t3" style="padding:0;">
+				<div id="t3-1" style="margin-top:60px;">
+					서비스 이용중 표시되는 로고를 등록 할 수 있습니다.<br> <img
+						src="/teamworks/resources/icons/redMark.png" class="img-rounded"
+						width="30px"> 최대 사이즈 : 150*60 px, 용량 500KB 미만, 확장자 PNG <br>
+					<button>등록</button>
+					&nbsp;
+					<button>삭제</button>
+					<!-- <input type="file"> 등록 누르면 팝업창으로 뜨게 설정하기 -->
+				</div>
 			</div>
 		</div>
 
 
-		<div>
+		<div id="d2-info">
 			<table id="infoTable" align="center" style="border: 1px solid black;">
 				<table class="tg" style="width: 800px;">
 					<thead>
@@ -167,60 +183,63 @@
 						</tr>
 					</tbody>
 				</table>
-				<br>
-				<br>
+			</table>
+		</div>
 
-				<b>사업장 정보</b>
-				<button type="button" class="float-right btn btn-outline-secondary btn-sm">사업장 정보 변경</button>
+		<div id="d3-company">
+			<br> <br> <b>사업장 정보</b>
+			<button type="button"
+				class="float-right btn btn-outline-secondary btn-sm">사업장 정보
+				변경</button>
 
-				<br>
+			<br>
 
-				<table class="tg" style="width: 800px;">
-					<thead>
-						<tr>
-							<th class="tg-amwm">사업자 등록번호</th>
-							<th class="tg-baqh">1234567890</th>
-							<th class="tg-amwm">종사업장번호</th>
-							<th class="tg-0lax"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="tg-amwm">사업장명</td>
-							<td class="tg-baqh">TEAMworks</td>
-							<td class="tg-amwm">대표자명</td>
-							<td class="tg-baqh">라공주</td>
-						</tr>
-						<tr>
-							<td class="tg-amwm">업태</td>
-							<td class="tg-baqh">12345ABC</td>
-							<td class="tg-amwm">업종</td>
-							<td class="tg-baqh">12345ABC</td>
-						</tr>
-						<tr>
-							<td class="tg-amwm">사업장 주소</td>
-							<td class="tg-baqh" colspan="3">서울특별시 강남구 테헤란로 14길 6 남도빌딩</td>
-						</tr>
-						<tr rowspan="3">
-							<td class="tg-amwm">직인</td>
-							<td class="tg-0lax" colspan="3"><div>
-									<img src="/teamworks/resources/images/No-image-available.png"
-										width="70" height="70" style="float: left;">
-								</div>
-								<div>
-									<img src="/teamworks/resources/icons/redMark.png" width="30">
-									<p style="font-size: 11px;">최대 사이즈 : 70*70px, 용량 300Kb 미만,
-										확장자 PNG</p>
-									<br>
-									<button>등록</button>
-									&nbsp;
-									<button>삭제</button>
-								</div></td>
-						</tr>
-					</tbody>
-				</table>
-				</div>
+			<table class="tg" style="width: 800px;">
+				<thead>
+					<tr>
+						<th class="tg-amwm">사업자 등록번호</th>
+						<th class="tg-baqh">1234567890</th>
+						<th class="tg-amwm">종사업장번호</th>
+						<th class="tg-0lax"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="tg-amwm">사업장명</td>
+						<td class="tg-baqh">TEAMworks</td>
+						<td class="tg-amwm">대표자명</td>
+						<td class="tg-baqh">라공주</td>
+					</tr>
+					<tr>
+						<td class="tg-amwm">업태</td>
+						<td class="tg-baqh">12345ABC</td>
+						<td class="tg-amwm">업종</td>
+						<td class="tg-baqh">12345ABC</td>
+					</tr>
+					<tr>
+						<td class="tg-amwm">사업장 주소</td>
+						<td class="tg-baqh" colspan="3">서울특별시 강남구 테헤란로 14길 6 남도빌딩</td>
+					</tr>
+					<tr rowspan="3">
+						<td class="tg-amwm">직인</td>
+						<td class="tg-0lax" colspan="3"><div>
+								<img src="/teamworks/resources/images/No-image-available.png"
+									width="70" height="70" style="float: left;">
+							</div>
+							<div>
+								<img src="/teamworks/resources/icons/redMark.png" width="30">
+								<p style="font-size: 11px;">최대 사이즈 : 70*70px, 용량 300Kb 미만,
+									확장자 PNG</p>
+								<br>
+								<button>등록</button>
+								&nbsp;
+								<button>삭제</button>
+							</div></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
 
-				</div>
 </body>
 </html>

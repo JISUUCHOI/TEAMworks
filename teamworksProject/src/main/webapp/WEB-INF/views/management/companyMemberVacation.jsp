@@ -22,7 +22,9 @@
     <jsp:include page="../common/sidebarMg.jsp"/>
 
     <div class="content">
-		<p>휴가 관리</p>
+		<h1>휴가 관리</h1>
+		<hr align="left" style="border: solid 1px grey; width: 90%;">
+		
     </div>
 
 

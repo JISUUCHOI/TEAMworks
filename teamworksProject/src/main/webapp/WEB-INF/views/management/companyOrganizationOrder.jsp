@@ -30,8 +30,9 @@
 
 	<div class="content">
 		<h1>직급 관리</h1>
-		<hr>
+		<hr align="left" style="border: solid 1px grey; width: 90%;">
 		<br> <br>
+		
 		<table class="table border" style="width: 80%;">
 			<thead class="thead-light">
 				<tr>

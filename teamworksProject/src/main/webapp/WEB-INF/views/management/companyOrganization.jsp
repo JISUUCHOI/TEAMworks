@@ -22,6 +22,9 @@
     <jsp:include page="../common/sidebarMg.jsp"/>
 
     <div class="content">
+    <h1>조직도</h1>
+  	<hr align="left" style="border: solid 1px grey; width: 90%;">
+    
 		<div class="tree_box">
 	    <div class="con">
 	        <ul id="tree_menu" class="tree_menu">

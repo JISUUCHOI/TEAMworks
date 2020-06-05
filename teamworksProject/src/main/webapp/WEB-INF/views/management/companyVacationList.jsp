@@ -17,8 +17,8 @@
 <style>
 .content {
 	margin-left: 20%;
+	width:80%
 }
-
 .container td {
 	height: 40px;
 }
@@ -31,10 +31,10 @@
 
 	<div class="content">
 		<h1>휴가 관리</h1>
-		<hr>
+		<hr align="left" style="border: solid 1px grey; width: 90%;">
 		<br>
 
-		<div class="container">
+		<div class="container" style="margin-left:0px;">
 			<table class="table table-bordered"
 				style="table-layout: fixed; text-align: center;">
 				<thead class="thead-light">
@@ -153,7 +153,7 @@
 				</tbody>
 			</table>
 
-			<ul class="pagination justify-content-center" style="margin: 20px 0">
+			<ul class="pagination pagination-sm justify-content-center" style="margin: 20px 0">
 				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
 				<li class="page-item active"><a class="page-link" href="#">1</a></li>
 				<li class="page-item"><a class="page-link" href="#">2</a></li>
