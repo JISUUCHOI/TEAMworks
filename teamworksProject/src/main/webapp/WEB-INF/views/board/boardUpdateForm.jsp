@@ -261,7 +261,7 @@
       					success:function(result){
       						if(result == "success"){
       							alert("게시글 수정 완료");
-      							location.href="list.bo?currentPage=1&cat=" + ${cat};
+      							location.href="detail.bo?bno="+${b.boardNo}; // 수정
       						}else if(result == "fail"){
       							alert("게시판 수정에 실패하셨습니다.");
       						}else{
