@@ -6,6 +6,7 @@ import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.approval.model.vo.FrequentApprovalLine;
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 public interface ReqApprovalService {
@@ -46,9 +47,15 @@ public interface ReqApprovalService {
 	// 4_4. 결재선 즐겨찾기 삭제
 	int deleteLine(FrequentApprovalLine f);
 	
+	// 5_1. 문서 총개수 조회
+	int selectListCount(Document d);
 	
-	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 리스트 조회
-	ArrayList<Document> selectDocList(Document d);
+	// 5_2. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 - 문서 리스트 조회
+	ArrayList<Document> selectDocList(Document d, PageInfo pi);
 	
+	// 6_1. 문서 상세조회 - 경조비신청서
+	ArrayList<Document> selectFeDetail(Document doc);
 	
+	// 6_2. 문서 상세조회 - 휴가신청서
+	ArrayList<Document> selectVacDetail(Document doc);
 }

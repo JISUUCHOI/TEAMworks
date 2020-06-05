@@ -2,6 +2,7 @@ package com.kh.teamworks.approval.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +10,7 @@ import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.approval.model.vo.FrequentApprovalLine;
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Repository("raDao")
@@ -74,8 +76,26 @@ public class ReqApprovalDao {
 		return sqlSession.delete("approveMapper.deleteLine", f);
 	}
 	
-	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
-	public ArrayList<Document> selectDocList(SqlSessionTemplate sqlSession, Document d) {
-		return (ArrayList)sqlSession.selectList("approveMapper.selectDocList", d);
+	// 5_1. 게시글 총개수 조회
+	public int selectListCount(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.selectListCount", d);
 	}
+	
+	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
+	public ArrayList<Document> selectDocList(SqlSessionTemplate sqlSession, Document d, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.selectDocList", d, rowBounds);
+	}
+	
+	// 6_1. 문서 상세조회 - 경조비신청서
+	public ArrayList<Document> selectFeDetail(SqlSessionTemplate sqlSession, Document doc) {
+		return (ArrayList)sqlSession.selectList("approveMapper.selectFeDetail", doc);
+	}
+	
+	// 6_2. 문서 상세조회 - 휴가신청서
+	public ArrayList<Document> selectVacDetail(SqlSessionTemplate sqlSession, Document doc) {
+		return (ArrayList)sqlSession.selectList("approveMapper.selectVacDetail", doc);
+	}
+	
 }

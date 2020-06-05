@@ -12,15 +12,19 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <style>
         /* 전체윤곽 */
+        html, body{height:100%;}
+        
+         #bodyWrapper{
+        	width:1250px;
+        	height:100%;
+        	float:left;
+        }
+        
         #draftOuter{
             width:800px;
             height:1300px;
-            /* float:left; */
-            display:inline-block;
            	margin:auto;
             margin-top:50px;
-            margin-left:500px;
-            /* border:1px solid red; */
         }
 
         /* 버튼 */
@@ -28,7 +32,7 @@
             width:200px;
             float:right;
         }
-        #approveLineBtn, #approveBtn, #fileUpBtn{
+        #modifyBtn, #deleteBtn{
             width:60px;
             height:28px;
             background: rgb(7, 53, 90);
@@ -36,7 +40,7 @@
             border:none;
             font-size:12px;
         }
-        #approveLineBtn:hover, #approveBtn:hover, #fileUpBtn:hover, #refBtn:hover{
+        #modifyBtn:hover, #deleteBtn:hover, #refBtn:hover{
             background:deepskyblue;
             cursor:pointer;
         }
@@ -107,28 +111,7 @@
             font-size:12px;
         }
 
-        /* 파일첨부 */
-        #fileTb{margin:auto;}
-        #fileUpload{
-            width:798px;
-            height:100px;
-            border:1px solid lightgrey;
-            margin:auto;
-            text-align:center;
-            line-height:7;
-            color:grey;
-            font-size:12px;
-        }
-        #fileUpBtn{
-            float:right;
-            margin-right:20px;
-        }
-        #bodyWrapper{
-        	width:1250px;
-        	float:left;
-        }
-        
-                #feName{
+        #feName{
             width:120px;
             margin-left:10px;
             margin-right: 10px;
@@ -209,8 +192,8 @@
 	        <form id="docForm" action="">
 	            <!-- 버튼들 -->
 	            <div id="btns">
-	                <button type="button" id="approveLineBtn">결재선</button>
-	                <button type="submit" id="approveBtn">결재요청</button>
+	                <button type="button" id="modifyBtn">수정</button>
+	                <button type="submit" id="deleteBtn">삭제</button>
 	                <button type="button" id="cancelBtn">취소</button>
 	            </div>
 	            <br><br><br>
@@ -222,22 +205,17 @@
 	            <div id="appoveLine">
 	                <table id="approveLineTb">
 	                    <tr height="20">
-	                        <td rowspan="3" width="20">결<br>재</td>
+	                        <td rowspan="2" width="20">결<br>재</td>
                             <td width="70">기안</td>
-                            <td width="70">이사</td>
-                            <td width="70">사장</td>
-
+                            <c:forEach var="d" items="${ d }">
+                            	<td width="70">결재</td>
+                            </c:forEach>
 	                    </tr>
-	                    <tr height="">
-                            <td>이용석</td>
-                            <td>최해성</td>
-                            <td>강보람</td>
-                        </tr>
-                        <tr height="">
-                            <td>승인(날짜)</td>
-                            <td>승인(날짜)</td>
-                            <td>반려</td>
-
+	                    <tr height="70">
+	                        <td>최해성<br>승인(날짜)</td>
+	                        <c:forEach var="d" items="${ d }">
+                            	<td>${ d.approverName }<br>${ d.approveReject }</td>
+                            </c:forEach>
 	                    </tr>
 	                </table>
 	            </div>
@@ -247,25 +225,25 @@
 	            <table class="docContents">
 	                <tr width="1000">
 	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200">20200509-0003</td>
+                    	<td width="200">${ d.get(0).getDocNo() }</td>
 	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200">2020.05.07</td>
+	                    <td width="200">${ d.get(0).getDocDate() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td>이용석</td>
+	                    <td>${ d.get(0).getEmpName() }</td>
 	                    <td class="th">기안부서</td>
-	                    <td>개발팀</td>
+	                    <td>${ d.get(0).getDocDepartment() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td>최해성 이사 개발팀</td>
-	                    <td class="th">기결재 첨부</td>
-	                    <td></td>
+	                    <td>${ d.get(0).getDocReference() }</td>
+	                    <td class="th">마감일자</td>
+	                    <td>${ d.get(0).getDocEnd() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"></td>
+	                    <td colspan="3">${ d.get(0).getDocTitle() }</td>
 	                </tr>
 	            </table>
 				
@@ -274,26 +252,22 @@
                 <table class="docContents">
 	                <tr width="1000">
 	                    <td width="200" class="th">경조구분</td>
-	                    <td width="200">환갑</td>
+	                    <td width="200">${ d.get(0).getFeSq() }</td>
 	                    <td width="200" class="th">신청일자</td>
-	                    <td width="200">2020.05.30</td>
+	                    <td width="200">${ d.get(0).getDocDate() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">경조기간</td>
-	                    <td>2020.05.30~2020.05.30</td>
+	                    <td>${ d.get(0).getFeStart() } ~ ${ d.get(0).getFeEnd() }</td>
 	                    <td class="th">가족관계/대상자</td>
-	                    <td>부/마동석</td>
+	                    <td>${ d.get(0).getFeRelation() }/${ d.get(0).getFeName() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">경조장소</td>
-	                    <td>제주도 서귀포시...</td>
+	                    <td>${ d.get(0).getFePlace() }</td>
 	                    <td class="th">신청금액</td>
-	                    <td>1000000</td>
+	                    <td>${ d.get(0).getFePrice() }</td>
 	                </tr>
-	                <tr>
-	                    <td class="th">비고</td>
-	                    <td colspan="3"></td>
-                    </tr>
 	            </table>
                 
                 <br><br>

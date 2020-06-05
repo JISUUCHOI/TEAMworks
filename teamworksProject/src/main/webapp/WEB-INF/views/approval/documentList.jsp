@@ -36,7 +36,7 @@
 	    border-collapse:collapse;
 	    font-size:13px;
 	}
-	#search th, #docList th{background:lightsteelblue; color:white;}
+	#search th{background:lightsteelblue; color:white;}
 	#periodBtns, #periodInp{margin:10px 0px 10px 15px;}
 	
 	.period{
@@ -76,20 +76,20 @@
 	}
 	
 	/* 문서 리스트 */
-	.docList tr{
+	#docList tr{
 	    height:40px;
 	}
-	.docList, .docList>tbody>tr{
+	#docList, #docList>tbody>tr{
 	    border-top: 1px solid lightgrey;
 	    border-bottom: 1px solid lightgrey;
 	    border-collapse: collapse;
 	    font-size:13px;
 	}
-	.docList>thead>tr{
+	#docList>thead>tr{
 	    border-top-style:groove;
 	    border-bottom-style:groove;
 	}
-	.docList>tbody>tr:hover{
+	#docList>tbody>tr:hover{
 	    background:lightsteelblue;
 	    color:white;
 	    cursor:pointer;
@@ -108,14 +108,23 @@
 	}
 	.page{
 	    display:inline-block;
-	    border:1px solid lightgrey;
+	    border:1px solid rgb(7, 53, 90);
+	    color:rgb(7, 53, 90);
+	    background:white;
 	    width:20px;
 	    height:20px;
 	    text-align:center;
 	}
 	.page:hover{
-	    color:lightsteelblue;
-	    border-color:lightsteelblue;
+	    /* color:lightsteelblue;
+	    border-color:lightsteelblue; */
+	    /* color:deepskyblue;
+	    border-color:deepskyblue;
+	    cursor:pointer; */
+	}
+	.able:hover{
+		color:deepskyblue;
+	    border-color:deepskyblue;
 	    cursor:pointer;
 	}
 
@@ -193,7 +202,7 @@
 	            <br><br>
 	
 	            <!-- 문서 리스트 -->
-	            <table class="docList">
+	            <table id="docList">
 	                <thead>
 	                    <tr>
 	                        <th width="150">문서번호</th>
@@ -209,9 +218,9 @@
 	                <tbody>
 	                	<c:forEach var="l" items="${ list }">
 		                    <tr>
-		                        <td style="text-align:center;">${ l.docNo }</td>
-		                        <td style="text-align:center;">${ l.docSc }</td>
-		                        <td style="padding-left:30px;">${ l.docTitle }</td>
+		                        <td style="text-align:center;" class="docNo">${ l.docNo }</td>
+		                        <td style="text-align:center;" class="docSc">${ l.docSc }</td>
+		                        <td style="padding-left:30px;" class="docTitle">${ l.docTitle }</td>
 		                        <td style="text-align:center;">${ l.empName }</td>
 		                        <td style="text-align:center;">${ l.docDepartment}</td>
 		                        <td style="text-align:center;">${ l.docDate }</td>
@@ -237,15 +246,48 @@
 	                </tbody>
 	            </table>
 	            <br>
+	            
+	            <script>
+	            	$(function(){
+	            		$(".docTitle").click(function(){
+	            			location.href="detailDoc.rap?docNo=" + $(this).prevAll(".docNo").text() + "&docSc=" + $(this).prevAll(".docSc").text();
+	            		});
+	            	});
+	            
+	            </script>
+	            
 	
 	            <!-- 페이징바 -->
 	            <div id="pagingArea" align="center">
-	                <a class="page">&lt;</a>
-	                <a class="page">1</a>
-	                <a class="page">2</a>
-	                <a class="page">3</a>
-	                <a class="page">4</a>
-	                <a class="page">&gt;</a>
+	                
+					<c:choose>
+						<c:when test="${ pi.currentPage eq 1 }">
+							<button disabled class="page">&lt;</button>
+						</c:when>
+						<c:otherwise>
+							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage - 1 }'">&lt;</button>
+						</c:otherwise>
+					</c:choose>
+					
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:choose>
+							<c:when test="${ p eq pi.currentPage }">
+								<button disabled class="page disable">${ p }</button>
+							</c:when>
+							<c:otherwise>
+		                		<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ p }'">${ p }</button>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					<c:choose>
+						<c:when test="${ pi.currentPage eq pi.maxPage }">
+							<button disabled class="page">&gt;</button>
+						</c:when>
+						<c:otherwise>
+							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage + 1 }'">&gt;</button>
+						</c:otherwise>
+					</c:choose>
 	            </div>
 	        </div>
 	
@@ -256,6 +298,10 @@
 		$(function(){
 			$("#approveDoc>a").css("color", "dimgray");
 			$("#approveDoc").css("border-bottom-style", "groove");
+			
+			$(".disable").css("color", "deepskyblue");
+			$(".disable").css("border", "1.3px solid deepskyblue");
+			$(".disable").css("text-align", "center");
 			
 			var sts = "${sts}";
 			

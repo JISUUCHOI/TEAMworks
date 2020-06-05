@@ -11,6 +11,7 @@ import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.approval.model.vo.FrequentApprovalLine;
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Service("raService")
@@ -94,12 +95,33 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 	public int deleteLine(FrequentApprovalLine f) {
 		return raDao.deleteLine(sqlSession, f);
 	}
+	
+	// 5_1. 게시판 총개수 조회
+	@Override
+	public int selectListCount(Document d) {
+		return raDao.selectListCount(sqlSession, d);
+	}
 
 	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 리스트 조회
 	@Override
-	public ArrayList<Document> selectDocList(Document d) {
-		return raDao.selectDocList(sqlSession, d);
+	public ArrayList<Document> selectDocList(Document d, PageInfo pi) {
+		return raDao.selectDocList(sqlSession, d, pi);
 	}
+
+	// 6_1. 문서 상세조회 - 경조비신청서
+	@Override
+	public ArrayList<Document> selectFeDetail(Document doc) {
+		return raDao.selectFeDetail(sqlSession, doc);
+	}
+
+	// 6_2. 문서 상세조회 - 휴가신청서
+	@Override
+	public ArrayList<Document> selectVacDetail(Document doc) {
+		return raDao.selectVacDetail(sqlSession, doc);
+	}
+
+
+
 	
 	
 	
