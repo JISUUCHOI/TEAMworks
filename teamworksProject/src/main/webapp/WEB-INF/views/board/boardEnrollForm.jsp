@@ -129,14 +129,14 @@
          
             var uploadFiles = [];
             var $drop = $("#dragAndDrop");
-            $drop.on("dragenter", function(e) { //드래그 요소가 들어왔을떄
+            $drop.on("dragenter", function(e) { 
                 $(this).addClass('drag-over');
-            }).on("dragleave", function(e) { //드래그 요소가 나갔을때
+            }).on("dragleave", function(e) {
                 $(this).removeClass('drag-over');
             }).on("dragover", function(e) {
                 e.stopPropagation();
                 e.preventDefault();
-            }).on('drop', function(e) { //드래그한 항목을 떨어뜨렸을때
+            }).on('drop', function(e) { 
                 e.preventDefault();
                 $(this).removeClass('drag-over');
            
@@ -150,8 +150,8 @@
                         		 for(var i = 0; i < files.length; i++) {
                                   	var file = files[i];
                                   	// console.log(file);
-                                 	 var size = uploadFiles.push(file); //업로드 목록에 추가
-                                  	preview(file, size - 1); //미리보기 만들기
+                                 	 var size = uploadFiles.push(file); 
+                                  	preview(file, size - 1); 
                               	}
                         	 }else{
                         		 alert("최대 5개까지만 첨부가능합니다.");
@@ -179,28 +179,28 @@
                     var files = this.files;
                     //console.log(files);
                     
-                    	   if(files.length<6){
-                               if(uploadFiles.length<5){ 
-                            	   if((uploadFiles.length+files.length)<6){
-                            		   for(var i = 0; i < files.length; i++) {
-                                           var file = files[i];
-                                           // console.log(file);
-                                           var size = uploadFiles.push(file); //업로드 목록에 추가
-                                           preview(file, size - 1); //미리보기 만들기
-                                       }
-                            	   }else{
-                            		   alert("최대 5개까지만 첨부가능합니다.");
-                            	   }
-                                
-                               }else{
-                                   alert("최대 5개까지만 첨부가능합니다.");
-                           }
-                           }else{
-                               alert("최대 5개까지만 첨부가능합니다.");
-                           }
+               	   if(files.length<6){
+                          if(uploadFiles.length<5){ 
+	                       	   if((uploadFiles.length+files.length)<6){
+	                       		   
+	                       		   for(var i = 0; i < files.length; i++) {
+	                                      var file = files[i];
+	                                      // console.log(file);
+	                                      var size = uploadFiles.push(file); 
+	                                      preview(file, size - 1); 
+	                                  }
+	                       		   
+	                       	   }else{
+	                       		   alert("한번에 최대 5개까지만 첨부가능합니다.");
+	                       	   }
                            
-                     
-                 
+                          }else{
+                              alert("최대 5개까지만 첨부가능합니다.");
+                      }
+                      }else{
+                          alert("최대 5개까지만 첨부가능합니다.");
+                      }
+                      //console.log(uploadFiles);     
                   
                 });
             });
@@ -224,7 +224,7 @@
            $("#fileList").on("click", ".minus", function(e){
                var $target = $(e.target);
                var idx = $target.attr('data-idx');
-               console.log(idx);
+               //console.log(idx);
                //uploadFiles[idx].upload = 'disable';
                uploadFiles.splice(idx,1);
 
