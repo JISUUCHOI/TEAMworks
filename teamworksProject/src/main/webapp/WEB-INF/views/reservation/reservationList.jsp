@@ -75,6 +75,13 @@
 </style>
 </head>
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			alert('${msg}');
+		</script>
+		<c:remove var="msg" scope="session"/>
+	</c:if>
+
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="reservationSidebar.jsp"/>
 	
@@ -380,13 +387,12 @@
 	                <tr>
 	                  <th>사용용도</th>
 	                  <td>
-	                    <input type="radio" name="purpose" id="team" value="팀사용">
+	                    <input type="radio" name="purpose" id="team" value="팀 사용" checked>
 	                    <label for="team">팀 사용</label> <br>
-	                    <input type="radio" name="purpose" id="outside" value="외부사용">
+	                    <input type="radio" name="purpose" id="outside" value="외부 사용">
 	                    <label for="outside">외부 사용</label> <br>
-	                    <input type="radio" name="purpose" id="etc">
+	                    <input type="radio" name="purpose" id="etc" value="기타">
 	                    <label for="etc">기타</label>
-	                    <input type="text" name="purpose" size="15">
 	                  </td>
 	                </tr>
 	              </table>

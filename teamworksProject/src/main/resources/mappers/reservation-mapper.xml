@@ -38,7 +38,8 @@
 	</select>
 	
 	<insert id="insertReservation" parameterType="Reservation">
-		
+		INSERT INTO RESERVATION
+		VALUES(SEQ_RESNO.NEXTVAL, #{empId}, #{roomNo}, #{reservationDate}, #{startTime}, #{endTime}, #{purpose}, '예정')
 	</insert>
 	
 

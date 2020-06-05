@@ -60,11 +60,6 @@ public class ReservationController {
 		  
 		  ReservationDto rdto = new ReservationDto(list, currentDate, dayOfWeek);
 		  
-			/*
-			 * mv.addObject("list", list); mv.addObject("rdto", rdto);
-			 * mv.setViewName("reservation/reservationList"); return mv;
-			 */
-		  
 		  response.setContentType("application/json; charset=utf-8");
 		  new Gson().toJson(rdto, response.getWriter());
 	}
@@ -100,14 +95,19 @@ public class ReservationController {
 	
 	// 예약 추가용
 	@RequestMapping("insert.re")
-	public void insertReservation(Reservation r) {
+	public String insertReservation(Reservation r, HttpSession session, Model model) {
 		
 		int result = reService.insertReservation(r);
 		
-		if(result > 0) { // 예약 추가 성공 -->
+		if(result > 0) { // 예약 추가 성공 --> 다시 예약리스트 페이지
 			
-		}else {	// 예약 추가 실패 -->
+			session.setAttribute("msg", "회의실이 예약되었습니다.");
+			return "redirect:showListView.re";
 			
+		}else {	// 예약 추가 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "실패");
+			return "common/errorPage";
 		}
 	}
 
