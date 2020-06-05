@@ -272,8 +272,9 @@
      	});
      	
      	function replyUpdate(replyNo){
-     		
-     		window.open("replyUpdateForm.bo?replyNo="+replyNo,"댓글 수정", "width=700px, height=120px");
+     		var popupX = (window.screen.width/2)-(700/2);
+     		var popupY = (window.screen.height/2)-(120/2);
+     		window.open("replyUpdateForm.bo?replyNo="+replyNo,"댓글 수정", "status=no,width=700px, height=120px, left="+popupX+",top="+popupY+",screenX="+popupX+",screenY="+popupY);
      		
      		// alert(replyNo);
      	}
