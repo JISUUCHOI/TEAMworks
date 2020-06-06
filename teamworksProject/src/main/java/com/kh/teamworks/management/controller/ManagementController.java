@@ -35,19 +35,14 @@ public class ManagementController {
 		HttpSession session = request.getSession();
 		Employee e = (Employee) session.getAttribute("loginUser");
 		
-		System.out.println(e.getEmpId());
 		String empId = e.getEmpId();
-		
 		CompanyInfo companyInfo = mgService.selectCompanyInfo(empId);
+		
 		int homNo = companyInfo.getHomNo();
-
 		CompanyBsns companyBsns = mgService.selectCompanyBsnsInfo(homNo);
 		
 		model.addAttribute("companyInfo", companyInfo);
 		model.addAttribute("companyBsns", companyBsns);
-		
-		System.out.println(companyInfo);
-		System.out.println(companyBsns);
 		
 		return "management/companyMainInfo";
 	}
