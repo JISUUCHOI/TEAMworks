@@ -4,24 +4,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="managementMapper">
 
-	<resultMap id="jobResultSet" type="Job">
+	<resultMap id="jobResultSet" type="MgJob">
 		<id column="job_code" property="jobCode" />
 		<result column="job_name" property="jobName" />
 	</resultMap>
 
-	<resultMap id="deptResultSet" type="Dept">
+	<resultMap id="deptResultSet" type="MgDept">
 		<id column="dept_code" property="deptCode" />
 		<result column="dept_name" property="deptName" />
 	</resultMap>
 
-	<resultMap id="empVacationResultSet" type="empVac">
+	<resultMap id="empVacationResultSet" type="MgVac">
 		<id column="vacation_year" property="vacationYear" />
 		<result column="emp_id" property="empId" />
 		<result column="vacation_total" property="vacationTotal" />
 		<result column="vacation_count" property="vacationCount" />
 	</resultMap>
 
-	<resultMap id="companyInfoResultSet" type="companyInfo">
+	<resultMap id="companyInfoResultSet" type="MgInfo">
 		<id column="company_no" property="companyNo" />
 		<result column="hom_no" property="homNo" />
 		<result column="company_name" property="companyName" />
@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="company_exno" property="companyExno" />
 	</resultMap>
 
-	<resultMap id="companyBsnsResultSet" type="companyBsns">
+	<resultMap id="companyBsnsResultSet" type="MgBsns">
 		<id column="hom_no" property="homNo" />
 		<result column="hom_name" property="homName" />
 		<result column="hom_head" property="homHead" />
@@ -43,14 +43,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="logo_path" property="logoPath" />
 	</resultMap>
 
-	<resultMap id="empProofResultSet" type="empProof">
+	<resultMap id="empProofResultSet" type="MgProof">
 		<id column="doc_no" property="docNo" />
 		<result column="pf_sq" property="pfSq" />
 		<result column="pf_purpose" property="pfPurpose" />
 		<result column="doc_status" property="docStatus" />
 	</resultMap>
 
-	<resultMap type="mgEmpResultSet" id="mgEmp">
+	<resultMap id="mgEmpResultSet" type="MgEmp">
 		<id column="emp_Id" property="empId" />
 		<result column="dept_code" property="deptCode" />
 		<result column="job_code" property="jobCode" />
@@ -72,8 +72,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="change_name" property="changeName" />
 		<result column="hom_no" property="homNo" />
 	</resultMap>
-<!-- 
-	<select id="selectJobCode" parameterType="MgJob" resultMap="Job">
+
+<!-- 	<select id="selectJobCode" parameterType="MgJob" resultMap="Job">
 		SELECT JOB_NAME
 		  FROM JOB
 	  ORDER BY JOB_CODE

@@ -39,6 +39,7 @@
 		<mapper resource="mappers/schedule-mapper.xml"/>
 		<mapper resource="mappers/document-mapper.xml"/>
 		<mapper resource="mappers/approve-mapper.xml"/>
+		<mapper resource="mappers/management-mapper.xml"/>
 	</mappers>
 
 </configuration>
