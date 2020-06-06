@@ -36,5 +36,12 @@ public class ReservationDao {
 		
 		return sqlSession.insert("reservationMapper.insertReservation", r);
 	}
+	
+	
+	// 예약 취소용
+	public int cancelReservation(SqlSessionTemplate sqlSession, int reservationNo) {
+		
+		return sqlSession.update("reservationMapper.cancelReservation", reservationNo);
+	}
 
 }

@@ -44,12 +44,12 @@
 </style>
 </head>
 <body>
-<%-- 	<c:if test="${ !empty msg }">
+ 	<c:if test="${ !empty msg }">
 		<script>
 			alert('${msg}');
 		</script>
 		<c:remove var="msg" scope="session"/>
-	</c:if> --%>
+	</c:if>
 	
 
 	<jsp:include page="../common/menubar.jsp"/>
@@ -124,7 +124,7 @@
 			
 			if(confirm('해당 회의실 예약을 취소하시겠습니까?')) {
 				
-				location.href="cancel.re?reservationNo=" + reservationNo;
+				location.href="cancel.re?reservationNo=" + reservationNo + "&empId=${loginUser.empId}";
 			}
 		}
     </script>

@@ -42,5 +42,11 @@
 		VALUES(SEQ_RESNO.NEXTVAL, #{empId}, #{roomNo}, #{reservationDate}, #{startTime}, #{endTime}, #{purpose}, '예정')
 	</insert>
 	
+	<update id="cancelReservation" parameterType="_int">
+		UPDATE RESERVATION
+		   SET RES_STATUS='취소'
+		 WHERE RES_NO=#{reservationNo}
+	</update>
+	
 
 </mapper>
