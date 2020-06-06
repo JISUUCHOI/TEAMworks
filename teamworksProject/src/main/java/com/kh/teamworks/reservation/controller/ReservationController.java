@@ -1,7 +1,6 @@
 package com.kh.teamworks.reservation.controller;
 
 import java.io.IOException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
+import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.reservation.model.service.ReservationService;
 import com.kh.teamworks.reservation.model.vo.Reservation;
 import com.kh.teamworks.reservation.model.vo.ReservationDto;
@@ -80,10 +81,14 @@ public class ReservationController {
 	
 	// 나의 예약 목록 조회용
 	@RequestMapping("myResList.re")
-	public ModelAndView selectMyReservationList(String empId, ModelAndView mv) {
+	public ModelAndView selectMyReservationList(String empId, int currentPage, ModelAndView mv) {
 		
-		ArrayList<Reservation> list = reService.selectMyReservationList(empId);
+		int listCount = reService.selectMyReservationListCount(empId);
 		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		ArrayList<Reservation> list = reService.selectMyReservationList(empId, pi);
+		
+		mv.addObject("pi", pi);
 		mv.addObject("list", list);
 		mv.setViewName("reservation/myReservation");
 		
@@ -102,7 +107,7 @@ public class ReservationController {
 		if(result > 0) { // 예약 추가 성공 --> 나의 예약 목록 페이지로
 			
 			session.setAttribute("msg", "회의실이 예약되었습니다.");
-			return "redirect:myResList.re?empId=" + r.getEmpId();
+			return "redirect:myResList.re?empId=" + r.getEmpId() + "&currentPage=1";
 			
 		}else {	// 예약 추가 실패 --> 에러페이지
 			
@@ -121,7 +126,7 @@ public class ReservationController {
 		if(result > 0) { // 예약 취소 성공 --> 다시 나의 예약 목록 페이지
 			
 			session.setAttribute("msg", "예약이 취소되었습니다.");
-			return "redirect:myResList.re?empId=" + empId;
+			return "redirect:myResList.re?empId=" + empId + "&currentPage=1";
 			
 		}else { // 예약 취소 실패 --> 에러페이지
 			
@@ -140,7 +145,7 @@ public class ReservationController {
 		if(result > 0) { // 예약 취소 성공 --> 다시 나의 예약 목록 페이지
 			
 			session.setAttribute("msg", "예약 상태가 완료 처리되었습니다.");
-			return "redirect:myResList.re?empId=" + empId;
+			return "redirect:myResList.re?empId=" + empId + "&currentPage=1";
 			
 		}else { // 예약 취소 실패 --> 에러페이지
 			

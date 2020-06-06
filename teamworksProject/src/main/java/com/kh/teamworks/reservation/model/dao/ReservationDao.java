@@ -2,9 +2,11 @@ package com.kh.teamworks.reservation.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.reservation.model.vo.Reservation;
 
 @Repository("reDao")
@@ -25,9 +27,12 @@ public class ReservationDao {
 	
 	
 	// 나의 예약 목록 조회용
-	public ArrayList<Reservation> selectMyReservationList(SqlSessionTemplate sqlSession, String empId) {
+	public ArrayList<Reservation> selectMyReservationList(SqlSessionTemplate sqlSession, String empId, PageInfo pi) {
 		
-		return (ArrayList)sqlSession.selectList("reservationMapper.selectMyReservationList", empId);
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("reservationMapper.selectMyReservationList", empId, rowBounds);
 	}
 	
 	
@@ -49,6 +54,13 @@ public class ReservationDao {
 	public int completeReservation(SqlSessionTemplate sqlSession, int reservationNo) {
 		
 		return sqlSession.update("reservationMapper.completeReservation", reservationNo);
+	}
+	
+	
+	// 페이징바에 쓸 나의 예약 갯수 조회용
+	public int selectMyReservationListCount(SqlSessionTemplate sqlSession, String empId) {
+		
+		return sqlSession.selectOne("reservationMapper.selectMyReservationListCount", empId);
 	}
 
 }

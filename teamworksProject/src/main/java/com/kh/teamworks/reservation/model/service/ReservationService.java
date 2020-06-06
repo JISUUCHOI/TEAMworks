@@ -2,6 +2,7 @@ package com.kh.teamworks.reservation.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.reservation.model.vo.Reservation;
 
 public interface ReservationService {
@@ -16,13 +17,16 @@ public interface ReservationService {
 	int insertReservation(Reservation r);
 	
 	// 나의 예약 목록 조회용 서비스
-	ArrayList<Reservation> selectMyReservationList(String empId);
+	ArrayList<Reservation> selectMyReservationList(String empId, PageInfo pi);
 	
 	// 예약 취소용 서비스
 	int cancelReservation(int reservationNo);
 	
 	// 예약 사용 완료 처리용 서비스
 	int completeReservation(int reservationNo);
+	
+	// 페이징바에 쓸 나의 예약 갯수 조회용 서비스
+	int selectMyReservationListCount(String empId);
 
 
 }

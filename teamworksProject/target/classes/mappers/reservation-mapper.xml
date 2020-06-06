@@ -35,6 +35,7 @@
 		SELECT *
 		  FROM RESERVATION
 		 WHERE EMP_ID=#{empId}
+		 ORDER BY RES_DATE DESC, RES_END_TIME DESC
 	</select>
 	
 	<insert id="insertReservation" parameterType="Reservation">
@@ -53,5 +54,11 @@
 		   SET RES_STATUS='완료'
 	 	 WHERE RES_NO=#{reservationNo}
 	</update>
+	
+	<select id="selectMyReservationListCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		  FROM RESERVATION
+		 WHERE EMP_ID=#{empId}
+	</select>
 
 </mapper>
