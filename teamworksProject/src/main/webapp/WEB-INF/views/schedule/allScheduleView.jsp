@@ -83,6 +83,14 @@
 </style>
 </head>
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			alert('${msg}');
+		</script>
+		<c:remove var="msg" scope="session"/>
+	</c:if>
+
+
 	<script>
 	    var events = [];
 	    <c:forEach var="e" items="${events}">
@@ -215,7 +223,8 @@
 	            			$("#postForm").attr("action", "updateSchForm.sc");
 	            			//$("#updateFormArea").css("display", "block");
 	            		}else {	// 삭제하기 클릭 시
-	            			$("#postForm").attr("action", "deleteSch.sc");
+	            			
+		            		$("#postForm").attr("action", "deleteSch.sc");
 	            		}
 	            		
 	            		$("#postForm").submit();

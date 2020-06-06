@@ -131,7 +131,7 @@ public class ScheduleController {
 			
 		}else {	// 일정 추가 실패 --> 에러페이지
 			
-			model.addAttribute("msg", "실패");
+			model.addAttribute("msg", "일정 추가에 실패했습니다. 다시 시도해주세요.");
 			return "common/errorPage";
 		}
 	}
@@ -170,7 +170,7 @@ public class ScheduleController {
 			
 		}else { // 일정 수정 실패 --> 에러페이지
 			
-			model.addAttribute("msg", "실패");
+			model.addAttribute("msg", "일정 수정에 실패했습니다. 다시 시도해주세요.");
 			return "common/errorPage";
 		}
 		
@@ -180,17 +180,18 @@ public class ScheduleController {
 	
 	// 일정 삭제용
 	@RequestMapping("deleteSch.sc")
-	public String deleteSch(int schNo, String empId, HttpServletRequest request, Model model) {
+	public String deleteSch(int schNo, String empId, HttpSession session, Model model) {
 		
 		int result = scService.deleteSch(schNo);
 		
 		if(result > 0) { // 일정 삭제 성공 --> 다시 전체일정 페이지
 			
+			session.setAttribute("msg", "일정이 삭제되었습니다.");
 			return "redirect:selectAllSch.sc?empId=" + empId;
 			
 		}else {	// 일정 삭제 실패 --> 에러페이지
 			
-			model.addAttribute("msg", "실패");
+			model.addAttribute("msg", "일정 삭제에 실패했습니다. 다시 시도해주세요.");
 			return "common/errorPage"; 
 		}
 	}
