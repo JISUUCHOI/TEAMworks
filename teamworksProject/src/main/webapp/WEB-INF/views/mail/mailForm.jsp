@@ -29,6 +29,8 @@
     </style>
 </head>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
+<jsp:include page="sidebarMail.jsp"/>
  	<div class="outer" align="center">
         <div class="inner">
             <div class="row">
