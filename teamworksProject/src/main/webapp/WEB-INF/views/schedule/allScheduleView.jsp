@@ -159,10 +159,9 @@
 	
 	<br><br>
 
-	<div style="width:1500px; float:left;">
+	<div style="width:1250px; float:left;">
 		<h1 style="margin-left:180px;">전체 일정</h1>
 		<div id='calendar'></div>
-		<div id="rightArea"></div>
 	</div>
 
 	

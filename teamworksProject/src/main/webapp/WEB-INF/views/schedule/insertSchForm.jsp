@@ -35,14 +35,14 @@
 	    max-width: 900px;
 	    margin: 0 auto;
 	    float:left;
-	    margin-left:180px;
+	    margin-left:50px;
 	}
   
 	#rightArea	{
-		float:right;
+		float:left;
+		margin-left:30px;
 		width:400px;
 		height:700px;
-		/* border:1px solid red; */
 	}
 	
 	#insertFormTable, #updateFormTable {
@@ -128,10 +128,12 @@
 	
 	<br><br>
 
-	<div style="width:1500px; float:left;">
-		<div id='calendar'></div>
+	<div style="width:1250px; float:left;">
+		<div style="width:800px;">
+			<div id='calendar'></div>
+		</div>
 		<div id="rightArea">
-			<div id="insertFormArea" style="padding-top:70px;">	<!-- 일정 추가 폼 -->
+			<div id="insertFormArea">	<!-- 일정 추가 폼 -->
 				<h3>일정 추가</h3>
 				<form id="insertSchForm" action="insertSch.sc" method="post">
 					<table id="insertFormTable">

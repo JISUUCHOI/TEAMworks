@@ -35,14 +35,14 @@
 	    max-width: 900px;
 	    margin: 0 auto;
 	    float:left;
-	    margin-left:180px;
+	    margin-left:50px;
 	}
   
 	#rightArea	{
-		float:right;
+		float:left;
+		margin-left:30px;
 		width:400px;
 		height:700px;
-		/* border:1px solid red; */
 	}
 	
 	#insertFormTable, #updateFormTable {
@@ -51,7 +51,7 @@
 		font-size:17px;
 		table-layout:fixed;
 	}
-	
+
   /* 모달 관련 style */
 	.modal-content {
 	  	width:450px;
@@ -76,7 +76,6 @@
 	  	text-overflow: clip;
 	}
 	/* 모달 관련 style 끝 */
-
 </style>
 </head>
 <body>
@@ -127,10 +126,12 @@
 	
 	<br><br>
 
-	<div style="width:1500px; float:left;">
-		<div id='calendar'></div>
+	<div style="width:1250px; float:left;">
+		<div style="width:800px;">
+			<div id='calendar'></div>
+		</div>
 		<div id="rightArea">
-			<div id="updateFormArea" style="padding-top:70px;">	<!-- 일정 수정 폼 -->
+			<div id="updateFormArea">	<!-- 일정 수정 폼 -->
 				<h3>일정 수정</h3>
 				<form id="updateSchForm" action="updateSch.sc" method="post">
 					<table id="updateFormTable">
