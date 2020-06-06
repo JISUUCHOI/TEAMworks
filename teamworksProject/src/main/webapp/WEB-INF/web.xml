@@ -40,6 +40,7 @@
 		<url-pattern>*.css</url-pattern>
 		<url-pattern>*.js</url-pattern>
 		<url-pattern>*.mg</url-pattern>
+		<url-pattern>*.ma</url-pattern>
 		
 	</servlet-mapping>
 	

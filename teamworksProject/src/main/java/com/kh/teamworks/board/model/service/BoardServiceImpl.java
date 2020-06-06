@@ -135,6 +135,18 @@ public class BoardServiceImpl implements BoardService {
 		return bDao.deleteReply(sqlSession, r);
 	}
 
+	@Override
+	public ArrayList<BoardDTO> selectMainBoard(String empId) {
+		
+		return bDao.selectMainBoard(sqlSession, empId);
+	}
+
+	@Override
+	public ArrayList<BoardDTO> selectMainNotice(String empId) {
+		// TODO Auto-generated method stub
+		return bDao.selectMainNotice(sqlSession, empId);
+	}
+
 	
 
 	

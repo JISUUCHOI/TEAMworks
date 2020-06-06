@@ -97,20 +97,42 @@
                     <br>
                     <span><b>출근시간</b></span> &nbsp;
                  
-                    <span style="color:rgb(7, 53, 90)"id="atStart"></span><br>
+                    <span style="color:rgb(7, 53, 90)"id="atStart">${att.startTime }</span><br>
                    
                     <span><b>퇴근시간</b></span> &nbsp;
-                    <span style="color:rgb(7, 53, 90)" id="atEnd"></span>
+                    <span style="color:rgb(7, 53, 90)" id="atEnd">${att.endTime }</span>
                     <div class="caption">
                         <button class="btn btn-info" id="startTime">출근</button> &nbsp; &nbsp;
                         <button class="btn btn-info" id="endTime">퇴근</button>
+                        <a href="QRAtt.em" class="btn btn-info" id="QR" style="display:none">QRAtt</a>
+                        <a href="QRLogin.em" class="btn btn-info" style="display:none">QRView</a>
                     </div>
                 </div>
             </div>
         </div>
          <script>
          	//출근
+         	
         	$(function(){
+        		$.ajax({
+        			url:"selectAtt.em",
+        			data:{empId:"${loginUser.empId}"},
+        			type:"post",
+        			success:function(att){
+        				console.log(att);
+        				if(att == null){
+        					
+        				}else if(att.startTime != null ){
+        					$("#startTime").attr('disabled',true);
+        					
+        				}
+        				if(att.endTime != null){
+        					$("#endTime").attr('disabled',true);
+        				}
+        			},errorPage:function(){
+        				console.log("조회에러");
+        			}
+        		});
         		selectMyAttendance()
         		$("#startTime").click(function(){
         			$.ajax({

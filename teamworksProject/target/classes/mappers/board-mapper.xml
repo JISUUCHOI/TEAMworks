@@ -206,5 +206,26 @@
 		   set status='N'
 		 where reply_no=#{replyNo}
 	</update>
+	
+	<select id="selectMainBoard" parameterType="BoardDto" resultMap="boardDTOResultSet">
+		<![CDATA[
+		SELECT *
+		  FROM (select *
+		       from V_BOARD_LIST
+			   WHERE BD_CATEGORY=2 AND BD_STATUS='Y'
+			   ORDER BY BOARD_SQ DESC )
+		 WHERE ROWNUM< 4
+		 ]]>
+	</select>
+	<select id="selectMainNotice" parameterType="BoardDto" resultMap="boardDTOResultSet">
+		<![CDATA[
+		SELECT *
+		  FROM (select *
+		       from V_BOARD_LIST
+			   WHERE BD_CATEGORY=1 AND BD_STATUS='Y'
+			   ORDER BY BOARD_SQ DESC )
+		 WHERE ROWNUM< 4
+		 ]]>
+	</select>
 
 </mapper>

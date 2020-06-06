@@ -1,7 +1,6 @@
 package com.kh.teamworks.reservation.controller;
 
 import java.io.IOException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -22,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
+import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.reservation.model.service.ReservationService;
 import com.kh.teamworks.reservation.model.vo.Reservation;
 import com.kh.teamworks.reservation.model.vo.ReservationDto;
@@ -78,6 +79,25 @@ public class ReservationController {
 	}
 	
 	
+	// 나의 예약 목록 조회용
+	@RequestMapping("myResList.re")
+	public ModelAndView selectMyReservationList(String empId, int currentPage, ModelAndView mv) {
+		
+		int listCount = reService.selectMyReservationListCount(empId);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 5);
+		ArrayList<Reservation> list = reService.selectMyReservationList(empId, pi);
+		
+		mv.addObject("pi", pi);
+		mv.addObject("list", list);
+		mv.setViewName("reservation/myReservation");
+		
+		//System.out.println(list);
+		
+		return mv;
+	}
+	
+	
 	// 예약 추가용
 	@RequestMapping("insert.re")
 	public String insertReservation(Reservation r, HttpSession session, Model model) {
@@ -87,27 +107,51 @@ public class ReservationController {
 		if(result > 0) { // 예약 추가 성공 --> 나의 예약 목록 페이지로
 			
 			session.setAttribute("msg", "회의실이 예약되었습니다.");
-			return "redirect:myResList.re?empId=" + r.getEmpId();
+			return "redirect:myResList.re?empId=" + r.getEmpId() + "&currentPage=1";
 			
 		}else {	// 예약 추가 실패 --> 에러페이지
 			
-			model.addAttribute("msg", "실패");
+			model.addAttribute("msg", "예약 추가에 실패했습니다. 다시 시도해주세요.");
 			return "common/errorPage";
 		}
 	}
-
 	
-	@RequestMapping("myResList.re")
-	public ModelAndView selectMyReservationList(String empId, ModelAndView mv) {
-
-		ArrayList<Reservation> list = reService.selectMyReservationList(empId);
-
-		mv.addObject("list", list);
-		mv.setViewName("reservation/myReservation");
+	
+	// 예약 취소용
+	@RequestMapping("cancel.re")
+	public String cancelReservation(String empId, int reservationNo, HttpSession session, Model model) {
 		
-		//System.out.println(list);
-
-		return mv;
+		int result = reService.cancelReservation(reservationNo);
+		
+		if(result > 0) { // 예약 취소 성공 --> 다시 나의 예약 목록 페이지
+			
+			session.setAttribute("msg", "예약이 취소되었습니다.");
+			return "redirect:myResList.re?empId=" + empId + "&currentPage=1";
+			
+		}else { // 예약 취소 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "예약에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	// 예약 사용 완료 처리용
+	@RequestMapping("complete.re")
+	public String completeReservation(String empId, int reservationNo, HttpSession session, Model model) {
+		
+		int result = reService.completeReservation(reservationNo);
+		
+		if(result > 0) { // 예약 취소 성공 --> 다시 나의 예약 목록 페이지
+			
+			session.setAttribute("msg", "예약 상태가 완료 처리되었습니다.");
+			return "redirect:myResList.re?empId=" + empId + "&currentPage=1";
+			
+		}else { // 예약 취소 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "예약 상태 변경에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
 	}
 	
 	

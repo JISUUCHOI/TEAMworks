@@ -44,4 +44,7 @@ public interface BoardService {
 	BoardReplyDTO selectReply(BoardReply r);
 	int updateReply(BoardReply r);
 	int deleteReply(BoardReply r);
+	
+	ArrayList<BoardDTO> selectMainBoard(String empId);
+	ArrayList<BoardDTO> selectMainNotice(String empId);
 }

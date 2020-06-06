@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.reservation.model.dao.ReservationDao;
 import com.kh.teamworks.reservation.model.vo.Reservation;
 
@@ -36,9 +37,9 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	// 나의 예약 목록 조회용 서비스
 	@Override
-	public ArrayList<Reservation> selectMyReservationList(String empId) {
+	public ArrayList<Reservation> selectMyReservationList(String empId, PageInfo pi) {
 
-		return reDao.selectMyReservationList(sqlSession, empId);
+		return reDao.selectMyReservationList(sqlSession, empId, pi);
 	}
 	
 	
@@ -54,7 +55,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public int cancelReservation(int reservationNo) {
 
-		return 0;
+		return reDao.cancelReservation(sqlSession, reservationNo);
 	}
 	
 	
@@ -62,7 +63,15 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public int completeReservation(int reservationNo) {
 
-		return 0;
+		return reDao.completeReservation(sqlSession, reservationNo);
+	}
+
+
+	// 페이징바에 쓸 나의 예약 갯수 조회용 서비스
+	@Override
+	public int selectMyReservationListCount(String empId) {
+
+		return reDao.selectMyReservationListCount(sqlSession, empId);
 	}
 	
 	

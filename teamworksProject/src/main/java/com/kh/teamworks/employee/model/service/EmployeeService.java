@@ -30,6 +30,13 @@ public interface EmployeeService {
 	int attUpdate(Attendance att);
 
 
+
+	Attendance selectAtt(String empId);
+
+	int QRattInsert(String empId);
+
+	
+	
 	
 
 }

@@ -70,7 +70,7 @@
             
             <div class="category">예약</div>
             <div class="subCate" id="reservationList"><a href="showListView.re">예약 현황</a></div>
-            <div class="subCate" id="myReservation"><a href="myResList.re?empId=${loginUser.empId }">나의 예약 목록</a></div>
+            <div class="subCate" id="myReservation"><a href="myResList.re?empId=${loginUser.empId }&currentPage=1">나의 예약 목록</a></div>
         </div>
     </div>
 

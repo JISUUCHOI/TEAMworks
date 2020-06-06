@@ -41,15 +41,17 @@
         transition-duration: 0.4s;
         cursor: pointer;
     } 
+    
+    #pagingArea{width:fit-content; margin:auto; color:rgb(7, 53, 90);}
 </style>
 </head>
 <body>
-<%-- 	<c:if test="${ !empty msg }">
+ 	<c:if test="${ !empty msg }">
 		<script>
 			alert('${msg}');
 		</script>
 		<c:remove var="msg" scope="session"/>
-	</c:if> --%>
+	</c:if>
 	
 
 	<jsp:include page="../common/menubar.jsp"/>
@@ -59,6 +61,9 @@
 
 	<div style="width:1250px; float:left;">
 	    <h2 style="margin-left:130px; margin-bottom:20px;">나의 예약 목록</h2>
+	    <p style="color:red; font-size:14px; text-align:right; margin-right:130px;">
+	    	* 회의실 사용이 완료된 경우 완료 버튼을 눌러 예약을 상태를 변경해 주세요.
+	    </p>
 	    <table id="listTable" align="center">
 	        <tr>
 	            <th width="16%">분류</th>
@@ -83,40 +88,84 @@
 						            <td>${ r.status }</td>
 						            <td>
 						            	<c:if test="${ r.status eq '예정' }">
-							                <button id="cancelBtn" class="btn btn-danger" onclick="cancel();">취소</button>
+							                <button id="cancelBtn" class="btn btn-danger" onclick="cancel(${r.reservationNo});">취소</button>
 						                </c:if>
 						            </td>
 						            <td>
 						            	<c:if test="${ r.status eq '예정' }">
-						            	    <button id="confirmBtn" class="btn btn-secondary" onclick="confirm();">완료</button>
+						            	    <button id="confirmBtn" class="btn btn-secondary" onclick="complete(${r.reservationNo});">완료</button>
 						            	</c:if>
 						            </td>
 						        </tr>
 	        		</c:forEach>
 	        	</c:otherwise>
 	        </c:choose>
-	<!--         <tr>
-	            <td>회의실1</td>
-	            <td>2020-05-08 10:00-11:00</td>
-	            <td>팀 회의</td>
-	            <td>예정</td>
-	            <td>
-	                <button id="cancelBtn" onclick="cancel();">취소</button>
-	            </td>
-	            <td>
-	                <button id="confirmBtn" onclick="confirm();">완료</button>
-	            </td>
-	        </tr> -->
 	    </table>
+	    
+	    <br><br>
+	    
+	    <!-- 페이징바 -->
+	    <div id="pagingArea">
+	    	<ul class="pagination">
+	    		<c:choose>
+	    			<c:when test="${ pi.currentPage eq 1 }">
+	    				<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+	    			</c:when>
+	    			<c:otherwise>
+	    				<li class="page-item"><a class="page-link" href="myResList.re?empId=${loginUser.empId}&currentPage=${pi.currentPage-1}">Previous</a></li>
+	    			</c:otherwise>
+	    		</c:choose>
+	    		
+	    		<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+	    			<c:choose>
+	    				<c:when test="${ p eq pi.currentPage }">
+	    					<li class="page-item disabled"><a class="page-link" href="#">${ p }</a></li>
+	    				</c:when>
+	    				<c:otherwise>
+	    					<li class="page-item"><a class="page-link" href="myResList.re?empId=${loginUser.empId}&currentPage=${p}">${ p }</a></li>
+	    				</c:otherwise>
+	    			</c:choose>
+	    		</c:forEach>
+	    		
+	    		<c:choose>
+	    			<c:when test="${ pi.currentPage eq pi.maxPage }">
+			    		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+	    			</c:when>
+	    			<c:otherwise>
+	    				<li class="page-item"><a class="page-link" href="myResList.re?empId=${loginUser.empId}&currentPage=${pi.currentPage+1}">Next</a></li>
+	    			</c:otherwise>
+	    		</c:choose>
+	    	</ul>
 	    </div>
+	    
+	</div>
 
     <script>
+    	// 메뉴바 & 사이드바 css
 		$(function(){
 			$("#book>a").css("color", "dimgray");
 			$("#book").css("border-bottom-style", "groove");
 			$("#myReservation>a").css("color", "deepskyblue");
 		});	
 
+		
+		// 취소 버튼 클릭 시 예약 취소
+		function cancel(reservationNo) {
+			
+			if(confirm('해당 회의실 예약을 취소하시겠습니까?')) {
+				
+				location.href="cancel.re?reservationNo=" + reservationNo + "&empId=${loginUser.empId}";
+			}
+		}
+		
+		// 완료 버튼 클릭 시 예약 완료
+		function complete(reservationNo) {
+			
+			if(confirm('해당 예약을 완료 처리하시겠습니까?')) {
+				
+				location.href="complete.re?reservationNo=" + reservationNo + "&empId=${loginUser.empId}";
+			}
+		}
     </script>
 
 
