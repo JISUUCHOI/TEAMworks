@@ -220,7 +220,7 @@
           
            <!-- 공지 사항 -->
            <div>
-               <span style="font-weight: bold;;">공지사항</span><a href="#" style="float: right;">+more</a>
+               <span style="font-weight: bold;;">공지사항</span><a href="list.bo?currentPage=1&cat=1" style="float: right;">+more</a>
                <br>
                <table id="noticeList"  class="table table-bordered table-hover" align="center">
                    <thead>
@@ -243,7 +243,7 @@
            </div>
            <!-- 휴가 신청 내역 -->
            <div>
-               <span style="font-weight: bold;">자유게시판</span><a href="#" style="float: right;">+more</a>
+               <span style="font-weight: bold;">자유게시판</span><a href="list.bo?currentPage=1&cat=2" style="float: right;">+more</a>
                <br>
                <table id="boardList" class="table table-bordered table-hover" align="center">
                    <thead>
@@ -262,6 +262,7 @@
 	                     
                    </tbody>
                </table>
+               
 
            </div>
 
@@ -271,6 +272,7 @@
 
    </div>
 	<script type="text/javascript">
+		
 		$(function(){
 			$.ajax({
 				url:"mainlist.bo",
@@ -296,17 +298,22 @@
 				                     }
 				                     
 			                    + "</tr>";
+			                    
 					}
 					console.log(value);
 					$("#boardList tbody").html(value);
+					$("#boardList tbody tr").click(function(){
+		    			
+		    			location.href="detail.bo?bno="+ $(this).children().eq(0).html();
+		    			
+		    			});
 					
 					
 				},errorPage:function(){
 					console.log("메인페이지 게시판 조회")
 				}
 			});
-		});
-		$(function(){
+			// 공지게시판 불러오기
 			$.ajax({
 				url:"mainnotice.bo",
 				data:{empId:"${loginUser.empId}"},
@@ -323,24 +330,31 @@
 				                     "<td>"+list[i].createDate+"</td>"+
 				                     "<td>"+list[i].count+"</td>"+
 				                     "<td>"+list[i].like+"</td>"
-				                     if(list[i].boardFiles != null ){
-				                    	 + "<td>"+list[i].boardFiles+ "</td>"
-				                     }else{
+				                   + "<td>"+list[i].boardFiles+ "</td>"
+				                   
 				                    	
-				                    	+ "<td>"+"</td>"
-				                     }
-				                     
+				                 
 			                    + "</tr>";
 					}
 					console.log(value);
 					$("#noticeList tbody").html(value);
+					$("#noticeList tbody tr").click(function(){
+            			
+            			location.href="detail.bo?bno="+ $(this).children().eq(0).html();
+            			
+            		});
 					
 					
 				},errorPage:function(){
 					console.log("메인페이지 게시판 조회")
 				}
 			});
+			
+			
+	
 		});
+		
+			
 	</script>
 
 	

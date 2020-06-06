@@ -119,15 +119,15 @@
         			data:{empId:"${loginUser.empId}"},
         			type:"post",
         			success:function(att){
+        				console.log(att);
         				if(att == null){
         					
         				}else if(att.startTime != null ){
         					$("#startTime").attr('disabled',true);
         					
-        				}else if(att.endTime != null){
+        				}
+        				if(att.endTime != null){
         					$("#endTime").attr('disabled',true);
-        				}else{
-        					
         				}
         			},errorPage:function(){
         				console.log("조회에러");
