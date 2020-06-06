@@ -62,7 +62,7 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public int completeReservation(int reservationNo) {
 
-		return 0;
+		return reDao.completeReservation(sqlSession, reservationNo);
 	}
 	
 	

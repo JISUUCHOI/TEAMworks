@@ -43,5 +43,12 @@ public class ReservationDao {
 		
 		return sqlSession.update("reservationMapper.cancelReservation", reservationNo);
 	}
+	
+	
+	// 예약 사용 완료 처리용
+	public int completeReservation(SqlSessionTemplate sqlSession, int reservationNo) {
+		
+		return sqlSession.update("reservationMapper.completeReservation", reservationNo);
+	}
 
 }

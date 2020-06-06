@@ -125,7 +125,26 @@ public class ReservationController {
 			
 		}else { // 예약 취소 실패 --> 에러페이지
 			
-			model.addAttribute("msg", "예약 취소에 실패했습니다. 다시 시도해주세요.");
+			model.addAttribute("msg", "예약에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	// 예약 사용 완료 처리용
+	@RequestMapping("complete.re")
+	public String completeReservation(String empId, int reservationNo, HttpSession session, Model model) {
+		
+		int result = reService.completeReservation(reservationNo);
+		
+		if(result > 0) { // 예약 취소 성공 --> 다시 나의 예약 목록 페이지
+			
+			session.setAttribute("msg", "예약 상태가 완료 처리되었습니다.");
+			return "redirect:myResList.re?empId=" + empId;
+			
+		}else { // 예약 취소 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "예약 상태 변경에 실패했습니다. 다시 시도해주세요.");
 			return "common/errorPage";
 		}
 	}

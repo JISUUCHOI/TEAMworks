@@ -48,5 +48,10 @@
 		 WHERE RES_NO=#{reservationNo}
 	</update>
 	
+	<update id="completeReservation" parameterType="_int">
+		UPDATE RESERVATION
+		   SET RES_STATUS='완료'
+	 	 WHERE RES_NO=#{reservationNo}
+	</update>
 
 </mapper>

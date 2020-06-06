@@ -59,6 +59,9 @@
 
 	<div style="width:1250px; float:left;">
 	    <h2 style="margin-left:130px; margin-bottom:20px;">나의 예약 목록</h2>
+	    <p style="color:red; font-size:14px; text-align:right; margin-right:130px;">
+	    	* 회의실 사용이 완료된 경우 완료 버튼을 눌러 예약을 상태를 변경해 주세요.
+	    </p>
 	    <table id="listTable" align="center">
 	        <tr>
 	            <th width="16%">분류</th>
@@ -88,7 +91,7 @@
 						            </td>
 						            <td>
 						            	<c:if test="${ r.status eq '예정' }">
-						            	    <button id="confirmBtn" class="btn btn-secondary" onclick="confirm(${r.reservationNo});">완료</button>
+						            	    <button id="confirmBtn" class="btn btn-secondary" onclick="complete(${r.reservationNo});">완료</button>
 						            	</c:if>
 						            </td>
 						        </tr>
@@ -125,6 +128,15 @@
 			if(confirm('해당 회의실 예약을 취소하시겠습니까?')) {
 				
 				location.href="cancel.re?reservationNo=" + reservationNo + "&empId=${loginUser.empId}";
+			}
+		}
+		
+		// 완료 버튼 클릭 시 예약 완료
+		function complete(reservationNo) {
+			
+			if(confirm('해당 예약을 완료 처리하시겠습니까?')) {
+				
+				location.href="complete.re?reservationNo=" + reservationNo + "&empId=${loginUser.empId}";
 			}
 		}
     </script>
