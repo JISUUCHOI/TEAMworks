@@ -100,22 +100,11 @@
 	        		</c:forEach>
 	        	</c:otherwise>
 	        </c:choose>
-	<!--         <tr>
-	            <td>회의실1</td>
-	            <td>2020-05-08 10:00-11:00</td>
-	            <td>팀 회의</td>
-	            <td>예정</td>
-	            <td>
-	                <button id="cancelBtn" onclick="cancel();">취소</button>
-	            </td>
-	            <td>
-	                <button id="confirmBtn" onclick="confirm();">완료</button>
-	            </td>
-	        </tr> -->
 	    </table>
 	    
 	    <br><br>
 	    
+	    <!-- 페이징바 -->
 	    <div id="pagingArea">
 	    	<ul class="pagination">
 	    		<c:choose>

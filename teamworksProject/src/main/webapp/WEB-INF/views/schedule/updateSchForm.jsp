@@ -89,13 +89,30 @@
 	<script>
 	    var events = [];
 	    <c:forEach var="e" items="${events}">
-    		events.push({
-    			id:'${e.schNo}',
-	    		title:'${e.schTitle}',
-	    		start:'${e.startDate}',
-	    		end:'${e.endDate}',
-	    		constraint:'${e.schCategory}'
-    		});
+	    	<c:choose>
+	    		<c:when test="${e.schCategory eq '회사'}">
+		    		events.push({
+		    			id:'${e.schNo}',
+			    		title:'${e.schTitle}',
+			    		start:'${e.startDate}',
+			    		end:'${e.endDate}',
+			    		constraint:'${e.schCategory}',
+			    		color:'#6c757d',
+			    		textColor:'#ffffff'
+		    		});
+	    		</c:when>
+	    		<c:otherwise>
+		    		events.push({
+		    			id:'${e.schNo}',
+			    		title:'${e.schTitle}',
+			    		start:'${e.startDate}',
+			    		end:'${e.endDate}',
+			    		constraint:'${e.schCategory}',
+			    		color:'#0090ff',
+			    		textColor:'#ffffff'
+		    		});
+	    		</c:otherwise>
+	    	</c:choose>
 	    </c:forEach>
 	    
 		document.addEventListener('DOMContentLoaded', function() {

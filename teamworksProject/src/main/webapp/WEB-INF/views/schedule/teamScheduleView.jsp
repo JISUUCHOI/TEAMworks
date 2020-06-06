@@ -57,7 +57,7 @@
 	
   /* 모달 관련 style */
 	.modal-content {
-	  	width:450px;
+	  	width:350px;
 	  	height:500px;
 	}
 	#detailTable {
@@ -80,19 +80,57 @@
 	}
 	/* 모달 관련 style 끝 */
 
+	#insertBtn {
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        padding:4px 8px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+        margin-top:15px;
+        background-color:rgb(7, 53, 90);
+        color:white; 
+    } 
+
 </style>
 </head>
 <body>
+	<c:if test="${ !empty msg }">
+		<script>
+			alert('${msg}');
+		</script>
+		<c:remove var="msg" scope="session"/>
+	</c:if>
+
+
 	<script>
 	    var events = [];
 	    <c:forEach var="e" items="${events}">
-    		events.push({
-    			id:'${e.schNo}',
-	    		title:'${e.schTitle}',
-	    		start:'${e.startDate}',
-	    		end:'${e.endDate}',
-	    		constraint:'${e.schCategory}'
-    		});
+	    	<c:choose>
+	    		<c:when test="${e.schCategory eq '회사'}">
+		    		events.push({
+		    			id:'${e.schNo}',
+			    		title:'${e.schTitle}',
+			    		start:'${e.startDate}',
+			    		end:'${e.endDate}',
+			    		constraint:'${e.schCategory}',
+			    		color:'#6c757d',
+			    		textColor:'#ffffff'
+		    		});
+	    		</c:when>
+	    		<c:otherwise>
+		    		events.push({
+		    			id:'${e.schNo}',
+			    		title:'${e.schTitle}',
+			    		start:'${e.startDate}',
+			    		end:'${e.endDate}',
+			    		constraint:'${e.schCategory}',
+			    		color:'#0090ff',
+			    		textColor:'#ffffff'
+		    		});
+	    		</c:otherwise>
+	    	</c:choose>
 	    </c:forEach>
 	    
 		document.addEventListener('DOMContentLoaded', function() {
@@ -160,8 +198,15 @@
 	<br><br>
 
 	<div style="width:1250px; float:left;">
-		<h1 style="margin-left:180px;">회사 일정</h1>
-		<div id='calendar'></div>
+		<div style="width:1000px;">
+			<div style="float:left;">
+				<h1 style="margin-left:180px;">회사 일정</h1>
+			</div>
+			<div style="float:right;">
+				<button id="insertBtn" class="btn" onclick="location.href='insertSchForm.sc?empId=${loginUser.empId}';">일정 등록</button>
+			</div>
+			<div id='calendar'></div>
+		</div>
 	</div>
 
 	
