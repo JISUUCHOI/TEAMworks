@@ -3,5 +3,25 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="mailMapper">
-  
+  	
+  	<resultMap type="MailInfo" id="mailInfoResultSet">
+  		<id column="em_info_no" property="emailInfoNo"/>
+  		<result column="em_imap" property="emIimap"/>
+  		<result column="em_imap_port" property="emIimapport"/>
+  		<result column="em_smtp" property="emIsmtp"/>
+  		<result column="em_smtp_port" property="emIsmtpport"/>
+  		<result column="email_user" property="emIuserId"/>
+  		<result column="email_pwd" property="emIuserPwd"/>
+  		<result column="entry_date" property="entryDate"/>
+  		<result column="emp_id" property="empId"/>
+  		<result column="emp_name" property="empName"/>
+  		<result column="status" property="status"/>
+  	</resultMap>
+  	
+  	<select id="selectMailInfo" parameterType="string" resultMap="mailInfoResultSet">
+		select em_info_no, e.emp_id, emp_name, em_imap, em_imap_port, em_smtp, em_smtp_port, email_user, email_pwd, entry_date, e.status 
+		  from email_info e
+		  join employee l on (e.emp_id=l.emp_id)
+		 where e.status='Y' and e.emp_id= #{empId}
+  	</select>
 </mapper>

@@ -20,6 +20,8 @@ public class MailInfo {
 	private String emIsmtpport;
 	private String emIuserId;
 	private String emIuserPwd;
+	private String entryDate;
 	private String empId;
 	private String empName;
+	private String status;
 }

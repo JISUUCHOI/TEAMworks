@@ -30,8 +30,11 @@
     </style>
 </head>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
+<jsp:include page="sidebarMail.jsp"/>
+
  	<div class="outer" align="center">
-        <div class="inner">
+        <div class="inner" >
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12 text-left">

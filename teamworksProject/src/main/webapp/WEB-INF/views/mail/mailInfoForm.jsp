@@ -29,6 +29,8 @@
 
 </head>
 <body>
+<jsp:include page="../common/menubar.jsp"/>
+<jsp:include page="sidebarMail.jsp"/>
   <div class="outer" align="center">
         <div class="inner" align="left">
             <div class="row">
@@ -51,46 +53,52 @@
 					<div class="panel panel-default">
 	                    <div class="panel-body">
 	                    	<div class="row form-group">
-	                    		<label class="col-lg-6">연동할 메일서버 정보를 입력하세요.( Google / NAVER 사용 권장 ) <br/> 
+	                    		<label class="col-lg-12">연동할 메일서버 정보를 입력하세요.( Google / NAVER 사용 권장 ) <br/> 
 	                    		입력한 정보를 저장하시면, 해당 서버에서 메일을 가져오는데 시간이 걸릴 수 있습니다.</label>
 	                            
 	                        </div>  
 	                    	<div class="row form-group"> 
-	                            <label class="col-lg-2">IMAP 서버주소</label>
-	                            <div class="col-lg-4">
+	                            <label class="col-lg-3">IMAP 서버주소</label>
+	                            <div class="col-lg-6">
 	                            	<input type="text" class="form-control" id="emiimap" name="emiimap" maxlength="30"  value="">
 	                            </div>
-	                            <label class="col-lg-1">포트</label>
-	                            <div class="col-lg-1">
+	                        </div>
+	                        <div class="row form-group">
+	                            <label class="col-lg-3">포트</label>
+	                            <div class="col-lg-6">
 	                            	<input type="text" class="form-control" id="emiimapport" name="emiimapport" maxlength="5" value="">
 	                            </div>
 	                        </div> 
 	                    	<div class="row form-group">
-	                            <label class="col-lg-2">SMTP 서버주소</label>
-	                            <div class="col-lg-4">
+	                            <label class="col-lg-3">SMTP 서버주소</label>
+	                            <div class="col-lg-6">
 	                            	<input type="text" class="form-control" id="emismtp" name="emismtp" maxlength="30" value="">
 	                            </div>
-	                            <label class="col-lg-1">포트</label>
-	                            <div class="col-lg-1">
+	                         </div>
+	                         <div class="row form-group">
+	                            <label class="col-lg-3">포트</label>
+	                            <div class="col-lg-6">
 	                            	<input type="text" class="form-control" id="emismtpport" name="emismtpport" maxlength="5"  value="">
 	                            </div>
 	                        </div> 
 	                    	<div class="row form-group">
-	                            <label class="col-lg-2">계정</label>
-	                            <div class="col-lg-4">
+	                            <label class="col-lg-3">계정</label>
+	                            <div class="col-lg-6">
 	                            	<input type="text" class="form-control" id="emiuser" name="emiuser" maxlength="50" value="">
 	                            </div>
 	                        </div> 
 	                    	<div class="row form-group">
-	                            <label class="col-lg-2">비밀번호</label>
-	                            <div class="col-lg-4">
+	                            <label class="col-lg-3">비밀번호</label>
+	                            <div class="col-lg-6">
 	                            	<input type="password" class="form-control" id="emipw" name="emipw" maxlength="20" value="">
 	                            </div>
                             </div>
                             <div class="row form-group">
-	                            <label class="col-lg-2">외부 메일 연동을 위해 서비스를 이용하는 기간 동안 입력한 메일주소와 비밀번호가 보관됩니다.</label>
+	                            <label class="col-lg-12">외부 메일 연동을 위해 서비스를 이용하는 기간 동안 입력한 메일주소와 비밀번호가 보관됩니다.</label>
+	                         </div>
+	                         <div class="row form-group">  
 	                            <div class="checkbox col-lg-4">
-                                    <label><input type="checkbox" value="">이용에 동의합니다.</label>
+                                    <label><input type="checkbox" id="confirmCheck" value="">이용에 동의합니다.</label>
                                   </div>
 	                        </div>  
 	                    </div>
