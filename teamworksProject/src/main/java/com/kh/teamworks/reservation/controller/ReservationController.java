@@ -78,6 +78,21 @@ public class ReservationController {
 	}
 	
 	
+	// 나의 예약 목록 조회용
+	@RequestMapping("myResList.re")
+	public ModelAndView selectMyReservationList(String empId, ModelAndView mv) {
+		
+		ArrayList<Reservation> list = reService.selectMyReservationList(empId);
+		
+		mv.addObject("list", list);
+		mv.setViewName("reservation/myReservation");
+		
+		//System.out.println(list);
+		
+		return mv;
+	}
+	
+	
 	// 예약 추가용
 	@RequestMapping("insert.re")
 	public String insertReservation(Reservation r, HttpSession session, Model model) {
@@ -95,19 +110,15 @@ public class ReservationController {
 			return "common/errorPage";
 		}
 	}
-
 	
-	@RequestMapping("myResList.re")
-	public ModelAndView selectMyReservationList(String empId, ModelAndView mv) {
-
-		ArrayList<Reservation> list = reService.selectMyReservationList(empId);
-
-		mv.addObject("list", list);
-		mv.setViewName("reservation/myReservation");
+	
+	// 예약 취소용
+	@RequestMapping("cancel.re")
+	public void cancelReservation(int reservationNo) {
 		
-		//System.out.println(list);
-
-		return mv;
+		int result = reService.cancelReservation(reservationNo);
+		
+		
 	}
 	
 	

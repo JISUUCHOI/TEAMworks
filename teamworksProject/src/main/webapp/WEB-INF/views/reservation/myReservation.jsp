@@ -83,12 +83,12 @@
 						            <td>${ r.status }</td>
 						            <td>
 						            	<c:if test="${ r.status eq '예정' }">
-							                <button id="cancelBtn" class="btn btn-danger" onclick="cancel();">취소</button>
+							                <button id="cancelBtn" class="btn btn-danger" onclick="cancel(${r.reservationNo});">취소</button>
 						                </c:if>
 						            </td>
 						            <td>
 						            	<c:if test="${ r.status eq '예정' }">
-						            	    <button id="confirmBtn" class="btn btn-secondary" onclick="confirm();">완료</button>
+						            	    <button id="confirmBtn" class="btn btn-secondary" onclick="confirm(${r.reservationNo});">완료</button>
 						            	</c:if>
 						            </td>
 						        </tr>
@@ -111,12 +111,22 @@
 	    </div>
 
     <script>
+    	// 메뉴바 & 사이드바 css
 		$(function(){
 			$("#book>a").css("color", "dimgray");
 			$("#book").css("border-bottom-style", "groove");
 			$("#myReservation>a").css("color", "deepskyblue");
 		});	
 
+		
+		// 취소 버튼 클릭 시 예약 취소
+		function cancel(reservationNo) {
+			
+			if(confirm('해당 회의실 예약을 취소하시겠습니까?')) {
+				
+				location.href="cancel.re?reservationNo=" + reservationNo;
+			}
+		}
     </script>
 
 
