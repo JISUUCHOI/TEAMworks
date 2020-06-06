@@ -72,12 +72,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="change_name" property="changeName" />
 		<result column="hom_no" property="homNo" />
 	</resultMap>
-
+<!-- 
 	<select id="selectJobCode" parameterType="MgJob" resultMap="Job">
 		SELECT JOB_NAME
 		  FROM JOB
 	  ORDER BY JOB_CODE
-	</select>
+	</select> -->
 
 
 </mapper>
