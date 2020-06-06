@@ -165,13 +165,13 @@
 	                    <td style="text-align:center;">9</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form"><a href="drag.ap">드래그앤드롭</a></td>
+	                    <td style="padding-left:40px;" class="form">양식5</td>
 	                </tr>
 	                <tr>
 	                    <td style="text-align:center;">10</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form"><a href="dropZone.ap">드롭존</a></td>
+	                    <td style="padding-left:40px;" class="form">양식6</td>
 	                </tr>
 	            </tbody>
 	        </table>

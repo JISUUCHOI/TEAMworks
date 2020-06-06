@@ -231,16 +231,7 @@ public class ApprovalController {
 			return changeName;
 		}
 		
-		// 드래그앤드롭연습
-		@RequestMapping("drag.ap")
-		public String insertDrag() {
-			return "approval/drag";
-		}
-		// 드랍존
-		@RequestMapping("dropZone.ap")
-		public String insertDropzone() {
-			return "approval/dropZone";
-		}
+
 		
 		
 		
