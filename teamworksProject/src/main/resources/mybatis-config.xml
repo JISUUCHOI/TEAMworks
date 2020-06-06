@@ -40,6 +40,7 @@
 		<mapper resource="mappers/document-mapper.xml"/>
 		<mapper resource="mappers/approve-mapper.xml"/>
 		<mapper resource="mappers/management-mapper.xml"/>
+		<mapper resource="mappers/mail-mapper.xml"/>
 	</mappers>
 
 </configuration>
