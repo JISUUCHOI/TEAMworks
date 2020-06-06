@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,19 +16,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import com.kh.teamworks.management.model.service.ManagementService;
+import com.kh.teamworks.employee.model.vo.Employee;
+import com.kh.teamworks.management.model.service.ManagementServiceImpl;
+import com.kh.teamworks.management.model.vo.CompanyBsns;
+import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Job;
 
 @Controller
 public class ManagementController {
 	
 	@Autowired
-	private ManagementService mgService;
+	private ManagementServiceImpl mgService;
 	
 	//회사 정보
 	@RequestMapping("main.mg")
-	public String selectCompanyInfo(){
+	public String selectCompanyInfo(HttpServletRequest request, Model model){
+		
+		HttpSession session = request.getSession();
+		Employee e = (Employee) session.getAttribute("loginUser");
+		
+		System.out.println(e.getEmpId());
+		String empId = e.getEmpId();
+		
+		CompanyInfo companyInfo = mgService.selectCompanyInfo(empId);
+		int homNo = companyInfo.getHomNo();
+
+		CompanyBsns companyBsns = mgService.selectCompanyBsnsInfo(homNo);
+		
+		model.addAttribute("companyInfo", companyInfo);
+		model.addAttribute("companyBsns", companyBsns);
+		
+		System.out.println(companyInfo);
+		System.out.println(companyBsns);
+		
 		return "management/companyMainInfo";
 	}
 	
@@ -62,13 +83,11 @@ public class ManagementController {
 	}
 	
 	//직급 관리
-	@RequestMapping("orgJobCode.mg")
-	public String orgJobCode(Model model) {
-		
+	@RequestMapping("orgJobList.mg")
+	public String selectJobList(Model model) {
 		ArrayList<Job> list = mgService.selectJobList();
-		
 		model.addAttribute("list", list);
-		
+
 		return "management/companyOrganizationOrder";
 	}
 	

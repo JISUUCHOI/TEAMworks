@@ -21,25 +21,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="vacation_count" property="vacationCount" />
 	</resultMap>
 
-	<resultMap id="companyInfoResultSet" type="MgInfo">
+	<resultMap id="companyBsnsResultSet" type="MgBsns">
 		<id column="company_no" property="companyNo" />
 		<result column="hom_no" property="homNo" />
 		<result column="company_name" property="companyName" />
 		<result column="company_head" property="companyHead" />
 		<result column="company_con" property="companyCon" />
 		<result column="company_kind" property="companyKind" />
-		<result column="company_adr" property="companyAdrs" />
+		<result column="company_adrs" property="companyAdrs" />
 		<result column="company_exno" property="companyExno" />
 	</resultMap>
 
-	<resultMap id="companyBsnsResultSet" type="MgBsns">
+	<resultMap id="companyInfoResultSet" type="MgInfo">
 		<id column="hom_no" property="homNo" />
 		<result column="hom_name" property="homName" />
 		<result column="hom_head" property="homHead" />
 		<result column="hom_adrs" property="homAdrs" />
 		<result column="emp_id" property="empId" />
-		<result column="logo_origin_name" property="logoOriginName" />
-		<result column="logo_change_name" property="logoChangeName" />
+		<result column="logo_origin_name" property="logoOrigin" />
+		<result column="logo_change_name" property="logoChange" />
 		<result column="logo_path" property="logoPath" />
 	</resultMap>
 
@@ -73,11 +73,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="hom_no" property="homNo" />
 	</resultMap>
 
-<!-- 	<select id="selectJobCode" parameterType="MgJob" resultMap="Job">
-		SELECT JOB_NAME
+ 	<select id="selectJobList" resultMap="jobResultSet">
+		SELECT *
 		  FROM JOB
 	  ORDER BY JOB_CODE
-	</select> -->
+	</select>
+	
+	<select id="selectCompanyInfo" resultMap="companyInfoResultSet">
+		SELECT *
+		  FROM COMPANY_INFO
+		 WHERE EMP_ID=#{empId}
+	</select>
+	
+	<select id="selectCompanyBsns" resultMap="companyBsnsResultSet">
+		SELECT *
+		  FROM COMPANY_BSNS
+		 WHERE HOM_NO=#{homNo}
+	</select>
 
 
 </mapper>

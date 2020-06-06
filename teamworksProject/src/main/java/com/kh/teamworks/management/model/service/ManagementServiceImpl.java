@@ -27,9 +27,8 @@ public class ManagementServiceImpl implements ManagementService{
 	
 
 	@Override
-	public CompanyInfo selectCompanyInfo(CompanyInfo ci) {
-		// TODO Auto-generated method stub
-		return null;
+	public CompanyInfo selectCompanyInfo(String empId) {
+		return mgDao.selectCompanyInfo(sqlSession, empId);
 	}
 
 	@Override
@@ -39,9 +38,8 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public CompanyBsns selectCompanyBsnsInfo(CompanyBsns cb) {
-		// TODO Auto-generated method stub
-		return null;
+	public CompanyBsns selectCompanyBsnsInfo(int homNo) {
+		return mgDao.selectCompanyBsns(sqlSession, homNo);
 	}
 
 	@Override
@@ -106,7 +104,7 @@ public class ManagementServiceImpl implements ManagementService{
 
 	@Override
 	public ArrayList<Job> selectJobList() {
-		return mgDao.selectJobCode(sqlSession);
+		return mgDao.selectJobList(sqlSession);
 	}
 
 	@Override

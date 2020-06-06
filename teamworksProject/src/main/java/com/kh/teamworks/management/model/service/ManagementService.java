@@ -13,9 +13,9 @@ import com.kh.teamworks.management.model.vo.Vacation;
 public interface ManagementService {
 	
 	// 1. 회사 정보 관리
-	CompanyInfo selectCompanyInfo(CompanyInfo ci);
+	CompanyInfo selectCompanyInfo(String empId);
 	int updateCompanyLogo();
-	CompanyBsns selectCompanyBsnsInfo(CompanyBsns cb);
+	CompanyBsns selectCompanyBsnsInfo(int homNo);
 	
 	// 2. 사원 정보 관리
 	Employee selectEmployeeInfo(Employee e);

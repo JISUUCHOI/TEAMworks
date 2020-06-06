@@ -154,7 +154,7 @@
 				}
 			</script>
 
-			<div id="t2" style="padding-top: 100px; padding-left: 50px;">
+			<div id="t2" style="padding-top: 50px; padding-left: 50px;">
 				<table class="border">
 					<table class="job infoTable" style="float: left"
 						border="1px solid black;">

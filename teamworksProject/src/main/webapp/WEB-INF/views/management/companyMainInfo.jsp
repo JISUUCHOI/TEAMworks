@@ -168,15 +168,15 @@
 					<thead>
 						<tr>
 							<th class="tg-7btt">회사명</th>
-							<th class="tg-c3ow">TEAMworks</th>
+							<th class="tg-c3ow">${ companyInfo.homName }</th>
 							<th class="tg-7btt">대표자</th>
-							<th class="tg-c3ow">라공주</th>
+							<th class="tg-c3ow">${ companyInfo.homHead }</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<td class="tg-7btt">회사주소</td>
-							<td class="tg-c3ow" colspan="3">서울특별시 강남구 테헤란로 14길 6 남도빌딩</td>
+							<td class="tg-c3ow" colspan="3">${ companyInfo.homAdrs }</td>
 						</tr>
 					</tbody>
 				</table>
@@ -194,25 +194,25 @@
 			<table class="tg" style="width: 800px;">
 					<tr>
 						<th class="tg-amwm">사업자 등록번호</th>
-						<th class="tg-baqh">1234567890</th>
+						<th class="tg-baqh">${ companyBsns.companyNo }</th>
 						<th class="tg-amwm">종사업장번호</th>
 						<th class="tg-baqh">???</th>
 					</tr>
 					<tr>
 						<td class="tg-amwm">사업장명</td>
-						<td class="tg-baqh">TEAMworks</td>
+						<td class="tg-baqh">${ companyBsns.companyName }</td>
 						<td class="tg-amwm">대표자명</td>
-						<td class="tg-baqh">라공주</td>
+						<td class="tg-baqh">${ companyBsns.companyHead }</td>
 					</tr>
 					<tr>
 						<td class="tg-amwm">업태</td>
-						<td class="tg-baqh">12345ABC</td>
+						<td class="tg-baqh">${ companyBsns.companyCon }</td>
 						<td class="tg-amwm">업종</td>
-						<td class="tg-baqh">12345ABC</td>
+						<td class="tg-baqh">${ companyBsns.companyKind }</td>
 					</tr>
 					<tr>
 						<td class="tg-amwm">사업장 주소</td>
-						<td class="tg-baqh" colspan="3">서울특별시 강남구 테헤란로 14길 6 남도빌딩</td>
+						<td class="tg-baqh" colspan="3">${ companyBsns.companyAdrs }</td>
 					</tr>
 					<tr rowspan="3">
 						<td class="tg-amwm" style="vertical-align:middle;">직인</td>

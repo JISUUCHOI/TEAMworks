@@ -15,7 +15,7 @@ public class CompanyInfo {
 	private int homNo;
 	private String homName;
 	private String homHead;
-	private String homAddress;
+	private String homAdrs;
 	private String empId;
 	private String logoOrigin;
 	private String logoChange;

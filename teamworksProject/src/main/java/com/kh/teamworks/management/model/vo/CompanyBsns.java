@@ -18,6 +18,6 @@ public class CompanyBsns {
 	private String companyHead;
 	private String companyCon;
 	private String companyKind;
-	private String companyAddress;
+	private String companyAdrs;
 	private int companyExno;
 }
