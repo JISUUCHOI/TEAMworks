@@ -6,6 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>TEAMWORKS</title>
+ <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <!-- jQuery library -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <!-- Latest compiled JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <!-- 아이콘 -->
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha256-tz3ebpf1UY2wJOfYAEYo/iIElWlm+JNP7cOGtloSAWM=" crossorigin="anonymous"></script>
 <Style>
 	#mainOuter{
 		width:1250px;
@@ -105,7 +117,7 @@
     	<jsp:include page="common/sidebarHome.jsp"/>
        <!-- 오른쪽 메인-->
        <!-- 최근 일정 -->
-       <div class="content_2">
+      	 <div class="content_2">
            <div>
                <div class="col-lg-12">
                    <h1 class="page-header">
@@ -128,42 +140,80 @@
                            </div> 
                        </div>
                    </div>
-               </div>
-
-               <div class="calendarColumn" >
-                   <div class="panel panel-default">
-                       <div class="panel-heading" style="text-align:center">
-                		           월 일 
-                       </div> 
-                       <div class="panel-body">    
-                                   <div class="calendarDay" >                
-                                   </div>           
-                       </div> 
+                   <div class="calendarColumn" >
+                       <div class="panel panel-primary">
+                           <div class="panel-heading" style="text-align:center">
+                             	  월 일 
+                           </div> 
+                           <div class="panel-body"> 
+                                       <div class="calendarDay" >
+                                                 
+                                       </div>                
+                           </div> 
+                       </div>
+                   </div>
+                   <div class="calendarColumn" >
+                       <div class="panel panel-primary">
+                           <div class="panel-heading" style="text-align:center">
+                             	  월 일 
+                           </div> 
+                           <div class="panel-body"> 
+                                       <div class="calendarDay" >
+                                                 
+                                       </div>                
+                           </div> 
+                       </div>
+                   </div>
+                   <div class="calendarColumn" >
+                       <div class="panel panel-primary">
+                           <div class="panel-heading" style="text-align:center">
+                             	  월 일 
+                           </div> 
+                           <div class="panel-body"> 
+                                       <div class="calendarDay" >
+                                                 
+                                       </div>                
+                           </div> 
+                       </div>
+                   </div>
+                   <div class="calendarColumn" >
+                       <div class="panel panel-primary">
+                           <div class="panel-heading" style="text-align:center">
+                             	  월 일 
+                           </div> 
+                           <div class="panel-body"> 
+                                       <div class="calendarDay" >
+                                                 
+                                       </div>                
+                           </div> 
+                       </div>
+                   </div>
+                   <div class="calendarColumn" >
+                       <div class="panel panel-primary">
+                           <div class="panel-heading" style="text-align:center">
+                             	  월 일 
+                           </div> 
+                           <div class="panel-body"> 
+                                       <div class="calendarDay" >
+                                                 
+                                       </div>                
+                           </div> 
+                       </div>
+                   </div>
+                   <div class="calendarColumn" >
+                       <div class="panel panel-primary">
+                           <div class="panel-heading" style="text-align:center">
+                             	  월 일 
+                           </div> 
+                           <div class="panel-body"> 
+                                       <div class="calendarDay" >
+                                                 
+                                       </div>                
+                           </div> 
+                       </div>
                    </div>
                </div>
-
-               <div class="calendarColumn" >
-                   <div class="panel panel-default">
-                       <div class="panel-heading" style="text-align:center">
-                    	       월 일 
-                       </div> 
-                       <div class="panel-body">   
-                                   <div class="calendarDay" >       
-                                   </div>                   
-                       </div> 
-                   </div>
-               </div><div class="calendarColumn" >
-                   <div class="panel panel-default">
-                       <div class="panel-heading" style="text-align:center">
-                           	월 일 
-                       </div> 
-                       <div class="panel-body">      
-                                   <div class="calendarDay" >
-                                   </div>
-                       </div> 
-                   </div>
-               </div>
-
+               
 
            </div>
 
@@ -172,35 +222,21 @@
            <div>
                <span style="font-weight: bold;;">공지사항</span><a href="#" style="float: right;">+more</a>
                <br>
-               <table  class="table table-bordered table-hover" align="center">
+               <table id="noticeList"  class="table table-bordered table-hover" align="center">
                    <thead>
                        <tr>
-                           <th width="90">NO.</th>
-                           <th width="300">제목</th>
-                           <th width="210">등록일자</th>
-                           <th width="210">등록자</th>
+                          <td width="60px"><b>NO</b></td>
+                        <td><b>제목</b></td>
+                        <td width="100px"><b>작성자</b></td>
+                        <td width="100px"><b>등록일</b></td>
+                        <td width="80px"><b>조회</b></td>
+                        <td width="80px"><b>추천</b></td>
+                        <td width="80px"><b><i class="fas fa-paperclip"></i></b></td>
                          
                        </tr>
                    </thead>
                    <tbody>
-                       <tr>
-                           <td>4</td>
-                           <td>산사람은살아야지</td>
-                           <td>2020-05-05</td>
-                           <td>라대표</td>
-                       </tr>
-                       <tr>
-                           <td>4</td>
-                           <td>산사람은살아야지</td>
-                           <td>2020-05-05</td>
-                           <td>라대표</td>
-                       </tr>
-                       <tr>
-                           <td>4</td>
-                           <td>산사람은살아야지</td>
-                           <td>2020-05-05</td>
-                           <td>라대표</td>
-                       </tr>
+                      
                    </tbody>
                </table>
 
@@ -209,36 +245,21 @@
            <div>
                <span style="font-weight: bold;">자유게시판</span><a href="#" style="float: right;">+more</a>
                <br>
-               <table  class="table table-bordered table-hover" align="center">
+               <table id="boardList" class="table table-bordered table-hover" align="center">
                    <thead>
-                       <tr>
-                           <th width="90">NO.</th>
-                           <th width="300">제목</th>
-                           <th width="210">등록일자</th>
-                           <th width="210">등록자</th>
-                         
-                       </tr>
+                      <tr>
+                        <td width="60px"><b>NO</b></td>
+                        <td><b>제목</b></td>
+                        <td width="100px"><b>작성자</b></td>
+                        <td width="100px"><b>등록일</b></td>
+                        <td width="80px"><b>조회</b></td>
+                        <td width="80px"><b>추천</b></td>
+                        <td width="80px"><b><i class="fas fa-paperclip"></i></b></td>
+                   	 </tr>
                    </thead>
                    <tbody>
-                       <tr>
-                           <td>4</td>
-                           <td>산사람은살아야지</td>
-                           <td>2020-05-05</td>
-                           <td>라대표</td>
-                       </tr>
-                       <tr>
-                           <td>4</td>
-                           <td>산사람은살아야지</td>
-                           <td>2020-05-05</td>
-                           <td>라대표</td>
-                       </tr>
-                       <tr>
-                           <td>4</td>
-                           <td>산사람은살아야지</td>
-                           <td>2020-05-05</td>
-                           <td>라대표</td>
-                       </tr>
-                     
+                      
+	                     
                    </tbody>
                </table>
 
@@ -249,8 +270,79 @@
        </div>
 
    </div>
-	
-	</div>
+	<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				url:"mainlist.bo",
+				data:{empId:"${loginUser.empId}"},
+			
+				success:function(list){
+					//console.log(list);
+					var value= "";
+					
+					for(var i in list){
+						value += "<tr>" +
+				                     "<td>"+list[i].boardNo+"</td>"+
+				                     "<td>"+list[i].boardTitle+"</td>"+
+				                     "<td>"+list[i].empName+"</td>"+
+				                     "<td>"+list[i].createDate+"</td>"+
+				                     "<td>"+list[i].count+"</td>"+
+				                     "<td>"+list[i].like+"</td>"
+				                     if(list[i].boardFiles != null ){
+				                    	 + "<td>"+ "</td>"
+				                     }else{
+				                    	
+				                    	+ "<td>"+"</td>"
+				                     }
+				                     
+			                    + "</tr>";
+					}
+					console.log(value);
+					$("#boardList tbody").html(value);
+					
+					
+				},errorPage:function(){
+					console.log("메인페이지 게시판 조회")
+				}
+			});
+		});
+		$(function(){
+			$.ajax({
+				url:"mainnotice.bo",
+				data:{empId:"${loginUser.empId}"},
+			
+				success:function(list){
+					//console.log(list);
+					var value= "";
+					
+					for(var i in list){
+						value += "<tr>" +
+				                     "<td>"+list[i].boardNo+"</td>"+
+				                     "<td>"+list[i].boardTitle+"</td>"+
+				                     "<td>"+list[i].empName+"</td>"+
+				                     "<td>"+list[i].createDate+"</td>"+
+				                     "<td>"+list[i].count+"</td>"+
+				                     "<td>"+list[i].like+"</td>"
+				                     if(list[i].boardFiles != null ){
+				                    	 + "<td>"+list[i].boardFiles+ "</td>"
+				                     }else{
+				                    	
+				                    	+ "<td>"+"</td>"
+				                     }
+				                     
+			                    + "</tr>";
+					}
+					console.log(value);
+					$("#noticeList tbody").html(value);
+					
+					
+				},errorPage:function(){
+					console.log("메인페이지 게시판 조회")
+				}
+			});
+		});
+	</script>
+
 	
 </body>
 </html>

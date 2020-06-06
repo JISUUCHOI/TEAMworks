@@ -388,4 +388,22 @@ public class BoardController {
 		File deleteFile = new File(savePath + fileName);
 		deleteFile.delete();
 	}
+	//메인화면 일반게시판 조회
+	@ResponseBody
+	@RequestMapping(value="mainlist.bo", produces="application/json; charset=utf-8")
+	public String selectMainBoard(String empId) {
+		//System.out.println(empId);
+		ArrayList<BoardDTO> list = bService.selectMainBoard(empId);
+		
+		return new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list);
+	}
+	//메인화면 공지게시판 조회
+	@ResponseBody
+	@RequestMapping(value="mainnotice.bo", produces="application/json; charset=utf-8")
+	public String selectMainNotice(String empId) {
+		//System.out.println(empId);
+		ArrayList<BoardDTO> list = bService.selectMainNotice(empId);
+		
+		return new GsonBuilder().setDateFormat("yyyy-MM-dd").create().toJson(list);
+	}
 }

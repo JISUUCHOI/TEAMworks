@@ -122,7 +122,7 @@
                         		<td><i class="fas fa-paperclip"></i></td>
                         	</c:when>
                         	<c:otherwise>
-                        		<td>&nbsp;</td>
+                        		<td></td>
                         	</c:otherwise>	
                         </c:choose>
                     </tr>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.teamworks.board.model.vo.Board;
@@ -109,5 +110,15 @@ public class BoardDao {
 	
 	public int deleteReply(SqlSession sqlSession, BoardReply r) {
 		return sqlSession.update("boardMapper.deleteReply", r);
+	}
+
+	public ArrayList<BoardDTO> selectMainBoard(SqlSessionTemplate sqlSession, String empId) {
+		
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMainBoard", empId);
+	}
+
+	public ArrayList<BoardDTO> selectMainNotice(SqlSessionTemplate sqlSession, String empId) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("boardMapper.selectMainNotice",empId);
 	}
 }

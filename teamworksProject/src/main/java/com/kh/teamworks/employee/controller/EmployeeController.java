@@ -320,4 +320,42 @@ public class EmployeeController {
 			}
 		}
 	// 내 근태 
+		
+		@ResponseBody
+		@RequestMapping(value="selectAtt.em", produces="application/json; charset=utf-8")
+		public String selectAtt(String empId) {
+			
+			Attendance att =  eService.selectAtt(empId);
+		
+			return new GsonBuilder().create().toJson(att);
+		}
+		
+		@RequestMapping("qr.em")
+	    public ModelAndView createCode(@RequestParam String content){
+	           //ModelAndView 바로 리턴
+	           return new ModelAndView("qrcodeview", "content", content);
+	    }
+		
+		@RequestMapping("QRAtt.em")
+		public String QRAtt() {
+			return "employee/QRAtt";
+		}
+		@RequestMapping("QRLogin.em")
+		public String QRView() {
+			return "employee/QRLogin";
+		}
+		
+		@ResponseBody
+		@RequestMapping("QRattinsert.em")
+		public String QRattInsert(String empId) {
+			
+			System.out.println(empId);
+			int result = eService.QRattInsert(empId);
+			
+			if(result >0) {
+				return "success";
+			}else {
+				return "fail";
+			}
+		}
 }
