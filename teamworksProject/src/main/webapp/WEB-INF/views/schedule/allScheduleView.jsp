@@ -158,7 +158,7 @@
 			    	    $('#detailTable tr:nth-child(2) td').text(sch.schTitle);
 			    	    $('#detailTable tr:nth-child(3) td').text(sch.startDate);
 			    	    $('#detailTable tr:nth-child(4) td').text(sch.endDate);
-			    	    $('#detailTable tr:nth-child(5) td').text(sch.schContent);
+			    	    $('#detailTable tr:nth-child(5) td').html(sch.schContent);
 		        		
 		        		if(sch.schCategory == "개인"){	// 개인 일정일 경우
 		        			var value = '<button type="button" class="btn btn-primary" onclick="postFormSubmit(1);">수정</button><button type="button" class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>';
