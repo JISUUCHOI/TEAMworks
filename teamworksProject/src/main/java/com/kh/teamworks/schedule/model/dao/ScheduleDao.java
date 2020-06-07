@@ -51,5 +51,11 @@ public class ScheduleDao {
 		
 		return sqlSession.update("scheduleMapper.deleteSch", schNo);
 	}
+	
+	// 회사 일정 관리 --> 회사 일정 추가용 서비스
+	public int insertManageSch(SqlSessionTemplate sqlSession, Schedule sch) {
+		
+		return sqlSession.insert("scheduleMapper.insertManageSch", sch);
+	}
 
 }

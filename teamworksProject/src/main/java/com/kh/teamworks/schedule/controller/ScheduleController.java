@@ -174,7 +174,6 @@ public class ScheduleController {
 			return "common/errorPage";
 		}
 		
-		
 	}
 	
 	
@@ -194,6 +193,101 @@ public class ScheduleController {
 			model.addAttribute("msg", "일정 삭제에 실패했습니다. 다시 시도해주세요.");
 			return "common/errorPage"; 
 		}
+	}
+	
+	
+	// 회사 일정 관리 --> 회사 일정 리스트 조회용
+	@RequestMapping("selectManageSch.sc")
+	public ModelAndView selectManageSch(ModelAndView mv) {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
+		ArrayList<Schedule> events = scService.selectTeamSch();
+		
+		mv.addObject("events", events);
+		mv.addObject("today", today);
+		mv.setViewName("schedule/manageScheduleView");
+		
+		return mv;
+	}
+	
+	
+	// 회사 일정 관리 --> 회사 일정 추가폼 이동용
+	@RequestMapping("insertManageSchForm.sc")
+	public ModelAndView insertManageSchForm(ModelAndView mv) {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
+		ArrayList<Schedule> events = scService.selectTeamSch();
+		
+		mv.addObject("events", events);
+		mv.addObject("today", today);
+		mv.setViewName("schedule/insertManageSchForm");
+		
+		return mv;
+	}
+	
+	
+	// 회사 일정 관리 --> 일정 추가용
+	@RequestMapping("insertManageSch.sc")
+	public String insertManageSch(Schedule sch, HttpSession session, Model model) {
+		
+		int result = scService.insertManageSch(sch);
+		
+		if(result > 0) { // 일정 추가 성공 --> 다시 전체일정 페이지
+			
+			session.setAttribute("msg", "회사 일정이 성공적으로 등록되었습니다.");
+			return "redirect:selectManageSch.sc";
+			
+		}else {	// 일정 추가 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "회사 일정 등록에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	
+	// 회사 일정 관리 --> 일정 수정폼 이동용
+	@RequestMapping("updateManageSchForm.sc")
+	public ModelAndView updateManageSchForm(int schNo, ModelAndView mv) {
+		
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String today = sdf.format(cal.getTime());
+		
+		ArrayList<Schedule> events = scService.selectTeamSch();
+		Schedule sch = scService.selectSchDetail(schNo);
+		
+		mv.addObject("events", events);
+		mv.addObject("today", today);
+		mv.addObject("sch", sch);
+		mv.setViewName("schedule/updateManageSchForm");
+		
+		return mv;
+	}
+	
+	
+	// 회사 일정 관리 --> 일정 수정용
+	@RequestMapping("updateManageSch.sc")
+	public String updateManageSch(Schedule sch, HttpSession session, Model model) {
+		
+		int result = scService.updateSch(sch);
+		
+		if(result > 0) { // 일정 수정 성공 --> 다시 전체일정 페이지
+			
+			session.setAttribute("msg", "일정이 성공적으로 수정되었습니다.");
+			return "redirect:selectManageSch.sc";
+			
+		}else { // 일정 수정 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "일정 수정에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+		
 	}
 
 }

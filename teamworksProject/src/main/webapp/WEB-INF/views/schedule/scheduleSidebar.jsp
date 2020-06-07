@@ -76,7 +76,7 @@
             
             <c:if test="${ loginUser.deptCode eq 1001 }">
 	            <div class="category">일정 관리</div>
-	            <div class="subCate" id="manageSchCate"><a href="">회사 일정 관리</a></div>
+	            <div class="subCate" id="manageSchCate"><a href="selectManageSch.sc">회사 일정 관리</a></div>
             </c:if>
             
         </div>

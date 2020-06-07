@@ -35,18 +35,15 @@
 	    max-width: 900px;
 	    margin: 0 auto;
 	    float:left;
-	    margin-left:180px;
+	    margin-left:50px;
 	}
   
 	#rightArea	{
-		float:right;
+		float:left;
+		margin-left:30px;
 		width:400px;
 		height:700px;
-		/* border:1px solid red; */
 	}
-	
-	#insertFormArea{display:none;}
-	#updateFormArea{display:none;}
 	
 	#insertFormTable, #updateFormTable {
 		width:400px;
@@ -54,10 +51,10 @@
 		font-size:17px;
 		table-layout:fixed;
 	}
-	
+
   /* 모달 관련 style */
 	.modal-content {
-	  	width:430px;
+	  	width:450px;
 	  	height:500px;
 	}
 	#detailTable {
@@ -79,30 +76,15 @@
 	  	text-overflow: clip;
 	}
 	/* 모달 관련 style 끝 */
-
-	#insertBtn {
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 15px;
-        padding:4px 8px;
-        transition-duration: 0.4s;
-        cursor: pointer;
-        margin-top:15px;
-        background-color:rgb(7, 53, 90);
-        color:white; 
-    } 
-
 </style>
 </head>
 <body>
 	<c:if test="${ !empty msg }">
 		<script>
-			alert('${msg}');
+			alertify.alert('message', '${msg}');
 		</script>
 		<c:remove var="msg" scope="session"/>
 	</c:if>
-
 
 	<script>
 	    var events = [];
@@ -143,38 +125,7 @@
 	      editable: true,
 	      eventLimit: true, // allow "more" link when too many events
 	      events: events,
-	      locale: 'ko',
-	      eventClick: function(info) { //info.event.id
-	    	  	
- 		        $.ajax({
-		        	url:"detail.sc",
-		        	data:{schNo:info.event.id},
-		        	type:"post",
-		        	success:function(sch){
-		        		
-		                // Add response in Modal body
-		                //$('.modal-body').html("로그인 성공");
-				        $('#detailTable tr:first td').text(sch.schCategory);
-			    	    $('#detailTable tr:nth-child(2) td').text(sch.schTitle);
-			    	    $('#detailTable tr:nth-child(3) td').text(sch.startDate);
-			    	    $('#detailTable tr:nth-child(4) td').text(sch.endDate);
-			    	    $('#detailTable tr:nth-child(5) td').html(sch.schContent);
-		        		
-		        		
-	        			var value = '<button type="button" class="btn btn-primary" onclick="postFormSubmit(1);">수정</button><button type="button" class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>';
-	        			$('.modal-footer').html(value);
-		        	
-	        			
-		        		$("#inputSchNo").attr("value", sch.schNo);
-		        		
-		                $('#detailModal').modal('show'); // Display Modal
-		        		
-		        		
-		        	},error:function(){
-		        		console.log("이벤트 상세조회용 ajax 통신 실패");
-		        	}
-		        });
-	      }
+	      locale: 'ko'
 	
 	    });
 	
@@ -184,7 +135,6 @@
 		$(function(){
 			$("#calender>a").css("color", "dimgray");
 			$("#calender").css("border-bottom-style", "groove");
-			$("#manageSchCate>a").css("color", "deepskyblue");
 		});	
 	</script>
 
@@ -194,80 +144,67 @@
 	<br><br>
 
 	<div style="width:1250px; float:left;">
-		<div style="width:1000px;">
-			<div style="float:left;">
-				<h1 style="margin-left:180px;">회사 일정 관리</h1>
-			</div>
-			<div style="float:right;">
-				<button id="insertBtn" class="btn" onclick="location.href='insertManageSchForm.sc';">일정 등록</button>
-			</div>
+		<div style="width:800px;">
 			<div id='calendar'></div>
 		</div>
-	</div>
-
-	
-	<!-- 이벤트 클릭 시 뜨는 모달 (기존에는 안보이다가 위의 이벤트 클릭 시 보임) -->
-    <div class="modal fade" id="detailModal">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-	            <!-- Modal Header -->
-	            <div class="modal-header">
-	                <h4 class="modal-title"c>일정 상세보기</h4>
-	                <button type="button" class="close" data-dismiss="modal">&times;</button> 
-	            </div>
-
-	            <!-- Modal Body -->
-	            <div class="modal-body">
-	                <table id="detailTable">
-	                	<tr height="15%">
+		<div id="rightArea">
+			<div id="updateFormArea">	<!-- 일정 수정 폼 -->
+				<h3>일정 수정</h3>
+				<form id="updateSchForm" action="updateManageSch.sc" method="post">
+					<table id="updateFormTable">
+	                	<tr height="10%">
 	                		<th>분류</th>
-	                		<td id="category"></td>
+	                		<td id="category">회사</td>
 	                	</tr>
-	                	<tr height="15%">
+	                	<tr height="10%">
 	                		<th>일정 제목</th>
-	                		<td></td>
+	                		<td><input type="text" name="schTitle" value="${ sch.schTitle }" size="25" required></td>
 	                	</tr>
-	                	<tr height="15%">
+	                	<tr height="10%">
 	                		<th>시작일</th>
-	                		<td></td>
+	                		<td><input type="date" name="startDate" id="startDate" value="${ sch.startDate }" required></td>
 	                	</tr>
-	                	<tr height="15%">
+	                	<tr height="10%">
 	                		<th>종료일</th>
-	                		<td></td>
+	                		<td><input type="date" name="endDate" id="endDate" value="${ sch.endDate }" required></td>
 	                	</tr>
-	                	<tr height="40%">
+	                	<tr height="50%">
 	                		<th style="vertical-align:top; padding-top:10px;">일정 내용</th>
-	                		<td style="vertical-align:top; padding-top:10px;"></td>
+	                		<td style="vertical-align:top; padding-top:10px;">
+	                			<textarea name="schContent" rows="8" cols="30" style="resize:none;" required>${ sch.schContent }</textarea>
+	                		</td>
+	                	</tr>
+	                	<tr height="10%">
+	                		<td colspan="2">
+	                			<div align="right" style="padding-right:10px;">
+		                			<button type="submit" class="btn btn-primary" onclick="return validate();">수정</button>
+		                			<button type="button" class="btn btn-danger" onclick="javascript:history.go(-1);">취소</button>
+	                			</div>
+	                		</td>
 	                	</tr>
 	                </table>
-	            </div>
-            
-	            <!-- Modal footer -->
-	            <div class="modal-footer"></div>
-	            
-	            <form action="" id="postForm" method="post">
-	            	<input type="hidden" name="schNo" id="inputSchNo" value=""> <!-- schNo 넘겨야됨 -->
+	            	<input type="hidden" name="schNo" id="inputSchNo" value="${sch.schNo}">
 	            	<input type="hidden" name="empId" value="${loginUser.empId }">
-	            </form>
-	            
-	            <script>
-	            	function postFormSubmit(num) {
-	            		if(num == 1) {	// 수정하기 클릭 시
-	            			$("#postForm").attr("action", "updateManageSchForm.sc");
-	            			//$("#updateFormArea").css("display", "block");
-	            		}else {	// 삭제하기 클릭 시
-	            			$("#postForm").attr("action", "deleteSch.sc");
-	            		}
-	            		
-	            		$("#postForm").submit();
-	            	}
-	            </script>
-            </div>
-        </div>
-    </div>
-    <!-- 이벤트 클릭 시 뜨는 모달 끝 -->
-    
-    
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		function validate() {
+			var startDate = document.getElementById("startDate");
+			var endDate = document.getElementById("endDate");
+			
+            if(startDate.value > endDate.value){
+                alert("일정 시작일이 종료일보다 늦을 수 없습니다. 다시 확인해주세요.");
+                endDate.value = "";
+                endDate.focus();
+                return false;
+            }
+            
+            return true;
+		}
+	</script>
 
 	
 </body>

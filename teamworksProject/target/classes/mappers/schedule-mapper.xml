@@ -53,5 +53,10 @@
 		   SET SCH_DEL_STATUS='Y'
 		 WHERE SCH_NO=#{schNo}
 	</update>
+	
+	<insert id="insertManageSch" parameterType="Schedule">
+		INSERT INTO SCHEDULE
+		VALUES(SEQ_SCHNO.NEXTVAL, '회사', NULL, #{schTitle}, #{schContent}, #{startDate}, #{endDate}, 'N')		
+	</insert>
 
 </mapper>

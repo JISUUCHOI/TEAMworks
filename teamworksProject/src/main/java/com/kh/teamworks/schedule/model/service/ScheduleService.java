@@ -26,5 +26,9 @@ public interface ScheduleService {
 	
 	// 일정 삭제용 서비스
 	int deleteSch(int schNo);
+	
+	// 회사 일정 관리 --> 회사 일정 추가용 서비스
+	int insertManageSch(Schedule sch);
+	
 
 }

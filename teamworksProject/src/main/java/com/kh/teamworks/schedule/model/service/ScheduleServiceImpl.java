@@ -67,5 +67,12 @@ public class ScheduleServiceImpl implements ScheduleService {
 		return scDao.deleteSch(sqlSession, schNo);
 	}
 
+	// 회사 일정 관리 --> 회사 일정 추가용 서비스
+	@Override
+	public int insertManageSch(Schedule sch) {
+
+		return scDao.insertManageSch(sqlSession, sch);
+	}
+
 
 }
