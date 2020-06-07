@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.kh.teamworks.employee.model.vo.Employee"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	Employee loginUser = (Employee)request.getSession().getAttribute("loginUser");
 %>
@@ -72,6 +73,12 @@
             <div class="subCate" id="allSchCate"><a href="selectAllSch.sc?empId=${loginUser.empId}">전체 일정</a></div>
             <div class="subCate" id="teamSchCate"><a href="selectTeamSch.sc">회사 일정</a></div>
             <div class="subCate" id="empSchCate"><a href="selectEmpSch.sc?empId=${loginUser.empId}">개인 일정</a></div>
+            
+            <c:if test="${ loginUser.deptCode eq 1001 }">
+	            <div class="category">일정 관리</div>
+	            <div class="subCate" id="manageSchCate"><a href="">회사 일정 관리</a></div>
+            </c:if>
+            
         </div>
     </div>
 

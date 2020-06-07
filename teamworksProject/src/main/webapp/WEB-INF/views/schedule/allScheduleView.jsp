@@ -57,7 +57,7 @@
 	
   /* 모달 관련 style */
 	.modal-content {
-	  	width:350px;
+	  	width:430px;
 	  	height:500px;
 	}
 	#detailTable {
