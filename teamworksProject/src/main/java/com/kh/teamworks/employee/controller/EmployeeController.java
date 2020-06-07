@@ -3,6 +3,7 @@ package com.kh.teamworks.employee.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -27,6 +28,7 @@ import com.google.gson.GsonBuilder;
 import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
+import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
 
 @Controller
 public class EmployeeController {
@@ -357,5 +359,21 @@ public class EmployeeController {
 			}else {
 				return "fail";
 			}
+		}
+		
+		@ResponseBody
+		@RequestMapping("schmyatt.em")
+		public ModelAndView selectSchMyAtt(@RequestParam("searchStartDate") String startDate,@RequestParam("searchEndDate") String endDate,String empId, ModelAndView mv) {
+			System.out.println(startDate);
+			SearchMyAttendance sma = new SearchMyAttendance();
+			sma.setStartDate(startDate);
+			sma.setEndDate(endDate);
+			sma.setEmpId(empId);
+			System.out.println(sma);
+			ArrayList<Attendance> list = eService.selectSchMyAtt(sma);
+			System.out.println(list);
+			mv.addObject("list", list);
+			mv.setViewName("employee/myAttendance");
+			return mv;
 		}
 }

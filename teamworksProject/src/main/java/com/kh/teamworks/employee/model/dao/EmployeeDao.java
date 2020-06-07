@@ -1,11 +1,14 @@
 package com.kh.teamworks.employee.model.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
+import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
 
 @Repository("eDao")
 public class EmployeeDao {
@@ -47,7 +50,7 @@ public class EmployeeDao {
 		return sqlSession.update("employeeMapper.attUpdate", att);
 	}
 	public int insertDate(SqlSessionTemplate sqlSession, String empId) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.insert("employeeMapper.insertDate", empId);
 	}
 	public Attendance selectAtt(SqlSessionTemplate sqlSession, String empId) {
@@ -56,9 +59,17 @@ public class EmployeeDao {
 
 
 	public int QRattInsert(SqlSessionTemplate sqlSession, String empId) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.insert("employeeMapper.QRattInsert", empId);
 	}
+
+
+	public ArrayList<Attendance> selectSchMyAtt(SqlSessionTemplate sqlSession, SearchMyAttendance sma) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("employeeMapper.selectSchMyAtt", sma);
+	}
+
+
 
 
 

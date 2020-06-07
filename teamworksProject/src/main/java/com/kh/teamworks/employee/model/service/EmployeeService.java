@@ -1,8 +1,11 @@
 package com.kh.teamworks.employee.model.service;
 
 
+import java.util.ArrayList;
+
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
+import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
 
 
 public interface EmployeeService {
@@ -35,6 +38,9 @@ public interface EmployeeService {
 
 	int QRattInsert(String empId);
 
+	ArrayList<Attendance> selectSchMyAtt(SearchMyAttendance sma);
+
+	
 	
 	
 	

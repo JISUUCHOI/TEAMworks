@@ -79,8 +79,28 @@
     .at-search>span{font-size: 24px;font-weight: bold;} 
     tr *{text-align:center;}
     thead>tr>th{background-color: rgb(260, 260, 260);}
+    
+         
+
+            /* Search */
+            .searchBox{border:none ;}
+            .searchBox tbody th{padding:20px 10px 20px 35px;font-size:14px;font-weight:bold;text-align:left;vertical-align:top;}
+            .searchBox tbody td{padding:12px 10px 12px 25px;border:none;}
+        
+            .searchDate{overflow:hidden;margin-bottom:10px;*zoom:1}
+            .searchDate  li{list-style:none;}
+            .searchDate:after{display:block;clear:both;content:''}
+            .searchDate li{position:relative;float:left;margin:0 7px 0 0}
+            .searchDate li .chkbox2{display:block;text-align:center}
+            .searchDate li .chkbox2 input{position:absolute;z-index:-1 ;background:red;}
+            .searchDate li .chkbox2 label{display:block;width:72px;height:34px;font-size:14px;font-weight:bold;color:#fff;text-align:center;line-height:25px;text-decoration:none;cursor:pointer;background:blue;}
+            .searchDate li .chkbox2.on label{background: rgb(7, 53, 90);}
+        
+            .demi{display:inline-block;margin:0 1px;vertical-align:middle}
+            .inpType{padding-left:6px;height:24px;line-height:24px;}
+            .btncalendar{display:inline-block;width:22px;height:22px;text-indent:-999em}
     </style>
-</style>
+
 
 </head>
 <body>
@@ -93,12 +113,52 @@
     <jsp:include page="../employee/sidebarMyAttendance.jsp" />
        <!-- 오른쪽 ATTENDANCE-->
        <div class="attendanceOuter">
-            <div class="at-search">
-                <span >조회기간</span> <button tyep="button" class="btn btn-info">1개월</button>
-                <input type="text" id="startDate">~<input type="text" id="endDate"> <button type="button" id="click-btn" class="btn btn-info">검색</button>
-            </div>
-            <div class="table-responsive myat-board">
-                    <table  class="table table-bordered table-hover" align="center">
+			<form action="schmyatt.em" id="schForm">
+
+				<!-- search -->
+				<table class="searchBox">
+					<caption></caption>
+					
+					<tbody>
+						<tr>
+							<th>조회기간</th>
+							<td>
+									<ul class="searchDate">
+										<li>
+											<span class="chkbox2"> <input type="radio" class="btn btn-info"
+													name="dateType" id="dateType5" onclick="setSearchDate('1m')" />
+													<label for="dateType5" class="btn btn-info">1개월</label>
+											</span>
+										</li>
+									</ul>
+									<div class="clearfix" >
+										<!-- 시작일 -->
+										<span class="dset"> <input type="text"
+											class="datepicker inpType" name="searchStartDate"
+											id="searchStartDate"> <a href="#none"
+											class="btncalendar dateclick">달력</a>
+										</span> <span class="demi">~</span>
+										<!-- 종료일 -->
+										<span class="dset"> <input type="text"
+											class="datepicker inpType" name="searchEndDate"
+											id="searchEndDate"> <a href="#none"
+											class="btncalendar dateclick">달력</a>
+										</span> 
+										<span>
+											  <input type="hidden" name="empId" value="${loginUser.empId}">
+											<button type="submit" class="btn btn-info" id="submit">조회하기</button>
+										</span>
+									</div>
+							</td>
+						</tr>
+
+
+						<tbody>
+        
+				</table>
+ 			</form>
+		<div class="table-responsive myat-board">
+							<table class="table table-bordered table-hover" align="center">
                         <thead>
                             <tr>
                                 <th width="200">일자</th>
@@ -109,90 +169,136 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <c:choose>
+                            <c:when test="${!empty list }">
+                            	<c:forEach var="att" items="${list }">
                             <tr>
-                                <td>2020-03-25</td>
+                                <td>${att.attDate }</td>
                                 <td>수</td>
-                                <td>08:22</td>
-                                <td>18:00</td>
-                                <td>08:13</td>
-                            </tr>
-                            <tr>
-                                <td>2020-03-25</td>
-                                <td>수</td>
-                                <td>08:22</td>
-                                <td>18:00</td>
+                                <td>${att.startTime }</td>
+                                <td>${att.endTime }</td>
                                 <td>08:13</td>
                             </tr> 
-                            <tr>
-                                <td>2020-03-25</td>
-                                <td>수</td>
-                                <td>08:22</td>
-                                <td>18:00</td>
-                                <td>08:13</td>
-                            </tr> 
-                            <tr>
-                                <td>2020-03-25</td>
-                                <td>수</td>
-                                <td>08:22</td>
-                                <td>18:00</td>
-                                <td>08:13</td>
-                            </tr>
+                            	</c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                            	<tr>
+                            		<td colspan="5">조회된 데이터가 없습니다</td>
+                            		
+                            	</tr>
+                            </c:otherwise>
+                            </c:choose>
+                            
                         </tbody>
                     </table>                
             </div>
-       </div>
+       
+					</div>
    </div>
 <script>
-	
-	$(document).ready(function () {
-	        $.datepicker.setDefaults($.datepicker.regional['ko']); 
-	        $('#datepicker').datepicker({
-	            format: 'mm/dd/yyyy',
-	            startDate: '-1d'
-	        });
-	        $( "#startDate" ).datepicker({
-	             changeMonth: true, 
-	             changeYear: true,
-	             nextText: '다음 달',
-	             prevText: '이전 달', 
-	             dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-	             dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-	             monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	             monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	             dateFormat: "yymmdd",
-	             maxDate: 0,                       // 선택할수있는 최소날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-	             onClose: function( selectedDate ) {    
-	                  //시작일(startDate) datepicker가 닫힐때
-	                  //종료일(endDate)의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
-	                 $("#endDate").datepicker( "option", "minDate", selectedDate );
-	             }    
-	
-	        });
-	        $( "#endDate" ).datepicker({
-	             changeMonth: true, 
-	             changeYear: true,
-	             nextText: '다음 달',
-	             prevText: '이전 달', 
-	             dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'],
-	             dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'], 
-	             monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	             monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-	             dateFormat: "yymmdd",
-	             maxDate: 0,                       // 선택할수있는 최대날짜, ( 0 : 오늘 이후 날짜 선택 불가)
-	             onClose: function( selectedDate ) {    
-	                 // 종료일(endDate) datepicker가 닫힐때
-	                 // 시작일(startDate)의 선택할수있는 최대 날짜(maxDate)를 선택한 시작일로 지정
-	                 $("#startDate").datepicker( "option", "maxDate", selectedDate );
-	             }    
-	
-	        });    
-	});
-	
-	$('#click-btn').on('click', function(){
-		var date = $('#dateRangePicker').val();
-		alert(date);
-	});
-				
+
+$(document).ready(function() {
+
+    //datepicker 한국어로 사용하기 위한 언어설정
+    $.datepicker.setDefaults($.datepicker.regional['ko']);     
+
+    // Datepicker            
+    $(".datepicker").datepicker({
+        showButtonPanel: true,
+        dateFormat: "yy-mm-dd",
+        onClose : function ( selectedDate ) {
+        
+            var eleId = $(this).attr("id");
+            var optionName = "";
+
+            if(eleId.indexOf("StartDate") > 0) {
+                eleId = eleId.replace("StartDate", "EndDate");
+                optionName = "minDate";
+            } else {
+                eleId = eleId.replace("EndDate", "StartDate");
+                optionName = "maxDate";
+            }
+
+            $("#"+eleId).datepicker( "option", optionName, selectedDate );        
+            $(".searchDate").find(".chkbox2").removeClass("on"); 
+        }
+    }); 
+
+    //시작일.
+    /*$('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {    
+        // 시작일 datepicker가 닫힐때
+        // 종료일의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+        $("#searchEndDate").datepicker( "option", "minDate", selectedDate );
+        $(".searchDate").find(".chkbox2").removeClass("on");
+    });
+    */
+
+    //종료일.
+    /*$('#searchEndDate').datepicker("option","onClose", function( selectedDate ) {    
+        // 종료일 datepicker가 닫힐때
+        // 시작일의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+        $("#searchStartDate").datepicker( "option", "maxDate", selectedDate );
+        $(".searchDate").find(".chkbox2").removeClass("on");
+    });
+    */
+
+    $(".dateclick").dateclick();    // DateClick
+    $(".searchDate").schDate();        // searchDate
+    
+});
+
+// Search Date
+jQuery.fn.schDate = function(){
+    var $obj = $(this);
+    var $chk = $obj.find("input[type=radio]");
+    $chk.click(function(){                
+        $('input:not(:checked)').parent(".chkbox2").removeClass("on");
+        $('input:checked').parent(".chkbox2").addClass("on");                    
+    });
+};
+
+// DateClick
+jQuery.fn.dateclick = function(){
+    var $obj = $(this);
+    $obj.click(function(){
+        $(this).parent().find("input").focus();
+    });
+}    
+
+
+function setSearchDate(start){
+
+    var num = start.substring(0,1);
+    var str = start.substring(1,2);
+
+    var today = new Date();
+
+    //var year = today.getFullYear();
+    //var month = today.getMonth() + 1;
+    //var day = today.getDate();
+    
+    var endDate = $.datepicker.formatDate('yy-mm-dd', today);
+    $('#searchEndDate').val(endDate);
+    
+    if(str == 'd'){
+        today.setDate(today.getDate() - num);
+    }else if (str == 'w'){
+        today.setDate(today.getDate() - (num*7));
+    }else if (str == 'm'){
+        today.setMonth(today.getMonth() - num);
+        today.setDate(today.getDate() + 1);
+    }
+
+    var startDate = $.datepicker.formatDate('yy-mm-dd', today);
+    $('#searchStartDate').val(startDate);
+            
+    // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
+    $("#searchEndDate").datepicker( "option", "minDate", startDate );
+    
+    // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
+    $("#searchStartDate").datepicker( "option", "maxDate", endDate );
+
+}
 </script>
 
 

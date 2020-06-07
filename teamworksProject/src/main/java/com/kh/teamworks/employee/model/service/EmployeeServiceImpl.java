@@ -1,5 +1,7 @@
 package com.kh.teamworks.employee.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.teamworks.employee.model.dao.EmployeeDao;
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
+import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
 
 @Service("eService")
 public class EmployeeServiceImpl implements EmployeeService{
@@ -62,8 +65,15 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public int QRattInsert(String empId) {
-		// TODO Auto-generated method stub
+		
 		return eDao.QRattInsert(sqlSession,empId);
 	}
 
+	@Override
+	public ArrayList<Attendance> selectSchMyAtt(SearchMyAttendance sma) {
+		// TODO Auto-generated method stub
+		return eDao.selectSchMyAtt(sqlSession,sma);
+	}
+
+	
 }

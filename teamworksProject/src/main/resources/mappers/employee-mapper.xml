@@ -103,4 +103,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE EMP_ID=#{empId} and ATT_DATE=(TO_CHAR(SYSDATE,'YYYY-MM-DD'))
 	</select>
 	
+	<select id="selectSchMyAtt" parameterType="com.kh.teamworks.employee.model.vo.SearchMyAttendance" resultMap="attendanceResultSet">
+		select *
+		  FROM ATTENDANCE
+	     WHERE EMP_ID= #{empId}
+	       and att_date between #{startDate} and #{endDate}
+	     order by att_date desc
+				
+	</select>
+	
 </mapper>
