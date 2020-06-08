@@ -37,6 +37,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="AT_TYPE" property="atType"/>
 	</resultMap>
 	
+	<resultMap type="com.kh.teamworks.employee.model.vo.SearchEmpAttendance" id="empAttResultSet">
+		<id column="emp_id" property="empId"/>
+		<result column="emp_name" property="empName"/>
+		<result column="job_Name" property="jobName"/>
+		<result column="dept_name" property="deptName"/>
+		<result column="att_date" property="attDate"/>
+		<result column="start_time" property="startTime"/>
+		<result column="end_time" property="endTime"/>
+		<result column="at_type" property="atType"/>
+		
+	</resultMap>
+	
 	<select id="loginEmployee" parameterType="Employee" resultMap="employeeResultSet">
 		select *
 		  from employee
@@ -101,6 +113,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT ATT_DATE,EMP_ID,START_TIME,END_TIME,AT_TYPE
 		  FROM ATTENDANCE
 		 WHERE EMP_ID=#{empId} and ATT_DATE=(TO_CHAR(SYSDATE,'YYYY-MM-DD'))
+	</select>
+	
+	<select id="selectSchMyAtt" parameterType="com.kh.teamworks.employee.model.vo.SearchMyAttendance" resultMap="attendanceResultSet">
+		select *
+		  FROM ATTENDANCE
+	     WHERE EMP_ID=#{empId}
+	       and att_date between #{startDate} and #{endDate}
+	     order by att_date desc
+				
+	</select>
+	
+	<select id="selectSchEmpAtt" parameterType="com.kh.teamworks.employee.model.vo.SearchEmpAttCondition" resultMap="empAttResultSet">
+	  SELECT EMP_ID ,EMP_NAME ,JOB_NAME,DEPT_NAME,ATT_DATE,START_TIME,END_TIME,AT_TYPE
+		FROM EMPLOYEE 
+		JOIN DEPARTMENT USING (DEPT_CODE)
+		JOIN JOB USING (JOB_CODE)
+		JOIN ATTENDANCE USING (EMP_ID)
+	   WHERE 1=1
+	    <if test="empName != null">
+	    and emp_name=#{empName}
+	    </if>
+	   	<if test="condition !=null and condition.equals('deptAll')">
+		 AND DEPT_CODE IS NOT NULL
+		</if>
+		<if test="condition !=null and condition.equals('ManagementSupport')">
+		 AND DEPT_CODE='1001'
+		</if>
+		<if test="condition !=null and condition.equals('Development')">
+	 	 AND DEPT_CODE='1002'
+	 	</if>
+	 	<if test="startDate != '' and endDate != ''">
+		 and att_date between #{startDate} and #{endDate}
+		 </if>
+	     order by att_date desc
 	</select>
 	
 </mapper>

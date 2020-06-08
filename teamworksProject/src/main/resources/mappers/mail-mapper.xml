@@ -18,10 +18,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		<result column="status" property="status"/>
   	</resultMap>
   	
-  	<select id="selectMailInfo" parameterType="string" resultMap="mailInfoResultSet">
-		select em_info_no, e.emp_id, emp_name, em_imap, em_imap_port, em_smtp, em_smtp_port, email_user, email_pwd, entry_date, e.status 
-		  from email_info e
-		  join employee l on (e.emp_id=l.emp_id)
-		 where e.status='Y' and e.emp_id= #{empId}
-  	</select>
+  		<resultMap type="MailDTO" id="mailDtoResultSet">
+  		<id column="email_no" property="emailNo"/>
+  		<result column="email_title" property="mailTitle"/>
+  		<result column="email_content" property="mailContent"/>
+  		<result column="create_date" property="createDate"/>
+  		<result column="email_status" property="emailStatus"/>
+  		<result column="em_info_no" property="emInfoNo"/>
+  		<result column="emp_id" property="sender"/>
+  		<result column="emp_id2" property="recipients"/>
+  		<result column="delete_status" property="deleteStatus"/>
+  		<result column="read_status" property="readStatus"/>
+  		<result column="emp_name" property="senderName"/>
+  		<result column="emp_email" property="senderEmail"/>
+  		<result column="ref_emp" property="refRecipients"/>
+  		<result column="eatype" property="refType"/>
+  		<result column="files" property="files"/>
+  	</resultMap>
+  	
+ 	<select id="selectInboxListCount" parameterType="string" resultType="_int">
+ 		SELECT COUNT(*)
+		FROM V_EMAIL_LIST
+		WHERE EMP_ID2=#{empId} OR REF_EMP= #{empId} AND EMAIL_STATUS='Y'
+ 	</select>
+ 	
+ 	<select id="selectInboxList" parameterType="string" resultMap="mailDtoResultSet">
+ 		SELECT *
+		FROM V_EMAIL_LIST
+		WHERE EMP_ID2=#{empId} OR REF_EMP= #{empId} AND EMAIL_STATUS='Y'
+		ORDER BY EMAIL_NO DESC
+ 	</select>
 </mapper>
