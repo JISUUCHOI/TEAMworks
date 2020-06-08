@@ -172,7 +172,7 @@ public class requestApprovalController {
 		}
 	}
 	
-	// 4_0. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
+	// 4_1. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
 	@ResponseBody
 	@RequestMapping(value="selectName.rap")
 	public int selectLineName(FrequentApprovalLine f) {
@@ -180,7 +180,7 @@ public class requestApprovalController {
 		return count;
 	}
 	
-	// 4_1. 결재선 즐겨찾기 추가
+	// 4_2. 결재선 즐겨찾기 추가
 	@ResponseBody
 	@RequestMapping(value="insertFreLine.rap")
 	public String insertFreLine(FrequentApprovalLine f) {
@@ -196,7 +196,6 @@ public class requestApprovalController {
 		
 		for(int i=0; i<list.length; i++) {
 			fal = new FrequentApprovalLine(f.getLineName(), f.getEmpId(), list[i], i);
-			
 			result = raService.insertFreLine(fal);
 		}
 		
@@ -208,7 +207,7 @@ public class requestApprovalController {
 		
 	}
 	
-	// 4_2. 결재선 즐겨찾기 리스트 조회
+	// 4_3. 결재선 즐겨찾기 리스트 조회
 	@ResponseBody
 	@RequestMapping(value="flist.rap", produces="application/json; charset=utf-8")
 	public String selectFreLine(String empId) {
@@ -216,7 +215,7 @@ public class requestApprovalController {
 		return new Gson().toJson(count);
 	}
 	
-	// 4_3. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
+	// 4_4. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
 	@ResponseBody
 	@RequestMapping(value="lineDetail.rap", produces="application/json; charset=utf-8")
 	public String selectLineDetail(FrequentApprovalLine f) {
@@ -224,7 +223,7 @@ public class requestApprovalController {
 		return new Gson().toJson(list);
 	}
 	
-	// 4_4. 결재선 즐겨찾기 삭제
+	// 4_5. 결재선 즐겨찾기 삭제
 	@ResponseBody
 	@RequestMapping(value="lineDelete.rap")
 	public String deleteLine(FrequentApprovalLine f) {
@@ -284,7 +283,6 @@ public class requestApprovalController {
 		int status = raService.selectApStatus(doc);
 		model.addAttribute("status", status);
 		
-		
 		switch(docSc) {
 		// 6_4. 문서 상세조회 - 경조비신청서
 		case "경조비신청서" : d = raService.selectFeDetail(doc); model.addAttribute("d", d); return "approval/familyEventSubmit";
@@ -298,17 +296,45 @@ public class requestApprovalController {
 	@RequestMapping("updateApprove.rap")
 	public String updateApprove(Document doc, Model model) {
 		
-		// 7_1. 첫번째 승인권자 승인/반려, 결재의견 insert
-		int result1 = raService.updateApprove(doc);
-		//System.out.println(result1);
+		// 7_1. 미결, 진행 결재선 id 조회
+		ArrayList<Document> list = raService.selectApList(doc);
+		
+		int result1 = 0;
+		int result2 = 0;
+		int result3 = 0;
+		int result4 = 0;
+		
+		Document d = new Document();
+		d.setDocNo(doc.getDocNo());
+		
 		String docSc = doc.getDocSc();
 		//System.out.println(docSc);
 		
-		// 7_2. 다음 승인권자 상태 update
-		int result2 = raService.updateLine(doc);
+		if(list.size() > 1) {
+			// 7_2. 첫번째 승인권자 승인/반려, 결재의견 insert
+			result1 = raService.updateApprove(doc);
+			
+			// 7_3. 다음 승인권자 상태 update
+			doc.setApproverEmpid(list.get(1).getApproverEmpid());
+			result2 = raService.updateLine(doc);
+		}else {
+			// 7_4. 마지막 승인권자 상태 update -> 완료함
+			result3 = raService.updateComplete(doc);
+			
+			// 7_5. 이전 승인권자들 id 조회
+			ArrayList<Document> all = raService.selectAllList(doc);
+			
+			// 7_6. 이전 승인권자들 상태 '완료'로 update
+			for(int i=0; i<all.size()-1; i++) {
+				d.setApproverEmpid(all.get(i).getApproverEmpid());
+				result4 = raService.updateAllComplete(d);
+			}
+			
+		}
 		
-		if(result1 * result2 > 0) {
-			return "redirect:detailDoc.rap?docNo=" + doc.getDocNo() + "&docSc=" + docSc;
+		if(result1 * result2 > 0 || result3 * result4 > 0) {
+			return "approval/documentList";
+			//return "redirect:detailDoc.rap?docNo=" + doc.getDocNo() + "&docSc=" + docSc;
 			// docSc가 안넘어감 ㅜ
 		}else {
 			model.addAttribute("msg", "결재 실패");

@@ -280,6 +280,13 @@
 	
 	
 	
+	<select id="selectApList" parameterType="Document" resultMap="reqApprovalResultSet">
+		select approver_empid, approve_step, approve_reject, approve_status
+		  from approve_line
+		 where doc_no=#{docNo} and approve_reject in('미결', '진행')
+		 order by approve_step
+	</select>
+	
 	<update id="updateApprove" parameterType="Document">
 		update approve_line
 		   set approve_reject=#{approveReject},
@@ -292,7 +299,29 @@
 	<update id="updateLine" parameterType="Document">
 		update approve_line
 		   set approve_reject='진행'
-		 where doc_no=#{docNo} and approve_step=1
+		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
+	</update>
+	
+	<update id="updateComplete" parameterType="Document">
+		update approve_line
+		   set approve_reject=#{approveReject},
+			   approve_status=2,
+			   approve_comment=#{approveComment},
+    		   approve_date=to_char(sysdate, 'yyyy-mm-dd')
+		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
+	</update>
+	
+	<select id="selectAllList" parameterType="Document" resultMap="reqApprovalResultSet">
+		select doc_no, approver_empid, approve_step, approve_reject, approve_status
+		  from approve_line
+		 where doc_no=#{docNo}
+		 order by approve_step
+	</select>
+	
+	<update id="updateAllComplete" parameterType="Document">
+		update approve_line
+		   set approve_status=2
+		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</update>
 	
 

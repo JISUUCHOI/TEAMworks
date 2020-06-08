@@ -51,27 +51,27 @@ public class ReqApprovalDao {
 		return sqlSession.insert("approveMapper.insertApproveLine", l);
 	}
 	
-	// 4_0. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
+	// 4_1. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
 	public int selectLineName(SqlSessionTemplate sqlSession, FrequentApprovalLine f) {
 		return sqlSession.selectOne("approveMapper.selectLineName", f);
 	}
 	
-	// 4_1. 결재선 즐겨찾기 추가
+	// 4_2. 결재선 즐겨찾기 추가
 	public int insertFreLine(SqlSessionTemplate sqlSession, FrequentApprovalLine fal) {
 		return sqlSession.insert("approveMapper.insertFreLine", fal);
 	}
 	
-	// 4_2. 결재선 즐겨찾기 리스트 조회
+	// 4_3. 결재선 즐겨찾기 리스트 조회
 	public ArrayList<FrequentApprovalLine> selectFreLine(SqlSessionTemplate sqlSession, String empId) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectFreLine", empId);
 	}
 
-	// 4_3. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
+	// 4_4. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
 	public ArrayList<FrequentApprovalLine> selectLineDetail(SqlSessionTemplate sqlSession, FrequentApprovalLine f) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectLineDetail", f);
 	}
 	
-	// 4_4. 결재선 즐겨찾기 삭제
+	// 4_5. 결재선 즐겨찾기 삭제
 	public int deleteLine(SqlSessionTemplate sqlSession, FrequentApprovalLine f) {
 		return sqlSession.delete("approveMapper.deleteLine", f);
 	}
@@ -113,13 +113,34 @@ public class ReqApprovalDao {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectVacDetail", doc);
 	}
 	
-	// 7_1. 첫번째 승인권자 승인/반려, 결재의견 insert
+	// 7_1. 미결, 진행 결재선 id 조회
+	public ArrayList<Document> selectApList(SqlSessionTemplate sqlSession, Document doc) {
+		return (ArrayList)sqlSession.selectList("approveMapper.selectApList", doc);
+	}
+	
+	// 7_2. 첫번째 승인권자 승인/반려, 결재의견 insert
 	public int updateApprove(SqlSessionTemplate sqlSession, Document doc) {
 		return sqlSession.update("approveMapper.updateApprove", doc);
 	}
 	
-	// 7_2. 다음 승인권자 상태 update
+	// 7_3. 다음 승인권자 상태 update
 	public int updateLine(SqlSessionTemplate sqlSession, Document doc) {
 		return sqlSession.update("approveMapper.updateLine", doc);
 	}
+	
+	// 7_4. 마지막 승인권자 상태 update -> 완료함
+	public int updateComplete(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.update("approveMapper.updateComplete", doc);
+	}
+	
+	// 7_5. 이전 승인권자들 id 조회
+	public ArrayList<Document> selectAllList(SqlSessionTemplate sqlSession, Document doc) {
+		return (ArrayList)sqlSession.selectList("approveMapper.selectAllList", doc);
+	}
+	
+	// 7_6. 이전 승인권자들 상태 '완료'로 update
+	public int updateAllComplete(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.updateAllComplete", d);
+	}
+	
 }

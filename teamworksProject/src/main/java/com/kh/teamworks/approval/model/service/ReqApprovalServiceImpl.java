@@ -65,32 +65,31 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.insertApproveLine(sqlSession, l);
 	}
 	
-	// 4_0. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
+	// 4_1. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
 	@Override
 	public int selectLineName(FrequentApprovalLine f) {
 		return raDao.selectLineName(sqlSession, f);
 	}
-	
 
-	// 4_1. 결재선 즐겨찾기 추가
+	// 4_2. 결재선 즐겨찾기 추가
 	@Override
 	public int insertFreLine(FrequentApprovalLine fal) {
 		return raDao.insertFreLine(sqlSession, fal);
 	}
 
-	// 4_2. 결재선 즐겨찾기 리스트 조회
+	// 4_3. 결재선 즐겨찾기 리스트 조회
 	@Override
 	public ArrayList<FrequentApprovalLine> selectFreLine(String empId) {
 		return raDao.selectFreLine(sqlSession, empId);
 	}
 	
-	// 4_3. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
+	// 4_4. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
 	@Override
 	public ArrayList<FrequentApprovalLine> selectLineDetail(FrequentApprovalLine f) {
 		return raDao.selectLineDetail(sqlSession, f);
 	}
 
-	// 4_4. 결재선 즐겨찾기 삭제
+	// 4_5. 결재선 즐겨찾기 삭제
 	@Override
 	public int deleteLine(FrequentApprovalLine f) {
 		return raDao.deleteLine(sqlSession, f);
@@ -137,29 +136,48 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 	public ArrayList<Document> selectVacDetail(Document doc) {
 		return raDao.selectVacDetail(sqlSession, doc);
 	}
+	
+	// 7_1. 미결, 진행 결재선 id 조회
+	@Override
+	public ArrayList<Document> selectApList(Document doc) {
+		return raDao.selectApList(sqlSession, doc);
+	}
 
-	// 7_1. 첫번째 승인권자 승인/반려, 결재의견 insert
+	// 7_2. 첫번째 승인권자 승인/반려, 결재의견 insert
 	@Override
 	public int updateApprove(Document doc) {
 		return raDao.updateApprove(sqlSession, doc);
 	}
 
-	// 7_2. 다음 승인권자 상태 update
+	// 7_3. 다음 승인권자 상태 update
 	@Override
 	public int updateLine(Document doc) {
 		return raDao.updateLine(sqlSession, doc);
 	}
 
+	// 7_4. 마지막 승인권자 상태 update -> 완료함
+	@Override
+	public int updateComplete(Document doc) {
+		return raDao.updateComplete(sqlSession, doc);
+	}
 
+	// 7_5. 이전 승인권자들 id 조회
+	@Override
+	public ArrayList<Document> selectAllList(Document doc) {
+		return raDao.selectAllList(sqlSession, doc);
+	}
+
+	// 7_6. 이전 승인권자들 상태 '완료'로 update
+	@Override
+	public int updateAllComplete(Document d) {
+		return raDao.updateAllComplete(sqlSession, d);
+	}
 
 	
 
+
+
 	
-
-	
-
-
-
 	
 	
 	

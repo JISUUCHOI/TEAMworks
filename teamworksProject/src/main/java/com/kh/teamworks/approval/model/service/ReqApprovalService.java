@@ -32,19 +32,19 @@ public interface ReqApprovalService {
 	// 3_3. 결재선 insert
 	int insertApproveLine(ApproveLine l);
 	
-	// 4_0. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
+	// 4_1. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인
 	int selectLineName(FrequentApprovalLine f);
 	
-	// 4_1. 결재선 즐겨찾기 추가
+	// 4_2. 결재선 즐겨찾기 추가
 	int insertFreLine(FrequentApprovalLine fal);
 	
-	// 4_2. 결재선 즐겨찾기 리스트 조회
+	// 4_3. 결재선 즐겨찾기 리스트 조회
 	ArrayList<FrequentApprovalLine> selectFreLine(String empId);
 	
-	// 4_3. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
+	// 4_4. 결재선 즐겨찾기 리스트 선택시 결재라인 조회
 	ArrayList<FrequentApprovalLine> selectLineDetail(FrequentApprovalLine f);
 	
-	// 4_4. 결재선 즐겨찾기 삭제
+	// 4_5. 결재선 즐겨찾기 삭제
 	int deleteLine(FrequentApprovalLine f);
 	
 	// 5_1. 문서 총개수 조회
@@ -68,10 +68,22 @@ public interface ReqApprovalService {
 	// 6_5. 문서 상세조회 - 휴가신청서
 	ArrayList<Document> selectVacDetail(Document doc);
 	
-	// 7_1. 첫번째 승인권자 승인/반려, 결재의견 insert
+	// 7_1. 미결, 진행 결재선 id 조회
+	ArrayList<Document> selectApList(Document doc);
+	
+	// 7_2. 첫번째 승인권자 승인/반려, 결재의견 insert
 	int updateApprove(Document doc);
 	
-	// 7_2. 다음 승인권자 상태 update
+	// 7_3. 다음 승인권자 상태 update
 	int updateLine(Document doc);
+	
+	// 7_4. 마지막 승인권자 상태 update -> 완료함
+	int updateComplete(Document doc);
+	
+	// 7_5. 이전 승인권자들 id 조회
+	ArrayList<Document> selectAllList(Document doc);
+	
+	// 7_6. 이전 승인권자들 상태 '완료'로 update
+	int updateAllComplete(Document d);
 	
 }

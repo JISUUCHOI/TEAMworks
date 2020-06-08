@@ -266,7 +266,7 @@
             <br><br><br>
 	
             <!-- 결재선 -->
-            <<div id="appoveLine">
+            <div id="appoveLine">
                 <table id="approveLineTb">
                     <tr height="20">
                         <td rowspan="2" width="20">결<br>재</td>
@@ -296,7 +296,7 @@
 
             <!-- 기안문서 -->
             <table class="docContents">
-                <tr width="1000">
+                <tr width="800">
                     <td width="200" class="th">문서번호</td>
                    	<td width="200">${ d.get(0).getDocNo() }</td>
                     <td width="200" class="th">기안일자</td>
@@ -323,7 +323,7 @@
 			<br><br>
 			
                <table class="docContents">
-                <tr width="1000">
+                <tr width="800">
                     <td width="200" class="th">휴가구분</td>
                     <td width="200">${ d.get(0).getVcSq() }</td>
                     <td width="200" class="th">전일/반일 구분</td>
