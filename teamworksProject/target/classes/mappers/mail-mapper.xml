@@ -97,4 +97,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 		order by email_no desc
  	</select>
+ 	
+ 	<select id="searchListCount" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int" >
+ 		select count(*)
+		from (select * from v_email_list
+		      where EMP_ID2= #{empId} OR REF_EMP=#{empId} and email_status='Y')
+		where read_status = ${readStatus}
+			<if test="sender != null">
+				and emp_name like '%'|| #{sender} ||'%'
+			</if>
+			<if test="title != null">
+				and email_title like '%'|| #{title} ||'%'
+			</if>
+			<if test="content != null">
+				and email_content like '%'|| #{content} ||'%'
+			</if>
+ 	</select>
+ 	
+ 	 	<select id="searchList" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
+ 		select *
+		from (select * from v_email_list
+		      where EMP_ID2= #{empId} OR REF_EMP=#{empId} and email_status='Y')
+		where read_status = ${readStatus}
+			<if test="sender != null">
+				and emp_name like '%'|| #{sender} ||'%'
+			</if>
+			<if test="title != null">
+				and email_title like '%'|| #{title} ||'%'
+			</if>
+			<if test="content != null">
+				and email_content like '%'|| #{content} ||'%'
+			</if>
+		order by email_no desc
+ 	</select>
 </mapper>

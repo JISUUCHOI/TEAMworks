@@ -50,6 +50,16 @@ public class MailServiceImpl implements MailService {
 	public ArrayList<MailDTO> searchKeyList(SearchMailCondition sc, PageInfo pi) {
 		return emDao.searchKeyList(sqlSession, sc, pi);
 	}
+
+	@Override
+	public int searchListCount(SearchMailCondition sc) {
+		return emDao.seachListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<MailDTO> searchList(SearchMailCondition sc, PageInfo pi) {
+		return emDao.searchList(sqlSession, sc, pi);
+	}
 	
 	
 }

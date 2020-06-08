@@ -78,8 +78,21 @@ public class MailController {
 		
 		if(sc.getKeyword()!=null && sc.getReadStatus()!=null) {
 			//System.out.println(sc);
+			switch(sc.getCondition()) {
+			case "title" : sc.setTitle(sc.getKeyword()); break;
+			case "content" : sc.setContent(sc.getKeyword()); break;
+			case "sender" : sc.setSender(sc.getKeyword()); break;
+			}
+			int listCount = emService.searchListCount(sc);
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			ArrayList<MailDTO> rList = emService.searchList(sc, pi);
+			model.addAttribute("pi", pi);
+			model.addAttribute("rList", rList);
+			model.addAttribute("sc", sc);
+			return "mail/receiveMailList";
 		}
-		return "";
+		
+		return "redirect:rList.ma";
 	}
 	
 }

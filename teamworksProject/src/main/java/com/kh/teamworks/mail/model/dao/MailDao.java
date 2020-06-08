@@ -43,4 +43,14 @@ public class MailDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("mailMapper.searchKeyList", sc, rowBounds);
 	}
+	
+	public int searchListCount(SqlSession sqlSession, SearchMailCondition sc) {
+		return sqlSession.selectOne("mailMapper.searchListCount", sc);
+	}
+	
+	public ArrayList<MailDTO> searchList(SqlSession sqlSession, SearchMailCondition sc, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mailMapper.searchList", sc, rowBounds);
+	}
 }

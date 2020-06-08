@@ -16,4 +16,7 @@ public interface MailService {
 	
 	int searchKeyListCount(SearchMailCondition sc);
 	ArrayList<MailDTO> searchKeyList(SearchMailCondition sc, PageInfo pi);
+	
+	int searchListCount(SearchMailCondition sc);
+	ArrayList<MailDTO> searchList(SearchMailCondition sc, PageInfo pi);
 }
