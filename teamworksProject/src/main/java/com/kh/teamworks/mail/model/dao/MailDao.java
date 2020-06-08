@@ -53,4 +53,24 @@ public class MailDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("mailMapper.searchList", sc, rowBounds);
 	}
+	
+	public int selectOutboxListCount(SqlSession sqlSession, String empId) {
+		return sqlSession.selectOne("mailMapper.selectOutboxListCount", empId);
+	}
+	
+	public ArrayList<MailDTO> selectOutboxList(SqlSession sqlSession, PageInfo pi, String empId){
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mailMapper.selectOutboxList", empId, rowBounds);
+	}
+	
+	public int searchOutboxListCount(SqlSession sqlSession, SearchMailCondition sc) {
+		return sqlSession.selectOne("mailMapper.searchOutboxListCount", sc);
+	}
+	
+	public ArrayList<MailDTO> searchOutboxList(SqlSession sqlSession, SearchMailCondition sc, PageInfo pi){
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mailMapper.searchOutboxList", sc, rowBounds);
+	}
 }

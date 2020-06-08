@@ -26,10 +26,11 @@ public class MailDTO {
 	private String recipients;
 	private String deleteStatus;
 	private String readStatus; 
-	private String senderName; // EMP_NAME
+	private String senderName; // EMP_NAME 보낸 사람 이름
 	private String senderEmail; // EMP_EMAIL
 	private String refRecipients; // REF_EMP
 	private String refType; // EATYPE
 	private String files; // 첨부파일 유무
-	
+	private String recipientsName; // 받는 사람 이름
+	private String refEmpName; // 참조자 이름 
 }

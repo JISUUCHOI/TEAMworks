@@ -40,9 +40,17 @@ public class MailController {
 			return "common/errorPage";
 		}
 	}
-	
+
+	/**
+	 * 받은 메일 검색 메소드
+	 * @param sc
+	 * @param currentPage
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("search.ma")
-	public String searchReadMail(SearchMailCondition sc, int currentPage,  HttpSession session, Model model) {
+	public String searchInboxMail(SearchMailCondition sc, int currentPage,  HttpSession session, Model model) {
 		
 		Employee e = (Employee)session.getAttribute("loginUser");
 		sc.setEmpId(e.getEmpId());
@@ -93,6 +101,44 @@ public class MailController {
 		}
 		
 		return "redirect:rList.ma";
+	}
+	
+	@RequestMapping("slist.ma")
+	public String outboxMailList(SearchMailCondition sc, int currentPage,  HttpSession session, Model model) {
+		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		if(e !=null) {
+			int listCount = emService.selectOutboxListCount(e.getEmpId());
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			ArrayList<MailDTO> sList = emService.selectOutboxList(pi, e.getEmpId());
+			model.addAttribute("pi", pi);
+			model.addAttribute("sList", sList);
+			return "mail/sendMailList";
+		}else {
+			model.addAttribute("msg", "로그인 후 이용하세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("outboxSearch.ma")
+	public String searchOutboxMail(SearchMailCondition sc, int currentPage,  HttpSession session, Model model) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		sc.setEmpId(e.getEmpId());
+		if(sc.getKeyword()!=null) {
+			switch(sc.getCondition()) {
+			case "recipients" : sc.setRecipients(sc.getKeyword()); break;
+			case "title" : sc.setTitle(sc.getKeyword()); break;
+			case "content" : sc.setContent(sc.getKeyword()); break;
+			}
+		}
+		int listCount = emService.searchOutboxListCount(sc);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		ArrayList<MailDTO> sList = emService.searchOutboxList(sc,pi);
+		model.addAttribute("pi", pi);
+		model.addAttribute("sList", sList);
+		model.addAttribute("sc", sc);
+		return "mail/sendMailList";
 	}
 	
 }

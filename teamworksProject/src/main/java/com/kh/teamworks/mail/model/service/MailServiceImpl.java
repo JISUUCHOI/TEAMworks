@@ -60,6 +60,26 @@ public class MailServiceImpl implements MailService {
 	public ArrayList<MailDTO> searchList(SearchMailCondition sc, PageInfo pi) {
 		return emDao.searchList(sqlSession, sc, pi);
 	}
+
+	@Override
+	public int selectOutboxListCount(String empId) {
+		return emDao.selectOutboxListCount(sqlSession,empId);
+	}
+
+	@Override
+	public ArrayList<MailDTO> selectOutboxList(PageInfo pi, String empId) {
+		return emDao.selectOutboxList(sqlSession, pi, empId);
+	}
+
+	@Override
+	public int searchOutboxListCount(SearchMailCondition sc) {
+		return emDao.searchOutboxListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<MailDTO> searchOutboxList(SearchMailCondition sc, PageInfo pi) {
+		return emDao.searchOutboxList(sqlSession, sc, pi);
+	}
 	
 	
 }

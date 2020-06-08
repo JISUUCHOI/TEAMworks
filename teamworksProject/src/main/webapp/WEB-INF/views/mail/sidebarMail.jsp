@@ -68,7 +68,7 @@
             <div class="category"></div>
             <div class="subCate"><a href="">편지쓰기</a></div>
             <div class="subCate"><a href="rlist.ma?currentPage=1">받은 편지함</a></div>
-            <div class="subCate"><a href="">보낸 편지함</a></div>
+            <div class="subCate"><a href="slist.ma?currentPage=1">보낸 편지함</a></div>
             <div class="subCate"><a href="">휴지통</a></div>
         </div>
     </div>

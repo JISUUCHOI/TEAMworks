@@ -14,12 +14,12 @@ import lombok.ToString;
 public class SearchMailCondition {
 	
 	private String condition;
-	private String sender;
+	private String sender; //보낸사람 
 	private String title;
 	private String content;
 	private String keyword;
-	private String empId;
+	private String empId; // 조회자(로그인된사람)
 	private String readStatus;
-	
+	private String recipients; // 받는 사람
 	
 }

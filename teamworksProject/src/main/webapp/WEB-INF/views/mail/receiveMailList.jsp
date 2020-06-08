@@ -266,7 +266,8 @@
 					
 				}else{
 					if($("#readCondition").val() =="all"){
-						$("#searchForm").submit();
+						// $("#searchForm").submit();
+						location.href="rlist.ma?currentPage=1";
 					}else{
 						var hidden = "<input type='hidden' name='readStatus' value='"+$("#readCondition").val()+"'>";
 						$("#searchForm").append(hidden);

@@ -19,4 +19,10 @@ public interface MailService {
 	
 	int searchListCount(SearchMailCondition sc);
 	ArrayList<MailDTO> searchList(SearchMailCondition sc, PageInfo pi);
+	
+	int selectOutboxListCount(String empId);
+	ArrayList<MailDTO> selectOutboxList(PageInfo pi, String empId);
+	
+	int searchOutboxListCount(SearchMailCondition sc);
+	ArrayList<MailDTO> searchOutboxList(SearchMailCondition sc, PageInfo pi);
 }
