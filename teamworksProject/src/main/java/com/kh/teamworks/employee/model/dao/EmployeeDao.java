@@ -74,6 +74,7 @@ public class EmployeeDao {
 
 	public ArrayList<SearchEmpAttendance> selectSchEmpAtt(SqlSessionTemplate sqlSession, SearchEmpAttCondition seac) {
 		// TODO Auto-generated method stub
+		System.out.println(seac);
 		return (ArrayList)sqlSession.selectList("employeeMapper.selectSchEmpAtt", seac);
 	}
 

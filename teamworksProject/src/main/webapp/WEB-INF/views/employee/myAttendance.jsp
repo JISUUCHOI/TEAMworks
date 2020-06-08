@@ -184,7 +184,7 @@
                                 </td>
                                 <td>${att.startTime }</td>
                                 <td>${att.endTime }</td>
-                                <td>                                 </td>
+                                <td>${att.attTime }            </td>
                             </tr> 
                             	</c:forEach>
                             </c:when>

@@ -20,6 +20,7 @@ public class SearchEmpAttendance {
 	private String attDate;
 	private String startTime;
 	private String endTime;
+	private String attTime;
 	private int atType;
 	
 	

@@ -395,7 +395,7 @@ public class EmployeeController {
 			seac.setEndDate(endDate);
 			seac.setEmpName(empName);
 			seac.setCondition(condition);
-			System.out.println(seac);
+			
 			//System.out.println(sma);
 			ArrayList<SearchEmpAttendance> list = eService.selectSchEmpAtt(seac);
 			System.out.println(list);

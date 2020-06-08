@@ -235,7 +235,7 @@
                                 <td>${sea.deptName }</td>
                                 <td>${sea.attDate } ${sea.startTime }</td>
                                 <td>${sea.attDate } ${sea.endTime }</td>
-                                <td>09:00</td>
+                                <td>${sea.attTime }</td>
                                	<c:if test="${'0' eq  sea.atType}">
                                 <td>정상출근</td>
                                 </c:if>
