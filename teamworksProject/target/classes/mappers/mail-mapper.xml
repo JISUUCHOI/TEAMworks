@@ -102,7 +102,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select count(*)
 		from (select * from v_email_list
 		      where EMP_ID2= #{empId} OR REF_EMP=#{empId} and email_status='Y')
-		where read_status = ${readStatus}
+		where read_status = #{readStatus}
 			<if test="sender != null">
 				and emp_name like '%'|| #{sender} ||'%'
 			</if>
@@ -118,7 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select *
 		from (select * from v_email_list
 		      where EMP_ID2= #{empId} OR REF_EMP=#{empId} and email_status='Y')
-		where read_status = ${readStatus}
+		where read_status = #{readStatus}
 			<if test="sender != null">
 				and emp_name like '%'|| #{sender} ||'%'
 			</if>

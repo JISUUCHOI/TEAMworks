@@ -53,7 +53,7 @@ public class MailServiceImpl implements MailService {
 
 	@Override
 	public int searchListCount(SearchMailCondition sc) {
-		return emDao.seachListCount(sqlSession, sc);
+		return emDao.searchListCount(sqlSession, sc);
 	}
 
 	@Override
