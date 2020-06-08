@@ -10,138 +10,49 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <style>
-        /* 전체윤곽 */
-        #draftOuter{
-            width:800px;
-            height:1300px;
-            /* float:left; */
-            display:inline-block;
-           	margin:auto;
-            margin-top:50px;
-            margin-left:500px;
-            /* border:1px solid red; */
-        }
-
-        /* 버튼 */
-        #btns{
-            width:200px;
-            float:right;
-        }
-        #approveLineBtn, #approveBtn, #fileUpBtn{
-            width:60px;
-            height:28px;
-            background: rgb(7, 53, 90);
-            color:white;
-            border:none;
-            font-size:12px;
-        }
-        #approveLineBtn:hover, #approveBtn:hover, #fileUpBtn:hover, #refBtn:hover{
-            background:deepskyblue;
-            cursor:pointer;
-        }
-        #cancelBtn{
-            width:60px;
-            height:28px;
-            background:white;
-            border:1px solid rgb(7, 53, 90);
-            font-size:12px;
-            font-weight:600;
-            cursor:pointer;
-        }
-
-        /* 결재선 */
-        #appoveLine{
-            float:right;
-        }
-        #approveLineTb, #approveLineTb tr, #approveLineTb td, #approveLineTb th{
-            border:1.2px solid lightgrey;
-            border-collapse: collapse;
-            font-size:12px;
-        }
-        #approveLineTb{
-            text-align:center;
-        }
-
-        /* 기안문서 */
-        .docContents{margin:auto;}
-        .docContents, .docContents tr, .docContents td{
-            border-collapse: collapse;
-            text-align:center;
-            font-size:13px;
-        }
-        .docContents tr, #fileTb{
-            height:35px;
-            border-top:1px solid lightgrey;
-            border-bottom:1px solid lightgrey;
-        }
-        .th, #fileTb{
-            background:lightsteelblue;
-            color:white;
-            font-weight:600;
-            text-align:center;
-            font-size:13px;
-        }
-        #refSch{
-            width:120px;
-            height:20px;
-            margin-left:10px;
-        }
-        #refBtn:hover{
-        	background:lightsteelblue;
-        	cursor:pointer;
-        }
-        #titleIput{
-            width:600px;
-            height:20px;
-            margin-left:10px;
-        }
-        #refBtn{
-            width:40px;
-            height:26px;
-            background: rgb(7, 53, 90);
-            border:none;
-            color:white;
-            margin-left:5px;
-            margin-right:10px;
-            font-size:12px;
-        }
-
-        /* 파일첨부 */
-        #fileTb{margin:auto;}
-        #fileUpload{
-            width:798px;
-            height:100px;
-            border:1px solid lightgrey;
-            margin:auto;
-            text-align:center;
-            line-height:7;
-            color:grey;
-            font-size:12px;
-        }
-        #fileUpBtn{
-            float:right;
-            margin-right:20px;
-        }
-        #draftFile{
-            height:60px;
-        }
-        #draftContent{
-            height: 250px;       
-        }
-
-        #paymentOpinion, #paymentOpinion tr, #paymentOpinion td, #paymentOpinion th{
-            border:1.2px solid lightgrey;           
-            border-collapse: collapse;
-            font-size:12px;
-            text-align:center;
-        }
-        #aa{
-            background:lightsteelblue;
-        }
-        
-    </style>
+<!-- css 연결 -->
+<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/writeDraftForm.css">
+<!-- js 연결 -->
+<script src="${ pageContext.servletContext.contextPath }/resources/js/writeDraftForm.js" rel="javascript" type="text/javascript"></script>
 </head>
+<style>
+    #paymentOpinion, #paymentOpinion tr, #paymentOpinion td, #paymentOpinion th{
+        border:1.2px solid lightgrey;           
+        border-collapse: collapse;
+        font-size:12px;
+        text-align:center;
+    }
+    #aa{
+        background:lightsteelblue;
+    }  
+    
+    #btns{
+        width:200px;
+        float:right;
+    }
+    #modifyBtn, #deleteBtn{
+        width:60px;
+        height:28px;
+        background: rgb(7, 53, 90);
+        color:white;
+        border:none;
+        font-size:12px;
+    }
+    #modifyBtn:hover, #deleteBtn:hover, #refBtn:hover{
+        background:deepskyblue;
+        cursor:pointer;
+    }
+    
+    #listBtn{
+        width:60px;
+        height:28px;
+        background:white;
+        border:1px solid rgb(7, 53, 90);
+        font-size:12px;
+        font-weight:600;
+        cursor:pointer;
+    }
+</style>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="approvalSidebar.jsp"/>
@@ -152,13 +63,27 @@
 	        <hr>
 	        <br>
 	
-	        <form id="docForm" action="">
+
 	            <!-- 버튼들 -->
 	            <div id="btns">
-	                <button type="button" id="approveLineBtn">결재선</button>
-	                <button type="submit" id="approveBtn">결재요청</button>
-	                <button type="button" id="cancelBtn">취소</button>
+	                <button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
+	                <button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
+	                <button type="button" id="listBtn" onclick="history.back();">목록</button>
 	            </div>
+	            
+	           	<form action="" id="postForm" method="post">
+	            	<input type="hidden" name="dno" value="${ d.getDocNo() }">
+	            </form><script>
+   				    function postFormSubmit(num){
+ 					   if(num == 1){ 
+		    			   $("#postForm").attr("action","updateDoc.ap");
+		 		    }else{ 
+						   $("#postForm").attr("action","deleteDraft.ap");
+				    }			
+						   $("#postForm").submit();
+   				    }
+			    </script>
+			    
 	            <br><br><br>
 	
 	            <h1 style="text-align:center;">기안서</h1>
@@ -194,33 +119,35 @@
 	            <table class="docContents">
 	                <tr width="1000">
 	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200">자동부여</td>
+	                    <td width="200">${ d.getDocNo() }</td>
 	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200">2020.05.07</td>
+	                    <td width="200">${ d.getDocDate() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td>이용석</td>
-	                    <td class="th">기안부서</td>
-	                    <td>개발팀</td>
+	                    <td>${ d.getEmpName() }</td>
+	                    <td class="th">마감일자</td>
+	                    <td>${ d.getDocEnd() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td></td>
-	                    <td class="th">기결재 첨부</td>
-	                    <td></td>
+	                    <td>${ d.getDocReference() }</td>
+	                    <td class="th">기안부서</td>
+	                    <td>${ d.getDocDepartment() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">문서제목</td>
-	                    <td colspan="3"></td>
+	                    <td colspan="3">${ d.getDocTitle() }</td>
+                    </tr>
+                        <tr>
+                    	<td class="th">내용</td>
+	                    <td colspan="4" id="draftContent">${ d.getDocContent() }</td>
                     </tr>
                     <tr>
 	                    <td class="th">첨부파일</td>
 	                    <td colspan="3" id="draftFile"></td>
                     </tr>
-                    <tr>
-	                    <td colspan="4" id="draftContent"></td>
-                    </tr>
+
                 </table>
 
                 <br><br>
@@ -249,7 +176,6 @@
 	            </div>
 
 
-	        </form>
 	
 	    </div>
 	</div>

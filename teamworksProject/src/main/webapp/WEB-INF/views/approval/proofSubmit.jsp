@@ -10,191 +10,174 @@
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    <style>
-        /* 전체윤곽 */
-        #draftOuter{
-            width:800px;
-            height:1300px;
-            /* float:left; */
-            display:inline-block;
-           	margin:auto;
-            margin-top:50px;
-            margin-left:500px;
-            /* border:1px solid red; */
-        }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<style>
+    /* 전체윤곽 */
+    html, body{height:100%;}
+    
+    #bodyWrapper{
+    	width:1250px;
+    	height:100%;
+    	float:left;
+    }
+    
+    #draftOuter{
+        width:800px;
+        height:1300px;
+       	margin:auto;
+        margin-top:50px;
+    }
 
-        /* 버튼 */
-        #btns{
-            width:200px;
-            float:right;
-        }
-        #approveLineBtn, #approveBtn, #fileUpBtn{
-            width:60px;
-            height:28px;
-            background: rgb(7, 53, 90);
-            color:white;
-            border:none;
-            font-size:12px;
-        }
-        #approveLineBtn:hover, #approveBtn:hover, #fileUpBtn:hover, #refBtn:hover{
-            background:deepskyblue;
-            cursor:pointer;
-        }
-        #cancelBtn{
-            width:60px;
-            height:28px;
-            background:white;
-            border:1px solid rgb(7, 53, 90);
-            font-size:12px;
-            font-weight:600;
-            cursor:pointer;
-        }
+    /* 버튼 */
+    #btns{
+        width:200px;
+        float:right;
+    }
+    #modifyBtn, #deleteBtn{
+        width:60px;
+        height:28px;
+        background: rgb(7, 53, 90);
+        color:white;
+        border:none;
+        font-size:12px;
+    }
+    #modifyBtn:hover, #deleteBtn:hover, #refBtn:hover{
+        background:deepskyblue;
+        cursor:pointer;
+    }
+    #listBtn{
+        width:60px;
+        height:28px;
+        background:white;
+        border:1px solid rgb(7, 53, 90);
+        font-size:12px;
+        font-weight:600;
+        cursor:pointer;
+    }
 
-        /* 결재선 */
-        #appoveLine{
-            float:right;
-        }
-        #approveLineTb, #approveLineTb tr, #approveLineTb td, #approveLineTb th{
-            border:1.2px solid lightgrey;
-            border-collapse: collapse;
-            font-size:12px;
-        }
-        #approveLineTb{
-            text-align:center;
-        }
+    /* 결재선 */
+    #appoveLine{
+        float:right;
+    }
+    #approveLineTb, #approveLineTb tr, #approveLineTb td, #approveLineTb th{
+        border:1.2px solid lightgrey;
+        border-collapse: collapse;
+        font-size:12px;
+    }
+    #approveLineTb{
+        text-align:center;
+    }
 
-        /* 기안문서 */
-        .docContents{margin:auto;}
-        .docContents, .docContents tr, .docContents td{
-            border-collapse: collapse;
-            text-align:center;
-            font-size:13px;
-        }
-        .docContents tr, #fileTb{
-            height:35px;
-            border-top:1px solid lightgrey;
-            border-bottom:1px solid lightgrey;
-        }
-        .th, #fileTb{
-            background:lightsteelblue;
-            color:white;
-            font-weight:600;
-            text-align:center;
-            font-size:13px;
-        }
-        #refSch{
-            width:120px;
-            height:20px;
-            margin-left:10px;
-        }
-        #refBtn:hover{
-        	background:lightsteelblue;
-        	cursor:pointer;
-        }
-        #titleIput{
-            width:600px;
-            height:20px;
-            margin-left:10px;
-        }
-        #refBtn{
-            width:40px;
-            height:26px;
-            background: rgb(7, 53, 90);
-            border:none;
-            color:white;
-            margin-left:5px;
-            margin-right:10px;
-            font-size:12px;
-        }
+    /* 기안문서 */
+    .docContents{margin:auto;}
+    .docContents, .docContents tr, .docContents td{
+        border-collapse: collapse;
+        text-align:center;
+        font-size:13px;
+    }
+    .docContents tr, #fileTb{
+        height:35px;
+        border-top:1px solid lightgrey;
+        border-bottom:1px solid lightgrey;
+    }
+    .th, #fileTb{
+        background:lightsteelblue;
+        color:white;
+        font-weight:600;
+        text-align:center;
+        font-size:13px;
+    }
+    #refSch{
+        width:120px;
+        height:20px;
+        margin-left:10px;
+    }
+    #refBtn:hover{
+    	background:lightsteelblue;
+    	cursor:pointer;
+    }
+    #titleIput{
+        width:600px;
+        height:20px;
+        margin-left:10px;
+    }
+    #refBtn{
+        width:40px;
+        height:26px;
+        background: rgb(7, 53, 90);
+        border:none;
+        color:white;
+        margin-left:5px;
+        margin-right:10px;
+        font-size:12px;
+    }
 
-        /* 파일첨부 */
-        #fileTb{margin:auto;}
-        #fileUpload{
-            width:798px;
-            height:100px;
-            border:1px solid lightgrey;
-            margin:auto;
-            text-align:center;
-            line-height:7;
-            color:grey;
-            font-size:12px;
-        }
-        #fileUpBtn{
-            float:right;
-            margin-right:20px;
-        }
-        #bodyWrapper{
-        	width:1250px;
-        	float:left;
-        }
-        
-                #feName{
-            width:120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #fePrice{
-            width:120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #feDate{
-            width: 120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #fePlace{
-            width:300px;
-            margin-left:20px;
-            margin-right: 20px;
-        }
-        #feAccount{
-            width: 120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #feAccountName{
-            width: 120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #bank{
-            width: 60px;
-            text-align:center;
-        }
-        #feSq{
-            width: 60px;
-            text-align:center;
-        }
-        #feRelation{
-            width: 60px;
-            text-align:center;
-        }
-        #pfSq{
-            width: 100px;
-            text-align:center;
-        }
-        #vcDay{
-            width: 70px;
-            text-align:center;
-        }
-        #pfDate{
-            width: 120px;
-            margin-left:10px;
-            margin-right: 10px;
-        }
-        #paymentOpinion, #paymentOpinion tr, #paymentOpinion td, #paymentOpinion th{
-            border:1.2px solid lightgrey;           
-            border-collapse: collapse;
-            font-size:12px;
-            text-align:center;
-        }
-        #aa{
-            background:lightsteelblue;
-        }
-
-        
-    </style>
+    
+            #feName{
+        width:120px;
+        margin-left:10px;
+        margin-right: 10px;
+    }
+    #fePrice{
+        width:120px;
+        margin-left:10px;
+        margin-right: 10px;
+    }
+    #feDate{
+        width: 120px;
+        margin-left:10px;
+        margin-right: 10px;
+    }
+    #fePlace{
+        width:300px;
+        margin-left:20px;
+        margin-right: 20px;
+    }
+    #feAccount{
+        width: 120px;
+        margin-left:10px;
+        margin-right: 10px;
+    }
+    #feAccountName{
+        width: 120px;
+        margin-left:10px;
+        margin-right: 10px;
+    }
+    #bank{
+        width: 60px;
+        text-align:center;
+    }
+    #feSq{
+        width: 60px;
+        text-align:center;
+    }
+    #feRelation{
+        width: 60px;
+        text-align:center;
+    }
+    #pfSq{
+        width: 100px;
+        text-align:center;
+    }
+    #vcDay{
+        width: 70px;
+        text-align:center;
+    }
+    #pfDate{
+        width: 120px;
+        margin-left:10px;
+        margin-right: 10px;
+    }
+    #paymentOpinion, #paymentOpinion tr, #paymentOpinion td, #paymentOpinion th{
+        border:1.2px solid lightgrey;           
+        border-collapse: collapse;
+        font-size:12px;
+        text-align:center;
+    }
+    #aa{
+        background:lightsteelblue;
+    }    
+</style>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
@@ -206,13 +189,28 @@
 	        <hr>
 	        <br>
 	
-	        <form id="docForm" action="">
+	        
 	            <!-- 버튼들 -->
 	            <div id="btns">
-	                <button type="button" id="approveLineBtn">결재선</button>
-	                <button type="submit" id="approveBtn">결재요청</button>
-	                <button type="button" id="cancelBtn">취소</button>
+	                <button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
+	                <button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
+	                <button type="button" id="listBtn" onclick="history.back();">목록</button>
 	            </div>
+	            
+	            
+	            <form action="" id="postForm" method="post">
+	            	<input type="hidden" name="dno" value="${ d.getDocNo() }">
+	            </form><script>
+   				    function postFormSubmit(num){
+ 					   if(num == 1){ 
+		    			   $("#postForm").attr("action","updateDoc.ap");
+		 		    }else{ 
+						   $("#postForm").attr("action","deleteProof.ap");
+				    }			
+						   $("#postForm").submit();
+   				    }
+			    </script>
+	            
 	            <br><br><br>
 	
 	            <h1 style="text-align:center;">제증명 신청서</h1>
@@ -244,25 +242,25 @@
 	            <table class="docContents">
 	                <tr width="1000">
 	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200"></td>
+	                    <td width="200">${ d.getDocNo() }</td>
 	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200">2020.05.07</td>
+	                    <td width="200">${ d.getDocDate() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td>이용석</td>
-	                    <td class="th">기안부서</td>
-	                    <td>개발팀</td>
+	                    <td>${ d.getEmpName() }</td>
+	                    <td class="th">마감일자</td>
+	                    <td>${ d.getDocEnd() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td>최해성 이사 개발팀</td>
-	                    <td class="th">기결재 첨부</td>
-	                    <td></td>
+	                    <td>${ d.getDocReference() }</td>
+	                    <td class="th">기안부서</td>
+	                    <td>${ d.getDocDepartment() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"></td>
+	                    <td colspan="3">${ d.getDocTitle() }</td>
 	                </tr>
 	            </table>
 				
@@ -271,31 +269,31 @@
                 <table class="docContents">
 	                <tr width="">
 	                    <td width="150" class="th">증명서번호</td>
-	                    <td width="150">2020-0001</td>
+	                    <td width="150">${ d.getDocNo() }</td>
 	                    <td width="150" class="th">증명서구분</td>
-                        <td width="150">경력증명서</td>
+                        <td width="150">${ d.getDocSc() }</td>
                         <td width="150" class="th">신청일자</td>
-	                    <td width="150">2020.05.09</td>
+	                    <td width="150">${ d.getDocDate() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">사원번호</td>
-	                    <td>16</td>
+	                    <td>${ d.getEmpId() }</td>
 	                    <td class="th">성명</td>
-                        <td width="">이용석</td>
+                        <td width="">${ d.getEmpName() }</td>
                         <td class="th">사업장</td>
                         <td width="">(주)팀웍스</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">부서</td>
-	                    <td>개발팀</td>
+	                    <td>${ d.getDocDepartment() }</td>
 	                    <td class="th">직급</td>
-                        <td>사원</td>
+                        <td></td>
                         <td class="th"></td>
 	                    <td></td>
                     </tr>
                     <tr>
 	                    <td class="th">용도</td>
-	                    <td colspan="5">금융기관 제출용</td>
+	                    <td colspan="5">${ d.getPfPurpose() }</td>
 	                </tr>
                 </table>
                 
@@ -323,10 +321,8 @@
 
 	                </table>
 	            </div>
+	 	   </div>
+	  </div>
 	
-	        </form>
-	
-	    </div>
-	</div>
 </body>
 </html>

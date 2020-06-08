@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.employee.model.vo.Employee;
 
@@ -27,6 +28,28 @@ public interface ApprovalService {
 
 	// 2. 결재선/참조자 사원 검색 select
 	ArrayList<Employee> selectEmpSch(ApproveSearchCondition sc);
+	
+	// 결재요청함, 참조문서함 list
+	// int docListCount(Document d);
+	
+	// list 갯수
+	ArrayList<Document> docList(Document d);
+
+	// 상세조회 기안서
+	Document draftDetail(Document d);
+
+	// 상세조회 제증명신청서
+	Document proofDetail(Document d);
+
+	// 제증명 삭제
+	int deleteProof(String dno);
+	
+
+	
+
+	
+
+
 
 
 

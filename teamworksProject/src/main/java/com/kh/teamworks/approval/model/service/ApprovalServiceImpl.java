@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.teamworks.approval.model.dao.ApprovalDao;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Service("aService")
@@ -54,6 +55,40 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public int insertDraft(Document d) {
 		return aDao.insertDraft(sqlSession, d);
 	}
+
+	// list 갯수
+	//@Override
+	//public int docListCount(Document d) {
+		//return aDao.docListCount(sqlSession, d);
+	//}
+
+	// 결재요청함, 참조문서함 list
+	@Override
+	public ArrayList<Document> docList(Document d) {
+		return aDao.docList(sqlSession, d);	}
+
+
+	// 상세조회 기안서
+	@Override
+	public Document draftDetail(Document d) {
+		return aDao.draftDetail(sqlSession, d);
+	}
+	
+	// 상세조회 제증명신청서
+	@Override
+	public Document proofDetail(Document d) {
+		return aDao.proofDetail(sqlSession, d);
+	}
+
+	// 제증명 삭제
+	@Override
+	public int deleteProof(String dno) {
+		return aDao.deleteProof(sqlSession, dno);
+	}
+
+
+
+
 	
 
 }

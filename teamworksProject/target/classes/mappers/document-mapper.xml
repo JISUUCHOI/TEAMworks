@@ -15,9 +15,9 @@
 
 	<!-- 공통 -->
 	<resultMap type="Document" id="documentResultSet">
-		<result column="DOC_NO" property="docNo"/>					<!-- 문서코드 -->
+		<id column="DOC_NO" property="docNo"/>						<!-- 문서코드 -->
 		<result column="EMP_ID" property="empId"/>					<!-- 기안자 사원번호 -->
-		<result column="DOC_SC" property="titleIput"/>				<!-- 기안서, 경조사, 휴가, 제증명 -->
+		<result column="DOC_SC" property="docSc"/>					<!-- 기안서, 경조사, 휴가, 제증명 -->
 		<result column="DOC_STATUS" property="docStatus"/>			<!-- 0:대기 1: 진행 2: 완료 3: 반려 4:회수 -->
 		<result column="DOC_TITLE" property="docTitle"/>			<!-- 문서제목 -->
 		<result column="DOC_REFERENCE" property="docReference"/>	<!-- 참조자 사원번호 -->
@@ -34,6 +34,17 @@
 		<result column="DOC_CONTENT" property="docContent"/>		<!-- 문서내용 -->
 		<result column="FILE_NAME" property="fileName"/>			<!-- 첨부파일명 -->
 		<result column="FILE_PATH" property="filePath"/>			<!-- 첨부파일저장경로 -->
+		
+		<result column="approve_status" property="approveStatus"/>
+		<result column="emp_name" property="empName"/>
+		
+		<result column="approver_empid" property="approverEmpid"/>
+		<result column="approver_name" property="approverName"/>
+		<result column="approve_step" property="approveStep"/>
+		<result column="approve_reject" property="approveReject"/>
+		<result column="approve_status" property="approveStatus"/>
+		<result column="approve_comment" property="approveComment"/>
+		<result column="approve_date" property="approveDate"/>
 		
 	</resultMap>
 	
@@ -96,5 +107,66 @@
 				#{docContent}, #{fileName}, '첨부파일저장경로' )
 	</insert>
 	
+	<!-- 
+	<select id="docListCount" parameterType="Document" resultType="_int">
+		select count(*)
+		  from draft
+		 where emp_id=#{empId} 		
+	</select>
+	 -->
+	
+	<!-- 결재요청함 list 조회 -->
+	<select id="docList" parameterType="Document" resultMap="documentResultSet">
+		select d.doc_no, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, doc_status
+		  from draft d
+		  join employee e on(d.emp_id = e.emp_id)
+		 where d.emp_id=#{empId}
+		 UNION ALL
+		select p.doc_no, p.doc_sc, p.doc_title, e.emp_name, p.doc_department, p.doc_date, p.doc_status
+ 		  from proof p
+ 		  join employee e on(p.emp_id = e.emp_id)
+		 where p.emp_id=#{empId} 
+		 order by doc_date asc 
+	</select>
+	
+	<!-- 
+	<select id="docListCount" parameterType="Document" resultType="_int">
+		select count(*)
+		  from draft d
+		  join employee e on(d.emp_id = e.emp_id) 
+		 where d.emp_id=#{empId}  
+	</select>
+	 -->	 
+	
+	<!-- 기안서 상세조회 -->
+	<select id="draftDetail" parameterType="Document" resultMap="documentResultSet">
+	 	select d.doc_no, e.emp_name, d.doc_sc, d.doc_status, d.doc_title, d.DOC_REFERENCE, d.DOC_REFERENCE, d.DOC_END,
+	 	        d.doc_date, d.DOC_DEPARTMENT, d.DOC_CONTENT, d.FILE_NAME, d.FILE_PATH
+	 	  from draft d
+	 	  join employee e on(d.emp_id = e.emp_id)
+	 	 where d.doc_no=#{docNo}
+	</select>
+	
+	<!-- 제증명 상세조회 -->
+	<select id="proofDetail" parameterType="Document" resultMap="documentResultSet">
+		select p.doc_no, p.emp_id, p.doc_sc, p.doc_status, p.doc_title, e.emp_name, p.doc_department, p.doc_date, p.doc_status,
+		       p.doc_end, p.doc_reference, p.PF_SQ, p.PF_PURPOSE, p.PF_STATUS, j.job_name
+ 		  from proof p
+ 		  join employee e on(p.emp_id = e.emp_id)
+ 		  join job j on(e.job_code = j.job_code)
+	 	 where p.doc_no=#{docNo}
+	</select>
+	
+	<!-- 제증명삭제 -->
+	<delete id="deleteProof" parameterType="Document">
+		delete from proof where doc_no=#{docNo}
+	</delete>
+	
+	
 
 </mapper>
+
+
+
+
+

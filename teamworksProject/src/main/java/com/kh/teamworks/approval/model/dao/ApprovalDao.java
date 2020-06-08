@@ -2,11 +2,13 @@ package com.kh.teamworks.approval.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Repository("aDao")
@@ -42,6 +44,39 @@ public class ApprovalDao {
 		return sqlSession.insert("documentMapper.insertDraft", d);
 	}
 
+	// list 갯수
+	// public int docListCount(SqlSessionTemplate sqlSession, Document d) {
+		// return sqlSession.selectOne("documentMapper.docListCount", d);
+	// }
+
+	// 결재요청함, 참조문서함 list
+	public ArrayList<Document> docList(SqlSessionTemplate sqlSession, Document d) {
+
+		return (ArrayList)sqlSession.selectList("documentMapper.docList", d);
+	}
+
+	// 상세조회 기안서
+	public Document draftDetail(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("documentMapper.draftDetail", d);
+	}
+	
+	// 상세조회 제증명
+	public Document proofDetail(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("documentMapper.proofDetail", d);	}
+
+	// 제증명 삭제
+	public int deleteProof(SqlSessionTemplate sqlSession, String dno) {
+		return sqlSession.delete("documentMapper.deleteProof", dno);
+	}
+	
 
 
 }
+
+
+
+
+
+
+
+

@@ -32,6 +32,8 @@ import com.kh.teamworks.approval.model.service.ApprovalService;
 import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.employee.model.vo.Employee;
 
 @Controller
@@ -140,7 +142,7 @@ public class ApprovalController {
 			if(!file.getOriginalFilename().equals("")) {
 				String changeName = saveFile(file, request);
 				
-				fileName = fileName + file.getOriginalFilename() + ";";
+				fileName = fileName + file.getOriginalFilename();
 			}
 		}
 		
@@ -166,71 +168,104 @@ public class ApprovalController {
 	    }
 	}
 	
-	@RequestMapping("dragInsert.ap")
-	public String insertDrag(Document d, Model model, HttpServletRequest request, HttpSession session, 
-							  @RequestParam(name="uploadFile", required=false) MultipartFile file) {
-		
-
-
-			saveFile(file, request);
-			
-
-		
-		
-
-		return null;
-	 
-
-	  
-
-	}
-	
 	// 결재요청함, 참조문서함 연결
 	@RequestMapping("docList.ap")
-	public String documentListView(int approveStatus, Model model) {
+	public String documentListView(Model model, HttpServletRequest request, int approveStatus) {
+		
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+		Document d = new Document();
+		
+		d.setEmpId(empId); 
+		d.setApproveStatus(approveStatus);
+		
+		ArrayList<Document> list = aService.docList(d);		 
+		model.addAttribute("list", list);
 		model.addAttribute("sts", approveStatus);
-		
-		//ArrayList<Document> list = raService.selectDocList(approveStatus);
-		
+
+		// System.out.println(list);
+		 
 		return "approval/refDocListjsp";
 	}
 	
+	// 상세조회
+	@RequestMapping("docDetail.ap")
+	public String detailDoc(Document d, Model model, HttpServletRequest request) {
+		
+		String docNo = d.getDocNo();
+		d.setDocNo(docNo);
+		
+		if(d.getDocSc().equals("기안서")) {		
+			d = aService.draftDetail(d);
+			model.addAttribute("d", d);
+			System.out.println(d);
+			return "approval/draftSubmit";
+		}else {
+			d = aService.proofDetail(d);
+			model.addAttribute("d", d);
+			return "approval/proofSubmit";
+		}
 	
+	}
 	
-
-
-	
-	// 기안문insert
-	// @RequestMapping("draftInsert.ap")
-	// public String insertDraft
-	   
-
-
-	
-	    	// 파일
-		public String saveFile(MultipartFile file,  HttpServletRequest request) {
-			String resources = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = resources + "\\approveUploadFiles\\";
-			
-			String originName = file.getOriginalFilename();
-			
-			String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-			
-
-			
-			String changeName = currentTime;
-			
-			try {
-				file.transferTo(new File(savePath + changeName));
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			return changeName;
+	// 제증명 삭제
+	@RequestMapping("deleteProof.ap")		
+	public String deleteProof(String dno, HttpServletRequest request, Model model) {
+		int result = aService.deleteProof(dno);
+		
+		if(result>0) {
+			model.addAttribute("msg", "삭제완료");
+			return "approval/selectApprovalForm";
+		}else {
+			model.addAttribute("msg", "삭제 실패");
+			return "common/errorPage";
 		}
 		
+	}
+	
+//	@RequestMapping("deleteDraft.ap")
+//	public String deleteDraft(String dno, String fileName, HttpServletRequest request, Model model) {
+//		int result = aService.deleteDraft(dno);
+//		
+//		if(result>0) {
+//			
+//			if(!fileName.equals("")) {
+//				deleteFile(fileName, request);
+//			}
+//			model.addAttribute("msg", "삭제완료");
+//			return "approval/selectApprovalForm";
+//		}else {
+//			model.addAttribute("msg", "삭제 실패");
+//			return "common/errorPage";
+//		}
+//	}
+
+	   
+	
+	// 파일
+	public String saveFile(MultipartFile file,  HttpServletRequest request) {
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources + "\\approveUploadFiles\\";
+		
+		String originName = file.getOriginalFilename();
+		
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		
+
+		
+		String changeName = currentTime;
+		
+		try {
+			file.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return changeName;
+	}
+	
+
 
 		
 		
