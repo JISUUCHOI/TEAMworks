@@ -263,16 +263,57 @@ public class requestApprovalController {
 	
 	// 6. 문서 상세조회
 	@RequestMapping("detailDoc.rap")
-	public String selectDocDetail(Document doc, Model model) {
+	public String selectDocDetail(Document doc, Model model, HttpServletRequest request) {
+		
 		
 		String docSc = doc.getDocSc();
+		//System.out.println("상세조회" + docSc);
 		ArrayList<Document> d = new ArrayList<Document>();
 		
+		// 6_1. '진행' 상태인 결재자 id 조회 --> 결재버튼 클릭
+		String approveEmpid = raService.selectApId(doc);
+		model.addAttribute("approveEmpid", approveEmpid);
+		
+		// 6_2. 결재 코멘트 개수
+		int count = raService.selectComment(doc);
+		model.addAttribute("count", count);
+		
+		// 6_3. 해당 아이디 문서별 approveStatus 조회
+		String approverEmpid = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+		doc.setApproverEmpid(approverEmpid);
+		int status = raService.selectApStatus(doc);
+		model.addAttribute("status", status);
+		
+		
 		switch(docSc) {
+		// 6_4. 문서 상세조회 - 경조비신청서
 		case "경조비신청서" : d = raService.selectFeDetail(doc); model.addAttribute("d", d); return "approval/familyEventSubmit";
+		// 6_5. 문서 상세조회 - 휴가신청서
 		default :  d = raService.selectVacDetail(doc); model.addAttribute("d", d); return "approval/vacationSubmit";
 		}
 		
+	}
+	
+	// 7. 승인/반려, 결재의견 insert
+	@RequestMapping("updateApprove.rap")
+	public String updateApprove(Document doc, Model model) {
+		
+		// 7_1. 첫번째 승인권자 승인/반려, 결재의견 insert
+		int result1 = raService.updateApprove(doc);
+		//System.out.println(result1);
+		String docSc = doc.getDocSc();
+		//System.out.println(docSc);
+		
+		// 7_2. 다음 승인권자 상태 update
+		int result2 = raService.updateLine(doc);
+		
+		if(result1 * result2 > 0) {
+			return "redirect:detailDoc.rap?docNo=" + doc.getDocNo() + "&docSc=" + docSc;
+			// docSc가 안넘어감 ㅜ
+		}else {
+			model.addAttribute("msg", "결재 실패");
+			return "common/errorPage";
+		}
 	}
 	
 }

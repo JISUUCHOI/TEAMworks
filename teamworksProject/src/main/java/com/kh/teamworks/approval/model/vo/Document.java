@@ -66,10 +66,13 @@ public class Document {
 	// 문서 상세조회 시 결재선
 	private String approverEmpid;	// 결재자사원번호
 	private String approverName;	// 결재자이름
+	private String jobName;			// 결재자 직급
+	private String deptName;	// 결재자 부서
 	private int approveStep;		// 결재우선순위
 	private String approveReject;	// '미결, 진행, 승인, 반려'
 	private String approveComment;	// 결재/회수 의견
 	private String approveDate;		// 결재일자
+	
 	
 	
 	public Document(String docNo, String empId, String docSc, int docStatus, String docTitle, String docReference,
@@ -88,13 +91,7 @@ public class Document {
 		this.pfPurpose = pfPurpose;
 		this.pfStatus = pfStatus;
 		
-		
 	}
-	
-	
-	
-	
-	
 	
 	
 	

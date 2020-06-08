@@ -81,21 +81,45 @@ public class ReqApprovalDao {
 		return sqlSession.selectOne("approveMapper.selectListCount", d);
 	}
 	
-	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 연결
+	// 5_2. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 - 문서 리스트 조회
 	public ArrayList<Document> selectDocList(SqlSessionTemplate sqlSession, Document d, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("approveMapper.selectDocList", d, rowBounds);
 	}
 	
-	// 6_1. 문서 상세조회 - 경조비신청서
+	// 6_1. '진행' 상태인 결재자 id 조회
+	public String selectApId(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.selectOne("approveMapper.selectApId", doc);
+	}
+	
+	// 6_2. 결재 코멘트 개수 조회
+	public int selectComment(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.selectOne("approveMapper.selectComment", doc);
+	}
+	
+	// 6_3. 해당 아이디 문서별 approveStatus 조회
+	public int selectApStatus(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.selectOne("approveMapper.selectApStatus", doc);
+	}
+	
+	// 6_4. 문서 상세조회 - 경조비신청서
 	public ArrayList<Document> selectFeDetail(SqlSessionTemplate sqlSession, Document doc) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectFeDetail", doc);
 	}
 	
-	// 6_2. 문서 상세조회 - 휴가신청서
+	// 6_5. 문서 상세조회 - 휴가신청서
 	public ArrayList<Document> selectVacDetail(SqlSessionTemplate sqlSession, Document doc) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectVacDetail", doc);
 	}
 	
+	// 7_1. 첫번째 승인권자 승인/반려, 결재의견 insert
+	public int updateApprove(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.update("approveMapper.updateApprove", doc);
+	}
+	
+	// 7_2. 다음 승인권자 상태 update
+	public int updateLine(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.update("approveMapper.updateLine", doc);
+	}
 }

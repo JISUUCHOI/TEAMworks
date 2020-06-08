@@ -250,7 +250,8 @@
 	            <script>
 	            	$(function(){
 	            		$(".docTitle").click(function(){
-	            			location.href="detailDoc.rap?docNo=" + $(this).prevAll(".docNo").text() + "&docSc=" + $(this).prevAll(".docSc").text();
+	            			location.href="detailDoc.rap?docNo=" + $(this).prevAll(".docNo").text() +
+	            										"&docSc=" + $(this).prevAll(".docSc").text();
 	            		});
 	            	});
 	            

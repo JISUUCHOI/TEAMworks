@@ -102,23 +102,61 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.selectListCount(sqlSession, d);
 	}
 
-	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 리스트 조회
+	// 5_2. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 - 문서 리스트 조회
 	@Override
 	public ArrayList<Document> selectDocList(Document d, PageInfo pi) {
 		return raDao.selectDocList(sqlSession, d, pi);
 	}
 
-	// 6_1. 문서 상세조회 - 경조비신청서
+	// 6_1. '진행' 상태인 결재자 id 조회
+	@Override
+	public String selectApId(Document doc) {
+		return raDao.selectApId(sqlSession, doc);
+	}
+	
+	// 6_2. 결재 코멘트 개수 조회
+	@Override
+	public int selectComment(Document doc) {
+		return raDao.selectComment(sqlSession, doc);
+	}
+	
+	// 6_3. 해당 아이디 문서별 approveStatus 조회
+	@Override
+	public int selectApStatus(Document doc) {
+		return raDao.selectApStatus(sqlSession, doc);
+	}
+	
+	// 6_4. 문서 상세조회 - 경조비신청서
 	@Override
 	public ArrayList<Document> selectFeDetail(Document doc) {
 		return raDao.selectFeDetail(sqlSession, doc);
 	}
 
-	// 6_2. 문서 상세조회 - 휴가신청서
+	// 6_5. 문서 상세조회 - 휴가신청서
 	@Override
 	public ArrayList<Document> selectVacDetail(Document doc) {
 		return raDao.selectVacDetail(sqlSession, doc);
 	}
+
+	// 7_1. 첫번째 승인권자 승인/반려, 결재의견 insert
+	@Override
+	public int updateApprove(Document doc) {
+		return raDao.updateApprove(sqlSession, doc);
+	}
+
+	// 7_2. 다음 승인권자 상태 update
+	@Override
+	public int updateLine(Document doc) {
+		return raDao.updateLine(sqlSession, doc);
+	}
+
+
+
+	
+
+	
+
+	
 
 
 
