@@ -19,13 +19,13 @@
         .outer{
 			width:1250px;
 			float:left;
-			margin-left:200px;
-			margin-top:0px;
+			margin-left:220px;
+			margin-top:50px;
 		
 		 }
 
         .inner {
-            width: 900px;
+            width: 800px;
         }
     </style>
 </head>
@@ -38,43 +38,36 @@
             <div id="page-wrapper">
                 <div class="row">
                     <div class="col-lg-12 text-left">
-                        <h3 class="page-header"><i class="fas fa-envelope"></i> 받은 편지함</h3>
+                        <h3 class="page-header"><i class="fas fa-envelope"></i> 받은메일</h3>
                     </div>
                 </div>
-                <form>
-	                <div class="row">
-	                    <div class="col-xs-4"></div>
-	                    <div class="col-xs-2">
-	                  
-	                    </div>
-	                    <div class="col-xs-2">
-	                        <select class="form-control" name="" id="">
-	                            <option value="writer">제목</option>
-	                            <option value="content">내용</option>
-	                            <option value="sender">보낸사람</option>
-	                        </select>
-	                    </div>
-	                    <div class="col-xs-2">
-	                        <div class="form-group input-group" style="width: 235px;">
-	                            <input type="text" class="form-control" placeholder="Search">
-	                            <div class="input-group-btn">
-	                                <button class="btn btn-default" type="submit">
-	                                    <i class="glyphicon glyphicon-search"></i>
-	                                </button>
-	                            </div>
-	                        </div>
-	                    </div> 
-	                </div>
-                </form>
-                <div class="row" align="right">
-                	<div class="col-xs-2">
-               		  	<select class="form-control input-sm" name="" id="">
+                <div class="row">
+                    <div class="col-xs-4"></div>
+                    <div class="col-xs-2">
+                        <select class="form-control" name="" id="">
                             <option value="">읽음</option>
                             <option value="">읽지않음</option>
-	                    </select>
-                	</div>
-                	<div class="col-xs-4"></div>
-                    <div class="col-xs-6">
+                        </select>
+                    </div>
+                    <div class="col-xs-2">
+                        <select class="form-control" name="" id="">
+                            <option value="">제목</option>
+                            <option value="">보낸사람</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-2">
+                        <div class="form-group input-group" style="width: 235px;">
+                            <input type="text" class="form-control" placeholder="Search">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row" align="right">
+                    <div class="col-xs-12">
                         <button class="btn btn-danger btn-sm" style="margin-right: 10px;">삭제</button>
                     </div>
                 </div>
@@ -85,114 +78,56 @@
                             <th width="80px">
                                 <input type="checkbox" value="">
                             </th>
-                            <th width="50px">읽음</th>
                             <th width="180px">보낸사람</th>
                             <th>제목</th>
                             <th width="150px">날짜</th>
+                            <th width="50px">읽음</th>
                         </tr>
                     </thead>
                     <tbody>
-                    	<c:forEach var="r" items="${ rList }">
-                    	    <tr>
+                        <tr>
                             <th>
-                                <input type="checkbox" value="${ r.emailNo }">
+                                <input type="checkbox" value="">
                             </th>
-                            <c:choose>
-                            	<c:when test="${ r.readStatus == 'Y'}">
-	                            	<th><i class="far fa-envelope-open"></i></th>
-                            	</c:when>
-                            	<c:otherwise>
-                            		<th> <i class="far fa-envelope"></i></th>
-                            	</c:otherwise>
-                            </c:choose>
-                            <td>${ r.senderName }</td>
-                            <c:choose>
-                            	<c:when test="${ empty r.files }">
-	                            	<td>${ r.mailTitle }</td>
-                            	</c:when>
-                            	<c:otherwise>
-                            		<td>${ r.mailTitle } <i class="fas fa-paperclip"></i></td>
-                            	</c:otherwise>
-                            </c:choose>
-                            <td>${ r.createDate }</td>
-                          	
-                    	</c:forEach> 
+                            <td>
+                                ipqi86@gmail.com
+                            </td>
+                            <td>
+                                안녕하세요.
+                            </td>
+                            <td>
+                                2020-05-06 18:17
+                            </td>
+                            <td>
+                                <i class="far fa-envelope"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <input type="checkbox" value="">
+                            </th>
+                            <td>
+                                ipqi86@gmail.com
+                            </td>
+                            <td>
+                                안녕하세요.
+                            </td>
+                            <td>
+                                2020-05-06 18:17
+                            </td>
+                            <td>
+                                <i class="far fa-envelope-open"></i>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
-                
-                
                 <ul class="pagination">
-            	<c:if test="${ pi.currentPage ne 1 }">
-            		<c:choose>
-            			<c:when test="${ empty sc }">
-            				<li class="previous"><a href="rlist.ma?currentPage=${ pi.currentPage - 1 }">&lt;</a></li>
-            			</c:when>
-            			<c:otherwise>
-            					<c:url value="search.ma" var="searchUrl">
-										<c:param name="condition" value="${ sc.condition }"/>
-										<c:param name="keyword" value="${ sc.keyword }"/>
-										<c:param name="start" value="${ sc.start }"/>
-										<c:param name="end" value="${ sc.end }"/>
-										<c:param name="cat" value="2"/>
-										<c:param name="currentPage" value="${  pi.currentPage -1 }"/>
-								</c:url>
-            				<li class="previous">
-            				<a href="${ searchUrl }">&lt;</a>
-            				</li>
-            			</c:otherwise>
-            		</c:choose>
-            	
-            	</c:if>
-            	
-            	 <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-            	 	<c:choose>
-            	 		<c:when test="${ p eq pi.currentPage }">
-            	 			<li class="disabled"><a href="">${ p }</a></li>
-            	 		</c:when>
-            	 		<c:otherwise>
-            	 			<c:choose>
-	            	 			<c:when test="${ empty sc }">
-	            					<li class=""><a href="rlist.ma?currentPage=${ p }">${ p }</a></li>
-	            				</c:when>
-	            				<c:otherwise>
-	            					<c:url value="search.ma" var="searchUrl">
-										<c:param name="condition" value="${ sc.condition }"/>
-										<c:param name="keyword" value="${ sc.keyword }"/>
-										<c:param name="start" value="${ sc.start }"/>
-										<c:param name="end" value="${ sc.end }"/>
-										<c:param name="cat" value="2"/>
-										<c:param name="currentPage" value="${ p }"/>
-									</c:url>
-	            					<li class="">
-	            						<a href="${searchUrl}">${ p }</a>
-	            					</li>
-	            				</c:otherwise>
-            				</c:choose>
-            	 		</c:otherwise>
-            	 	</c:choose>
-            	 </c:forEach>
-            	
-            	<c:if test="${ pi.currentPage ne pi.maxPage }">
-            		<c:choose>
-						<c:when test="${ empty sc }">
-							<li class="next"><a href="rlist.ma?currentPage=${ pi.currentPage + 1 }">&gt;</a></li>
-						</c:when>
-						<c:otherwise>
-							<c:url value="search.ma" var="searchUrl">
-										<c:param name="condition" value="${ sc.condition }"/>
-										<c:param name="keyword" value="${ sc.keyword }"/>
-										<c:param name="start" value="${ sc.start }"/>
-										<c:param name="end" value="${ sc.end }"/>
-										<c:param name="cat" value="2"/>
-										<c:param name="currentPage" value="${  pi.currentPage + 1  }"/>
-							</c:url>
-							<li class="next">
-							<a href="${ searchUrl }">&gt;</a>
-							</li>
-						</c:otherwise>        		
-            		</c:choose>
-            	</c:if>
-            </ul>
+                    <li class="previous"><a href="">&lt;</a></li>
+                    <li><a href="">1</a></li>
+                    <li><a href="">2</a></li>
+                    <li><a href="">3</a></li>
+                    <li class="next"><a href="">&gt;</a></li>
+                </ul>
             </div>
         </div>
     </div>
