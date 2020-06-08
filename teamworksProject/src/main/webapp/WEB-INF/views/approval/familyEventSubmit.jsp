@@ -345,7 +345,7 @@
             <hr>
             <div id="Opinion">
                 <c:choose>
-	                 <c:when test="${ count eq 0 }">
+	                 <c:when test="${ count lt 1 }">
 	                 </c:when>
 	                 <c:otherwise>
 		                <table id="paymentOpinion">
