@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
+import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
+import com.kh.teamworks.employee.model.vo.SearchEmpAttendance;
 import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
 
 
@@ -39,6 +41,10 @@ public interface EmployeeService {
 	int QRattInsert(String empId);
 
 	ArrayList<Attendance> selectSchMyAtt(SearchMyAttendance sma);
+
+	ArrayList<SearchEmpAttendance> selectSchEmpAtt(SearchEmpAttCondition seac);
+
+
 
 	
 	

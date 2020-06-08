@@ -283,21 +283,29 @@
 					var value= "";
 					
 					for(var i in list){
-						value += "<tr>" +
-				                     "<td>"+list[i].boardNo+"</td>"+
-				                     "<td>"+list[i].boardTitle+"</td>"+
-				                     "<td>"+list[i].empName+"</td>"+
-				                     "<td>"+list[i].createDate+"</td>"+
-				                     "<td>"+list[i].count+"</td>"+
-				                     "<td>"+list[i].like+"</td>"
-				                     if(list[i].boardFiles != null ){
-				                    	 + "<td>"+ "</td>"
-				                     }else{
-				                    	
-				                    	+ "<td>"+"</td>"
-				                     }
-				                     
-			                    + "</tr>";
+						   value +=  "<tr>" +
+										   "<td>"+list[i].boardNo+"</td>";
+						                     if(list[i].rcount != 0){
+						                    	 value += "<td>"+ list[i].boardTitle  + "("+ list[i].rcount  + ")" +"</td>";
+						                     }else{
+						                   		 value +="<td>"+list[i].boardTitle+"</td>";
+						                     }
+		                     
+					                     
+					            value+=  "<td>"+list[i].empName+"</td>"+
+					                     "<td>"+list[i].createDate+"</td>"+
+					                     "<td>"+list[i].count+"</td>"+
+					                     "<td>"+list[i].like+"</td>";
+					                     
+					                     
+					                     if(list[i].boardFiles != null ){
+					                    	 value += "<td>"+"<i class='fas fa-paperclip' >"+"</i> "+ "</td>";
+					                     }else{
+					                    	
+					                    	value += "<td>"+''+"</td>";
+					                     }
+					                     
+			                         + "</tr>";
 			                    
 					}
 					console.log(value);
@@ -324,17 +332,27 @@
 					
 					for(var i in list){
 						value += "<tr>" +
-				                     "<td>"+list[i].boardNo+"</td>"+
-				                     "<td>"+list[i].boardTitle+"</td>"+
-				                     "<td>"+list[i].empName+"</td>"+
-				                     "<td>"+list[i].createDate+"</td>"+
-				                     "<td>"+list[i].count+"</td>"+
-				                     "<td>"+list[i].like+"</td>"
-				                   + "<td>"+list[i].boardFiles+ "</td>"
-				                   
-				                    	
-				                 
-			                    + "</tr>";
+	                     "<td>"+list[i].boardNo+"</td>";
+	                     if(list[i].rcount != 0){
+	                    	 value += "<td>"+ list[i].boardTitle  + "("+ list[i].rcount  + ")" +"</td>";
+	                     }else{
+	                   		 value +="<td>"+list[i].boardTitle+"</td>";
+	                     }
+	                     
+	            value+=  "<td>"+list[i].empName+"</td>"+
+	                     "<td>"+list[i].createDate+"</td>"+
+	                     "<td>"+list[i].count+"</td>"+
+	                     "<td>"+list[i].like+"</td>";
+	                     
+	                     
+	                     if(list[i].boardFiles != null ){
+	                    	 value += "<td>"+"<i class='fas fa-paperclip' >"+"</i> "+ "</td>";
+	                     }else{
+	                    	
+	                    	value += "<td>"+''+"</td>";
+	                     }
+	                     
+                  		 + "</tr>";
 					}
 					console.log(value);
 					$("#noticeList tbody").html(value);

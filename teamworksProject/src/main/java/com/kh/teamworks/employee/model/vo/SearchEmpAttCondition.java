@@ -6,16 +6,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class SearchMyAttendance {
-	
-	private String empId;
+public class SearchEmpAttCondition {
+
+	private String condition;
+	private String deptAll;
+	private String ManagementSupport;
+	private String Development;
+	private String empName;
 	private String startDate;
 	private String endDate;
-	
+	private int deptCode;
 
 }

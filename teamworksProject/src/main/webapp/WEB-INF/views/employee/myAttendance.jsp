@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +19,7 @@
       <!-- 아이콘 -->
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
       <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-	  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
-	  <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+	
 <style>
  html, body{height:100%; position:relative;}
 	
@@ -82,22 +83,26 @@
     
          
 
-            /* Search */
-            .searchBox{border:none ;}
+                /* Search */
+            .searchBox{border:none ;display: table;width: 800px;}
+            .clearfix{float: left;}
+            
             .searchBox tbody th{padding:20px 10px 20px 35px;font-size:14px;font-weight:bold;text-align:left;vertical-align:top;}
             .searchBox tbody td{padding:12px 10px 12px 25px;border:none;}
         
-            .searchDate{overflow:hidden;margin-bottom:10px;*zoom:1}
+            .searchDate{overflow:hidden;*zoom:1;width: 120px;display: inline;float: left;}
             .searchDate  li{list-style:none;}
             .searchDate:after{display:block;clear:both;content:''}
             .searchDate li{position:relative;float:left;margin:0 7px 0 0}
             .searchDate li .chkbox2{display:block;text-align:center}
             .searchDate li .chkbox2 input{position:absolute;z-index:-1 ;background:red;}
-            .searchDate li .chkbox2 label{display:block;width:72px;height:34px;font-size:14px;font-weight:bold;color:#fff;text-align:center;line-height:25px;text-decoration:none;cursor:pointer;background:blue;}
+            .searchDate li .chkbox2 label{display:block;width:72px;height:36px;font-size:14px;font-weight:bold;color:#fff;text-align:center;
+            border-radius: 5px ;
+            line-height:25px;text-decoration:none;cursor:pointer;background:#a5b0b6}
             .searchDate li .chkbox2.on label{background: rgb(7, 53, 90);}
         
             .demi{display:inline-block;margin:0 1px;vertical-align:middle}
-            .inpType{padding-left:6px;height:24px;line-height:24px;}
+            .inpType{padding-left:6px;height:24px;line-height:24px;height: 35px;width: 180px;}
             .btncalendar{display:inline-block;width:22px;height:22px;text-indent:-999em}
     </style>
 
@@ -174,10 +179,12 @@
                             	<c:forEach var="att" items="${list }">
                             <tr>
                                 <td>${att.attDate }</td>
-                                <td>수</td>
+                                <td>
+                                	<fmt:formatDate value="${att.attDate}" pattern="E"/> 
+                                </td>
                                 <td>${att.startTime }</td>
                                 <td>${att.endTime }</td>
-                                <td>08:13</td>
+                                <td>                                 </td>
                             </tr> 
                             	</c:forEach>
                             </c:when>
@@ -193,8 +200,10 @@
                     </table>                
             </div>
        
-					</div>
+			</div>
    </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script>
 
 $(document).ready(function() {

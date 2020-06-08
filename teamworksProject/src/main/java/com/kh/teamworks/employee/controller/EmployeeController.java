@@ -28,6 +28,8 @@ import com.google.gson.GsonBuilder;
 import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
+import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
+import com.kh.teamworks.employee.model.vo.SearchEmpAttendance;
 import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
 
 @Controller
@@ -364,16 +366,41 @@ public class EmployeeController {
 		@ResponseBody
 		@RequestMapping("schmyatt.em")
 		public ModelAndView selectSchMyAtt(@RequestParam("searchStartDate") String startDate,@RequestParam("searchEndDate") String endDate,String empId, ModelAndView mv) {
-			System.out.println(startDate);
+			//System.out.println(startDate);
 			SearchMyAttendance sma = new SearchMyAttendance();
 			sma.setStartDate(startDate);
 			sma.setEndDate(endDate);
 			sma.setEmpId(empId);
-			System.out.println(sma);
+			//System.out.println(sma);
 			ArrayList<Attendance> list = eService.selectSchMyAtt(sma);
-			System.out.println(list);
+			//System.out.println(list);
 			mv.addObject("list", list);
 			mv.setViewName("employee/myAttendance");
+			return mv;
+		}
+		
+		@RequestMapping("empAtt.em")
+		public String empAttGo() {
+			return "employee/empAttendanceSch";
+		}
+		
+		@ResponseBody
+		@RequestMapping("empAttSch.em")
+		public ModelAndView selectSchEmpAtt(@RequestParam ("searchStartDate") String startDate,@RequestParam("searchEndDate") String endDate,@RequestParam(name="empName", required=false) String empName, ModelAndView mv,@RequestParam(name="condition", required=false) String condition) {
+			//System.out.println(startDate);
+			//System.out.println(condition);
+			
+			SearchEmpAttCondition seac = new SearchEmpAttCondition();
+			seac.setStartDate(startDate);
+			seac.setEndDate(endDate);
+			seac.setEmpName(empName);
+			seac.setCondition(condition);
+			System.out.println(seac);
+			//System.out.println(sma);
+			ArrayList<SearchEmpAttendance> list = eService.selectSchEmpAtt(seac);
+			System.out.println(list);
+			mv.addObject("list", list);
+			mv.setViewName("employee/empAttendanceSch");
 			return mv;
 		}
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
+import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
+import com.kh.teamworks.employee.model.vo.SearchEmpAttendance;
 import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
 
 @Repository("eDao")
@@ -65,8 +67,14 @@ public class EmployeeDao {
 
 
 	public ArrayList<Attendance> selectSchMyAtt(SqlSessionTemplate sqlSession, SearchMyAttendance sma) {
-		// TODO Auto-generated method stub
+	
 		return (ArrayList)sqlSession.selectList("employeeMapper.selectSchMyAtt", sma);
+	}
+
+
+	public ArrayList<SearchEmpAttendance> selectSchEmpAtt(SqlSessionTemplate sqlSession, SearchEmpAttCondition seac) {
+		// TODO Auto-generated method stub
+		return (ArrayList)sqlSession.selectList("employeeMapper.selectSchEmpAtt", seac);
 	}
 
 

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.kh.teamworks.employee.model.dao.EmployeeDao;
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
+import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
+import com.kh.teamworks.employee.model.vo.SearchEmpAttendance;
 import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
 
 @Service("eService")
@@ -73,6 +75,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public ArrayList<Attendance> selectSchMyAtt(SearchMyAttendance sma) {
 		// TODO Auto-generated method stub
 		return eDao.selectSchMyAtt(sqlSession,sma);
+	}
+
+	@Override
+	public ArrayList<SearchEmpAttendance> selectSchEmpAtt(SearchEmpAttCondition seac) {
+		
+		return eDao.selectSchEmpAtt(sqlSession,seac);
 	}
 
 	
