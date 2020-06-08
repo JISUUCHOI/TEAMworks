@@ -25,7 +25,7 @@
 		 }
 
         .inner {
-            width: 900px;
+            width: 800px;
         }
     </style>
 </head>
@@ -41,22 +41,24 @@
                         <h3 class="page-header"><i class="fas fa-envelope"></i> 받은 편지함</h3>
                     </div>
                 </div>
-                <form>
+                <form action="search.ma" id="searchForm">
+                	<input type="hidden" name="currentPage" value=1>
 	                <div class="row">
 	                    <div class="col-xs-4"></div>
 	                    <div class="col-xs-2">
 	                  
 	                    </div>
+	                    
 	                    <div class="col-xs-2">
-	                        <select class="form-control" name="" id="">
-	                            <option value="writer">제목</option>
+	                        <select class="form-control" name="condition" id="condition">
+	                            <option value="title">제목</option>
 	                            <option value="content">내용</option>
 	                            <option value="sender">보낸사람</option>
 	                        </select>
 	                    </div>
 	                    <div class="col-xs-2">
 	                        <div class="form-group input-group" style="width: 235px;">
-	                            <input type="text" class="form-control" placeholder="Search">
+	                            <input type="text" name="keyword" class="form-control" value="${ sc.keyword }" placeholder="Search">
 	                            <div class="input-group-btn">
 	                                <button class="btn btn-default" type="submit">
 	                                    <i class="glyphicon glyphicon-search"></i>
@@ -66,11 +68,21 @@
 	                    </div> 
 	                </div>
                 </form>
+                 <script>
+                	$(function(){
+                		switch('${sc.condition}'){
+                		case "title" : $("#condition option").eq(0).attr("selected" ,true); break; 
+                		case "content" : $("#condition option").eq(1).attr("selected" ,true); break; 
+                		case "sender" : $("#condition option").eq(2).attr("selected" ,true); break; 
+                		}
+                	});
+                </script>
                 <div class="row" align="right">
                 	<div class="col-xs-2">
-               		  	<select class="form-control input-sm" name="" id="">
-                            <option value="">읽음</option>
-                            <option value="">읽지않음</option>
+               		  	<select class="form-control input-sm" name="readStatus" id="readCondition">
+                            <option value="all">전체</option>
+                            <option value="Y">읽음</option>
+                            <option value="N">읽지않음</option>
 	                    </select>
                 	</div>
                 	<div class="col-xs-4"></div>
@@ -78,11 +90,20 @@
                         <button class="btn btn-danger btn-sm" style="margin-right: 10px;">삭제</button>
                     </div>
                 </div>
+                <script>
+                	$(function(){
+                		switch('${sc.readStatus}'){
+                		case "all" : $("#readCondition option").eq(0).attr("selected" ,true); break; 
+                		case "Y" : $("#readCondition option").eq(1).attr("selected" ,true); break; 
+                		case "N" : $("#readCondition option").eq(2).attr("selected" ,true); break; 
+                		}
+                	});
+                </script>
                 <hr>
                 <table class="table table-hover text-left">
                     <thead>
                         <tr>
-                            <th width="80px">
+                            <th width="50px">
                                 <input type="checkbox" value="">
                             </th>
                             <th width="50px">읽음</th>
@@ -102,7 +123,7 @@
 	                            	<th><i class="far fa-envelope-open"></i></th>
                             	</c:when>
                             	<c:otherwise>
-                            		<th> <i class="far fa-envelope"></i></th>
+                            		<th> <i class="far fa-envelope"  style="color:red"></i></th>
                             	</c:otherwise>
                             </c:choose>
                             <td>${ r.senderName }</td>
@@ -129,12 +150,24 @@
             			</c:when>
             			<c:otherwise>
             					<c:url value="search.ma" var="searchUrl">
-										<c:param name="condition" value="${ sc.condition }"/>
-										<c:param name="keyword" value="${ sc.keyword }"/>
-										<c:param name="start" value="${ sc.start }"/>
-										<c:param name="end" value="${ sc.end }"/>
-										<c:param name="cat" value="2"/>
-										<c:param name="currentPage" value="${  pi.currentPage -1 }"/>
+            						<c:choose>
+            							<c:when test="${empty sc.condition && empty sc.keyword}">
+            								<c:param name="readStatus" value="${  sc.readStatus }"/>
+											<c:param name="currentPage" value="${  pi.currentPage -1 }"/>
+            							</c:when>
+            							<c:when test="${!empty sc.condition && !empty sc.keyword && empty sc.readStatus}">
+	         									<c:param name="condition" value="${ sc.condition }"/>
+												<c:param name="keyword" value="${ sc.keyword }"/>
+												<c:param name="currentPage" value="${  pi.currentPage -1 }"/>
+	         							</c:when>
+            							<c:otherwise>
+            								<c:param name="condition" value="${ sc.condition }"/>
+											<c:param name="keyword" value="${ sc.keyword }"/>
+											<c:param name="readStatus" value="${  sc.readStatus }"/>
+											<c:param name="currentPage" value="${  pi.currentPage -1 }"/>
+            							</c:otherwise>
+            						</c:choose>
+										
 								</c:url>
             				<li class="previous">
             				<a href="${ searchUrl }">&lt;</a>
@@ -156,12 +189,23 @@
 	            				</c:when>
 	            				<c:otherwise>
 	            					<c:url value="search.ma" var="searchUrl">
-										<c:param name="condition" value="${ sc.condition }"/>
-										<c:param name="keyword" value="${ sc.keyword }"/>
-										<c:param name="start" value="${ sc.start }"/>
-										<c:param name="end" value="${ sc.end }"/>
-										<c:param name="cat" value="2"/>
-										<c:param name="currentPage" value="${ p }"/>
+										<c:choose>
+	            							<c:when test="${empty sc.condition && empty sc.keyword}">
+	            								<c:param name="readStatus" value="${  sc.readStatus }"/>
+												<c:param name="currentPage" value="${ p }"/>
+	            							</c:when>
+	            							<c:when test="${!empty sc.condition && !empty sc.keyword && empty sc.readStatus}">
+	         									<c:param name="condition" value="${ sc.condition }"/>
+												<c:param name="keyword" value="${ sc.keyword }"/>
+												<c:param name="currentPage" value="${ p }"/>
+	         								</c:when>
+		            						<c:otherwise>
+	            								<c:param name="condition" value="${ sc.condition }"/>
+												<c:param name="keyword" value="${ sc.keyword }"/>
+												<c:param name="readStatus" value="${  sc.readStatus }"/>
+												<c:param name="currentPage" value="${ p }"/>
+	            							</c:otherwise>
+            							</c:choose>
 									</c:url>
 	            					<li class="">
 	            						<a href="${searchUrl}">${ p }</a>
@@ -179,15 +223,26 @@
 						</c:when>
 						<c:otherwise>
 							<c:url value="search.ma" var="searchUrl">
-										<c:param name="condition" value="${ sc.condition }"/>
+								<c:choose>
+         							<c:when test="${empty sc.condition && empty sc.keyword}">
+         								<c:param name="readStatus" value="${  sc.readStatus }"/>
+										<c:param name="currentPage" value="${  pi.currentPage +1 }"/>
+         							</c:when>
+         							<c:when test="${!empty sc.condition && !empty sc.keyword && empty sc.readStatus}">
+         								<c:param name="condition" value="${ sc.condition }"/>
 										<c:param name="keyword" value="${ sc.keyword }"/>
-										<c:param name="start" value="${ sc.start }"/>
-										<c:param name="end" value="${ sc.end }"/>
-										<c:param name="cat" value="2"/>
-										<c:param name="currentPage" value="${  pi.currentPage + 1  }"/>
+										<c:param name="currentPage" value="${  pi.currentPage +1 }"/>
+         							</c:when>
+         							<c:otherwise>
+         								<c:param name="condition" value="${ sc.condition }"/>
+										<c:param name="keyword" value="${ sc.keyword }"/>
+										<c:param name="readStatus" value="${  sc.readStatus }"/>
+										<c:param name="currentPage" value="${  pi.currentPage +1 }"/>
+         							</c:otherwise>
+        							</c:choose>
 							</c:url>
 							<li class="next">
-							<a href="${ searchUrl }">&gt;</a>
+								<a href="${ searchUrl }">&gt;</a>
 							</li>
 						</c:otherwise>        		
             		</c:choose>
@@ -196,5 +251,35 @@
             </div>
         </div>
     </div>
+    
+	    
+	<script>
+		$(function(){
+			$("#readCondition").change(function(){
+				if(${empty sc.keyword}){
+					if($("#readCondition").val() =="all"){
+						location.href="rlist.ma?currentPage=1";
+					}else{
+						location.href="search.ma?currentPage=1&readStatus="+$("#readCondition").val();
+						
+					}	
+					
+				}else{
+					if($("#readCondition").val() =="all"){
+						$("#searchForm").submit();
+					}else{
+						var hidden = "<input type='hidden' name='readStatus' value='"+$("#readCondition").val()+"'>";
+						$("#searchForm").append(hidden);
+						$("#searchForm").submit();
+						
+					}
+				}
+					
+				
+			});
+		});
+	
+	</script>
 </body>
+
 </html>

@@ -4,9 +4,16 @@ import java.util.ArrayList;
 
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.mail.model.vo.MailDTO;
+import com.kh.teamworks.mail.model.vo.SearchMailCondition;
 
 public interface MailService {
 	
 	int selectInboxListCount(String empId);
 	ArrayList<MailDTO> selectInboxList(PageInfo pi, String empId);
+	
+	int searchReadListCount(SearchMailCondition sc);
+	ArrayList<MailDTO> searchReadList(SearchMailCondition sc, PageInfo pi);
+	
+	int searchKeyListCount(SearchMailCondition sc);
+	ArrayList<MailDTO> searchKeyList(SearchMailCondition sc, PageInfo pi);
 }

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.concurrent.SuccessCallback;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.teamworks.common.model.vo.PageInfo;
@@ -14,6 +15,7 @@ import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.service.MailService;
 import com.kh.teamworks.mail.model.vo.MailDTO;
+import com.kh.teamworks.mail.model.vo.SearchMailCondition;
 
 @Controller
 public class MailController {
@@ -37,9 +39,47 @@ public class MailController {
 			model.addAttribute("msg", "로그인 후 이용하세요.");
 			return "common/errorPage";
 		}
+	}
+	
+	@RequestMapping("search.ma")
+	public String searchReadMail(SearchMailCondition sc, int currentPage,  HttpSession session, Model model) {
 		
+		Employee e = (Employee)session.getAttribute("loginUser");
+		sc.setEmpId(e.getEmpId());
 		
+		if(sc.getReadStatus()!=null && sc.getCondition() == null) {
+			int listCount = emService.searchReadListCount(sc);
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			ArrayList<MailDTO> rList = emService.searchReadList(sc, pi);
+			model.addAttribute("pi", pi);
+			model.addAttribute("rList", rList);
+			model.addAttribute("sc", sc);
+			
+			return "mail/receiveMailList";
+			
+		}
 		
+		if(sc.getKeyword() != null && sc.getReadStatus() == null) {
+			switch(sc.getCondition()) {
+			case "title" : sc.setTitle(sc.getKeyword()); break;
+			case "content" : sc.setContent(sc.getKeyword()); break;
+			case "sender" : sc.setSender(sc.getKeyword()); break;
+			}
+			
+			int listCount = emService.searchKeyListCount(sc);
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			ArrayList<MailDTO> rList = emService.searchKeyList(sc, pi);
+			
+			model.addAttribute("pi", pi);
+			model.addAttribute("rList", rList);
+			model.addAttribute("sc", sc);
+			return "mail/receiveMailList";
+		}
+		
+		if(sc.getKeyword()!=null && sc.getReadStatus()!=null) {
+			//System.out.println(sc);
+		}
+		return "";
 	}
 	
 }

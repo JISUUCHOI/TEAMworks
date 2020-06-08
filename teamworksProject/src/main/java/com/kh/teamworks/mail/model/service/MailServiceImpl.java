@@ -10,6 +10,7 @@ import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.mail.model.dao.MailDao;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.MailInfo;
+import com.kh.teamworks.mail.model.vo.SearchMailCondition;
 
 @Service("emService")
 public class MailServiceImpl implements MailService {
@@ -28,6 +29,26 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public ArrayList<MailDTO> selectInboxList(PageInfo pi, String empId) {
 		return emDao.selectInboxList(sqlSession, pi, empId);
+	}
+
+	@Override
+	public int searchReadListCount(SearchMailCondition sc) {
+		return emDao.searchReadListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<MailDTO> searchReadList(SearchMailCondition sc, PageInfo pi) {
+		return emDao.searchReadList(sqlSession, sc, pi);
+	}
+
+	@Override
+	public int searchKeyListCount(SearchMailCondition sc) {
+		return emDao.searchKeyListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<MailDTO> searchKeyList(SearchMailCondition sc, PageInfo pi) {
+		return emDao.searchKeyList(sqlSession, sc, pi);
 	}
 	
 	

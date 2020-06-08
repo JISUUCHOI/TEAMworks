@@ -38,14 +38,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	
  	<select id="selectInboxListCount" parameterType="string" resultType="_int">
  		SELECT COUNT(*)
-		FROM V_EMAIL_LIST
-		WHERE EMP_ID2=#{empId} OR REF_EMP= #{empId} AND EMAIL_STATUS='Y'
+		  FROM V_EMAIL_LIST
+		 WHERE EMP_ID2=#{empId} OR REF_EMP= #{empId} AND EMAIL_STATUS='Y'
  	</select>
  	
  	<select id="selectInboxList" parameterType="string" resultMap="mailDtoResultSet">
  		SELECT *
-		FROM V_EMAIL_LIST
-		WHERE EMP_ID2=#{empId} OR REF_EMP= #{empId} AND EMAIL_STATUS='Y'
-		ORDER BY EMAIL_NO DESC
+		  FROM V_EMAIL_LIST
+		 WHERE EMP_ID2=#{empId} OR REF_EMP= #{empId} AND EMAIL_STATUS='Y'
+		 ORDER BY EMAIL_NO DESC
+ 	</select>
+ 	
+ 	<select id="searchReadListCount" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int">
+ 		select count(*)
+		from (select * from v_email_list
+		      where EMP_ID2= #{empId} OR REF_EMP=#{empId} and email_status='Y')
+		where read_status = #{readStatus}
+ 	</select>
+ 	<select id="searchReadList" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
+ 		select *
+		from (select * from v_email_list
+		      where EMP_ID2= #{empId} OR REF_EMP=#{empId} and email_status='Y')
+		where read_status = #{readStatus}
+		order by email_no desc
+ 	</select>
+ 	
+ 	<select id="searchKeyListCount" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int">
+ 		select count(*)
+		from (select * from v_email_list
+		      where EMP_ID2= #{empId} OR REF_EMP=#{empId} and email_status='Y')
+		<where>
+			<if test="sender != null">
+				emp_name like '%'|| #{sender} ||'%'
+			</if>
+			<if test="title != null">
+				email_title like '%'|| #{title} ||'%'
+			</if>
+			<if test="content != null">
+				email_content like '%'|| #{content} ||'%'
+			</if>
+		</where>
+ 	</select>
+ 	
+ 	<select id="searchKeyList" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
+ 		select *
+		from (select * from v_email_list
+		      where EMP_ID2= #{empId} OR REF_EMP=#{empId} and email_status='Y')
+		<where>
+			<if test="sender != null">
+				emp_name like '%'|| #{sender} ||'%'
+			</if>
+			<if test="title != null">
+				email_title like '%'|| #{title} ||'%'
+			</if>
+			<if test="content != null">
+				email_content like '%'|| #{content} ||'%'
+			</if>
+		</where>
+		order by email_no desc
  	</select>
 </mapper>

@@ -48,6 +48,8 @@
 		
 		<result column="approver_empid" property="approverEmpid"/>
 		<result column="approver_name" property="approverName"/>
+		<result column="job_name" property="jobName" />
+		<result column="dept_name" property="deptName" />
 		<result column="approve_step" property="approveStep"/>
 		<result column="approve_reject" property="approveReject"/>
 		<result column="approve_status" property="approveStatus"/>
@@ -187,7 +189,7 @@
             			  join approve_line a on(v.doc_no = a.doc_no)
             			  join employee e on(v.emp_id = e.emp_id)
            				 where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
-           				 order by v.doc_date asc)
+           				 order by v.doc_date desc)
 				UNION ALL
 				select *
 		  		  from (select f.doc_no, f.doc_sc, f.doc_title, f.emp_id, e.emp_name, f.doc_department, f.doc_date, a.approve_status
@@ -195,9 +197,45 @@
               	  		  join approve_line a on(f.doc_no = a.doc_no)
               	  		  join employee e on(f.emp_id = e.emp_id)
             	 		 where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
-              	 		 order by f.doc_date asc)
+              	 		 order by f.doc_date desc)
+               UNION ALL
+      		  select *
+        		from (select d.doc_no, d.doc_sc, d.doc_title, d.emp_id, e.emp_name, d.doc_department, d.doc_date, a.approve_status
+                		from draft d
+                		join approve_line a on(d.doc_no = a.doc_no)
+                		join employee e on(d.emp_id = e.emp_id)
+              		   where a.approver_empid='tw102' and a.approve_status=0
+               		   order by d.doc_date desc)
+        	   UNION ALL
+      		  select *
+        		from (select p.doc_no, p.doc_sc, p.doc_title, p.emp_id, e.emp_name, p.doc_department, p.doc_date, a.approve_status
+                		from proof p
+                		join approve_line a on(p.doc_no = a.doc_no)
+                		join employee e on(p.emp_id = e.emp_id)
+               		   where a.approver_empid='tw102' and a.approve_status=0
+               		   order by p.doc_date desc)
       		  )
-		order by doc_date asc
+		order by doc_date desc
+	</select>
+	
+	
+		
+	<select id="selectApId" parameterType="Document" resultType="string">
+		select approver_empid
+		from approve_line
+		where doc_no=#{docNo} and approve_reject='진행'
+	</select>
+	
+	<select id="selectComment" parameterType="Document" resultType="_int">
+		select count(approve_comment)
+		from approve_line
+		where doc_no=#{docNo}
+	</select>
+	
+	<select id="selectApStatus" parameterType="string" resultType="_int">
+		select approve_status
+		from approve_line
+		where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</select>
 
 	<select id="selectFeDetail" parameterType="Document" resultMap="reqApprovalResultSet">
@@ -205,12 +243,19 @@
 			   f.fe_sq, f.fe_relation, f.fe_name, f.fe_start, f.fe_end, f.fe_place, f.fe_price, f.fe_bank, f.fe_account, f.fe_account_name,
 			   a.approver_empid, (select emp_name
 	                    			from employee
-	                   			   where emp_id = a.approver_empid) approver_name, a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date
+	                   			   where emp_id = a.approver_empid) approver_name, (select job_name
+                                                                       				  from job j
+                                                                       				  join employee e on(e.job_code = j.job_code)
+                                                                      				 where e.emp_id = a.approver_empid) job_name, (select d.dept_name
+                                                                                                                    				 from department d
+                                                                                                                   					 join employee e on(e.dept_code = d.dept_code)
+                                                                                                                    				where e.emp_id = a.approver_empid) dept_name,
+	           a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date
 		from family_event f
 		join employee e on(f.emp_id = e.emp_id)
 		join approve_line a on(f.doc_no = a.doc_no)
 	   where f.doc_no=#{docNo}
-	   order by f.doc_date
+	   order by a.approve_step
 	</select>
 	
 	<select id="selectVacDetail" parameterType="Document" resultMap="reqApprovalResultSet">
@@ -218,12 +263,37 @@
 				v.vc_sq, vc_day, vc_start, vc_end, vc_count, vc_content,
 				a.approver_empid, (select emp_name
 				                    from employee
-				                    where emp_id = a.approver_empid) approver_name, a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date				
+				                    where emp_id = a.approver_empid) approver_name, (select job_name
+                                                                       				  from job j
+                                                                       				  join employee e on(e.job_code = j.job_code)
+                                                                      				 where e.emp_id = a.approver_empid) job_name, (select d.dept_name
+                                                                                                                    				 from department d
+                                                                                                                   					 join employee e on(e.dept_code = d.dept_code)
+                                                                                                                    				where e.emp_id = a.approver_empid) dept_name,
+				a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date				
 		 from vacation v
 		 join employee e on(v.emp_id = e.emp_id)
 		 join approve_line a on(v.doc_no = a.doc_no)
 		where v.doc_no=#{docNo}
-		order by v.doc_date
+		order by a.approve_step
 	</select>
+	
+	
+	
+	<update id="updateApprove" parameterType="Document">
+		update approve_line
+		   set approve_reject=#{approveReject},
+		       approve_status=1,
+		       approve_comment=#{approveComment},
+    		   approve_date=to_char(sysdate, 'yyyy-mm-dd')
+		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
+	</update>
+	
+	<update id="updateLine" parameterType="Document">
+		update approve_line
+		   set approve_reject='진행'
+		 where doc_no=#{docNo} and approve_step=1
+	</update>
+	
 
 </mapper>
