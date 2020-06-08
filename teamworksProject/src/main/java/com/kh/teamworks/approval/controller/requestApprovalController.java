@@ -264,7 +264,6 @@ public class requestApprovalController {
 	@RequestMapping("detailDoc.rap")
 	public String selectDocDetail(Document doc, Model model, HttpServletRequest request) {
 		
-		
 		String docSc = doc.getDocSc();
 		//System.out.println("상세조회" + docSc);
 		ArrayList<Document> d = new ArrayList<Document>();
@@ -295,44 +294,57 @@ public class requestApprovalController {
 	// 7. 승인/반려, 결재의견 insert
 	@RequestMapping("updateApprove.rap")
 	public String updateApprove(Document doc, Model model) {
-		
-		// 7_1. 미결, 진행 결재선 id 조회
-		ArrayList<Document> list = raService.selectApList(doc);
-		
-		int result1 = 0;
-		int result2 = 0;
-		int result3 = 0;
-		int result4 = 0;
-		
-		Document d = new Document();
-		d.setDocNo(doc.getDocNo());
-		
+		// redirect 시 넘길 값
 		String docSc = doc.getDocSc();
 		//System.out.println(docSc);
 		
-		if(list.size() > 1) {
-			// 7_2. 첫번째 승인권자 승인/반려, 결재의견 insert
-			result1 = raService.updateApprove(doc);
+		int result1 = 0;
+		int result2 = 0;
+		
+		// 7_5. 이전 승인권자들 id 조회
+		ArrayList<Document> all = new ArrayList<>();
+		all = raService.selectAllList(doc);
+
+		Document d = new Document();
+		d.setDocNo(doc.getDocNo());
+		
+		// 승인/반려 구분
+		String ar = doc.getApproveReject();
+		
+		if(ar.equals("승인")) {	// 승인할 경우
+			// 7_1. 미결, 진행 결재선 id 조회
+			ArrayList<Document> list = raService.selectApList(doc);
 			
-			// 7_3. 다음 승인권자 상태 update
-			doc.setApproverEmpid(list.get(1).getApproverEmpid());
-			result2 = raService.updateLine(doc);
-		}else {
-			// 7_4. 마지막 승인권자 상태 update -> 완료함
-			result3 = raService.updateComplete(doc);
+			if(list.size() > 1) {
+				// 7_2. 첫번째 승인권자 승인/반려, 결재의견 insert
+				result1 = raService.updateApprove(doc);
+				
+				// 7_3. 다음 승인권자 상태 update
+				doc.setApproverEmpid(list.get(1).getApproverEmpid());
+				result2 = raService.updateLine(doc);
+			}else {
+				// 7_4. 마지막 승인권자 상태 update -> 완료함
+				result1 = raService.updateComplete(doc);
+				
+				// 7_6. 이전 승인권자들 상태 '완료'로 update
+				for(int i=0; i<all.size()-1; i++) {
+					d.setApproverEmpid(all.get(i).getApproverEmpid());
+					result2 = raService.updateAllComplete(d);
+				}
+			}
+		}else {	// 반려할 경우
+			// 7_7. 현재 진행중인 승인권자가 반려할 경우
+			result1 = raService.updateReject(doc);
 			
-			// 7_5. 이전 승인권자들 id 조회
-			ArrayList<Document> all = raService.selectAllList(doc);
-			
-			// 7_6. 이전 승인권자들 상태 '완료'로 update
-			for(int i=0; i<all.size()-1; i++) {
+			// 7_8. 나머지 승인권자들 상태 '반려'로 update
+			for(int i=0; i<all.size(); i++) {
 				d.setApproverEmpid(all.get(i).getApproverEmpid());
-				result4 = raService.updateAllComplete(d);
+				result2 = raService.updateAllReject(d);
 			}
 			
 		}
 		
-		if(result1 * result2 > 0 || result3 * result4 > 0) {
+		if(result1 * result2 > 0) {
 			return "approval/documentList";
 			//return "redirect:detailDoc.rap?docNo=" + doc.getDocNo() + "&docSc=" + docSc;
 			// docSc가 안넘어감 ㅜ

@@ -86,4 +86,10 @@ public interface ReqApprovalService {
 	// 7_6. 이전 승인권자들 상태 '완료'로 update
 	int updateAllComplete(Document d);
 	
+	// 7_7. 현재 진행중인 승인권자가 반려할 경우
+	int updateReject(Document doc);
+	
+	// 7_8. 나머지 승인권자들 상태 '반려'로 update
+	int updateAllReject(Document d);
+	
 }

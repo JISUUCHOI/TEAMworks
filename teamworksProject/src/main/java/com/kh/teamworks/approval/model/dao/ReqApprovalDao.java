@@ -143,4 +143,13 @@ public class ReqApprovalDao {
 		return sqlSession.update("approveMapper.updateAllComplete", d);
 	}
 	
+	// 7_7. 현재 진행중인 승인권자가 반려할 경우
+	public int updateReject(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.update("approveMapper.updateReject", doc);
+	}
+	
+	// 7_8. 나머지 승인권자들 상태 '반려'로 update
+	public int updateAllReject(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.updateAllReject", d);
+	}
 }

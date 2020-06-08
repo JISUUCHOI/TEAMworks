@@ -173,9 +173,17 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.updateAllComplete(sqlSession, d);
 	}
 
-	
+	// 7_7. 현재 진행중인 승인권자가 반려할 경우
+	@Override
+	public int updateReject(Document doc) {
+		return raDao.updateReject(sqlSession, doc);
+	}
 
-
+	// 7_8. 나머지 승인권자들 상태 '반려'로 update
+	@Override
+	public int updateAllReject(Document d) {
+		return raDao.updateAllReject(sqlSession, d);
+	}
 
 	
 	

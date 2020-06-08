@@ -324,5 +324,20 @@
 		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</update>
 	
+	<update id="updateReject"  parameterType="Document">
+		update approve_line
+		   set approve_reject=#{approveReject},
+		       approve_status=3,
+		       approve_comment=#{approveComment},
+		       approve_date=to_char(sysdate, 'yyyy-mm-dd')
+		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
+	</update>
+	
+	<update id="updateAllReject" parameterType="Document">
+		update approve_line
+		   set approve_status=3
+		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
+	</update>
+	
 
 </mapper>
