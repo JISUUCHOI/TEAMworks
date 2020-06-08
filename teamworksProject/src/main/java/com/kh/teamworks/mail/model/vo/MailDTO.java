@@ -6,25 +6,30 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class Mail {
+public class MailDTO {
 	
 	private int emailNo;
 	private String mailTitle;
 	private String mailContent;
 	private Date createDate;
-	private String mailStatus;
+	private String emailStatus;
+	private int emInfoNo;
 	private String sender;
 	private String recipients;
-	private String deleteStatus;  // 휴지통 비우기
-	private String readStatus;  // 읽음 분류 
+	private String deleteStatus;
+	private String readStatus; 
+	private String senderName; // EMP_NAME
+	private String senderEmail; // EMP_EMAIL
+	private String refRecipients; // REF_EMP
+	private String refType; // EATYPE
+	private String files; // 첨부파일 유무
 	
 	
+
 }

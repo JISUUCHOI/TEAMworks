@@ -32,6 +32,7 @@
 		<typeAlias type="com.kh.teamworks.management.model.vo.Vacation" alias="MgVac"/>
 		<typeAlias type="com.kh.teamworks.mail.model.vo.MailInfo" alias="MailInfo"/>
 		<typeAlias type="com.kh.teamworks.mail.model.vo.Mail" alias="Mail"/>
+		<typeAlias type="com.kh.teamworks.mail.model.vo.MailDTO" alias="MailDTO"/>
 		<typeAlias type="com.kh.teamworks.mail.model.vo.ImportMail" alias="ImportMail"/>
 		<typeAlias type="com.kh.teamworks.mail.model.vo.MailAddress" alias="MailAddress"/>
 	</typeAliases>
