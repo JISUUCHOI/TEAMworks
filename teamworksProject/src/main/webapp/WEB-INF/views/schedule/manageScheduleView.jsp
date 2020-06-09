@@ -25,8 +25,6 @@
 	@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
   
 	body {
-	/*  margin: 40px 10px;
-	    padding: 0; */
 	    font-family: Handon3gyeopsal300g;
 	    font-size: 14px;
 	}
@@ -42,7 +40,6 @@
 		float:right;
 		width:400px;
 		height:700px;
-		/* border:1px solid red; */
 	}
 	
 	#insertFormArea{display:none;}
@@ -141,7 +138,7 @@
 	      plugins: [ 'interaction', 'dayGrid' ],
 	      defaultDate: '${today}',
 	      editable: true,
-	      eventLimit: true, // allow "more" link when too many events
+	      eventLimit: true,
 	      events: events,
 	      locale: 'ko',
 	      eventClick: function(info) { //info.event.id
@@ -151,9 +148,7 @@
 		        	data:{schNo:info.event.id},
 		        	type:"post",
 		        	success:function(sch){
-		        		
-		                // Add response in Modal body
-		                //$('.modal-body').html("로그인 성공");
+
 				        $('#detailTable tr:first td').text(sch.schCategory);
 			    	    $('#detailTable tr:nth-child(2) td').text(sch.schTitle);
 			    	    $('#detailTable tr:nth-child(3) td').text(sch.startDate);
@@ -246,7 +241,7 @@
 	            <div class="modal-footer"></div>
 	            
 	            <form action="" id="postForm" method="post">
-	            	<input type="hidden" name="schNo" id="inputSchNo" value=""> <!-- schNo 넘겨야됨 -->
+	            	<input type="hidden" name="schNo" id="inputSchNo" value=""> 
 	            	<input type="hidden" name="empId" value="${loginUser.empId }">
 	            </form>
 	            
@@ -254,7 +249,7 @@
 	            	function postFormSubmit(num) {
 	            		if(num == 1) {	// 수정하기 클릭 시
 	            			$("#postForm").attr("action", "updateManageSchForm.sc");
-	            			//$("#updateFormArea").css("display", "block");
+
 	            		}else {	// 삭제하기 클릭 시
 	            			$("#postForm").attr("action", "deleteSch.sc");
 	            		}

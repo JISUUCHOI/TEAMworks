@@ -430,9 +430,7 @@
 	          
 	          <input type="hidden" name="empId" value="${ loginUser.empId }">
 	          <input type="hidden" name="roomNo" id="roomNo" value="">
-	          <input type="hidden" name="reservationDate" id="reservationDate" value="">	<!-- 예약 날짜 -->
-	          <!-- <input type="hidden" name="startTime" value="">
-	          <input type="hidden" name="endTime" value=""> -->
+	          <input type="hidden" name="reservationDate" id="reservationDate" value="">
 	          
 	          
 	          <!-- Modal footer -->

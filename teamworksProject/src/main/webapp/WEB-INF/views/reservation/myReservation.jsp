@@ -62,7 +62,7 @@
 	<div style="width:1250px; float:left;">
 	    <h2 style="margin-left:130px; margin-bottom:20px;">나의 예약 목록</h2>
 	    <p style="color:red; font-size:14px; text-align:right; margin-right:130px;">
-	    	* 회의실 사용이 완료된 경우 완료 버튼을 눌러 예약을 상태를 변경해 주세요.
+	    	* 회의실 사용이 완료된 경우 완료 버튼을 눌러 예약 상태를 변경해 주세요.
 	    </p>
 	    <table id="listTable" align="center">
 	        <tr>

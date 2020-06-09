@@ -25,8 +25,6 @@
 	@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
   
 	body {
-	/*  margin: 40px 10px;
-	    padding: 0; */
 	    font-family: Handon3gyeopsal300g;
 	    font-size: 14px;
 	}
@@ -123,7 +121,7 @@
 	      plugins: [ 'interaction', 'dayGrid' ],
 	      defaultDate: '${today}',
 	      editable: true,
-	      eventLimit: true, // allow "more" link when too many events
+	      eventLimit: true, 
 	      events: events,
 	      locale: 'ko'
 	
