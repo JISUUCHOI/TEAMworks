@@ -253,6 +253,7 @@ public class requestApprovalController {
 		// 5_2. 문서 리스트 조회
 		ArrayList<Document> list = raService.selectDocList(d, pi);
 		
+		model.addAttribute("listCount", listCount);
 		model.addAttribute("sts", approveStatus);
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);

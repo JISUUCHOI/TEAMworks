@@ -2,12 +2,12 @@ $(function(){
 	    $("#writeDoc>a").css("color", "deepskyblue");
 });
 
-function numberOnly(){
+/*function numberOnly(){
     if(event.keyCode<48 || event.keyCode>57){
         event.returnValue=false;
         alert("숫자만 입력해주세요.");
     }
-}
+}*/
 
 /*참조자 모달용 스크립트*/
 $(function(){

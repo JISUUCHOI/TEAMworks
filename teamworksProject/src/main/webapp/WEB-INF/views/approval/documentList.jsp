@@ -265,6 +265,8 @@
 					<c:choose>
 						<c:when test="${ pi.currentPage eq 1 }">
 						</c:when>
+						<c:when test="${ listCount eq 0 }">
+						</c:when>
 						<c:otherwise>
 							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage - 1 }'">&lt;</button>
 						</c:otherwise>
@@ -283,6 +285,8 @@
 					
 					<c:choose>
 						<c:when test="${ pi.currentPage eq pi.maxPage }">
+						</c:when>
+						<c:when test="${ listCount eq 0 }">
 						</c:when>
 						<c:otherwise>
 							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage + 1 }'">&gt;</button>
