@@ -75,7 +75,11 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.searchOutboxList", sc, rowBounds);
 	}
 	
-	public int changeReadStatus(SqlSession sqlSession, ArrayList<Mail> readNoList) {
+	public int changeReadStatus(SqlSession sqlSession, Mail readNoList) {
 		return sqlSession.update("mailMapper.changeReadStatus", readNoList);
+	}
+	
+	public int deleteMail(SqlSession sqlSession, Mail mail) {
+		return sqlSession.update("mailMapper.deleteMail", mail);
 	}
 }

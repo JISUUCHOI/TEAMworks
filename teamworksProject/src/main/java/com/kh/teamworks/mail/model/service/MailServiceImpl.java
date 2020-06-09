@@ -84,8 +84,13 @@ public class MailServiceImpl implements MailService {
 
 
 	@Override
-	public int changeReadStatus(ArrayList<Mail> mail) {
+	public int changeReadStatus(Mail mail) {
 		return emDao.changeReadStatus(sqlSession, mail);
+	}
+
+	@Override
+	public int deleteMail(Mail mail) {
+		return emDao.deleteMail(sqlSession, mail);
 	}
 	
 	

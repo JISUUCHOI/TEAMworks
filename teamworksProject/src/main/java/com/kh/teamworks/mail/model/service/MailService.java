@@ -27,5 +27,6 @@ public interface MailService {
 	int searchOutboxListCount(SearchMailCondition sc);
 	ArrayList<MailDTO> searchOutboxList(SearchMailCondition sc, PageInfo pi);
 	
-	int changeReadStatus(ArrayList<Mail> mail);
+	int changeReadStatus(Mail mail);
+	int deleteMail(Mail mail);
 }

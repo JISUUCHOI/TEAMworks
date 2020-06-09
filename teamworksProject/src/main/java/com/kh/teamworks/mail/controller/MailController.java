@@ -146,7 +146,7 @@ public class MailController {
 	
 	@ResponseBody
 	@RequestMapping(value="changeRead",method = RequestMethod.POST, produces="text/html; charset=utf-8")
-	public void changeReadStatus(@RequestParam(value="emailNo[]") String[] emailNo, HttpSession session){
+	public String changeReadStatus(@RequestParam(value="emailNo[]") String[] emailNo, HttpSession session){
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
 		ArrayList<Mail> list = new ArrayList<>();
@@ -159,12 +159,63 @@ public class MailController {
 			list.add(mail);
 		}
 		
-		int result = emService.changeReadStatus(list);
-		
-		
-		
+		// System.out.println(list);
+		int result = 0;
+		for(Mail m : list) {
+			
+			result = emService.changeReadStatus(m);
+		}
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
 		//System.out.println(emailNo[0]);
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteMail", produces="text/html; charset=utf-8")
+	public String deleteMail(@RequestParam(value="emailNo[]") String[] emailNo, HttpSession session) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		ArrayList<Mail> list = new ArrayList<>();
+		
+		for(int i=0; i<emailNo.length; i++) {
+			Mail mail = new Mail();
+			mail.setRecipients(e.getEmpId());
+			mail.setEmailNo(Integer.parseInt(emailNo[i]));
+			
+			list.add(mail);
+		}
+		int result = 0;
+		for(Mail m : list) {
+			
+			result = emService.deleteMail(m);
+		}
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
+	@RequestMapping("trash.ma")
+	public String selectTrahMailList(HttpSession session, int currentPage, Model model) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		if(e !=null) {
+			int listCount = emService.selectInboxListCount(e.getEmpId());
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			ArrayList<MailDTO> rList = emService.selectInboxList(pi, e.getEmpId());
+			model.addAttribute("pi", pi);
+			model.addAttribute("rList", rList);
+			return "mail/receiveMailList";
+		}else {
+			model.addAttribute("msg", "로그인 후 이용하세요.");
+			return "common/errorPage";
+		}
 	}
 	
 }

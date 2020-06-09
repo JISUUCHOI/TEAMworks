@@ -167,9 +167,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by email_no desc
  	</select>
  	
- 	<update id="changeReadStatus" parameterType="java.util.ArrayList" >
- 		<foreach item="read" collection="list" separator="">
- 		
- 		</foreach>
+ 	<update id="changeReadStatus" parameterType="Mail" >
+ 			update email_address
+		       set read_status='Y' 
+             where receiver =#{recipients} and email_no=#{emailNo}
+ 	</update>
+ 	
+ 	<update id="deleteMail" parameterType="Mail">
+ 		update email_address
+ 		   set status='N' 
+ 		 where receiver =#{recipients} and email_no=#{emailNo}
  	</update>
 </mapper>

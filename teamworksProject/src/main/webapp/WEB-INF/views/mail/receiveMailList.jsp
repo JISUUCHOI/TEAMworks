@@ -88,7 +88,7 @@
                 	<div class="col-xs-4"></div>
                     <div class="col-xs-6">
                      	<button class="btn btn-success btn-sm" id="read" onclick="changeReadStatus();" style="margin-right: 10px;" disabled>읽음</button>
-                        <button class="btn btn-danger btn-sm" id="delete" style="margin-right: 10px;" disabled>삭제</button>
+                        <button class="btn btn-danger btn-sm" id="delete" onclick="deleteMail();" style="margin-right: 10px;" disabled>삭제</button>
                     </div>
                 </div>
                 <script>
@@ -311,7 +311,7 @@
 				emailNo.push($(this).val());
 			});
 			
-			console.log(emailNo);
+			//console.log(emailNo);
 			if(emailNo==""){
 				alert("항목을 선택해 주세요.");
 			}else{
@@ -321,9 +321,9 @@
 					data:{emailNo:emailNo},
 					success:function(status){
 						if(status="success"){
-							
+							location.href="rlist.ma?currentPage=1";
 						}else{
-							
+							alert("다시 시도해 주세요.");
 						}
 					},
 					error:function(){
@@ -331,9 +331,42 @@
 					}
 				});
 			}
-			
-			
 		}
+		
+		function deleteMail(){
+			var emailNo = new Array();
+			$("input[name=emailNo]:checked").each(function(){
+				emailNo.push($(this).val());
+			});
+			
+			if(emailNo==""){
+				alert("항목을 선택해 주세요.");
+			}else{
+				if(confirm("삭제하시겠습니까? 삭제된 항목은 휴지통으로 이동합니다.")){
+					
+					$.ajax({
+						url:"deleteMail",
+						type:"post",
+						data:{emailNo:emailNo},
+						success:function(status){
+							if(status="success"){
+								location.href="rlist.ma?currentPage=1";
+							}else{
+								alert("다시 시도해 주세요.");
+							}
+						},
+						error:function(){
+							console.log("ajax 통신 실패");
+						}
+					});
+				}else{
+					$("input[name=emailNo]").prop("checked",false);
+				}
+				
+			}
+		}
+		
+		
 	</script>
 </body>
 
