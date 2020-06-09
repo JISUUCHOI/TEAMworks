@@ -121,6 +121,7 @@ $(function(){
                     	
 	                        value += "<tr>" + 
 	                                        "<td>" + 
+	                                        	"<input type='hidden' class='refedJob' value='" + schEmp[i].jobName + "'>" +
 	                                            "<input type='hidden' class='refedId' value='" + schEmp[i].empId + "'>" +
 	                                            "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
 	                                            "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
@@ -132,6 +133,7 @@ $(function(){
                     	 }else{
                     		 value += "<tr>" + 
 				                             "<td>" + 
+				                             	"<input type='hidden' class='refedJob' value='" + schEmp[i].jobName + "'>" +
 				                                "<input type='hidden' class='refedId' value='" + schEmp[i].empId + "'>" +
 				                                "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
 				                         		"<input type='checkbox' name='refChk' class='chk'>" +
@@ -163,11 +165,13 @@ $(function(){
         var refedEmp = [];
         var refedDept = [];
         var refedId = [];
+        var refedJob = [];
         
         $("input:checkbox[name=refChk]:checked").each(function(){
             refedEmp.push($(this).next().text());
             refedDept.push($(this).prev().val());
             refedId.push($(this).prevAll(".refedId").val());
+            refedJob.push($(this).prevAll(".refedJob").val());
         });
         
         /*중복값 못 들어가도록 */
@@ -188,7 +192,7 @@ $(function(){
     				                        "<td>" + 
     				                            "<span class='refedEmpId' style='display:none'>" + refedId[i] + " " + "</span>" +
     				                            "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-    				                             "<span class='refedEmpName'>" + refedEmp[i] + "</span>" + 
+    				                             "<span class='refedEmpName'>" + refedEmp[i] + " " + refedJob[i] + "</span>" + 
     				                             "<span class='refedEmpDept'> | " + refedDept[i] + "</span>" + 
     				                         "</td>" +
     				                     "</tr>");
@@ -197,6 +201,41 @@ $(function(){
         }else{
         	console.log("못들어감");
         }
+        
+        
+        /*
+        var flag =[];
+        
+        $("#refEmpArea").find(".refedEmpName").each(function(index, item){
+           
+            for(var j=0; j<refedEmp.length; j++){
+            	if(item.innerText == refedEmp[j]){
+            		flag.push("0");
+            	}else{
+            		flag.push("1");
+            	}
+            }
+            
+        });
+        
+        console.log(flag[0]);
+        console.log(flag[1]);
+        
+    	for(var i=0; i<refedEmp.length; i++){
+    		if(flag[i] == 1){
+            	$("#refEmpArea").append("<tr>" +
+    				                        "<td>" + 
+    				                            "<span class='refedEmpId' style='display:none'>" + refedId[i] + " " + "</span>" +
+    				                            "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
+    				                             "<span class='refedEmpName'>" + refedEmp[i] + "</span>" + 
+    				                             "<span class='refedEmpDept'> | " + refedDept[i] + "</span>" + 
+    				                         "</td>" +
+    				                     "</tr>");
+    		 }else{
+    	        	console.log("못들어감");
+    	        }
+        }
+       */
         
         $("input:checkbox[name=refChk]").prop("checked", false);
         $("input:checkbox[name=refChk]").nextAll().css("background", "white");
@@ -413,6 +452,7 @@ $(function(){
                     	 if(userId == schEmp[i].empId){
                     		 value += "<tr>" + 
 				                             "<td>" + 
+				                             	 "<input type='hidden' class='apRefedJob' value='" + schEmp[i].jobName + "'>" +
 				                                 "<input type='hidden' class='apRefedId' value='" + schEmp[i].empId + "'>" +
 				                                 "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
 				                                    "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
@@ -424,10 +464,11 @@ $(function(){
                     	 }else{
 	                         value += "<tr>" + 
 	                                         "<td>" + 
+	                                         	 "<input type='hidden' class='apRefedJob' value='" + schEmp[i].jobName + "'>" +
 	                                             "<input type='hidden' class='apRefedId' value='" + schEmp[i].empId + "'>" +
 	                                             "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
-	                                                "<input type='checkbox' name='apRefChk' class='chk'>" +
-	                                                "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
+	                                             "<input type='checkbox' name='apRefChk' class='chk'>" +
+	                                             "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
 	                                         "<td>" + schEmp[i].deptName + "</td>" + 
 	                                         "<td>" + schEmp[i].jobName + "</td>" +
 	                                         "<td>" + schEmp[i].empName + "</td>" +
@@ -455,11 +496,13 @@ $(function(){
          var apRefedEmp = [];
          var apRefedDept = [];
          var apRefedId = [];
+         var apRefedJob = [];
          
          $("input:checkbox[name=apRefChk]:checked").each(function(){
              apRefedEmp.push($(this).next().text());
              apRefedDept.push($(this).prev().val());
              apRefedId.push($(this).prevAll(".apRefedId").val());
+             apRefedJob.push($(this).prevAll(".apRefedJob").val());
          });
          
          /*중복값 못 들어가도록 */
@@ -483,7 +526,7 @@ $(function(){
      					             				"<span>" + "결재" + "</span>" +
      						                        "<span class='apRefedEmpId' style='display:none'>" + apRefedId[i] + "</span>" +
      						                        "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-     						                        "<span class='apRefedEmpName'>" + apRefedEmp[i] + "</span>" + 
+     						                        "<span class='apRefedEmpName'>" + apRefedEmp[i] + " " + apRefedJob[i] + "</span>" + 
      						                        "<span class='apRefedEmpDept'> | " + apRefedDept[i] + "</span>" + 
      						                     "</td>" +
           				                     "</tr>");
@@ -557,6 +600,8 @@ $(function(){
 	     });
 
     	 $("#approver").val(line);
+    	 /* 결재선 지정되지 않으면, 결재요청 버튼 클릭 못하도록 */
+    	 $("#approveBtn").attr("disabled", false);
     	 $("#line").val(line);
     	 
     	 /* 결재선 모달 닫기 */
@@ -685,6 +730,8 @@ $(function(){
 		    type:"post",
 			success:function(f){
 				
+				console.log(f);
+				
 				var value = "";
 				
 				for(var i=0; i<f.length; i++){
@@ -693,7 +740,7 @@ $(function(){
 		             				"<span>" + "결재" + "</span>" +
 			                        "<span class='apRefedEmpId' style='display:none'>" + f[i].authorizedEmpid + "</span>" +
 			                        "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-			                        "<span class='apRefedEmpName'>" + f[i].empName + "</span>" + 
+			                        "<span class='apRefedEmpName'>" + f[i].empName + " " + f[i].jobName + "</span>" + 
 			                        "<span class='apRefedEmpDept'> | " + f[i].deptName + "</span>" + 
 			                     "</td>" +
 		                     "</tr>";

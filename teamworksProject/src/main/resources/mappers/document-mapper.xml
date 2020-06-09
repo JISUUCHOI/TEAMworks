@@ -98,7 +98,7 @@
 	<!-- 제증명신청서 insert -->
 	<insert id="insertProof" parameterType="Document">
 		insert into proof
-		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, 
+		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docRefName}, #{docDate}, #{docEnd}, #{docDepartment}, 
 				#{pfSq}, #{pfPurpose}, 'Y' )
 	</insert>
 	

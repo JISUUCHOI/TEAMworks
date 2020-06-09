@@ -172,7 +172,7 @@
    .tree31>span, .tree32>span{
        line-height:180%;
    }
-   /* 검색 */
+   /* 검색  */
    #schBox{
        width:270px;
        height:55px;
@@ -255,7 +255,7 @@
    }
    #selectedEmp{
        width:310px;
-       height:380px;
+       height:390px;
        border:1px solid rgb(7, 53, 90);
        margin:10px 10px 5px 13px;
        padding:10px 0px 0px 10px;
@@ -362,7 +362,7 @@
     margin:10px 10px 5px 13px;
     padding:10px 0px 0px 15px;
 }
-#apSchInputs{
+#apSchInput{
     width:150px;
     height:28px;
 }
@@ -437,11 +437,10 @@
 }
 #apSelectedEmp{
     width:310px;
-    height:380px;
+    height:250px;
     border:1px solid rgb(7, 53, 90);
     margin:10px 10px 5px 13px;
     padding:10px 0px 0px 10px;
-    font-size:13px;
 }
 .refedEmpName, .refedEmpDept{
 	cursor:pointer
@@ -493,13 +492,7 @@
     font-weight:600;
     cursor:pointer;
 }
-#selectedEmp{
-    width:310px;
-    height:250px;
-    border:1px solid rgb(7, 53, 90);
-    margin:10px 10px 5px 13px;
-    padding:10px 0px 0px 10px;
-}
+
 
 #lineName{
     width:140px;

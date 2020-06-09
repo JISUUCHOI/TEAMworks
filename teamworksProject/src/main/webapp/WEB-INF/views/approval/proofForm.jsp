@@ -38,10 +38,12 @@
 	        <br>
 	
 	        <form id="docForm"  action="proofInsert.ap" method="post">
+	            <!-- 결재선으로 선택된 값들 -->
+	        	<input type="hidden" id="approver" name="approver">
 	            <!-- 버튼들 -->
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#approveLineModal">결재선</button>
-	                <button type="submit" id="approveBtn">결재요청</button>
+	                <button type="submit" id="approveBtn" disabled>결재요청</button>
 	                <button type="button" id="cancelBtn">취소</button>
 	            </div>
 	            <br><br><br>
@@ -165,10 +167,11 @@
 						            	<c:forEach var="l" items="${ list }">
 						            		<c:choose>
 						            			<c:when test="${ d.deptName eq l.deptName }">
-						            					<input type="hidden" class="refedId" value="${ l.empId }">
-						            					<input type="hidden" value="${ l.deptName }">
-						                				<input type="checkbox" name="refChk" class="refChk" style="visibility:hidden">
-						                				ㄴ<span class="refEmpName">${ l.empName }</span><span class="refEmpDept"> ${ l.jobName }</span><br>
+					            					<input type="hidden" class="refedJob" value="${ l.jobName }">
+					            					<input type="hidden" class="refedId" value="${ l.empId }">
+					            					<input type="hidden" value="${ l.deptName }">
+					                				<input type="checkbox" name="refChk" class="refChk" style="visibility:hidden">
+					                				ㄴ<span class="refEmpName">${ l.empName }</span><span class="refEmpDept"> ${ l.jobName }</span><br>
 						            			</c:when>
 						            		</c:choose>
 						            	</c:forEach>
@@ -250,10 +253,11 @@
 						            	<c:forEach var="l" items="${ list }">
 						            		<c:choose>
 						            			<c:when test="${ d.deptName eq l.deptName }">
-						            					<input type="hidden" class="apRefedId" value="${ l.empId }">
-						            					<input type="hidden" value="${ l.deptName }">
-						                				<input type="checkbox" name="apRefChk" class="apRefChk" style="visibility:hidden">
-						                				ㄴ<span class="apRefEmpName">${ l.empName }</span><span class="apRefEmpDept"> ${ l.jobName }</span><br>
+					            					<input type="hidden" class="apRefedJob" value="${ l.jobName }">
+					            					<input type="hidden" class="apRefedId" value="${ l.empId }">
+					            					<input type="hidden" value="${ l.deptName }">
+					                				<input type="checkbox" name="apRefChk" class="apRefChk" style="visibility:hidden">
+					                				ㄴ<span class="apRefEmpName">${ l.empName }</span><span class="apRefEmpDept"> ${ l.jobName }</span><br>
 						            			</c:when>
 						            		</c:choose>
 						            	</c:forEach>
@@ -301,7 +305,7 @@
 						                <button type="button" id="deleteBtn">삭제</button>
 					                </div>
 					            </div>
-					            <div id="selectedEmp">
+					            <div id="apSelectedEmp">
 					                <table id="apRefEmpArea" style="margin:5px 0px 0px 15px;"></table>
 					            </div>
 					            <div id="frequentLine">

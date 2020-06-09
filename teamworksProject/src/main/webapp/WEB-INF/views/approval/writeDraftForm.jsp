@@ -37,6 +37,8 @@
 	        <br>
 	
 	        <form id="docForm" method="post" action="draftInsert.ap" enctype="multipart/form-data">
+	            <!-- 결재선으로 선택된 값들 -->
+	        	<input type="hidden" id="approver" name="approver">
 	            <!-- 버튼들 -->
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#approveLineModal">결재선</button>
@@ -85,7 +87,7 @@
 	                    <td class="th">참조자</td>
 	                    <td>
 	                    	<input type="hidden" id="refedId" name="docReference">
-	                        <input type="text" id="refSch"  readonly>
+	                        <input type="text" id="refSch" name="docRefName" readonly>
 	                        <button type="button" id="refBtn" data-toggle="modal" data-target="#refEmp">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
