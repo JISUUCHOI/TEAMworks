@@ -252,7 +252,7 @@ html, body{height:100%;}
    }
    #selectedEmp{
        width:310px;
-       height:380px;
+       height:390px;
        border:1px solid rgb(7, 53, 90);
        margin:10px 10px 5px 13px;
        padding:10px 0px 0px 10px;
@@ -359,7 +359,7 @@ html, body{height:100%;}
     margin:10px 10px 5px 13px;
     padding:10px 0px 0px 15px;
 }
-#apSchInputs{
+#apSchInput{
     width:150px;
     height:28px;
 }
@@ -434,11 +434,10 @@ html, body{height:100%;}
 }
 #apSelectedEmp{
     width:310px;
-    height:380px;
+    height:250px;
     border:1px solid rgb(7, 53, 90);
     margin:10px 10px 5px 13px;
     padding:10px 0px 0px 10px;
-    font-size:13px;
 }
 .refedEmpName, .refedEmpDept{
 	cursor:pointer
@@ -490,13 +489,7 @@ html, body{height:100%;}
     font-weight:600;
     cursor:pointer;
 }
-#selectedEmp{
-    width:310px;
-    height:250px;
-    border:1px solid rgb(7, 53, 90);
-    margin:10px 10px 5px 13px;
-    padding:10px 0px 0px 10px;
-}
+
 
 #lineName{
     width:140px;

@@ -178,4 +178,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		   set status='N' 
  		 where receiver =#{recipients} and email_no=#{emailNo}
  	</update>
+ 	
+ 	<select id="selectTrashListCount" parameterType="string" resultType="_int">
+ 		select count(*)
+		  from v_email_list
+		 where receiver=#{empId} and status='N'
+ 	</select>
+ 	<select id="selectTrashList" parameterType="string" resultMap="mailDtoResultSet">
+ 		select *
+		  from v_email_list
+		 where receiver=#{empId} and status='N'
+		 order by email_no desc
+ 	</select>
+ 	
+ 	<select id="searchTrashListCount"  parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int">
+ 		select count(*)
+		  from v_email_list
+		 where receiver=#{empId} and status='N'
+ 		<if test="sender != null">
+			and sendername like '%'|| #{sender} ||'%'
+		</if>
+		<if test="title != null">
+			and email_title like '%'|| #{title} ||'%'
+		</if>
+		<if test="content != null">
+			and email_content like '%'|| #{content} ||'%'
+		</if>
+ 	</select>
+ 	<select id="searchTrashList"  parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
+ 		select *
+		  from v_email_list
+		 where receiver=#{empId} and status='N'
+ 		<if test="sender != null">
+			and sendername like '%'|| #{sender} ||'%'
+		</if>
+		<if test="title != null">
+			and email_title like '%'|| #{title} ||'%'
+		</if>
+		<if test="content != null">
+			and email_content like '%'|| #{content} ||'%'
+		</if>
+ 	</select>
 </mapper>

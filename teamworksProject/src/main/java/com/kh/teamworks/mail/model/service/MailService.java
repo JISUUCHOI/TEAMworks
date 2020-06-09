@@ -29,4 +29,10 @@ public interface MailService {
 	
 	int changeReadStatus(Mail mail);
 	int deleteMail(Mail mail);
+	
+	int selectTrashListCount(String empId);
+	ArrayList<MailDTO> selectTrashList(PageInfo pi, String empId);
+	
+	int searchTrashListCount(SearchMailCondition sc);
+	ArrayList<MailDTO> searchTrashList(SearchMailCondition sc, PageInfo pi);
 }

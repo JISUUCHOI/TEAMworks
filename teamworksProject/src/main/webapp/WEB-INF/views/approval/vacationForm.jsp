@@ -88,7 +88,7 @@
 	                    <td class="th">참조자</td>
 	                    <td>
 	                    	<input type="hidden" id="refedId" name="docReference">
-	                        <input type="text" id="refSch"  readonly>
+	                        <input type="text" id="refSch" name="docRefName" readonly>
 	                        <button type="button" id="refBtn" data-toggle="modal" data-target="#refEmp">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
@@ -301,7 +301,7 @@
 						                <button type="button" id="deleteBtn">삭제</button>
 					                </div>
 					            </div>
-					            <div id="selectedEmp">
+					            <div id="apSelectedEmp">
 					                <table id="apRefEmpArea" style="margin:5px 0px 0px 15px;"></table>
 					            </div>
 					            <div id="frequentLine">

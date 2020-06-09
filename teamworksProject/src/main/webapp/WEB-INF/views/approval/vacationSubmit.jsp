@@ -310,7 +310,7 @@
                 </tr>
                 <tr>
                     <td class="th">참조자</td>
-                    <td>${ d.get(0).getDocReference() }</td>
+                    <td>${ d.get(0).getDocRefName() }</td>
                     <td class="th">마감일자</td>
                     <td>${ d.get(0).getDocEnd() }</td>
                 </tr>

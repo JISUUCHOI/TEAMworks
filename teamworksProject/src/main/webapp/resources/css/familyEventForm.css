@@ -127,7 +127,7 @@ html, body{height:100%;}
    /* 전체윤곽 */
    #approveLineOuter{
        width:700px;
-       height:370px;
+       height:500px;
        margin:auto;
    }
    /* 조직도 */
@@ -156,7 +156,7 @@ html, body{height:100%;}
 
    #chart-container, #sch-container{
        width:300px;
-       height:350px;
+       height:450px;
        border:1px solid rgb(7, 53, 90);
        font-family: 'Handon3gyeopsal300g';
        float:left;
@@ -178,7 +178,7 @@ html, body{height:100%;}
    .tree31>span, .tree32>span{
        line-height:180%;
    }
-   /* 검색 */
+   /* 검색  */
    #schBox{
        width:270px;
        height:55px;
@@ -254,20 +254,20 @@ html, body{height:100%;}
    /* 참조자 */
    #refEmpList{
        width:340px;
-       height:350px;
+       height:450px;
        border:1px solid rgb(7, 53, 90);
        font-family: 'Handon3gyeopsal300g';
        float:left;
    }
    #selectedEmp{
        width:310px;
-       height:380px;
+       height:390px;
        border:1px solid rgb(7, 53, 90);
        margin:10px 10px 5px 13px;
        padding:10px 0px 0px 10px;
        font-size:13px;
    }
-   .refedEmpName, refedEmpDept{
+   .refedEmpName, .refedEmpDept{
    	cursor:pointer
    }
    
@@ -368,7 +368,7 @@ html, body{height:100%;}
     margin:10px 10px 5px 13px;
     padding:10px 0px 0px 15px;
 }
-#apSchInputs{
+#apSchInput{
     width:150px;
     height:28px;
 }
@@ -443,11 +443,10 @@ html, body{height:100%;}
 }
 #apSelectedEmp{
     width:310px;
-    height:380px;
+    height:250px;
     border:1px solid rgb(7, 53, 90);
     margin:10px 10px 5px 13px;
     padding:10px 0px 0px 10px;
-    font-size:13px;
 }
 .refedEmpName, .refedEmpDept{
 	cursor:pointer
@@ -499,13 +498,7 @@ html, body{height:100%;}
     font-weight:600;
     cursor:pointer;
 }
-#selectedEmp{
-    width:310px;
-    height:250px;
-    border:1px solid rgb(7, 53, 90);
-    margin:10px 10px 5px 13px;
-    padding:10px 0px 0px 10px;
-}
+
 
 #lineName{
     width:140px;

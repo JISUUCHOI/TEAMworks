@@ -92,6 +92,26 @@ public class MailServiceImpl implements MailService {
 	public int deleteMail(Mail mail) {
 		return emDao.deleteMail(sqlSession, mail);
 	}
+
+	@Override
+	public int selectTrashListCount(String empId) {
+		return emDao.selectTrashListCount(sqlSession,empId);
+	}
+
+	@Override
+	public ArrayList<MailDTO> selectTrashList(PageInfo pi, String empId) {
+		return emDao.selectTrashList(sqlSession, pi, empId);
+	}
+
+	@Override
+	public int searchTrashListCount(SearchMailCondition sc) {
+		return emDao.searchTrashListCount(sqlSession, sc);
+	}
+
+	@Override
+	public ArrayList<MailDTO> searchTrashList(SearchMailCondition sc, PageInfo pi) {
+		return emDao.searchTrashList(sqlSession, sc, pi);
+	}
 	
 	
 }

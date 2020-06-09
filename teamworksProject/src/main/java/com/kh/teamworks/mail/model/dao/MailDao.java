@@ -82,4 +82,23 @@ public class MailDao {
 	public int deleteMail(SqlSession sqlSession, Mail mail) {
 		return sqlSession.update("mailMapper.deleteMail", mail);
 	}
+	
+	public int selectTrashListCount(SqlSession sqlSession, String empId) {
+		return sqlSession.selectOne("mailMapper.selectTrashListCount", empId);
+	}
+	
+	public ArrayList<MailDTO> selectTrashList(SqlSession sqlSession,PageInfo pi, String empId){
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mailMapper.selectTrashList", empId, rowBounds);
+	}
+	
+	public int searchTrashListCount(SqlSession sqlSession, SearchMailCondition sc) {
+		return sqlSession.selectOne("mailMapper.searchTrashListCount", sc);
+	}
+	public ArrayList<MailDTO> searchTrashList(SqlSession sqlSession, SearchMailCondition sc, PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("mailMapper.searchTrashList", sc, rowBounds);
+	}
 }
