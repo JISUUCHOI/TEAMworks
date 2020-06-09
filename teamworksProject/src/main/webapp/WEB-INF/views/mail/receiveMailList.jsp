@@ -87,6 +87,7 @@
                 	</div>
                 	<div class="col-xs-4"></div>
                     <div class="col-xs-6">
+                     	<button class="btn btn-success btn-sm" style="margin-right: 10px;">읽음</button>
                         <button class="btn btn-danger btn-sm" style="margin-right: 10px;">삭제</button>
                     </div>
                 </div>
