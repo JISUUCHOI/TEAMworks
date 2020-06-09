@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
-import com.kh.teamworks.management.model.vo.EmployeeMg;
 import com.kh.teamworks.management.model.vo.Job;
 
 @Repository("mgDao")
@@ -25,8 +25,12 @@ public class ManagementDao {
 		return sqlSession.selectOne("managementMapper.selectCompanyBsns", homNo);
 	}
 
-	public int insertEmployee(SqlSessionTemplate sqlSession, EmployeeMg e) {
+	public int insertEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.insert("managementMapper.insertEmployee", e);
+	}
+
+	public int idCheck(SqlSessionTemplate sqlSession, String empId) {
+		return sqlSession.selectOne("managementMapper.idCheck", empId);
 	}
 	
 }

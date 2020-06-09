@@ -12,12 +12,21 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<!-- 이외의 추가 스크립트 -->
 
+
+<!-- 이외의 추가 스크립트 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="anonymous" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha256-tz3ebpf1UY2wJOfYAEYo/iIElWlm+JNP7cOGtloSAWM=" crossorigin="anonymous"></script>
 
+<!-- alertifyJS 라이브러리 -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<!-- alertifyCSS 라이브러리 -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 	
 <style type="text/css">
 .tg {
@@ -98,6 +107,13 @@
 
 	<jsp:include page="../common/menubar.jsp" />
 	<jsp:include page="../common/sidebarMg.jsp" />
+	
+	<c:if test="${ !empty msg }">
+		<script>
+			alertify.alert("${msg}");
+		</script>
+		<c:remove var="msg" scope="session"/>
+	</c:if>
 
 
 	<div class="content">
@@ -106,23 +122,26 @@
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 		<h3>인적사항</h3>
 
-		<form  action="insertEmp.mg" method="post" id="enrollEmpForm" style="padding-left: 100px; padding-top: 50px;">
-			<div id="t1">
-				<table class="tg" style="width: 900px;">
+		<form  action="insertEmp.mg" method="post" id="enrollEmpForm" style="padding-top: 50px;">
+			<div id="t1" style="padding-left:50px;">
+				<table class="tg" style="width: 1000px;">
 					<tr>
-						<th class="tg-uzvj" width="250px;">사원사진</th>
-						<th class="tg-uzvj">사원번호</th>
-						<th class="tg-9wq8"><input type="text" id="empId"
-							name="empId" placeholder="사원 번호 입력" required></th>
+						<th class="tg-uzvj" width="200px;">사원사진</th>
+						<th class="tg-uzvj" width="150px;">사원번호</th>
+						<th class="tg-9wq8" height="60px;">
+							<input type="text" id="empId" name="empId" placeholder="사원 번호 입력" required>
+							<!-- <div id="checkResult" style="display:none; font-size:0.7em"></div> -->
+						</th>
 						<th class="tg-uzvj">성명</th>
-						<th class="tg-9wq8"><input type="text" id="empName"
-							name="empName" placeholder="사원 이름 입력" required></th>
+						<th class="tg-9wq8">
+							<input type="text" id="empName" name="empName" placeholder="사원 이름 입력" required>
+						</th>
 					</tr>
 					<tr>
 						<td rowspan="4" width="250px;"><input type="file"></td>
-						<td class="tg-uzvj">주민등록번호</td>
+						<td class="tg-uzvj">주민 등록 번호</td>
 						<td class="tg-9wq8"><input type="text" id="empNo"
-							name="empNo" placeholder="사원 주민번호 입력" required></td>
+							name="empNo" placeholder="사원 주민번호 입력(-포함)" required></td>
 						<td class="tg-uzvj">생년월일</td>
 						<td class="tg-9wq8">자동생성???</td>
 					</tr>
@@ -131,20 +150,21 @@
 						<td class="tg-9wq8"><input type="text" id="phone"
 							name="phone" placeholder="사원 핸드폰 번호 입력"></td>
 						<td class="tg-uzvj">E-Mail</td>
-						<td class="tg-9wq8"><input type="text" id="empEmail"
-							name="empEmail" placeholder="사원 이메일 입력"></td>
+						<td class="tg-9wq8"><input type="text" id="email"
+							name="email" placeholder="사원 이메일 입력"></td>
 					</tr>
 					<tr>
 						<th class="tg-0lax" rowspan="2"><b>자택주소</b></th>
 						<td class="tg-0lax" colspan="3"
-							style="text-align: left; vertical-align: 10px;">우편번호 : <input
-							name="postcode" id="postcode" readonly size="10"> <!-- daumZipCode()는 다음 사이트에서 가져온 API -->
+							style="text-align: left; vertical-align: 10px;"><b>우편번호 :</b>
+							<input name="postcode" id="postcode" readonly size="10"> 
+							<!-- daumZipCode()는 다음 사이트에서 가져온 API -->
 							<input type="button" onclick="addressSearch()" value="우편번호 찾기"><br>
 					</tr>
 					<tr>
-						<td colspan="3">주소 : <input name="empAdd" id="empAdd"
-							size="60"><br> 상세주소 : <input name="empAddDetail"
-							id="empAddDetail" size="56">
+						<td colspan="3">
+							<b>주소 : <b></b><input name="empAdd" id="empAdd"	size="60"><br>
+							<b>상세주소 : </b><input name="empAddDetail"	id="empAddDetail" size="60">
 						</td>
 					</tr>
 				</table>
@@ -154,6 +174,49 @@
 			<!-- 주소 검색 API -->
 			<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 			<script>
+/* 			
+				function idCheckValidate(num){
+					if(num == 1){
+						$("#checkResult").hide();
+						$("#enrollEmpbtn").attr("disabled", true);
+					}else if(num == 2){
+						$("#checkResult").css("color", "red").text("중복된 사원번호가 존재합니다.");
+						$("#checkResult").show();
+						$("#enrollEmpbtn").attr("disabled", true);
+					}else{
+						$("#checkResult").css("color", "green").text("사용 가능한 사원번호입니다.");
+						$("checkResult").show();
+						$("#enrollEmpbtn").removeAttr("disabled");
+					}
+					
+				}
+			
+               $(function() {
+
+                   var $idInput = $("#enrollEmpForm input[name=empId]")
+
+                   $idInput.keyup(function() {
+
+                      if ($idInput.val().length >= 3) { // 적어도 아이디가 5글자 이상되었을 때 중복체크
+                         $.ajax({
+                            url : "empIdCheck.mg",
+                            data : {empId : $idInput.val()},
+                            success : function(status) {
+                               if (status == "fail") { // 중복된 아이디 존재 == 사용 불가
+                                  idCheckValidate(2);
+                               } else { // 중복된 아이디 없음 == 사용 가능
+                                  idCheckValidate(3);
+                               }
+                            },
+                            error : function() {
+                               console.log("아이디 중복체크용 ajax 통신 실패");
+                            }
+                         });
+                      } else { // 중복체크 x
+                         idCheckValidate(1);
+                      }
+                   }); */
+		
 				function addressSearch() {
 					new daum.Postcode({
 						oncomplete : function(data) {
@@ -200,7 +263,7 @@
 				}
 			</script>
 
-			<div id="t2" style="padding-top: 20px; padding-left: 150px;">
+			<div id="t2" style="padding-top: 20px; padding-left: 270px;">
 				<table class="border">
 					<table class="job infoTable" style="float: left" border="1px solid black;">
 						<tr>
@@ -243,7 +306,7 @@
 							<td><input type="text" id="retireDate" name="exitDate" class="form-control"></td>
 						</tr>
 							<th>급여 계약 기준</th>
-							<td><select>
+							<td><select id="salType" name="salType">
 									<option value="연봉제">연봉제</option>
 									<option value="기간제">기간제</option>
 							</select></td>
@@ -300,7 +363,7 @@
 
 			<br><br>
 			
-			<div class="btns" align="center" style="padding-right:200px;">
+			<div class="btns" align="center" style="padding-right:130px;">
 				<button type="submit" class="btn btn-primary" id="enrollEmpbtn">인사 정보 등록</button>
 				<button type="reset" class="btn btn-danger">초기화</button>
 			</div>

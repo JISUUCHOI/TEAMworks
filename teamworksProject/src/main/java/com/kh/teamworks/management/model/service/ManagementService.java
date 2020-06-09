@@ -2,10 +2,10 @@ package com.kh.teamworks.management.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
-import com.kh.teamworks.management.model.vo.EmployeeMg;
 import com.kh.teamworks.management.model.vo.Job;
 import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
@@ -18,11 +18,12 @@ public interface ManagementService {
 	CompanyBsns selectCompanyBsnsInfo(int homNo);
 	
 	// 2. 사원 정보 관리
-	EmployeeMg selectEmployeeInfo(EmployeeMg e);
+	Employee selectEmployeeInfo(Employee e);
 	
-	int insertEmployee(EmployeeMg e);
+	int insertEmployee(Employee e);
+	int idCheck(String empId);
 	
-	ArrayList<EmployeeMg> selectEmployeeList();
+	ArrayList<Employee> selectEmployeeList();
 	
 	int updateEmpInfo();
 	Vacation selectVacationList();
@@ -40,5 +41,6 @@ public interface ManagementService {
 	int updateJobCode(); //
 	int deleteJobCode(); //
 	int insertJobCode(); //
+
 	
 }

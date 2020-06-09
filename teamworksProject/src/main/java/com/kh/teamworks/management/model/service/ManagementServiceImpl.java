@@ -6,11 +6,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.dao.ManagementDao;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
-import com.kh.teamworks.management.model.vo.EmployeeMg;
 import com.kh.teamworks.management.model.vo.Job;
 import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
@@ -43,18 +43,23 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public EmployeeMg selectEmployeeInfo(EmployeeMg e) {
+	public Employee selectEmployeeInfo(Employee e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
 	@Override
-	public int insertEmployee(EmployeeMg e) {
+	public int insertEmployee(Employee e) {
 		return mgDao.insertEmployee(sqlSession, e);
 	}
 	
 	@Override
-	public ArrayList<EmployeeMg> selectEmployeeList() {
+	public int idCheck(String empId) {
+		return mgDao.idCheck(sqlSession, empId);
+	}
+	
+	@Override
+	public ArrayList<Employee> selectEmployeeList() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.teamworks.management.model.vo.EmployeeMg;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.service.ManagementService;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
@@ -59,23 +58,42 @@ public class ManagementController {
 	}
 	
 	@RequestMapping("insertEmp.mg")
-	public String insertEmployee(EmployeeMg e, Model model, HttpSession session) {
+	public String insertEmployee(Employee e, Model model, HttpSession session) {
 		
-		System.out.println(e.getEmpNo().substring(0, 5));
+		String tempPwd = e.getEmpNo().substring(0, 6);
+		String encPwd = bcryptPasswordEncoder.encode(e.getEmpNo().substring(0, 6));
 		
-		String encPwd = bcryptPasswordEncoder.encode(e.getEmpNo().substring(0, 5));
+		e.setEmpPwd(tempPwd);
+		System.out.println(e);
 		
 		e.setEmpPwd(encPwd);
+		System.out.println(e);
+		
 		
 		int result = mgService.insertEmployee(e);
 		
 		if(result>0) {
-			return "redirect:/";
+			session.setAttribute("msg", "인사 정보 등록 성공!!");
+			return "management/companyEnrollMemberInfo";
 		}else {
+			model.addAttribute("msg", "인사 정보 등록 실패!!");
 			return "common/errorPage";
 		}
 		
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="empIdCheck.mg")
+	public String idCheck(String empId) {
+		int count = mgService.idCheck(empId);
+		
+		if(count>0) {
+			return "fail";
+		}else {
+			return "success";
+		}
+	}
+	
 	
 	//사원 명부
 	@RequestMapping("empList.mg")

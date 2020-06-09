@@ -99,5 +99,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   #{empAddDetail}, #{hireDate}, #{retireDate}, #{salType}, sysdate, 'Y', #{empNote}, #{originName}, #{changeName}, #{homNo})
 	</insert>
 	
+	<select id="idCheck" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEE
+		 WHERE EMP_ID=#{empId}
+	</select>
+	
 
 </mapper>
