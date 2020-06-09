@@ -52,6 +52,9 @@
         font-weight:600;
         cursor:pointer;
     }
+    #draftContent{
+    	height:250px;
+    }
 </style>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
