@@ -206,16 +206,35 @@ public class MailController {
 		Employee e = (Employee)session.getAttribute("loginUser");
 		
 		if(e !=null) {
-			int listCount = emService.selectInboxListCount(e.getEmpId());
+			int listCount = emService.selectTrashListCount(e.getEmpId());
 			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-			ArrayList<MailDTO> rList = emService.selectInboxList(pi, e.getEmpId());
+			ArrayList<MailDTO> tList = emService.selectTrashList(pi, e.getEmpId());
 			model.addAttribute("pi", pi);
-			model.addAttribute("rList", rList);
-			return "mail/receiveMailList";
+			model.addAttribute("tList", tList);
+			return "mail/mailTrashListView";
 		}else {
 			model.addAttribute("msg", "로그인 후 이용하세요.");
 			return "common/errorPage";
 		}
 	}
 	
+	@RequestMapping("trashSearch.ma")
+	public String searchTrashList(SearchMailCondition sc, int currentPage,  HttpSession session, Model model) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		sc.setEmpId(e.getEmpId());
+		if(sc.getKeyword()!=null) {
+			switch(sc.getCondition()) {
+			case "sender" : sc.setSender(sc.getKeyword()); break;
+			case "title" : sc.setTitle(sc.getKeyword()); break;
+			case "content" : sc.setContent(sc.getKeyword()); break;
+			}
+		}
+		int listCount = emService.searchTrashListCount(sc);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		ArrayList<MailDTO> tList = emService.searchTrashList(sc,pi);
+		model.addAttribute("pi", pi);
+		model.addAttribute("tList", tList);
+		model.addAttribute("sc", sc);
+		return "mail/mailTrashListView";
+	}
 }
