@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
@@ -140,22 +141,16 @@ public class ApprovalController {
 		String originName = "";
 		for (MultipartFile file : fileList) {
 			if(!file.getOriginalFilename().equals("")) {
-				String changeName = saveFile(file, request);
-				
+				saveFile(file, request);
 				originName = originName + file.getOriginalFilename();
 			}
 		}
 		
 		d.setOriginName(originName);
+		d.setChangeName(originName);
+
 		
-		/*
-		if(!file.getOriginalFilename().equals("")) {
-			String changeName = saveFile(file, request);
-			
-			d.setFileName(file.getOriginalFilename());
-		}
-		*/
-		
+
 		System.out.println(d);
 	 
 		 int result = aService.insertDraft(d);
@@ -267,9 +262,10 @@ public class ApprovalController {
 		String originName = file.getOriginalFilename();
 		
 		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		String ext = originName.substring(originName.lastIndexOf("."));
 				
-		String changeName = currentTime;
-		
+		String changeName = currentTime+ext;
+
 		try {
 			file.transferTo(new File(savePath + changeName));
 		} catch (IllegalStateException e) {
@@ -277,7 +273,6 @@ public class ApprovalController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 		return changeName;
 	}
 	

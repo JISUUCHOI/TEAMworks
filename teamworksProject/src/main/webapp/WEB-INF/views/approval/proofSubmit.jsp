@@ -196,8 +196,7 @@
 	                <button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
 	                <button type="button" id="listBtn" onclick="history.back();">목록</button>
 	            </div>
-	            
-	            
+	                        
 	            <form action="" id="postForm" method="post">
 	            	<input type="hidden" name="dno" value="${ d.getDocNo() }">
 	            </form><script>
@@ -254,7 +253,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td>${ d.getDocReference() }</td>
+	                    <td>${ d.getDocRefName() }</td>
 	                    <td class="th">기안부서</td>
 	                    <td>${ d.getDocDepartment() }</td>
 	                </tr>

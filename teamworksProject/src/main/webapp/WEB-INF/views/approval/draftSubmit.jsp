@@ -66,8 +66,8 @@
 
 	            <!-- 버튼들 -->
 	            <div id="btns">
-	                <button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
-	                <button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
+	           	    <button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
+	              	<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
 	                <button type="button" id="listBtn" onclick="history.back();">목록</button>
 	            </div>
 	            
@@ -131,7 +131,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td>${ d.getDocReference() }</td>
+	                    <td>${ d.getDocRefName() }</td>
 	                    <td class="th">기안부서</td>
 	                    <td>${ d.getDocDepartment() }</td>
 	                </tr>
@@ -145,7 +145,14 @@
                     </tr>
                     <tr>
 	                    <td class="th">첨부파일</td>
-	                    <td colspan="3" id="draftFile"></td>
+	                    <c:choose>
+	                    	<c:when test="${ !empty d.originName }">	
+	                    		<td colspan="3" id="draftFile">${ d.getOriginName() }</td>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<td colspan="3" id="draftFile">첨부파일이 없습니다.</td>
+	                    	</c:otherwise>	
+	                    </c:choose>
                     </tr>
 
                 </table>
