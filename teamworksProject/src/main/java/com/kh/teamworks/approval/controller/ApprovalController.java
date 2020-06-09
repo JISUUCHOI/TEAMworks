@@ -138,16 +138,15 @@ public class ApprovalController {
 		d.setDocNo(docNo);
 		
 		List<MultipartFile> fileList = mtfRequest.getFiles("uploadFile");
-		String originName = "";
+
 		for (MultipartFile file : fileList) {
 			if(!file.getOriginalFilename().equals("")) {
-				saveFile(file, request);
-				originName = originName + file.getOriginalFilename();
+				String changeName = saveFile(file, request);
+				d.setOriginName(file.getOriginalFilename());
+				d.setChangeName(changeName);
 			}
 		}
 		
-		d.setOriginName(originName);
-		d.setChangeName(originName);
 
 		
 

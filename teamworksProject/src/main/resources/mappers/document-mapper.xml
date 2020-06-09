@@ -106,7 +106,7 @@
 	<insert id="insertDraft" parameterType="Document">
 		insert into draft
 		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docRefName}, #{docDate}, #{docEnd}, #{docDepartment}, 
-				#{docContent}, #{originName}, '첨부파일저장경로' )
+				#{docContent}, #{originName}, #{changeName} )
 	</insert>
 	
 	<!-- 

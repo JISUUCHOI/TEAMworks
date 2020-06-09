@@ -147,7 +147,7 @@
 	                    <td class="th">첨부파일</td>
 	                    <c:choose>
 	                    	<c:when test="${ !empty d.originName }">	
-	                    		<td colspan="3" id="draftFile">${ d.getOriginName() }</td>
+	                    		<td colspan="3" id="draftFile"><a href="${ pageContext.servletContext.contextPath }/resources/approveUploadFiles/${ d.changeName }" download="${ d.originName }">${ d.originName }</a></td>
 	                    	</c:when>
 	                    	<c:otherwise>
 	                    		<td colspan="3" id="draftFile">첨부파일이 없습니다.</td>
