@@ -737,6 +737,8 @@ $(function(){
 		    type:"post",
 			success:function(f){
 				
+				console.log(f);
+				
 				var value = "";
 				
 				for(var i=0; i<f.length; i++){
@@ -745,7 +747,7 @@ $(function(){
 		             				"<span>" + "결재" + "</span>" +
 			                        "<span class='apRefedEmpId' style='display:none'>" + f[i].authorizedEmpid + "</span>" +
 			                        "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-			                        "<span class='apRefedEmpName'>" + f[i].empName + "</span>" + 
+			                        "<span class='apRefedEmpName'>" + f[i].empName + " " + f[i].jobName + "</span>" + 
 			                        "<span class='apRefedEmpDept'> | " + f[i].deptName + "</span>" + 
 			                     "</td>" +
 		                     "</tr>";

@@ -21,7 +21,8 @@ public class Document {
 	private String docSc;			// 문서양식명		// 기안서, 경조사, 휴가, 제증명
 	private int docStatus;			// 문서상태		// 0:대기 1: 진행 2: 완료 3: 반려 4:회수
 	private String docTitle;		// 문서제목
-	private String docReference;	// 참조자
+	private String docReference;	// 참조자 아이디
+	private String docRefName;		// 참조자 이름
 	private String docDate;			// 기안일자
 	private String docEnd;			// 마감일자
 	private String docDepartment;		// 기안부서		// 개발팀, 경영지원팀z

@@ -21,6 +21,7 @@ public class FrequentApprovalLine {
 	private String approver;
 	
 	private String empName;
+	private String jobName;
 	private String deptName;
 
 	public FrequentApprovalLine(String lineName, String empId, String authorizedEmpid, int approveStep) {

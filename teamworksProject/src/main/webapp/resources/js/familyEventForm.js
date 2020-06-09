@@ -192,7 +192,7 @@ $(function(){
     				                        "<td>" + 
     				                            "<span class='refedEmpId' style='display:none'>" + refedId[i] + " " + "</span>" +
     				                            "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-    				                             "<span class='refedEmpName'>" + refedEmp[i] + " " + refedJob[i] + "</span>" + 
+    				                             "<span class='refedEmpName'>" + " " + refedEmp[i] + " " + refedJob[i] + "</span>" + 
     				                             "<span class='refedEmpDept'> | " + refedDept[i] + "</span>" + 
     				                         "</td>" +
     				                     "</tr>");
@@ -738,7 +738,7 @@ $(function(){
 		             				"<span>" + "결재" + "</span>" +
 			                        "<span class='apRefedEmpId' style='display:none'>" + f[i].authorizedEmpid + "</span>" +
 			                        "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-			                        "<span class='apRefedEmpName'>" + f[i].empName + "</span>" + 
+			                        "<span class='apRefedEmpName'>" + f[i].empName + " " + f[i].jobName + "</span>" + 
 			                        "<span class='apRefedEmpDept'> | " + f[i].deptName + "</span>" + 
 			                     "</td>" +
 		                     "</tr>";

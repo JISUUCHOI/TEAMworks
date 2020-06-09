@@ -21,6 +21,7 @@
 		<result column="doc_status" property="docStatus"/>
 		<result column="doc_title" property="docTitle"/>
 		<result column="doc_reference" property="docReference"/>
+		<result column="doc_refname" property="docRefName"/>
 		<result column="doc_date" property="docDate"/>
 		<result column="doc_end" property="docEnd"/>
 		<result column="doc_department" property="docDepartment"/>
@@ -63,6 +64,7 @@
 		<result column="emp_id" property="empId"/>
 		<result column="authorized_empid" property="authorizedEmpid"/>
 		<result column="emp_name" property="empName"/>
+		<result column="job_name" property="jobName"/>
 		<result column="dept_name" property="deptName"/>
 		<result column="approve_step" property="approveStep"/>
 	</resultMap>
@@ -117,12 +119,12 @@
 
 	<insert id="insertFamilyEvent" parameterType="Document">
 		insert into FAMILY_EVENT
-		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, #{feSq}, #{feRelation}, #{feName}, #{feStart}, #{feEnd}, #{fePlace}, #{fePrice}, #{feBank}, #{feAccount}, #{feAccountName})
+		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docRefName}, #{docDate}, #{docEnd}, #{docDepartment}, #{feSq}, #{feRelation}, #{feName}, #{feStart}, #{feEnd}, #{fePlace}, #{fePrice}, #{feBank}, #{feAccount}, #{feAccountName})
 	</insert>
 	
 	<insert id="insertVacation" parameterType="Document">
 		insert into vacation
-		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, #{vcSq}, #{vcDay}, #{vcStart}, #{vcEnd}, #{vcCount}, #{vcContent})
+		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docRefName}, #{docDate}, #{docEnd}, #{docDepartment}, #{vcSq}, #{vcDay}, #{vcStart}, #{vcEnd}, #{vcCount}, #{vcContent})
 	</insert>
 	
 	<insert id="insertApproveLine" parameterType="al">
@@ -153,10 +155,11 @@
 	</select>
 
 	<select id="selectLineDetail" parameterType="fal" resultMap="freLineResultSet">
-		select f.line_name, f.emp_id, f.authorized_empid, e.emp_name, d.dept_name, f.approve_step
+		select f.line_name, f.emp_id, f.authorized_empid, e.emp_name, j.job_name, d.dept_name, f.approve_step
 		  from frequent_approval_line f
 		  join employee e on(f.authorized_empid = e.emp_id)
 		  join department d on(e.dept_code = d.dept_code)
+		  join job j on(e.job_code = j.job_code)
 		 where f.emp_id = #{empId} and f.line_name = #{lineName}
 		 order by f.approve_step
 	</select>
@@ -239,7 +242,7 @@
 	</select>
 
 	<select id="selectFeDetail" parameterType="Document" resultMap="reqApprovalResultSet">
-		select f.doc_no, f.emp_id, e.emp_name, f.doc_sc, f.doc_status, f.doc_title, f.doc_reference, f.doc_date, f.doc_end, f.doc_department,
+		select f.doc_no, f.emp_id, e.emp_name, f.doc_sc, f.doc_status, f.doc_title, f.doc_refname, f.doc_date, f.doc_end, f.doc_department,
 			   f.fe_sq, f.fe_relation, f.fe_name, f.fe_start, f.fe_end, f.fe_place, f.fe_price, f.fe_bank, f.fe_account, f.fe_account_name,
 			   a.approver_empid, (select emp_name
 	                    			from employee
@@ -259,7 +262,7 @@
 	</select>
 	
 	<select id="selectVacDetail" parameterType="Document" resultMap="reqApprovalResultSet">
-		select v.doc_no, v.emp_id, e.emp_name, v.doc_sc, v.doc_status, v.doc_title, v.doc_reference, v.doc_date, v.doc_end, v.doc_department,
+		select v.doc_no, v.emp_id, e.emp_name, v.doc_sc, v.doc_status, v.doc_title, v.doc_reference, v.doc_refname, v.doc_date, v.doc_end, v.doc_department,
 				v.vc_sq, vc_day, vc_start, vc_end, vc_count, vc_content,
 				a.approver_empid, (select emp_name
 				                    from employee
