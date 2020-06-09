@@ -50,7 +50,7 @@ public class ManagementController {
 	//인사 정보 등록
 	@RequestMapping("enrollEmp.mg")
 	public String employeeEnroll() {
-		return "management/companyMemberInfo";
+		return "management/companyEnrollMemberInfo";
 	}
 	
 	//사원 명부
