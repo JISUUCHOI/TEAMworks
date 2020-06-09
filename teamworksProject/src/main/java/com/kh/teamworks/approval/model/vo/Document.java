@@ -49,8 +49,8 @@ public class Document {
 	
 	// 기안서
 	private String docContent;		// 문서내용
-	private String fileName;		// 파일명
-	private String filePath;		// 파일경로
+	private String originName;		// 파일명
+	private String changeName;		// 파일경로
 	
 	// 제증명신청서
 	private String pfSq;			// 제증명구분		// 재직증명서,  경력증명서, 퇴직증명서

@@ -32,8 +32,8 @@
 		
 		<!-- 기안서 -->
 		<result column="DOC_CONTENT" property="docContent"/>		<!-- 문서내용 -->
-		<result column="FILE_NAME" property="fileName"/>			<!-- 첨부파일명 -->
-		<result column="FILE_PATH" property="filePath"/>			<!-- 첨부파일저장경로 -->
+		<result column="ORIGIN_NAME" property="originName"/>		<!-- 원본명 -->
+		<result column="CHANGE_NAME" property="changeName"/>		<!-- 바뀐이름 -->
 		
 		<result column="approve_status" property="approveStatus"/>
 		<result column="emp_name" property="empName"/>
