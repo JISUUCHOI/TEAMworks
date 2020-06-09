@@ -265,7 +265,6 @@ public class requestApprovalController {
 	public String selectDocDetail(Document doc, Model model, HttpServletRequest request) {
 		
 		String docSc = doc.getDocSc();
-		//System.out.println("상세조회" + docSc);
 		ArrayList<Document> d = new ArrayList<Document>();
 		
 		// 6_1. '진행' 상태인 결재자 id 조회 --> 결재버튼 클릭
@@ -294,9 +293,6 @@ public class requestApprovalController {
 	// 7. 승인/반려, 결재의견 insert
 	@RequestMapping("updateApprove.rap")
 	public String updateApprove(Document doc, Model model) {
-		// redirect 시 넘길 값
-		String docSc = doc.getDocSc();
-		//System.out.println(docSc);
 		
 		int result1 = 0;
 		int result2 = 0;
@@ -341,13 +337,14 @@ public class requestApprovalController {
 				d.setApproverEmpid(all.get(i).getApproverEmpid());
 				result2 = raService.updateAllReject(d);
 			}
-			
 		}
 		
 		if(result1 * result2 > 0) {
-			return "approval/documentList";
-			//return "redirect:detailDoc.rap?docNo=" + doc.getDocNo() + "&docSc=" + docSc;
-			// docSc가 안넘어감 ㅜ
+			model.addAttribute("docNo", doc.getDocNo());
+			model.addAttribute("docSc", doc.getDocSc());
+			return "redirect:detailDoc.rap";
+			//redirect할 경우 
+			
 		}else {
 			model.addAttribute("msg", "결재 실패");
 			return "common/errorPage";

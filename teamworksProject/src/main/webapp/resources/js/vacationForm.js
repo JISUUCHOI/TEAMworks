@@ -128,6 +128,7 @@ $(function(){
                     	
 	                        value += "<tr>" + 
 	                                        "<td>" + 
+	                                        	"<input type='hidden' class='refedJob' value='" + schEmp[i].jobName + "'>" +
 	                                            "<input type='hidden' class='refedId' value='" + schEmp[i].empId + "'>" +
 	                                            "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
 	                                            "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
@@ -139,6 +140,7 @@ $(function(){
                     	 }else{
                     		 value += "<tr>" + 
 				                             "<td>" + 
+				                             	"<input type='hidden' class='refedJob' value='" + schEmp[i].jobName + "'>" +
 				                                "<input type='hidden' class='refedId' value='" + schEmp[i].empId + "'>" +
 				                                "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
 				                         		"<input type='checkbox' name='refChk' class='chk'>" +
@@ -170,11 +172,13 @@ $(function(){
         var refedEmp = [];
         var refedDept = [];
         var refedId = [];
+        var refedJob = [];
         
         $("input:checkbox[name=refChk]:checked").each(function(){
             refedEmp.push($(this).next().text());
             refedDept.push($(this).prev().val());
             refedId.push($(this).prevAll(".refedId").val());
+            refedJob.push($(this).prevAll(".refedJob").val());
         });
         
         /*중복값 못 들어가도록 */
@@ -195,7 +199,7 @@ $(function(){
     				                        "<td>" + 
     				                            "<span class='refedEmpId' style='display:none'>" + refedId[i] + " " + "</span>" +
     				                            "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-    				                             "<span class='refedEmpName'>" + refedEmp[i] + "</span>" + 
+    				                             "<span class='refedEmpName'>" + refedEmp[i] + " " + refedJob[i] + "</span>" + 
     				                             "<span class='refedEmpDept'> | " + refedDept[i] + "</span>" + 
     				                         "</td>" +
     				                     "</tr>");
@@ -408,8 +412,8 @@ $(function(){
          $("#apOrgChart").css("background", "white");
          $("#apOrgChart").css("color", "rgb(7, 53, 90)");
      });
-     
-     
+	 
+	 
      /* 결재선 조직도 선택 */
      /* 본인을 결재자로 선택하지 못하도록 */
      $(".apRefEmpName").click(function(){
@@ -455,6 +459,7 @@ $(function(){
                     	 if(userId == schEmp[i].empId){
                     		 value += "<tr>" + 
 				                             "<td>" + 
+				                             	 "<input type='hidden' class='apRefedJob' value='" + schEmp[i].jobName + "'>" +
 				                                 "<input type='hidden' class='apRefedId' value='" + schEmp[i].empId + "'>" +
 				                                 "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
 				                                    "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
@@ -466,10 +471,11 @@ $(function(){
                     	 }else{
 	                         value += "<tr>" + 
 	                                         "<td>" + 
+	                                         	 "<input type='hidden' class='apRefedJob' value='" + schEmp[i].jobName + "'>" +
 	                                             "<input type='hidden' class='apRefedId' value='" + schEmp[i].empId + "'>" +
 	                                             "<input type='hidden' value='" + schEmp[i].deptName + "'>" +
-	                                                "<input type='checkbox' name='apRefChk' class='chk'>" +
-	                                                "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
+	                                             "<input type='checkbox' name='apRefChk' class='chk'>" +
+	                                             "<div style='visibility:hidden; height:0px;'>" + schEmp[i].empName + "</div></td>" +
 	                                         "<td>" + schEmp[i].deptName + "</td>" + 
 	                                         "<td>" + schEmp[i].jobName + "</td>" +
 	                                         "<td>" + schEmp[i].empName + "</td>" +
@@ -497,11 +503,13 @@ $(function(){
          var apRefedEmp = [];
          var apRefedDept = [];
          var apRefedId = [];
+         var apRefedJob = [];
          
          $("input:checkbox[name=apRefChk]:checked").each(function(){
              apRefedEmp.push($(this).next().text());
              apRefedDept.push($(this).prev().val());
              apRefedId.push($(this).prevAll(".apRefedId").val());
+             apRefedJob.push($(this).prevAll(".apRefedJob").val());
          });
          
          /*중복값 못 들어가도록 */
@@ -525,7 +533,7 @@ $(function(){
      					             				"<span>" + "결재" + "</span>" +
      						                        "<span class='apRefedEmpId' style='display:none'>" + apRefedId[i] + "</span>" +
      						                        "<input type='checkbox' class='checkBox' name='checkBox' style='visibility:hidden'>" +
-     						                        "<span class='apRefedEmpName'>" + apRefedEmp[i] + "</span>" + 
+     						                        "<span class='apRefedEmpName'>" + apRefedEmp[i] + " " + apRefedJob[i] + "</span>" + 
      						                        "<span class='apRefedEmpDept'> | " + apRefedDept[i] + "</span>" + 
      						                     "</td>" +
           				                     "</tr>");
@@ -599,6 +607,8 @@ $(function(){
 	     });
 
     	 $("#approver").val(line);
+    	 /* 결재선 지정되지 않으면, 결재요청 버튼 클릭 못하도록 */
+    	 $("#approveBtn").attr("disabled", false);
     	 $("#line").val(line);
     	 
     	 /* 결재선 모달 닫기 */
@@ -629,46 +639,6 @@ $(function(){
          $('#apRefEmpArea tr').remove();
          
      });
-     
-     /* 결재선 지정되지 않으면, 결재요청 버튼 클릭 못하도록 */
-     /*
-     $("#approver").on("propertychange change keyup paste input", function() {
-    	 console.log(변경됨);
-    	 
-    	 if($("#approver").val().length > 0){
-    		 $("#approveBtn").attr("disabled", false);
-    	 }else{
-    		 $("#approveBtn").attr("disabled", true);
-    	 }
-     });
-	*/
-     
-     /*
-	 $("#approveBtn").click(function(){
-		 
-		 if($("#approver").is(":empty")){
-			 console.log("비었음");
-			 
-			 //$("#approveBtn").attr("disabled", true);
-		 }else{
-			 console.log("결재선");
-			 //$("#approveBtn").attr("disabled", false);
-		 }
-	 });*/
-    	 
-    	 
-    	 
-    	 /*
-    	 console.log(show);
-    	 
-    	if($("#approver")is(:empty)){
-    		$("#approveBtn").attr("type", "button");
-    		$("#approveBtn").click(function(){
-    		});
-    		$("#approveBtn").attr("disabled", true);
-    	}else{
-    		$("#approveBtn").attr("type", "submit");
-    	}*/
      
      
      /*결재선 즐겨찾기 조회*/
@@ -819,4 +789,3 @@ $(function(){
 	 });
      
  });
-

@@ -127,7 +127,7 @@ html, body{height:100%;}
    /* 전체윤곽 */
    #approveLineOuter{
        width:700px;
-       height:500px;
+       height:370px;
        margin:auto;
    }
    /* 조직도 */
@@ -156,7 +156,7 @@ html, body{height:100%;}
 
    #chart-container, #sch-container{
        width:300px;
-       height:450px;
+       height:350px;
        border:1px solid rgb(7, 53, 90);
        font-family: 'Handon3gyeopsal300g';
        float:left;
@@ -254,7 +254,7 @@ html, body{height:100%;}
    /* 참조자 */
    #refEmpList{
        width:340px;
-       height:450px;
+       height:350px;
        border:1px solid rgb(7, 53, 90);
        font-family: 'Handon3gyeopsal300g';
        float:left;
@@ -267,7 +267,7 @@ html, body{height:100%;}
        padding:10px 0px 0px 10px;
        font-size:13px;
    }
-   .refedEmpName, .refedEmpDept{
+   .refedEmpName, refedEmpDept{
    	cursor:pointer
    }
    
