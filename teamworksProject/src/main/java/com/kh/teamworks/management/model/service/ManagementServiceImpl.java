@@ -10,7 +10,7 @@ import com.kh.teamworks.management.model.dao.ManagementDao;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
-import com.kh.teamworks.management.model.vo.Employee;
+import com.kh.teamworks.management.model.vo.EmployeeMg;
 import com.kh.teamworks.management.model.vo.Job;
 import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
@@ -43,13 +43,18 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public Employee selectEmployeeInfo(Employee e) {
+	public EmployeeMg selectEmployeeInfo(EmployeeMg e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
-	public ArrayList<Employee> selectEmployeeList() {
+	public int insertEmployee(EmployeeMg e) {
+		return mgDao.insertEmployee(sqlSession, e);
+	}
+	
+	@Override
+	public ArrayList<EmployeeMg> selectEmployeeList() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -130,6 +135,8 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 	
 
 }

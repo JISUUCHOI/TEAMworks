@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
+import com.kh.teamworks.management.model.vo.EmployeeMg;
 import com.kh.teamworks.management.model.vo.Job;
 
 @Repository("mgDao")
@@ -22,6 +23,10 @@ public class ManagementDao {
 
 	public CompanyBsns selectCompanyBsns(SqlSessionTemplate sqlSession, int homNo) {
 		return sqlSession.selectOne("managementMapper.selectCompanyBsns", homNo);
+	}
+
+	public int insertEmployee(SqlSessionTemplate sqlSession, EmployeeMg e) {
+		return sqlSession.insert("managementMapper.insertEmployee", e);
 	}
 	
 }

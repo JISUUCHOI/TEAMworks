@@ -10,14 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.teamworks.management.model.vo.EmployeeMg;
 import com.kh.teamworks.employee.model.vo.Employee;
-import com.kh.teamworks.management.model.service.ManagementServiceImpl;
+import com.kh.teamworks.management.model.service.ManagementService;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Job;
@@ -26,7 +28,10 @@ import com.kh.teamworks.management.model.vo.Job;
 public class ManagementController {
 	
 	@Autowired
-	private ManagementServiceImpl mgService;
+	private ManagementService mgService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	//회사 정보
 	@RequestMapping("main.mg")
@@ -51,6 +56,25 @@ public class ManagementController {
 	@RequestMapping("enrollEmp.mg")
 	public String employeeEnroll() {
 		return "management/companyEnrollMemberInfo";
+	}
+	
+	@RequestMapping("insertEmp.mg")
+	public String insertEmployee(EmployeeMg e, Model model, HttpSession session) {
+		
+		System.out.println(e.getEmpNo().substring(0, 5));
+		
+		String encPwd = bcryptPasswordEncoder.encode(e.getEmpNo().substring(0, 5));
+		
+		e.setEmpPwd(encPwd);
+		
+		int result = mgService.insertEmployee(e);
+		
+		if(result>0) {
+			return "redirect:/";
+		}else {
+			return "common/errorPage";
+		}
+		
 	}
 	
 	//사원 명부

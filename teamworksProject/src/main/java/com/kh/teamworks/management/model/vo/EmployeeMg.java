@@ -13,7 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Employee {
+public class EmployeeMg {
 	private String empId;
 	private int deptCode;
 	private int jobCode;

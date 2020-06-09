@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
-import com.kh.teamworks.management.model.vo.Employee;
+import com.kh.teamworks.management.model.vo.EmployeeMg;
 import com.kh.teamworks.management.model.vo.Job;
 import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
@@ -18,8 +18,12 @@ public interface ManagementService {
 	CompanyBsns selectCompanyBsnsInfo(int homNo);
 	
 	// 2. 사원 정보 관리
-	Employee selectEmployeeInfo(Employee e);
-	ArrayList<Employee> selectEmployeeList();
+	EmployeeMg selectEmployeeInfo(EmployeeMg e);
+	
+	int insertEmployee(EmployeeMg e);
+	
+	ArrayList<EmployeeMg> selectEmployeeList();
+	
 	int updateEmpInfo();
 	Vacation selectVacationList();
 	void searchEmpVacation(String keyword);
