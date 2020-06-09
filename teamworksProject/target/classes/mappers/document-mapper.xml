@@ -21,6 +21,7 @@
 		<result column="DOC_STATUS" property="docStatus"/>			<!-- 0:대기 1: 진행 2: 완료 3: 반려 4:회수 -->
 		<result column="DOC_TITLE" property="docTitle"/>			<!-- 문서제목 -->
 		<result column="DOC_REFERENCE" property="docReference"/>	<!-- 참조자 사원번호 -->
+		<result column="DOC_REFNAME" property="docRefName"/>
 		<result column="DOC_DATE" property="docDate"/>				<!-- 기안일자 -->
 		<result column="DOC_END" property="docEnd"/>				<!-- 마감일자 -->
 		<result column="DOC_DEPARTMENT" property="docDepartment"/>	<!-- 개발팀, 경영지원팀 -->
@@ -104,8 +105,8 @@
 	<!-- 기안서 insert -->
 	<insert id="insertDraft" parameterType="Document">
 		insert into draft
-		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docDate}, #{docEnd}, #{docDepartment}, 
-				#{docContent}, #{fileName}, '첨부파일저장경로' )
+		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docRefName}, #{docDate}, #{docEnd}, #{docDepartment}, 
+				#{docContent}, #{originName}, '첨부파일저장경로' )
 	</insert>
 	
 	<!-- 

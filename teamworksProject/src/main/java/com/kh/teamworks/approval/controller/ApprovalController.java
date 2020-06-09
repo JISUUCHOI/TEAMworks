@@ -137,16 +137,16 @@ public class ApprovalController {
 		d.setDocNo(docNo);
 		
 		List<MultipartFile> fileList = mtfRequest.getFiles("uploadFile");
-		String fileName = "";
+		String originName = "";
 		for (MultipartFile file : fileList) {
 			if(!file.getOriginalFilename().equals("")) {
 				String changeName = saveFile(file, request);
 				
-				fileName = fileName + file.getOriginalFilename();
+				originName = originName + file.getOriginalFilename();
 			}
 		}
 		
-		d.setFileName(fileName); 
+		d.setOriginName(originName);
 		
 		/*
 		if(!file.getOriginalFilename().equals("")) {
@@ -260,15 +260,14 @@ public class ApprovalController {
 	
 	// 파일
 	public String saveFile(MultipartFile file,  HttpServletRequest request) {
+		
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\approveUploadFiles\\";
 		
 		String originName = file.getOriginalFilename();
 		
 		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		
-
-		
+				
 		String changeName = currentTime;
 		
 		try {
