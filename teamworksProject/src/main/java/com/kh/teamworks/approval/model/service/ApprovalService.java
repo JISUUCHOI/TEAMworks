@@ -34,6 +34,9 @@ public interface ApprovalService {
 	
 	// list 갯수
 	ArrayList<Document> docList(Document d);
+	
+	// 참조문서함 list
+	ArrayList<Document> referenceList(Document d);
 
 	// 상세조회 기안서
 	Document draftDetail(Document d);
@@ -43,6 +46,8 @@ public interface ApprovalService {
 
 	// 제증명 삭제
 	int deleteProof(String dno);
+
+
 	
 
 	

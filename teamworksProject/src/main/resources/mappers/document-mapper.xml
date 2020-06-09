@@ -45,6 +45,7 @@
 		<result column="approve_status" property="approveStatus"/>
 		<result column="approve_comment" property="approveComment"/>
 		<result column="approve_date" property="approveDate"/>
+		<result column="job_name" property="jobName"/>
 		
 	</resultMap>
 	
@@ -127,6 +128,20 @@
  		  join employee e on(p.emp_id = e.emp_id)
 		 where p.emp_id=#{empId} 
 		 order by doc_date asc 
+	</select>
+	
+	<!-- 참조문서함 list 조회 -->
+	<select id="referenceList" parameterType="Document" resultMap="documentResultSet">
+		select d.doc_no, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, doc_status
+  		  from draft d
+ 		  join employee e on(d.emp_id = e.emp_id)
+ 		 where d.DOC_REFERENCE like '%'||#{empId}||'%'
+ 		 UNION ALL
+		select p.doc_no, p.doc_sc, p.doc_title, e.emp_name, p.doc_department, p.doc_date, p.doc_status
+ 		  from proof p
+ 		  join employee e on(p.emp_id = e.emp_id)
+ 		 where p.DOC_REFERENCE like '%'||#{empId}||'%'  
+ 		 order by doc_date asc
 	</select>
 	
 	<!-- 

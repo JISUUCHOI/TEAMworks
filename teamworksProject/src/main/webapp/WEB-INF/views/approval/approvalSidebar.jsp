@@ -73,7 +73,7 @@
             <div class="subCate" id="pendingApprove"><a href="docList.rap?approveStatus=1&currentPage=1">결재진행함</a> <span><b>1</b></span></div>
             <div class="subCate" id="doneApprove"><a href="docList.rap?approveStatus=2&currentPage=1">완료문서함</a> <span><b>1</b></span></div>
             <div class="subCate" id="refuseApprove"><a href="docList.rap?approveStatus=3&currentPage=1">반려문서함</a> <span><b>1</b></span></div>
-            <div class="subCate" id="refDoc"><a href="docList.ap?approveStatus=22">참조문서함</a> <span><b>1</b></span></div>
+            <div class="subCate" id="refDoc"><a href="referenceList.ap?approveStatus=22">참조문서함</a> <span><b>1</b></span></div>
             <div class="subCate" id="requestCallback"><a href="docList.rap?approveStatus=4&currentPage=1">회수요청함</a> <span><b>1</b></span></div>
         </div>
    </div>

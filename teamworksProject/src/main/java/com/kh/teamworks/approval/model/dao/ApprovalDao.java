@@ -49,10 +49,14 @@ public class ApprovalDao {
 		// return sqlSession.selectOne("documentMapper.docListCount", d);
 	// }
 
-	// 결재요청함, 참조문서함 list
+	// 결재요청함 list
 	public ArrayList<Document> docList(SqlSessionTemplate sqlSession, Document d) {
-
 		return (ArrayList)sqlSession.selectList("documentMapper.docList", d);
+	}
+	
+	// 참조문서함 list
+	public ArrayList<Document> referenceList(SqlSessionTemplate sqlSession, Document d) {
+		return (ArrayList)sqlSession.selectList("documentMapper.referenceList", d);
 	}
 
 	// 상세조회 기안서
@@ -68,6 +72,8 @@ public class ApprovalDao {
 	public int deleteProof(SqlSessionTemplate sqlSession, String dno) {
 		return sqlSession.delete("documentMapper.deleteProof", dno);
 	}
+
+
 	
 
 

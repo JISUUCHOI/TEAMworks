@@ -62,11 +62,18 @@ public class ApprovalServiceImpl implements ApprovalService {
 		//return aDao.docListCount(sqlSession, d);
 	//}
 
-	// 결재요청함, 참조문서함 list
+	// 결재요청함 list
 	@Override
 	public ArrayList<Document> docList(Document d) {
-		return aDao.docList(sqlSession, d);	}
+		return aDao.docList(sqlSession, d);	
+	}
+	
+	// 참조문서함 list
+	@Override
+	public ArrayList<Document> referenceList(Document d) {
+		return aDao.referenceList(sqlSession, d);	
 
+	}
 
 	// 상세조회 기안서
 	@Override
@@ -85,6 +92,8 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public int deleteProof(String dno) {
 		return aDao.deleteProof(sqlSession, dno);
 	}
+
+
 
 
 
