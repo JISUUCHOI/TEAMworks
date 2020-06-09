@@ -17,7 +17,7 @@ public class ApproveSearchCondition {
 	private String deptName;
 	private String jobName;
 	
-	private String wirter;
+	private String writer;
 	private String title;
 	private String content;
 	private String form;
