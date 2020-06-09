@@ -42,7 +42,6 @@
 		float:right;
 		width:400px;
 		height:700px;
-		/* border:1px solid red; */
 	}
 	
 	#insertFormArea{display:none;}
@@ -141,7 +140,7 @@
 	      plugins: [ 'interaction', 'dayGrid' ],
 	      defaultDate: '${today}',
 	      editable: true,
-	      eventLimit: true, // allow "more" link when too many events
+	      eventLimit: true, 
 	      events: events,
 	      locale: 'ko',
 	      eventClick: function(info) { //info.event.id
@@ -152,8 +151,6 @@
 		        	type:"post",
 		        	success:function(sch){
 		        		
-		                // Add response in Modal body
-		                //$('.modal-body').html("로그인 성공");
 				        $('#detailTable tr:first td').text(sch.schCategory);
 			    	    $('#detailTable tr:nth-child(2) td').text(sch.schTitle);
 			    	    $('#detailTable tr:nth-child(3) td').text(sch.startDate);
@@ -250,7 +247,7 @@
 	            <div class="modal-footer"></div>
 	            
 	            <form action="" id="postForm" method="post">
-	            	<input type="hidden" name="schNo" id="inputSchNo" value=""> <!-- schNo 넘겨야됨 -->
+	            	<input type="hidden" name="schNo" id="inputSchNo" value=""> 
 	            	<input type="hidden" name="empId" value="${loginUser.empId }">
 	            </form>
 	            
