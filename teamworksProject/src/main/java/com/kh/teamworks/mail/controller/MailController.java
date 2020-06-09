@@ -7,13 +7,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.concurrent.SuccessCallback;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.service.MailService;
+import com.kh.teamworks.mail.model.vo.Mail;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
 
@@ -139,6 +142,29 @@ public class MailController {
 		model.addAttribute("sList", sList);
 		model.addAttribute("sc", sc);
 		return "mail/sendMailList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="changeRead",method = RequestMethod.POST, produces="text/html; charset=utf-8")
+	public void changeReadStatus(@RequestParam(value="emailNo[]") String[] emailNo, HttpSession session){
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		ArrayList<Mail> list = new ArrayList<>();
+		
+		for(int i=0; i<emailNo.length; i++) {
+			Mail mail = new Mail();
+			mail.setRecipients(e.getEmpId());
+			mail.setEmailNo(Integer.parseInt(emailNo[i]));
+			
+			list.add(mail);
+		}
+		
+		int result = emService.changeReadStatus(list);
+		
+		
+		
+		//System.out.println(emailNo[0]);
+		
 	}
 	
 }

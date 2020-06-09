@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.mail.model.vo.Mail;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
 
@@ -72,5 +73,9 @@ public class MailDao {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("mailMapper.searchOutboxList", sc, rowBounds);
+	}
+	
+	public int changeReadStatus(SqlSession sqlSession, ArrayList<Mail> readNoList) {
+		return sqlSession.update("mailMapper.changeReadStatus", readNoList);
 	}
 }

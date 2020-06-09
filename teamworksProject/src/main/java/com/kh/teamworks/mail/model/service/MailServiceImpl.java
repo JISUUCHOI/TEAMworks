@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.mail.model.dao.MailDao;
+import com.kh.teamworks.mail.model.vo.Mail;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.MailInfo;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
@@ -79,6 +80,12 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public ArrayList<MailDTO> searchOutboxList(SearchMailCondition sc, PageInfo pi) {
 		return emDao.searchOutboxList(sqlSession, sc, pi);
+	}
+
+
+	@Override
+	public int changeReadStatus(ArrayList<Mail> mail) {
+		return emDao.changeReadStatus(sqlSession, mail);
 	}
 	
 	

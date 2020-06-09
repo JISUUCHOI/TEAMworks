@@ -87,8 +87,8 @@
                 	</div>
                 	<div class="col-xs-4"></div>
                     <div class="col-xs-6">
-                     	<button class="btn btn-success btn-sm" style="margin-right: 10px;">읽음</button>
-                        <button class="btn btn-danger btn-sm" style="margin-right: 10px;">삭제</button>
+                     	<button class="btn btn-success btn-sm" id="read" onclick="changeReadStatus();" style="margin-right: 10px;" disabled>읽음</button>
+                        <button class="btn btn-danger btn-sm" id="delete" style="margin-right: 10px;" disabled>삭제</button>
                     </div>
                 </div>
                 <script>
@@ -105,19 +105,19 @@
                     <thead>
                         <tr>
                             <th width="50px">
-                                <input type="checkbox" value="">
+                                <input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();" value="">
                             </th>
                             <th width="50px">읽음</th>
                             <th width="180px">보낸사람</th>
                             <th>제목</th>
-                            <th width="150px">날짜</th>
+                            <th width="200px">날짜</th>
                         </tr>
                     </thead>
                     <tbody>
                     	<c:forEach var="r" items="${ rList }">
                     	    <tr>
                             <th>
-                                <input type="checkbox" value="${ r.emailNo }">
+                                <input type="checkbox" name="emailNo" value="${ r.emailNo }">
                             </th>
                             <c:choose>
                             	<c:when test="${ r.readStatus == 'Y'}">
@@ -280,7 +280,60 @@
 				
 			});
 		});
-	
+		
+		function checkAll(){
+	  		if( $("#th_checkAll").is(':checked')){
+	  			$("input[name=emailNo]").prop("checked",true);
+	  			$("#read").attr("disabled", false);
+	  			$("#delete").attr("disabled", false);
+	  		}else{
+	  			$("input[name=emailNo]").prop("checked",false);
+	  			$("#read").attr("disabled", true);
+	  			$("#delete").attr("disabled", true);
+	  		}
+	  	}
+		
+		$(function(){
+			$("input[name=emailNo]").click(function(){
+				if($("input[name=emailNo]").is(":checked")){
+					$("#read").attr("disabled", false);
+		  			$("#delete").attr("disabled", false);
+				}else{
+					$("#read").attr("disabled", true);
+		  			$("#delete").attr("disabled", true);
+				}
+			});
+		});
+		
+		function changeReadStatus(){
+			var emailNo = new Array();
+			$("input[name=emailNo]:checked").each(function(){
+				emailNo.push($(this).val());
+			});
+			
+			console.log(emailNo);
+			if(emailNo==""){
+				alert("항목을 선택해 주세요.");
+			}else{
+				$.ajax({
+					url:"changeRead",
+					type:"post",
+					data:{emailNo:emailNo},
+					success:function(status){
+						if(status="success"){
+							
+						}else{
+							
+						}
+					},
+					error:function(){
+						console.log("ajax 통신 실패");
+					}
+				});
+			}
+			
+			
+		}
 	</script>
 </body>
 

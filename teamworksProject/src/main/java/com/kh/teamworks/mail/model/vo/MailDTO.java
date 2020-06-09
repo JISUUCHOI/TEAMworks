@@ -1,6 +1,6 @@
 package com.kh.teamworks.mail.model.vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class MailDTO {
 	private int emailNo;
 	private String mailTitle;
 	private String mailContent;
-	private Date createDate;
+	private Timestamp createDate;
 	private String emailStatus;
 	private int emInfoNo;
 	private String sender;
@@ -32,5 +32,6 @@ public class MailDTO {
 	private String refType; // EATYPE
 	private String files; // 첨부파일 유무
 	private String recipientsName; // 받는 사람 이름
+	private String recipientsEmail; // 받는 사람 메일
 	private String refEmpName; // 참조자 이름 
 }

@@ -96,7 +96,7 @@
                             </th>
                             <th width="150px">받는 사람</th>
                             <th>제목</th>
-                            <th width="150px">날짜</th>
+                            <th width="200px">날짜</th>
                             <th width="100px">수신확인</th>
                         </tr>
                     </thead>
