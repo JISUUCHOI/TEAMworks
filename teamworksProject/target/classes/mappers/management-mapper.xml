@@ -84,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectCompanyInfo" resultMap="companyInfoResultSet">
 		SELECT *
 		  FROM COMPANY_INFO
-		 WHERE EMP_ID=#{empId}
+		 WHERE HOM_NO=#{homNo}
 	</select>
 	
 	<select id="selectCompanyBsns" resultMap="companyBsnsResultSet">
