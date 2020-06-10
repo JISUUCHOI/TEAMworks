@@ -130,7 +130,7 @@
 						<th class="tg-uzvj" width="150px;">사원번호</th>
 						<th class="tg-9wq8" height="60px;">
 							<input type="text" id="empId" name="empId" placeholder="사원 번호 입력" required>
-							<!-- <div id="checkResult" style="display:none; font-size:0.7em"></div> -->
+							<div id="checkResult" style="display:none; font-si;e:0.5em"></div>
 						</th>
 						<th class="tg-uzvj">성명</th>
 						<th class="tg-9wq8">
@@ -171,60 +171,72 @@
 			</div>
 
 
+
+			<script>
+		       
+		       function idCheckValidate(num){
+		          if(num == 1){ // 1. 아이디 중복체크를 아직 안하는 경우 : 메세지 보여지지 않음, 회원가입 버튼 비활성화
+		             
+		             $("#checkResult").hide();
+		             $("#enrollBtn").attr("disabled", true);
+		             
+		          }else if(num == 2){ //2. 아이디 중복체크 후 사용불가능한 아이디일 경우 : "중복아이디 존재 사용불가능" 메세지 보여짐, 회원가입 버튼 비활성화
+		             
+		             $("#checkResult").css("color", "red").text("중복된 아이디가 존재합니다. 사용 불가능한 아이디입니다.");
+		             $("#checkResult").show();
+		             $("#enrollBtn").attr("disabled", true);
+		             
+		          }else{ // 3 .아이디 중복체크 후 사용 가능한 아이디일 경우 : "사용 가능한 아이디" 메세지 보여짐, 회원가입 버튼 활성화
+		             
+		             $("#checkResult").css("color", "green").text("사용 가능한 아이디입니다.");
+		             $("#checkResult").show();
+		             $("#enrollBtn").removeAttr("disabled");
+		             
+		          }
+		       }
+		    
+		       $(function(){
+		          
+		          // 이벤트 걸고자 하는 input 요소 변수에 기록해놓기
+		          var $idInput = $("#enrollForm input[name=userId]");
+		          // 변수명 앞에 $ 붙이면, 어떤 요소를 jquery 방식으로 선택했다는 것을 의미 => 다른 방식으로 메소드들 활용 가능
+		          
+		          $idInput.keyup(function(){
+		             
+		             //console.log($idInput.val());
+
+		             if($idInput.val().length >= 5) { // 적어도 아이디가 5글자 이상되었을 때 중복검사
+		                
+		                $.ajax({
+		                   url:"empIdCheck.me",
+		                   data:{empId:$idInput.val()},
+		                   success:function(status){
+		                      
+		                      if(status == "fail"){ // 중복된 아이디 존재 == 사용불가
+		                         idCheckValidate(2);
+		                      }else{ // 중복된 아이디 없음 == 사용가능
+		                         idCheckValidate(3);
+		                      }
+		                   }, error:function(){
+		                      console.log("아이디 중복체크용 ajax 통신실패");
+		                   }
+		                });
+		             }else{ // 중복검사x
+		                idCheckValidate(1);
+		             }
+		          });
+		       });
+		    </script>
+		       
 			<!-- 주소 검색 API -->
 			<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 			<script>
-/* 			
-				function idCheckValidate(num){
-					if(num == 1){
-						$("#checkResult").hide();
-						$("#enrollEmpbtn").attr("disabled", true);
-					}else if(num == 2){
-						$("#checkResult").css("color", "red").text("중복된 사원번호가 존재합니다.");
-						$("#checkResult").show();
-						$("#enrollEmpbtn").attr("disabled", true);
-					}else{
-						$("#checkResult").css("color", "green").text("사용 가능한 사원번호입니다.");
-						$("checkResult").show();
-						$("#enrollEmpbtn").removeAttr("disabled");
-					}
-					
-				}
-			
-               $(function() {
-
-                   var $idInput = $("#enrollEmpForm input[name=empId]")
-
-                   $idInput.keyup(function() {
-
-                      if ($idInput.val().length >= 3) { // 적어도 아이디가 5글자 이상되었을 때 중복체크
-                         $.ajax({
-                            url : "empIdCheck.mg",
-                            data : {empId : $idInput.val()},
-                            success : function(status) {
-                               if (status == "fail") { // 중복된 아이디 존재 == 사용 불가
-                                  idCheckValidate(2);
-                               } else { // 중복된 아이디 없음 == 사용 가능
-                                  idCheckValidate(3);
-                               }
-                            },
-                            error : function() {
-                               console.log("아이디 중복체크용 ajax 통신 실패");
-                            }
-                         });
-                      } else { // 중복체크 x
-                         idCheckValidate(1);
-                      }
-                   }); */
-		
 				function addressSearch() {
 					new daum.Postcode({
 						oncomplete : function(data) {
-							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-							// 예제를 참고하여 다양한 활용법을 확인해 보세요.
 							
 							var fullAddr = ''; // 최종 주소 변수
-							var extraAddr = ''; // 조합형 주소 변수
+							var  // 조합형 주소 변수
 
 							if (data.userSelectedType === 'R') { //R은 도로명 주소이다.
 								fullAddr = data.roadAddress;
