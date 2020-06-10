@@ -61,13 +61,9 @@ public class ManagementController {
 	public String insertEmployee(Employee e, Model model, HttpSession session) {
 		
 		String tempPwd = e.getEmpNo().substring(0, 6);
-		String encPwd = bcryptPasswordEncoder.encode(e.getEmpNo().substring(0, 6));
-		
-		e.setEmpPwd(tempPwd);
-		System.out.println(e);
+		String encPwd = bcryptPasswordEncoder.encode(tempPwd);
 		
 		e.setEmpPwd(encPwd);
-		System.out.println(e);
 		
 		
 		int result = mgService.insertEmployee(e);
@@ -85,6 +81,7 @@ public class ManagementController {
 	@ResponseBody
 	@RequestMapping(value="empIdCheck.mg")
 	public String idCheck(String empId) {
+		
 		int count = mgService.idCheck(empId);
 		
 		if(count>0) {

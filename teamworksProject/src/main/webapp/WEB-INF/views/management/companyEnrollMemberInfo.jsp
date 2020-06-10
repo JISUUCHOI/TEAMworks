@@ -130,7 +130,7 @@
 						<th class="tg-uzvj" width="150px;">사원번호</th>
 						<th class="tg-9wq8" height="60px;">
 							<input type="text" id="empId" name="empId" placeholder="사원 번호 입력" required>
-							<div id="checkResult" style="display:none; font-si;e:0.5em"></div>
+							<div id="checkResult" style="display:none; font-size:0.7em"></div>
 						</th>
 						<th class="tg-uzvj">성명</th>
 						<th class="tg-9wq8">
@@ -143,7 +143,9 @@
 						<td class="tg-9wq8"><input type="text" id="empNo"
 							name="empNo" placeholder="사원 주민번호 입력(-포함)" required></td>
 						<td class="tg-uzvj">생년월일</td>
-						<td class="tg-9wq8">자동생성???</td>
+						<td class="tg-9wq8">
+							생년월일 임시 비밀번호
+						</td>
 					</tr>
 					<tr>
 						<td class="tg-uzvj">핸드폰</td>
@@ -160,6 +162,7 @@
 							<input name="postcode" id="postcode" readonly size="10"> 
 							<!-- daumZipCode()는 다음 사이트에서 가져온 API -->
 							<input type="button" onclick="addressSearch()" value="우편번호 찾기"><br>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="3">
@@ -171,61 +174,52 @@
 			</div>
 
 
-
 			<script>
-		       
 		       function idCheckValidate(num){
-		          if(num == 1){ // 1. 아이디 중복체크를 아직 안하는 경우 : 메세지 보여지지 않음, 회원가입 버튼 비활성화
-		             
-		             $("#checkResult").hide();
-		             $("#enrollBtn").attr("disabled", true);
-		             
-		          }else if(num == 2){ //2. 아이디 중복체크 후 사용불가능한 아이디일 경우 : "중복아이디 존재 사용불가능" 메세지 보여짐, 회원가입 버튼 비활성화
-		             
-		             $("#checkResult").css("color", "red").text("중복된 아이디가 존재합니다. 사용 불가능한 아이디입니다.");
-		             $("#checkResult").show();
-		             $("#enrollBtn").attr("disabled", true);
-		             
-		          }else{ // 3 .아이디 중복체크 후 사용 가능한 아이디일 경우 : "사용 가능한 아이디" 메세지 보여짐, 회원가입 버튼 활성화
-		             
-		             $("#checkResult").css("color", "green").text("사용 가능한 아이디입니다.");
-		             $("#checkResult").show();
-		             $("#enrollBtn").removeAttr("disabled");
-		             
-		          }
-		       }
-		    
-		       $(function(){
-		          
-		          // 이벤트 걸고자 하는 input 요소 변수에 기록해놓기
-		          var $idInput = $("#enrollForm input[name=userId]");
-		          // 변수명 앞에 $ 붙이면, 어떤 요소를 jquery 방식으로 선택했다는 것을 의미 => 다른 방식으로 메소드들 활용 가능
-		          
-		          $idInput.keyup(function(){
-		             
-		             //console.log($idInput.val());
-
-		             if($idInput.val().length >= 5) { // 적어도 아이디가 5글자 이상되었을 때 중복검사
-		                
-		                $.ajax({
-		                   url:"empIdCheck.me",
-		                   data:{empId:$idInput.val()},
-		                   success:function(status){
-		                      
-		                      if(status == "fail"){ // 중복된 아이디 존재 == 사용불가
-		                         idCheckValidate(2);
-		                      }else{ // 중복된 아이디 없음 == 사용가능
-		                         idCheckValidate(3);
-		                      }
-		                   }, error:function(){
-		                      console.log("아이디 중복체크용 ajax 통신실패");
-		                   }
-		                });
-		             }else{ // 중복검사x
-		                idCheckValidate(1);
-		             }
-		          });
-		       });
+		           if(num == 1){ // 1. 아이디 중복체크를 아직 안하는 경우 : 메세지 보여지지 않음, 회원가입 버튼 비활성화
+		              
+		              $("#checkResult").hide();
+		              $("#enrollEmpBtn").attr("disabled", true);
+		              
+		           }else if(num == 2){ //2. 아이디 중복체크 후 사용불가능한 아이디일 경우 : "중복아이디 존재 사용불가능" 메세지 보여짐, 회원가입 버튼 비활성화
+		              
+		              $("#checkResult").css("color", "red").text("중복된 사원 번호가 존재합니다.");
+		              $("#checkResult").show();
+		              $("#enrollEmpBtn").attr("disabled", true);
+		              
+		           }else{ // 3 .아이디 중복체크 후 사용 가능한 아이디일 경우 : "사용 가능한 아이디" 메세지 보여짐, 회원가입 버튼 활성화
+		              
+		              $("#checkResult").css("color", "green").text("사용 가능한 사원 번호입니다.");
+		              $("#checkResult").show();
+		              $("#enrollEmpBtn").removeAttr("disabled");
+		              
+		           }
+		        }
+		     
+		        $(function(){
+		           
+		           var $idInput = $("#enrollEmpForm input[name=empId]");
+		           
+		           $idInput.keyup(function(){
+		              if($idInput.val().length >= 5) { // 적어도 아이디가 5글자 이상되었을 때 중복검사
+		                 $.ajax({
+		                    url:"empIdCheck.mg",
+		                    data:{empId:$idInput.val()},
+		                    success:function(status){
+		                       if(status == "fail"){ // 중복된 아이디 존재 == 사용불가
+		                          idCheckValidate(2);
+		                       }else{ // 중복된 아이디 없음 == 사용가능
+		                          idCheckValidate(3);
+		                       }
+		                    }, error:function(){
+		                       console.log("아이디 중복체크용 ajax 통신실패");
+		                    }
+		                 });
+		              }else{ // 중복검사x
+		                 idCheckValidate(1);
+		              }
+		           });
+		        });
 		    </script>
 		       
 			<!-- 주소 검색 API -->
@@ -235,8 +229,8 @@
 					new daum.Postcode({
 						oncomplete : function(data) {
 							
-							var fullAddr = ''; // 최종 주소 변수
-							var  // 조합형 주소 변수
+							var fullAddr = '';
+							var extraAddr = '';
 
 							if (data.userSelectedType === 'R') { //R은 도로명 주소이다.
 								fullAddr = data.roadAddress;
@@ -253,22 +247,16 @@
 
 								// 건물명이 있을 경우 추가한다.
 								if (data.buildingName !== '') {
-									extraAddr += (extraAddr !== '' ? ', '
-											+ data.buildingName
-											: data.buildingName);
+									extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
 								}
 
 								// 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
 								fullAddr += (extraAddr !== '' ? ' (' + extraAddr + ')' : '');
 							}
 
-							// 우편번호와 주소 정보를 해당 필드에 넣는다.
-							//5자리 새우편번호 사용
 							document.getElementById('postcode').value = data.zonecode;
 							document.getElementById('empAdd').value = fullAddr; //address1에 확정된 주소값의 풀네임이 들어간다.
 
-							// 커서를 상세주소 필드로 이동한다. 
-							// 커서를 이동시켜서 깜빡이게끔 한다.
 							document.getElementById('empAddDetail').focus();
 						}
 					}).open();
