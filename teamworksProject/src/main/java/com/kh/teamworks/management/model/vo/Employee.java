@@ -14,6 +14,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Employee {
+	
 	private String empId;
 	private int deptCode;
 	private int jobCode;
@@ -22,9 +23,9 @@ public class Employee {
 	private String empNo;
 	private String empPhone;
 	private String empEmail;
-	private int postCode;
-	private String address;
-	private String addressDt;
+	private String postCode;
+	private String empAdd;
+	private String empAddDetail;
 	private Date hireDate;
 	private Date retireDate;
 	private String salType;

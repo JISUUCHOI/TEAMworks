@@ -47,7 +47,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${list}" var="j">
+					<c:forEach items="${jobList}" var="j">
 						<tr>
 							<td><b>${j.jobCode % 10}</b></td>
 							<td>${j.jobName}</td>

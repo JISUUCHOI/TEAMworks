@@ -41,7 +41,11 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+	@Override
+	public ArrayList<Employee> selectEmpList() {
+		return mgDao.selectEmpList(sqlSession);
+	}
 
 	@Override
 	public Employee selectEmployeeInfo(Employee e) {
@@ -59,11 +63,6 @@ public class ManagementServiceImpl implements ManagementService{
 		return mgDao.idCheck(sqlSession, empId);
 	}
 	
-	@Override
-	public ArrayList<Employee> selectEmployeeList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public int updateEmpInfo() {

@@ -26,8 +26,10 @@ public interface ManagementService {
 	int insertEmployee(Employee e);
 	int idCheck(String empId);
 	
+	// 사원 명부
+	ArrayList<Employee> selectEmpList();
+	
 	// 사원 관리
-	ArrayList<Employee> selectEmployeeList();
 	int updateEmpInfo();
 	
 	// 휴가 관리

@@ -95,10 +95,10 @@ public class ManagementController {
 	
 	//사원 명부
 	@RequestMapping("empList.mg")
-	public String empList() {
+	public String empList(Model model) {
 		
-		
-		
+		ArrayList<Employee> empList = mgService.selectEmpList();
+		model.addAttribute("empList", empList);
 		
 		return "management/companyMemberList";
 	}
@@ -126,8 +126,8 @@ public class ManagementController {
 	//직급 관리
 	@RequestMapping("orgJobList.mg")
 	public String selectJobList(Model model) {
-		ArrayList<Job> list = mgService.selectJobList();
-		model.addAttribute("list", list);
+		ArrayList<Job> jobList = mgService.selectJobList();
+		model.addAttribute("jobList", jobList);
 
 		return "management/companyOrganizationOrder";
 	}
