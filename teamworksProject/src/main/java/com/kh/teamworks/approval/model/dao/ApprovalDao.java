@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.common.model.vo.PageInfo;
@@ -42,6 +43,11 @@ public class ApprovalDao {
 	// 기안서 insert
 	public int insertDraft(SqlSessionTemplate sqlSession, Document d) {
 		return sqlSession.insert("documentMapper.insertDraft", d);
+	}
+	
+	// 결재선 insert
+	public int insertApproveLine(SqlSessionTemplate sqlSession, ApproveLine l) {
+		return sqlSession.insert("approveMapper.insertApproveLine", l);
 	}
 
 	// list 갯수

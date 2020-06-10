@@ -112,9 +112,32 @@ public class ApprovalController {
 		
 		// System.out.println(d);
 				
-	     int result = aService.insertProof(d);
+	     int result1 = aService.insertProof(d);
 	  
-	   if(result > 0) {	    	
+	     /* 결재선 insert */
+		String approver = d.getApprover();
+		
+		String[] aList = null;
+		
+		if(approver != null) {
+			aList = approver.split(",");
+		}
+		
+		ApproveLine l = null;
+		int result2 = 0;
+		
+		for(int i=0; i<aList.length; i++) {
+			if(i==0) {
+				l = new ApproveLine(aList[i], docNo, i, "진행", 0);
+			}else {
+				l = new ApproveLine(aList[i], docNo, i, "미결", 0);
+			}
+			
+			result2 = aService.insertApproveLine(l);
+		}
+	     
+	     
+	   if(result1 * result2 > 0) {	    	
 	    	model.addAttribute("msg", "제출완료");
 		   return "approval/selectApprovalForm";
 	    }else {
@@ -147,14 +170,35 @@ public class ApprovalController {
 			}
 		}
 		
-
-		
-
 		// System.out.println(d);
 	 
-		 int result = aService.insertDraft(d);
+		 int result1 = aService.insertDraft(d);
+		 
+		 
+		 /* 결재선 insert */
+			String approver = d.getApprover();
+			
+			String[] aList = null;
+			
+			if(approver != null) {
+				aList = approver.split(",");
+			}
+			
+			ApproveLine l = null;
+			int result2 = 0;
+			
+			for(int i=0; i<aList.length; i++) {
+				if(i==0) {
+					l = new ApproveLine(aList[i], docNo, i, "진행", 0);
+				}else {
+					l = new ApproveLine(aList[i], docNo, i, "미결", 0);
+				}
+				
+				result2 = aService.insertApproveLine(l);
+			}
+		 
 	  
-	   if(result > 0) {	    	
+	   if(result1 * result2 > 0) {	    	
 	    	model.addAttribute("msg", "제출완료");
 		   return "approval/selectApprovalForm";
 	    }else {
