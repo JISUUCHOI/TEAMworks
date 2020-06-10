@@ -291,20 +291,18 @@ public class ApprovalController {
 		
 	}
 	
-	// 제증명 수정 폼
-	@RequestMapping("updateProofForm.ap")
-	public String updateProofForm(Document d, Model model, HttpServletRequest request) {
+	// 기안서 수정 폼
+	@RequestMapping("updateDraftForm.ap")
+	public String updateDraftForm(Document d, Model model, HttpServletRequest request) {
 		
 		String docNo = d.getDocNo();
 		d.setDocNo(docNo);
-		
 
-			d = aService.proofDetail(d);
-			model.addAttribute("d", d);
-			// System.out.println(d);
-			return "approval/proofUpdateForm";
-		
-	
+		d = aService.draftDetail(d);
+		model.addAttribute("d", d);
+		System.out.println(d);
+		return "approval/draftSubmit";
+			
 	}
 	
 	// 기안서 삭제
@@ -353,30 +351,6 @@ public class ApprovalController {
 			return "common/errorPage";
 		}
 	}
-	
-	
-	
-//	@RequestMapping("deleteDraft.ap")
-//	public String deleteDraft(String dno, String fileName, HttpServletRequest request, Model model) {
-//		int result = aService.deleteDraft(dno);
-//		
-//		if(result>0) {
-//			
-//			if(!fileName.equals("")) {
-//				deleteFile(fileName, request);
-//			}
-//			model.addAttribute("msg", "삭제완료");
-//			return "approval/selectApprovalForm";
-//		}else {
-//			model.addAttribute("msg", "삭제 실패");
-//			return "common/errorPage";
-//		}
-//	}
-
-	   
-	
-
-
 
 	// 파일
 	public String saveFile(MultipartFile file,  HttpServletRequest request) {

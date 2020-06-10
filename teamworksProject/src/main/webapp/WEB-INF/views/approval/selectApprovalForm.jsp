@@ -129,13 +129,13 @@
 	                    <td style="text-align:center;">3</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">경영지원</td>
-	                    <td style="padding-left:40px;" class="form"><a href="insertDoc.rap?doc=휴가신청서">휴가 신청서</a></td>
+	                    <td style="padding-left:40px;" class="form"><a href="insertDoc.rap?doc=휴가신청서">휴가신청서</a></td>
 	                </tr>
 	                <tr>
 	                    <td style="text-align:center;">4</td>
 	                    <td style="text-align:center;" class="frequency">☆</td>
 	                    <td style="text-align:center;">경영지원</td>
-	                    <td style="padding-left:40px;" class="form"><a href="insertDoc.ap?doc=제증명신청서">제증명 신청서</a></td>
+	                    <td style="padding-left:40px;" class="form"><a href="insertDoc.ap?doc=제증명신청서">제증명신청서</a></td>
 	                </tr>
 	                <tr>
 	                    <td style="text-align:center;">5</td>
@@ -176,6 +176,16 @@
 	            </tbody>
 	        </table>
 	        <br><br><br>
+	        
+	        <!-- 
+	        <script>
+        	$(function(){
+        		$(".formList tbody tr").click(function(){
+        			location.href="insertDoc.ap?doc="+$(this).children().eq(3).text()+"";
+        		});
+        	});
+  			</script>
+  			 -->
 	
 	        <!-- 페이징바 -->
 	        <div id="pagingArea" align="center">
@@ -208,6 +218,8 @@
 			$("#writeDoc>a").css("color", "deepskyblue");
 		});	
 	</script>
+	
+	
 
 </body>
 </html>
