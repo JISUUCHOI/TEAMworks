@@ -300,4 +300,10 @@ public class MailController {
 		}
 		
 	}
+	
+	@RequestMapping("sendForm.ma")
+	public String sendMailForm() {
+		return "mail/sendMailForm";
+	}
+	
 }
