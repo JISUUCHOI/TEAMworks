@@ -264,4 +264,40 @@ public class MailController {
 		}
 		
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="revoke", produces="text/html; charset=utf-8")
+	public String revokeMail(@RequestParam(value="emailNo[]") String[] emailNo, HttpSession session) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		ArrayList<MailDTO> list = new ArrayList<>();
+		
+		
+		ArrayList<MailDTO> tList = emService.selectTrashAllList(e.getEmpId());
+		
+		for(int i=0; i<emailNo.length; i++) {
+			MailDTO revoke = new MailDTO();
+			for(MailDTO t : tList) {
+				if(t.getEmailNo()==Integer.parseInt(emailNo[i])) {
+					revoke.setSenderStatus(t.getSenderStatus()); // 보낸 편지 삭제된 상태
+					revoke.setEmailStatus(t.getEmailStatus()); // 받은 편지 삭제된 상태 
+					revoke.setEmpId(e.getEmpId());
+					revoke.setEmailNo(Integer.parseInt(emailNo[i]));
+				}
+			}
+			
+			list.add(revoke);
+		}
+		int result = 0;
+		
+		for(MailDTO m : list) {
+			
+			result = emService.revokeMail(m);
+		}
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
 }

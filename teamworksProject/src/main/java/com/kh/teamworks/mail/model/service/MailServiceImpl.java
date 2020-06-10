@@ -117,6 +117,16 @@ public class MailServiceImpl implements MailService {
 	public int deleteSendMail(Mail mail) {
 		return emDao.deleteSendMail(sqlSession, mail);
 	}
+
+	@Override
+	public int revokeMail(MailDTO mail) {
+		return emDao.revokeMail(sqlSession, mail);
+	}
+
+	@Override
+	public ArrayList<MailDTO> selectTrashAllList(String empId) {
+		return emDao.selectTrashAllList(sqlSession,empId);
+	}
 	
 	
 }

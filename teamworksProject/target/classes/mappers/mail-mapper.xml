@@ -185,20 +185,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		select count(*)
 		  from v_email_list
 		 where (receiver=#{empId} and status='N')
-		       or (sender=#{empId} and sender_status='N')
+		       or (sender=#{empId} and sender_status='N'and eatype='T')
  	</select>
  	<select id="selectTrashList" parameterType="string" resultMap="mailDtoResultSet">
  		select *
 		  from v_email_list
 		  where (receiver=#{empId} and status='N')
-		       or (sender=#{empId} and sender_status='N')
+		       or (sender=#{empId} and sender_status='N' and eatype='T')
 		 order by email_no desc
  	</select>
  	
  	<select id="searchTrashListCount"  parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int">
  		select count(*)
 		  from v_email_list
-		 where receiver=#{empId} and status='N'
+		 where (receiver=#{empId} and status='N')
+		       or (sender=#{empId} and sender_status='N' and eatype='T')
  		<if test="sender != null">
 			and sendername like '%'|| #{sender} ||'%'
 		</if>
@@ -212,7 +213,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="searchTrashList"  parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
  		select *
 		  from v_email_list
-		 where receiver=#{empId} and status='N'
+		where (receiver=#{empId} and status='N')
+		       or (sender=#{empId} and sender_status='N' and eatype='T')
  		<if test="sender != null">
 			and sendername like '%'|| #{sender} ||'%'
 		</if>
@@ -222,11 +224,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="content != null">
 			and email_content like '%'|| #{content} ||'%'
 		</if>
+		 order by email_no desc
+ 	</select>
+ 	
+ 	<select id="selectTrashAllList" parameterType="string" resultMap="mailDtoResultSet">
+ 		select *
+		  from v_email_list
+		 where (receiver=#{empId} and status='N')
+		       or (sender=#{empId} and sender_status='N' and eatype='T')
+		 order by email_no desc
  	</select>
  	
  	<update id="deleteSendMail" parameterType="Mail">
  		update email
  		set email_status ='N'
  		where sender=#{sender} and email_no=#{emailNo}
+ 	</update>
+ 	
+ 	<update id="revokeMail" parameterType="MailDTO">
+ 		<if test='senderStatus == "N" and emailStatus =="Y"'>
+ 			update email
+ 			set email_status ='Y'
+ 			where sender=#{empId} and email_no=#{emailNo}
+ 		</if>
+ 		<if test='emailStatus =="N" and senderStatus=="Y"'>
+ 			update email_address
+ 		       set status='Y' 
+ 			 where receiver =#{empId} and email_no=#{emailNo}
+ 		</if>
  	</update>
 </mapper>

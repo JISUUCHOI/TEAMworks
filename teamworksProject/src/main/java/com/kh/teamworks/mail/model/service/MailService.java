@@ -36,5 +36,7 @@ public interface MailService {
 	int searchTrashListCount(SearchMailCondition sc);
 	ArrayList<MailDTO> searchTrashList(SearchMailCondition sc, PageInfo pi);
 	
+	ArrayList<MailDTO> selectTrashAllList(String empId);
 	int deleteSendMail(Mail mail);
+	int revokeMail(MailDTO mail);
 }

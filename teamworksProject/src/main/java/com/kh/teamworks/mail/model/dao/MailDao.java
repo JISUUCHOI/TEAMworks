@@ -102,7 +102,15 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.searchTrashList", sc, rowBounds);
 	}
 	
+	public ArrayList<MailDTO> selectTrashAllList(SqlSession sqlSession, String empId){
+		return (ArrayList)sqlSession.selectList("mailMapper.selectTrashAllList", empId);
+	}
+	
 	public int deleteSendMail(SqlSession sqlSession, Mail mail) {
 		return sqlSession.update("mailMapper.deleteSendMail", mail);
+	}
+	
+	public int revokeMail(SqlSession sqlSession, MailDTO mail) {
+		return sqlSession.update("mailMapper.revokeMail", mail);
 	}
 }

@@ -207,6 +207,15 @@
 	  			$("#delete").attr("disabled", true);
 	  		}
 	  	}
+	    $(function(){
+			$("input[name=emailNo]").click(function(){
+				if($("input[name=emailNo]").is(":checked")){
+					$("#delete").attr("disabled", false);
+				}else{
+					$("#delete").attr("disabled", true);
+				}
+			});
+		});
 	    
 	    function sendMailDelete(){
 	    	var emailNo = new Array();

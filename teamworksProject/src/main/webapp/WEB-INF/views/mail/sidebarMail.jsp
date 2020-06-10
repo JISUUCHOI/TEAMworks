@@ -63,7 +63,7 @@
     <div class="sidebarOuter">
         <div id="sidebar">
             <div id="messenger"><a href=""><img src="resources/icons/messenger.png"width="20px"> messenger</a></div>
-            <div id="logout"><a href="">logout</a></div>
+            <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category"></div>
             <div class="subCate"><a href="">편지쓰기</a></div>

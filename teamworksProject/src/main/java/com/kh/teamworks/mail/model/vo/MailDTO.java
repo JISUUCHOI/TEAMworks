@@ -20,7 +20,7 @@ public class MailDTO {
 	private String mailTitle;
 	private String mailContent;
 	private Timestamp createDate;
-	private String emailStatus;
+	private String emailStatus; // 받은 편지 삭제 상태  기본값 Y
 	private int emInfoNo;
 	private String sender;
 	private String recipients;
@@ -34,6 +34,8 @@ public class MailDTO {
 	private String recipientsName; // 받는 사람 이름
 	private String recipientsEmail; // 받는 사람 메일
 	private String refEmpName; // 참조자 이름 
-	private String senderStatus; // 보낸 편지함 상태값
+	private String senderStatus; // 보낸 편지 삭제 상태 기본값 Y
 	private String comDelete; // 완전삭제
+	
+	private String empId; // 공용
 }
