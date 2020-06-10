@@ -33,11 +33,11 @@
 	}
 	
 	.tree_area {
-		margin-top:65px;
+		margin-top:70px;
 		border: 2px solid #07355A;
 	}
 	
-	.btn {background-color: #ddd;}
+	.btn {background-color: #ddd;} 
 	
 	#empCount {color:red;}
 	#empListTable {
@@ -98,9 +98,9 @@
 	        <br>
 	        <!-- 부서 추가/수정/삭제 버튼 영역 -->
 	        <div class="btn_area" align="right">
-	        	<button id="searchBtn" class="btn" type="submit">부서추가</button>
-	        	<button id="searchBtn" class="btn" type="submit">부서수정</button>
-	        	<button id="searchBtn" class="btn" type="submit">부서삭제</button>
+	        	<button id="insertBtn" class="btn">부서 추가</button>
+	        	<button id="updateBtn" class="btn">부서 수정</button>
+	        	<button id="deleteBtn" class="btn">부서 삭제</button>
 	        </div>
 		</div>
 		
