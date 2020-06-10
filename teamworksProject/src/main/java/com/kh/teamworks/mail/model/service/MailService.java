@@ -3,9 +3,11 @@ package com.kh.teamworks.mail.model.service;
 import java.util.ArrayList;
 
 import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.vo.Mail;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
+import com.kh.teamworks.management.model.vo.Department;
 
 public interface MailService {
 	
@@ -39,4 +41,7 @@ public interface MailService {
 	ArrayList<MailDTO> selectTrashAllList(String empId);
 	int deleteSendMail(Mail mail);
 	int revokeMail(MailDTO mail);
+	
+	ArrayList<Department> selectDeptList();
+	ArrayList<Employee> selectEmpList();
 }

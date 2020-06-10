@@ -19,6 +19,7 @@ import com.kh.teamworks.mail.model.service.MailService;
 import com.kh.teamworks.mail.model.vo.Mail;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
+import com.kh.teamworks.management.model.vo.Department;
 
 @Controller
 public class MailController {
@@ -302,7 +303,14 @@ public class MailController {
 	}
 	
 	@RequestMapping("sendForm.ma")
-	public String sendMailForm() {
+	public String sendMailForm(Model model) {
+		
+		ArrayList<Department> deptList = emService.selectDeptList();
+		ArrayList<Employee> empList = emService.selectEmpList();
+		
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("empList", empList);
+		
 		return "mail/sendMailForm";
 	}
 	

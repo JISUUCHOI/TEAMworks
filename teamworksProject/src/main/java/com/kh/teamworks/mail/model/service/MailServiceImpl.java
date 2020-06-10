@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.dao.MailDao;
 import com.kh.teamworks.mail.model.vo.Mail;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.MailInfo;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
+import com.kh.teamworks.management.model.vo.Department;
 
 @Service("emService")
 public class MailServiceImpl implements MailService {
@@ -127,6 +129,17 @@ public class MailServiceImpl implements MailService {
 	public ArrayList<MailDTO> selectTrashAllList(String empId) {
 		return emDao.selectTrashAllList(sqlSession,empId);
 	}
+
+	@Override
+	public ArrayList<Department> selectDeptList() {
+		return emDao.selectDeptList(sqlSession);
+	}
+
+	@Override
+	public ArrayList<Employee> selectEmpList() {
+		return emDao.selectEmpList(sqlSession);
+	}
+	
 	
 	
 }

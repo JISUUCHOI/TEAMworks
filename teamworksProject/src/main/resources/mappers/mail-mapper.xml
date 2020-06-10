@@ -38,7 +38,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		<result column="sender_status" property="senderStatus"/>
   		<result column="com_dalete" property="comDelete"/>
   	</resultMap>
-  	
+	<resultMap id="deptResultSet" type="MgDept">
+		<id column="dept_code" property="deptCode" />
+		<result column="dept_name" property="deptName" />
+	</resultMap>
+		<resultMap type="Employee" id="employeeResultSet">
+		<id column="emp_Id" property="empId"/>
+		<result column="dept_code" property="deptCode"/>
+		<result column="job_code" property="jobCode"/>
+		<result column="emp_name" property="empName"/>
+		<result column="emp_pwd" property="empPwd"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="emp_phone" property="phone"/>
+		<result column="emp_email" property="email"/>
+		<result column="postcode" property="postcode"/>
+		<result column="address" property="empAdd"/>
+		<result column="address_dt" property="empAddDetail"/>
+		<result column="hire_date" property="hireDate"/>
+		<result column="retire_date" property="retireDate"/>
+		<result column="sal_type" property="salType"/>
+		<result column="modify_date" property="modifyDate"/>
+		<result column="emp_status" property="status"/>
+		<result column="emp_note" property="empNote"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+		<result column="hom_no" property="homNo"/>
+		<result column="dept_name" property="deptName"/>
+		<result column="job_name" property="jobName"/>
+	</resultMap>
+	
  	<select id="selectInboxListCount" parameterType="string" resultType="_int">
  		select count(*)
 		  from v_email_list 
@@ -253,4 +281,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			 where receiver =#{empId} and email_no=#{emailNo}
  		</if>
  	</update>
+ 	
+ 	<select id="selectDeptList" resultMap="deptResultSet">
+ 		select *
+ 		from department
+ 	</select>
+ 	<select id="selectEmpList" resultMap="employeeResultSet">
+ 		select *
+ 		  from employee
+ 		  join department using(dept_code)
+		  join job using(job_code)
+		 where emp_status='Y'
+ 	</select>
 </mapper>
