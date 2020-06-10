@@ -27,7 +27,6 @@
 		<typeAlias type="com.kh.teamworks.management.model.vo.CompanyInfo" alias="MgInfo"/>
 		<typeAlias type="com.kh.teamworks.management.model.vo.Department" alias="MgDept"/>
 		<typeAlias type="com.kh.teamworks.management.model.vo.Job" alias="MgJob"/>
-		<typeAlias type="com.kh.teamworks.management.model.vo.Employee" alias="EmpMg"/>
 		<typeAlias type="com.kh.teamworks.management.model.vo.Proof" alias="MgProof"/>
 		<typeAlias type="com.kh.teamworks.management.model.vo.Vacation" alias="MgVac"/>
 		<typeAlias type="com.kh.teamworks.mail.model.vo.MailInfo" alias="MailInfo"/>

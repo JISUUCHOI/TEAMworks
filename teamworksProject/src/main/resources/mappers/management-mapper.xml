@@ -50,15 +50,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="doc_status" property="docStatus" />
 	</resultMap>
 
-	<resultMap id="employeeResultSet" type="EmpMg">
+	<resultMap id="employeeResultSet" type="Employee">
 		<id column="emp_Id" property="empId"/>
 		<result column="dept_code" property="deptCode"/>
 		<result column="job_code" property="jobCode"/>
 		<result column="emp_name" property="empName"/>
 		<result column="emp_pwd" property="empPwd"/>
 		<result column="emp_no" property="empNo"/>
-		<result column="emp_phone" property="empPhone"/>
-		<result column="emp_email" property="empEmail"/>
+		<result column="emp_phone" property="phone"/>
+		<result column="emp_email" property="email"/>
 		<result column="postcode" property="postcode"/>
 		<result column="address" property="empAdd"/>
 		<result column="address_dt" property="empAddDetail"/>
@@ -93,7 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE HOM_NO=#{homNo}
 	</select>
 
-	<insert id="insertEmployee" parameterType="EmpMg">
+	<insert id="insertEmployee" parameterType="Employee">
 		INSERT INTO EMPLOYEE
 		VALUES(#{empId}, #{deptCode}, #{jobCode}, #{empName}, #{empPwd}, #{empNo}, #{phone}, #{email}, #{postcode}, #{empAdd}, 
 			   #{empAddDetail}, #{hireDate}, #{retireDate}, #{salType}, sysdate, 'Y', #{empNote}, #{originName}, #{changeName}, #{homNo})

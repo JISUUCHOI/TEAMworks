@@ -52,17 +52,29 @@
 				<thead class="thead-light">
 					<tr>
 						<th width="40px;"><input type="checkbox"></th>
-						<th width="130px;">사원번호</th>
+						<th width="110px;">사원번호</th>
 						<th width="100px;">성명</th>
-						<th width="170px;">주민등록번호</th>
+						<th width="150px;">주민등록번호</th>
 						<th>부서명</th>
 						<th>직위/직급</th>
 						<th>입사일자</th>
-						<th width="200px;">Email</th>
+						<th width="250px;">Email</th>
 
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach items="${ empList }" var="e">
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>${ e.empId }</td>
+							<td>${ e.empName }</td>
+							<td>${ e.empNo }</td>
+							<td>${ e.deptName }1</td>
+							<td>${ e.jobName }</td>
+							<td>${ e.hireDate }</td>
+							<td>${ e.email }</td>
+						</tr>
+					</c:forEach>
 					<tr>
 						<td><input type="checkbox"></td>
 						<td>tw101</td>
