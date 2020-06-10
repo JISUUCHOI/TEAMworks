@@ -35,37 +35,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   		<result column="delete_status" property="deleteStatus"/>
   		<result column="status" property="emailStatus"/>
   		<result column="eatype" property="refType"/>
+  		<result column="sender_status" property="senderStatus"/>
+  		<result column="com_dalete" property="comDelete"/>
   	</resultMap>
   	
  	<select id="selectInboxListCount" parameterType="string" resultType="_int">
  		select count(*)
 		  from v_email_list 
-		 where receiver =#{empId} and status='Y'
+		 where receiver =#{empId} and status='Y' and com_delete ='N'
  	</select>
  	
  	<select id="selectInboxList" parameterType="string" resultMap="mailDtoResultSet">
  		select *
           from v_email_list 
-         where receiver =#{empId} and status='Y'
+         where receiver =#{empId} and status='Y' and com_delete ='N'
          order by email_no desc
  	</select>
  	
  	<select id="searchReadListCount" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int">
  		select count(*)
           from v_email_list 
-         where receiver =#{empId} and status='Y' and read_status= #{readStatus}
+         where receiver =#{empId} and status='Y' and read_status= #{readStatus} and com_delete ='N'
  	</select>
  	<select id="searchReadList" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
  		select *
           from v_email_list 
-         where receiver =#{empId} and status='Y' and read_status= #{readStatus}
+         where receiver =#{empId} and status='Y' and read_status= #{readStatus} and com_delete ='N'
 		 order by email_no desc
  	</select>
  	
  	<select id="searchKeyListCount" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int">
  		select count(*)
 		  from v_email_list 
-         where receiver =#{empId} and status='Y'
+         where receiver =#{empId} and status='Y' and com_delete ='N'
 			<if test="sender != null">
 				and sendername like '%'|| #{sender} ||'%'
 			</if>
@@ -80,7 +82,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="searchKeyList" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
  		select *
 		  from v_email_list 
-         where receiver =#{empId} and status='Y'
+         where receiver =#{empId} and status='Y' and com_delete ='N'
 			<if test="sender != null">
 				and sendername like '%'|| #{sender} ||'%'
 			</if>
@@ -96,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="searchListCount" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int" >
  		select count(*)
  		 from v_email_list 
-         where receiver =#{empId} and status='Y'
+         where receiver =#{empId} and status='Y' and com_delete ='N'
 		        and read_status = #{readStatus}
 			<if test="sender != null">
 				and sendername like '%'|| #{sender} ||'%'
@@ -112,7 +114,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	 <select id="searchList" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
  		select *
 		 from v_email_list 
-         where receiver =#{empId} and status='Y'
+         where receiver =#{empId} and status='Y' and com_delete ='N'
 		        and read_status = #{readStatus}
 			<if test="sender != null">
 				and sendername like '%'|| #{sender} ||'%'
@@ -127,20 +129,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	</select>
  	<select id="selectOutboxListCount" parameterType="string" resultType="_int">
  		select count(*) 
-		  from email 
-		 where sender=#{empId}
+		  from v_email_list
+		 where sender=#{empId} and eatype='T' and com_delete ='N' and sender_status ='Y'
  	</select>
  	<select id="selectOutboxList" parameterType="string" resultMap="mailDtoResultSet">
  		select *
 	      from v_email_list
-		 where sender=#{empId} and eatype='T'
+		 where sender=#{empId} and eatype='T' and com_delete ='N' and sender_status ='Y'
 		 order by email_no desc
  	</select>
  	
  	<select id="searchOutboxListCount" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int">
  		select count(*) 
 		  from v_email_list
-		 where sender=#{empId} and eatype='T'
+		 where sender=#{empId} and eatype='T' and com_delete ='N' and sender_status ='Y'
 			<if test="recipients != null">
 				and receivername like '%'|| #{recipients} ||'%'
 			</if>
@@ -154,7 +156,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="searchOutboxList" parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
  		select *
 		  from v_email_list
-		 where sender=#{empId} and eatype='T'
+		 where sender=#{empId} and eatype='T' and com_delete ='N' and sender_status ='Y'
 			<if test="recipients != null">
 				and receivername like '%'|| #{recipients} ||'%'
 			</if>
@@ -182,19 +184,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="selectTrashListCount" parameterType="string" resultType="_int">
  		select count(*)
 		  from v_email_list
-		 where receiver=#{empId} and status='N'
+		 where (receiver=#{empId} and status='N')
+		       or (sender=#{empId} and sender_status='N'and eatype='T')
  	</select>
  	<select id="selectTrashList" parameterType="string" resultMap="mailDtoResultSet">
  		select *
 		  from v_email_list
-		 where receiver=#{empId} and status='N'
+		  where (receiver=#{empId} and status='N')
+		       or (sender=#{empId} and sender_status='N' and eatype='T')
 		 order by email_no desc
  	</select>
  	
  	<select id="searchTrashListCount"  parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultType="_int">
  		select count(*)
 		  from v_email_list
-		 where receiver=#{empId} and status='N'
+		 where (receiver=#{empId} and status='N')
+		       or (sender=#{empId} and sender_status='N' and eatype='T')
  		<if test="sender != null">
 			and sendername like '%'|| #{sender} ||'%'
 		</if>
@@ -208,7 +213,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="searchTrashList"  parameterType="com.kh.teamworks.mail.model.vo.SearchMailCondition" resultMap="mailDtoResultSet">
  		select *
 		  from v_email_list
-		 where receiver=#{empId} and status='N'
+		where (receiver=#{empId} and status='N')
+		       or (sender=#{empId} and sender_status='N' and eatype='T')
  		<if test="sender != null">
 			and sendername like '%'|| #{sender} ||'%'
 		</if>
@@ -218,5 +224,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="content != null">
 			and email_content like '%'|| #{content} ||'%'
 		</if>
+		 order by email_no desc
  	</select>
+ 	
+ 	<select id="selectTrashAllList" parameterType="string" resultMap="mailDtoResultSet">
+ 		select *
+		  from v_email_list
+		 where (receiver=#{empId} and status='N')
+		       or (sender=#{empId} and sender_status='N' and eatype='T')
+		 order by email_no desc
+ 	</select>
+ 	
+ 	<update id="deleteSendMail" parameterType="Mail">
+ 		update email
+ 		set email_status ='N'
+ 		where sender=#{sender} and email_no=#{emailNo}
+ 	</update>
+ 	
+ 	<update id="revokeMail" parameterType="MailDTO">
+ 		<if test='senderStatus == "N" and emailStatus =="Y"'>
+ 			update email
+ 			set email_status ='Y'
+ 			where sender=#{empId} and email_no=#{emailNo}
+ 		</if>
+ 		<if test='emailStatus =="N" and senderStatus=="Y"'>
+ 			update email_address
+ 		       set status='Y' 
+ 			 where receiver =#{empId} and email_no=#{emailNo}
+ 		</if>
+ 	</update>
 </mapper>

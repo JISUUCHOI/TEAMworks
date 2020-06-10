@@ -89,7 +89,7 @@
 	                    <td class="th">참조자</td>
 	                    <td>
 	                    	<input type="hidden" id="refedId" name="docReference">
-	                        <input type="text" id="refSch"  readonly>
+	                        <input type="text" id="refSch" name="docRefName" readonly>
 	                        <button type="button" id="refBtn" data-toggle="modal" data-target="#refEmp">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>

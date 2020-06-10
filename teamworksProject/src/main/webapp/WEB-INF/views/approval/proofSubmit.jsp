@@ -202,7 +202,7 @@
 	            </form><script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 
-		    			   $("#postForm").attr("action","updateDoc.ap");
+		    			   $("#postForm").attr("action","updateProof.ap");
 		 		    }else{ 
 						   $("#postForm").attr("action","deleteProof.ap");
 				    }			
@@ -286,7 +286,7 @@
 	                    <td class="th">부서</td>
 	                    <td>${ d.getDocDepartment() }</td>
 	                    <td class="th">직급</td>
-                        <td></td>
+                        <td>${ d.getJobName() }</td>
                         <td class="th"></td>
 	                    <td></td>
                     </tr>

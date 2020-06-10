@@ -73,6 +73,11 @@ public class ApprovalDao {
 		return sqlSession.delete("documentMapper.deleteProof", dno);
 	}
 
+	// 기안서 삭제
+	public int deleteDraft(SqlSessionTemplate sqlSession, String dno) {
+		return sqlSession.delete("documentMapper.deleteDraft",dno);
+	}
+
 
 	
 

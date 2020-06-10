@@ -63,10 +63,10 @@
     <div class="sidebarOuter">
         <div id="sidebar">
             <div id="messenger"><a href=""><img src="resources/icons/messenger.png"width="20px"> messenger</a></div>
-            <div id="logout"><a href="">logout</a></div>
+            <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category"></div>
-            <div class="subCate"><a href="">편지쓰기</a></div>
+            <div class="subCate"><a href="sendForm.ma">편지쓰기</a></div>
             <div class="subCate"><a href="rlist.ma?currentPage=1">받은 편지함</a></div>
             <div class="subCate"><a href="slist.ma?currentPage=1">보낸 편지함</a></div>
             <div class="subCate"><a href="trash.ma?currentPage=1">휴지통</a></div>

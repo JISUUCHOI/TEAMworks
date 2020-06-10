@@ -112,6 +112,21 @@ public class MailServiceImpl implements MailService {
 	public ArrayList<MailDTO> searchTrashList(SearchMailCondition sc, PageInfo pi) {
 		return emDao.searchTrashList(sqlSession, sc, pi);
 	}
+
+	@Override
+	public int deleteSendMail(Mail mail) {
+		return emDao.deleteSendMail(sqlSession, mail);
+	}
+
+	@Override
+	public int revokeMail(MailDTO mail) {
+		return emDao.revokeMail(sqlSession, mail);
+	}
+
+	@Override
+	public ArrayList<MailDTO> selectTrashAllList(String empId) {
+		return emDao.selectTrashAllList(sqlSession,empId);
+	}
 	
 	
 }

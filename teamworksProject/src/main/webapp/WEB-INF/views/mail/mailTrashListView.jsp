@@ -89,8 +89,8 @@
                 	</div>
                 	<div class="col-xs-4"></div>
                     <div class="col-xs-6">
-                     	<button class="btn btn-info btn-sm" style="margin-right: 10px;">복구</button>
-                        <button class="btn btn-danger btn-sm" style="margin-right: 10px;">영구삭제</button>
+                     	<button class="btn btn-info btn-sm" id="revoke" style="margin-right: 10px;" onclick="revoke();" disabled>복구</button>
+                        <button class="btn btn-danger btn-sm" id="comDelete" style="margin-right: 10px;" disabled>영구삭제</button>
                     </div>
                 </div>
                 
@@ -114,11 +114,14 @@
                                 <input type="checkbox" name="emailNo" value="${ t.emailNo }">
                             </th>
                             <c:choose>
+                            	<c:when test="${ t.senderStatus=='N' }">
+                            		<td>SENT</td>
+                            	</c:when>
                             	<c:when test="${ t.readStatus == 'Y'}">
-	                            	<th><i class="far fa-envelope-open"></i></th>
+	                            	<td><i class="far fa-envelope-open"></i></td>
                             	</c:when>
                             	<c:otherwise>
-                            		<th> <i class="far fa-envelope"  style="color:red"></i></th>
+                            		<td> <i class="far fa-envelope"  style="color:red"></i></td>
                             	</c:otherwise>
                             </c:choose>
                             <td>${ t.senderName }</td>
@@ -137,7 +140,7 @@
                 </table>
                  <script>
 	            	$(function(){
-	            		$("#trashList tbody tr").click(function(){
+	            		$("#trashList tbody tr td").click(function(){
 	            			 alertify.alert('Message','휴지통에서는 상세보기를 하실수 없습니다.<br> 상세보기를 원하 실 경우 복구를 진행하세요.');
 	            		});	
 	            	});
@@ -211,7 +214,57 @@
         </div>
     </div>
     <script>
-    	
+	    function checkAll(){
+	  		if( $("#th_checkAll").is(':checked')){
+	  			$("input[name=emailNo]").prop("checked",true);
+	  			$("#revoke").attr("disabled", false);
+	  			$("#comDelete").attr("disabled", false);
+	  		}else{
+	  			$("input[name=emailNo]").prop("checked",false);
+	  			$("#revoke").attr("disabled", true);
+	  			$("#comDelete").attr("disabled", true);
+	  		}
+	  	}
+	    
+	    $(function(){
+			$("input[name=emailNo]").click(function(){
+				if($("input[name=emailNo]").is(":checked")){
+					$("#revoke").attr("disabled", false);
+		  			$("#comDelete").attr("disabled", false);
+				}else{
+					$("#revoke").attr("disabled", true);
+		  			$("#comDelete").attr("disabled", true);
+				}
+			});
+		});
+	    
+	    function revoke(){
+	    	var emailNo = new Array();
+			$("input[name=emailNo]:checked").each(function(){
+				emailNo.push($(this).val());
+			});
+			
+			if(emailNo==""){
+				alert("항목을 선택해 주세요.");
+			}else{
+				$.ajax({
+					url:"revoke",
+					type:"post",
+					data:{emailNo:emailNo},
+					success:function(status){
+						if(status="success"){
+							location.href="trash.ma?currentPage=1";
+						}else{
+							alert("다시 시도해 주세요.");
+						}
+					},
+					error:function(){
+						console.log("ajax 통신 실패");
+					}
+				});
+			}
+	    }
+	
     </script>
     
 	    

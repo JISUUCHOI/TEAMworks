@@ -46,6 +46,9 @@ public interface ApprovalService {
 
 	// 제증명 삭제
 	int deleteProof(String dno);
+	
+	// 기안서 삭제
+	int deleteDraft(String dno);
 
 
 	
