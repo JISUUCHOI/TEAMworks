@@ -114,6 +114,9 @@
                                 <input type="checkbox" name="emailNo" value="${ t.emailNo }">
                             </th>
                             <c:choose>
+                            	<c:when test="${ t.senderStatus=='N' }">
+                            		<td>SENT</td>
+                            	</c:when>
                             	<c:when test="${ t.readStatus == 'Y'}">
 	                            	<th><i class="far fa-envelope-open"></i></th>
                             	</c:when>

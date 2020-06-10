@@ -83,7 +83,8 @@
                 	</div>
                 	<div class="col-xs-4"></div>
                     <div class="col-xs-6">
-                        <button class="btn btn-info btn-sm" style="margin-right: 10px;">다시보내기</button>
+                        <button class="btn btn-info btn-sm" style="margin-right: 10px;">재발송</button>
+                        <button class="btn btn-danger btn-sm" id="delete" onclick="sendMailDelete();" style="margin-right: 10px;" disabled>삭제</button>
                     </div>
                 </div>
                 
@@ -92,7 +93,7 @@
                     <thead>
                         <tr>
                             <th width="50px">
-                                <input type="checkbox" value="">
+                                <input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();" value="">
                             </th>
                             <th width="150px">받는 사람</th>
                             <th>제목</th>
@@ -104,16 +105,16 @@
                     	<c:forEach var="s" items="${ sList }">
                     	    <tr>
                             <th>
-                                <input type="checkbox" value="${ s.emailNo }">
+                                <input type="checkbox" name="emailNo" value="${ s.emailNo }">
                             </th>
                            
                             <td>${ s.recipientsName }</td>
                             <c:choose>
                             	<c:when test="${ empty r.files }">
-	                            	<th>${ s.mailTitle }</th>
+	                            	<td>${ s.mailTitle }</td>
                             	</c:when>
                             	<c:otherwise>
-                            		<th>${ s.mailTitle } <i class="fas fa-paperclip"></i></th>
+                            		<td>${ s.mailTitle } <i class="fas fa-paperclip"></i></td>
                             	</c:otherwise>
                             </c:choose>
                             <td>${ s.createDate }</td>
@@ -196,7 +197,44 @@
             </div>
         </div>
     </div>
-    
+    <script>
+	    function checkAll(){
+	  		if( $("#th_checkAll").is(':checked')){
+	  			$("input[name=emailNo]").prop("checked",true);
+	  			$("#delete").attr("disabled", false);
+	  		}else{
+	  			$("input[name=emailNo]").prop("checked",false);
+	  			$("#delete").attr("disabled", true);
+	  		}
+	  	}
+	    
+	    function sendMailDelete(){
+	    	var emailNo = new Array();
+			$("input[name=emailNo]:checked").each(function(){
+				emailNo.push($(this).val());
+			});
+			if(emailNo==""){
+				alert("항목을 선택해 주세요.");
+			}else{
+				$.ajax({
+					url:"smailDel",
+					type:"post",
+					data:{emailNo:emailNo},
+					success:function(status){
+						if(status="success"){
+							location.href="slist.ma?currentPage=1";
+						}else{
+							alert("다시 시도해 주세요.");
+						}
+					},
+					error:function(){
+						console.log("ajax 통신 실패");
+					}
+				});
+			}
+			
+	    }
+    </script>
 	    
 	
 </body>

@@ -34,4 +34,6 @@ public class MailDTO {
 	private String recipientsName; // 받는 사람 이름
 	private String recipientsEmail; // 받는 사람 메일
 	private String refEmpName; // 참조자 이름 
+	private String senderStatus; // 보낸 편지함 상태값
+	private String comDelete; // 완전삭제
 }

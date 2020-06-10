@@ -237,4 +237,31 @@ public class MailController {
 		model.addAttribute("sc", sc);
 		return "mail/mailTrashListView";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="smailDel", produces="text/html; charset=utf-8")
+	public String deleteSendMail(@RequestParam(value="emailNo[]") String[] emailNo, HttpSession session) {
+		Employee e = (Employee)session.getAttribute("loginUser");
+		
+		ArrayList<Mail> list = new ArrayList<>();
+		
+		for(int i=0; i<emailNo.length; i++) {
+			Mail mail = new Mail();
+			mail.setSender(e.getEmpId());
+			mail.setEmailNo(Integer.parseInt(emailNo[i]));
+			
+			list.add(mail);
+		}
+		int result = 0;
+		for(Mail m : list) {
+			
+			result = emService.deleteSendMail(m);
+		}
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
 }

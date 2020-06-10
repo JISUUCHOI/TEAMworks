@@ -101,4 +101,8 @@ public class MailDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("mailMapper.searchTrashList", sc, rowBounds);
 	}
+	
+	public int deleteSendMail(SqlSession sqlSession, Mail mail) {
+		return sqlSession.update("mailMapper.deleteSendMail", mail);
+	}
 }
