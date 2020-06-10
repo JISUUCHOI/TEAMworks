@@ -2,6 +2,7 @@ package com.kh.teamworks.management.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
@@ -27,7 +28,8 @@ public interface ManagementService {
 	int idCheck(String empId);
 	
 	// 사원 명부
-	ArrayList<Employee> selectEmpList();
+	int selectEmpCount();
+	ArrayList<Employee> selectEmpList(PageInfo pi);
 	
 	// 사원 관리
 	int updateEmpInfo();

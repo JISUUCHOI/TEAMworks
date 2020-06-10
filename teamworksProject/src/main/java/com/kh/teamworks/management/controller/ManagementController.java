@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.service.ManagementServiceImpl;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
@@ -95,9 +97,14 @@ public class ManagementController {
 	
 	//사원 명부
 	@RequestMapping("empList.mg")
-	public String empList(Model model) {
+	public String empList(int currentPage, Model model) {
 		
-		ArrayList<Employee> empList = mgService.selectEmpList();
+		int listCount = mgService.selectEmpCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		
+		ArrayList<Employee> empList = mgService.selectEmpList(pi);
 		model.addAttribute("empList", empList);
 		
 		return "management/companyMemberList";

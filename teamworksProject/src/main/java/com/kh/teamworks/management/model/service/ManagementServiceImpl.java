@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.dao.ManagementDao;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
@@ -43,10 +44,15 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 	
 	@Override
-	public ArrayList<Employee> selectEmpList() {
-		return mgDao.selectEmpList(sqlSession);
+	public ArrayList<Employee> selectEmpList(PageInfo pi) {
+		return mgDao.selectEmpList(sqlSession, pi);
+	}
+	
+	public int selectEmpCount() {
+		return mgDao.selectEmpCount(sqlSession);
 	}
 
+	
 	@Override
 	public Employee selectEmployeeInfo(Employee e) {
 		// TODO Auto-generated method stub
@@ -140,6 +146,7 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 	

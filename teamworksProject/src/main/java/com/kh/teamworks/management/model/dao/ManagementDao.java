@@ -2,9 +2,11 @@ package com.kh.teamworks.management.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
@@ -33,7 +35,14 @@ public class ManagementDao {
 		return sqlSession.selectOne("managementMapper.empIdCheck", empId);
 	}
 	
-	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession){
-		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpList");
+	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpList", null, rowBounds);
+	}
+
+	public int selectEmpCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managementMapper.selectEmpCount");
 	}
 }

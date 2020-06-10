@@ -110,5 +110,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
 		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE
 	</select>
+	
+	<select id="selectEmpCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEE
+		 WHERE EMP_STATUS='Y'
+	</select>
 
 </mapper>
