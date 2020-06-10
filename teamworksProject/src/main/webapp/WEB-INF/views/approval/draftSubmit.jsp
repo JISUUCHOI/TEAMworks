@@ -80,7 +80,7 @@
 	            </form><script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 
-		    			   $("#postForm").attr("action","updateDoc.ap");
+		    			   $("#postForm").attr("action","updateDraft.ap");
 		 		    }else{ 
 						   $("#postForm").attr("action","deleteDraft.ap");
 				    }			

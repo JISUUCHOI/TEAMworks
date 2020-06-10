@@ -234,6 +234,12 @@ public class ApprovalController {
 		
 	}
 	
+	// 제증명 수정
+	// @RequestMapping("updateProof.ap")
+	// public String updateProof(String dno, HttpServletRequest request, Model model) {
+		
+	// }
+	
 	// 기안서 삭제
 	@RequestMapping("deleteDraft.ap")
 	public String deleteDraft(String dno, String fileName, HttpServletRequest request, Model model) {
@@ -251,6 +257,7 @@ public class ApprovalController {
 		}
 		
 	}
+	
 	
 	
 //	@RequestMapping("deleteDraft.ap")
