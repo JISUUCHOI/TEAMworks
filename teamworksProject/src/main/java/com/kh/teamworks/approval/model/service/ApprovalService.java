@@ -2,6 +2,7 @@ package com.kh.teamworks.approval.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.common.model.vo.PageInfo;
@@ -16,6 +17,9 @@ public interface ApprovalService {
 	
 	// 기안서 insert
 	int insertDraft(Document d);
+	
+	// 결재선 insert
+	int insertApproveLine(ApproveLine l);
 	
 	// 1_1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) select
 	Employee selectEmpInfo(String empId);

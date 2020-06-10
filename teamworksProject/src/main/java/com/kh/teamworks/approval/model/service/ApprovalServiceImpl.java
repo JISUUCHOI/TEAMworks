@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.teamworks.approval.model.dao.ApprovalDao;
+import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.common.model.vo.PageInfo;
@@ -56,6 +57,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return aDao.insertDraft(sqlSession, d);
 	}
 
+	// 결재선 insert
+	@Override
+	public int insertApproveLine(ApproveLine l) {
+		return aDao.insertApproveLine(sqlSession, l);
+	}
+	
 	// list 갯수
 	//@Override
 	//public int docListCount(Document d) {
