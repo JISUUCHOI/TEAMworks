@@ -254,11 +254,24 @@ public class ApprovalController {
 			model.addAttribute("d", d);
 			// System.out.println(d);
 			return "approval/draftSubmit";
-		}else {
+		
+		}else if(d.getDocSc().equals("제증명신청서")) {
 			d = aService.proofDetail(d);
 			model.addAttribute("d", d);
 			// System.out.println(d);
 			return "approval/proofSubmit";
+		
+		}else if(d.getDocSc().equals("경조비신청서")){
+			d = aService.familyEventDetail(d);
+			model.addAttribute("d", d);
+			// System.out.println(d);
+			return "approval/feSubmit";
+		
+		}else {
+			d = aService.vacationDetail(d);
+			model.addAttribute("d", d);
+			// System.out.println(d);
+			return "approval/vcSubmit";
 		}
 	
 	}
@@ -288,7 +301,7 @@ public class ApprovalController {
 
 			d = aService.proofDetail(d);
 			model.addAttribute("d", d);
-			System.out.println(d);
+			// System.out.println(d);
 			return "approval/proofUpdateForm";
 		
 	

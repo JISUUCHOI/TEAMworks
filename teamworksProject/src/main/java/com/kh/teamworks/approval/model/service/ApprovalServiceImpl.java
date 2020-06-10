@@ -93,6 +93,19 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public Document proofDetail(Document d) {
 		return aDao.proofDetail(sqlSession, d);
 	}
+	
+	// 상세조회 경조비신청서
+	@Override
+	public Document familyEventDetail(Document d) {
+		return aDao.familyEventDetail(sqlSession, d);
+	}
+	
+	// 상세조회 휴가신청서
+	@Override
+	public Document vacationDetail(Document d) {
+		return aDao.vacationDetail(sqlSession, d);
+	}
+
 
 	// 제증명 삭제
 	@Override
@@ -105,6 +118,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public int deleteDraft(String dno) {
 		return aDao.deleteDraft(sqlSession, dno);
 	}
+
+
+
 
 
 

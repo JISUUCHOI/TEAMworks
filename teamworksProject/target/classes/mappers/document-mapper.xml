@@ -36,6 +36,26 @@
 		<result column="ORIGIN_NAME" property="originName"/>		<!-- 원본명 -->
 		<result column="CHANGE_NAME" property="changeName"/>		<!-- 바뀐이름 -->
 		
+		<!-- 경조비 -->
+		<result column="fe_sq" property="feSq"/>
+		<result column="fe_relation" property="feRelation"/>
+		<result column="fe_name" property="feName"/>
+		<result column="fe_start" property="feStart"/>
+		<result column="fe_end" property="feEnd"/>
+		<result column="fe_place" property="fePlace"/>
+		<result column="fe_price" property="fePrice"/>
+		<result column="fe_bank" property="feBank"/>
+		<result column="fe_account" property="feAccount"/>
+		<result column="fe_account_name" property="feAccountName"/>
+		
+		<!-- 휴가 -->
+		<result column="vc_sq" property="vcSq"/>
+		<result column="vc_day" property="vcDay"/>
+		<result column="vc_start" property="vcStart"/>
+		<result column="vc_end" property="vcEnd"/>
+		<result column="vc_count" property="vcCount"/>
+		<result column="vc_content" property="vcContent"/>
+		
 		<result column="approve_status" property="approveStatus"/>
 		<result column="emp_name" property="empName"/>
 		
@@ -124,21 +144,31 @@
 	
 	<!-- 결재요청함 list 조회 -->
 	<select id="docList" parameterType="Document" resultMap="documentResultSet">
-		select d.doc_no, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, doc_status
+		select d.doc_no, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
 		  from draft d
 		  join employee e on(d.emp_id = e.emp_id)
 		 where d.emp_id=#{empId}
 		 UNION ALL
 		select p.doc_no, p.doc_sc, p.doc_title, e.emp_name, p.doc_department, p.doc_date, p.doc_status
- 		  from proof p
- 		  join employee e on(p.emp_id = e.emp_id)
-		 where p.emp_id=#{empId} 
+		  from proof p
+		  join employee e on(p.emp_id = e.emp_id)
+		 where p.emp_id=#{empId}
+		 UNION ALL
+		select v.doc_no, v.doc_sc, v.doc_title, e.emp_name, v.doc_department, v.doc_date, v.doc_status
+		  from vacation v
+		  join employee e on(v.emp_id = e.emp_id)
+		 where v.emp_id=#{empId}
+		 UNION ALL
+		select f.doc_no, f.doc_sc, f.doc_title, e.emp_name, f.doc_department, f.doc_date, f.doc_status
+		  from family_event f
+		  join employee e on(f.emp_id = e.emp_id)
+		 where f.emp_id=#{empId}
 		 order by doc_date asc 
 	</select>
 	
 	<!-- 참조문서함 list 조회 -->
 	<select id="referenceList" parameterType="Document" resultMap="documentResultSet">
-		select d.doc_no, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, doc_status
+		select d.doc_no, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
   		  from draft d
  		  join employee e on(d.emp_id = e.emp_id)
  		 where d.DOC_REFERENCE like '%'||#{empId}||'%'
@@ -146,7 +176,19 @@
 		select p.doc_no, p.doc_sc, p.doc_title, e.emp_name, p.doc_department, p.doc_date, p.doc_status
  		  from proof p
  		  join employee e on(p.emp_id = e.emp_id)
- 		 where p.DOC_REFERENCE like '%'||#{empId}||'%'  
+ 		 where p.DOC_REFERENCE like '%'||#{empId}||'%'
+ 		 UNION ALL
+ 		select v.doc_no, v.doc_sc, v.doc_title, e.emp_name, v.doc_department, v.doc_date, v.doc_status
+  		  from vacation v
+ 		  join employee e on(v.emp_id = e.emp_id)
+ 		 where v.DOC_REFERENCE like '%'||#{empId}||'%'  
+ 		 UNION ALL
+ 		select f.doc_no, f.doc_sc, f.doc_title, e.emp_name, f.doc_department, f.doc_date, f.doc_status
+  		  from family_event f
+ 		  join employee e on(f.emp_id = e.emp_id)
+ 		 where f.DOC_REFERENCE like '%'||#{empId}||'%' 
+ 		 
+ 		 
  		 order by doc_date asc
 	</select>
 	
@@ -176,6 +218,26 @@
  		  join employee e on(p.emp_id = e.emp_id)
  		  join job j on(e.job_code = j.job_code)
 	 	 where p.doc_no=#{docNo}
+	</select>
+	
+	<!-- 경조비 상세조회 -->
+	<select id="familyEventDetail" parameterType="Document" resultMap="documentResultSet">
+		select f.doc_no, f.emp_id, f.doc_sc, f.doc_status, f.doc_title, e.emp_name, f.doc_department, f.doc_date, f.doc_status,
+		       f.doc_end, f.doc_reference, f.DOC_REFNAME, j.job_name, f.FE_PRICE, f.FE_ACCOUNT_NAME, f.FE_ACCOUNT, f.FE_BANK,
+		       f.FE_PLACE, f.FE_END, f.FE_START, f.FE_NAME, f.FE_RELATION, f.FE_SQ
+ 		  from family_event f
+ 		  join employee e on(f.emp_id = e.emp_id)
+ 		  join job j on(e.job_code = j.job_code)
+	 	 where f.doc_no=#{docNo}
+	</select>
+	
+	<!-- 휴가 상세조회 -->
+	<select id="vacationDetail" parameterType="Document" resultMap="documentResultSet">
+		select v.doc_no, e.emp_name, v.DOC_SC, v.DOC_STATUS, v.DOC_TITLE, v.DOC_REFERENCE, v.DOC_REFNAME, v.DOC_DATE, 
+			   v.DOC_END, v.DOC_DEPARTMENT, v.VC_SQ, v.VC_DAY, v.VC_START, v.VC_END, v.VC_COUNT, v.VC_CONTENT
+ 		  from vacation v
+ 		  join employee e on(v.emp_id = e.emp_id)
+	 	 where v.doc_no=#{docNo}
 	</select>
 	
 	<!-- 제증명삭제 -->

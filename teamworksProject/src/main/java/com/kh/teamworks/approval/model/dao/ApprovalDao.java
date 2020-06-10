@@ -73,6 +73,16 @@ public class ApprovalDao {
 	// 상세조회 제증명
 	public Document proofDetail(SqlSessionTemplate sqlSession, Document d) {
 		return sqlSession.selectOne("documentMapper.proofDetail", d);	}
+	
+	// 상세조회 경조비
+	public Document familyEventDetail(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("documentMapper.familyEventDetail", d);
+	}
+	
+	// 상세조회 휴가신청서
+	public Document vacationDetail(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("documentMapper.vacationDetail", d);
+	}
 
 	// 제증명 삭제
 	public int deleteProof(SqlSessionTemplate sqlSession, String dno) {
@@ -83,6 +93,10 @@ public class ApprovalDao {
 	public int deleteDraft(SqlSessionTemplate sqlSession, String dno) {
 		return sqlSession.delete("documentMapper.deleteDraft",dno);
 	}
+
+
+
+
 
 
 

@@ -62,15 +62,20 @@
 	<div id="bodyWrapper">
 	    <div id="draftOuter">
 	
-	        <h4>⊙ 기안문 작성</h4>
+	        <h4>⊙ 결재문서</h4>
 	        <hr>
 	        <br>
 	
 
 	            <!-- 버튼들 -->
 	            <div id="btns">
-	           	    <button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
-	              	<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
+	           	    <!-- 나중에 status값 반려값으로 바꾸기 반려문서아니면 버튼안보이게 -->
+	           	    <c:choose>
+	           	    	<c:when test="${ d.docStatus eq 0 }">
+	           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
+	              			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
+	              		</c:when>	
+	              	</c:choose>
 	                <button type="button" id="listBtn" onclick="history.back();">목록</button>
 	            </div>
 	            
@@ -80,11 +85,16 @@
 	            </form><script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 
-		    			   $("#postForm").attr("action","updateDraft.ap");
-		 		    }else{ 
-						   $("#postForm").attr("action","deleteDraft.ap");
+ 						  $("#postForm").attr("action","updateProofForm.ap");
+		 		   	   }else{ 						   
+		 		    	$("#postForm").attr("action","deleteDraft.ap");
+						   if(confirm("삭제된 문서는 복구할수없습니다. 그래도 삭제하시겠습니까?")==true){
+ 							  $("#postForm").submit();
+ 						   }else{
+ 							   return;
+ 						   }
 				    }			
-						   $("#postForm").submit();
+						   
    				    }
 			    </script>
 			    

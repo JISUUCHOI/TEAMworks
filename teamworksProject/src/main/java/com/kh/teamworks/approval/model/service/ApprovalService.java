@@ -47,12 +47,22 @@ public interface ApprovalService {
 
 	// 상세조회 제증명신청서
 	Document proofDetail(Document d);
+	
+	// 상세조회 경조비신청서
+	Document familyEventDetail(Document d);
+	
+	// 상세조회 휴가신청서
+	Document vacationDetail(Document d);
 
 	// 제증명 삭제
 	int deleteProof(String dno);
 	
 	// 기안서 삭제
 	int deleteDraft(String dno);
+
+
+
+
 
 
 
