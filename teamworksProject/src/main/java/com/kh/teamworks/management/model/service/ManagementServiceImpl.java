@@ -47,12 +47,12 @@ public class ManagementServiceImpl implements ManagementService{
 	public ArrayList<Employee> selectEmpList(PageInfo pi) {
 		return mgDao.selectEmpList(sqlSession, pi);
 	}
-	
+
+	@Override
 	public int selectEmpCount() {
 		return mgDao.selectEmpCount(sqlSession);
 	}
 
-	
 	@Override
 	public Employee selectEmployeeInfo(Employee e) {
 		// TODO Auto-generated method stub
@@ -146,6 +146,7 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 

@@ -75,118 +75,48 @@
 							<td>${ e.email }</td>
 						</tr>
 					</c:forEach>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td>tw101</td>
-						<td>김용명</td>
-						<td>3</td>
-						<td>1</td>
-						<td>1</td>
-						<td>2019-05-11</td>
-						<td>tw10101010@naver.com</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td>15</td>
-						<td>4</td>
-						<td>1</td>
-						<td>0</td>
-						<td>0</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
 				</tbody>
 			</table>
-
-			<ul class="pagination pagination-sm justify-content-center"
-				style="margin: 20px 0">
-				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
-			</ul>
+			
+			
+			
+			<div id="pagingArea">
+                <ul class="pagination pagination-sm justify-content-center">
+                	<c:choose>
+                		<c:when test="${ pi.currentPage eq 1 }">
+	                    	<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+	                    </c:when>
+	                    <c:otherwise>
+	                    	<li class="page-item"><a class="page-link" href="empList.mg?currentPage=${ pi.currentPage - 1 }">Previous</a></li>
+	                    </c:otherwise>
+                    </c:choose>
+                    
+                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                    	<c:choose>
+	                    	<c:when test="${ p eq pi.currentPage }">
+	                    		<li class="page-item disabled"><a class="page-link" href="#">${ p }</a></li>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<li class="page-item"><a class="page-link" href="empList.mg?currentPage=${ p }">${ p }</a></li>
+	                    	</c:otherwise>
+                    	</c:choose>
+                    </c:forEach>
+                    
+                    <c:choose>
+                		<c:when test="${ pi.currentPage eq pi.maxPage }">
+	                    	<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+	                    </c:when>
+	                    <c:otherwise>
+	                    	<li class="page-item"><a class="page-link" href="empList.mg?currentPage=${ pi.currentPage+1 }">Next</a></li>
+	                    </c:otherwise>
+                    </c:choose>
+                </ul>
+            </div>
+            
+            
 		</div>
+		
+		
 	</div>
 
 

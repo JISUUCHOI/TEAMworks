@@ -101,11 +101,12 @@ public class ManagementController {
 		
 		int listCount = mgService.selectEmpCount();
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
 		ArrayList<Employee> empList = mgService.selectEmpList(pi);
+		
 		model.addAttribute("empList", empList);
+		model.addAttribute("pi", pi);
 		
 		return "management/companyMemberList";
 	}
