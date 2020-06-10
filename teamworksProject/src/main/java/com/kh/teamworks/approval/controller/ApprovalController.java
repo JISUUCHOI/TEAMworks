@@ -278,11 +278,21 @@ public class ApprovalController {
 		
 	}
 	
-	// 제증명 수정
-	// @RequestMapping("updateProof.ap")
-	// public String updateProof(String dno, HttpServletRequest request, Model model) {
+	// 제증명 수정 폼
+	@RequestMapping("updateProofForm.ap")
+	public String updateProofForm(Document d, Model model, HttpServletRequest request) {
 		
-	// }
+		String docNo = d.getDocNo();
+		d.setDocNo(docNo);
+		
+
+			d = aService.proofDetail(d);
+			model.addAttribute("d", d);
+			System.out.println(d);
+			return "approval/proofUpdateForm";
+		
+	
+	}
 	
 	// 기안서 삭제
 	@RequestMapping("deleteDraft.ap")

@@ -55,6 +55,10 @@ public interface ApprovalService {
 	int deleteDraft(String dno);
 
 
+
+
+
+
 	
 
 	

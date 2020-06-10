@@ -7,9 +7,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.vo.Mail;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
+import com.kh.teamworks.management.model.vo.Department;
 
 @Repository("emDao")
 public class MailDao {
@@ -110,7 +112,14 @@ public class MailDao {
 		return sqlSession.update("mailMapper.deleteSendMail", mail);
 	}
 	
+	public ArrayList<Department> selectDeptList(SqlSession sqlSession){
+		return (ArrayList)sqlSession.selectList("mailMapper.selectDeptList");
+	}
 	public int revokeMail(SqlSession sqlSession, MailDTO mail) {
 		return sqlSession.update("mailMapper.revokeMail", mail);
+	}
+	
+	public ArrayList<Employee> selectEmpList(SqlSession sqlSession){
+		return (ArrayList)sqlSession.selectList("mailMapper.selectEmpList");
 	}
 }

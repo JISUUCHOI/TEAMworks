@@ -116,7 +116,7 @@
         .col3{ width: 300px; padding-top: 45px;}
         #angle{border-collapse: separate; border-spacing: 10px;}
         .col2{padding-top: 80px;}
-     
+     	.tree a:hover{cursor:pointer}
     </style>
 </head>
 <body>
@@ -221,15 +221,25 @@
                             <input type="checkbox" id="root">
                             <label for="root"> (주)TEAMWORKS</label>
                             <ul>
-                                <li>
-                                    <input type="checkbox" id="node1">
-                                    <label for="node1"> node1</label>
-                                    <ul>
-                                        <li>111</li>
-                                        <li> wwww</li>
-                                        <li>3333</li>
+                            <c:forEach var="d" items="${ deptList }">
+                             	<c:set var="i" value="${ i+1 }"/>
+                             	<li>
+                                    <input type="checkbox" id="node${i}">
+                                    <label for="node${i}"> ${ d.deptName }</label>
+                                    <ul id="select">
+                                    	<c:forEach var="e" items="${ empList }">
+                                    		<c:if test="${ d.deptCode eq e.deptCode }">
+	                                        	<li>
+	                                        	<input type="hidden" name="empId" value="${ e.empId }">
+	                                        	<input type="hidden" name="jobName" value="${ e.jobName }">
+	                                        	<input type="hidden" name="email" value="${ e.email }">
+	                                        	<a>${ e.empName }&nbsp;${ e.jobName }</a>
+	                                        	</li>
+                                    		</c:if>
+                                    	</c:forEach>
                                     </ul>
                                 </li>
+                            </c:forEach>
                             </ul>
                             </li>
                         </ul>
@@ -238,14 +248,14 @@
                 </div>
                 <div class="col2">
                     <table id="angle">
-                        <tr><td><button class="btn btn-default"><i class="fas fa-angle-right"></i></button></td></tr>
-                        <tr><td><button class="btn btn-default"><i class="fas fa-angle-left"></i></button></td></tr>
+                        <tr><td><button id="addTo" class="btn btn-default"><i class="fas fa-angle-right"></i></button></td></tr>
+                        <tr><td><button id="removeTo" class="btn btn-default"><i class="fas fa-angle-left"></i></button></td></tr>
                         <tr height="45px"><td></td></tr>
-                        <tr><td><button class="btn btn-default"><i class="fas fa-angle-right"></i></button></td></tr>
-                        <tr><td><button class="btn btn-default"><i class="fas fa-angle-left"></i></button></td></tr>
+                        <tr><td><button id="addCc" class="btn btn-default"><i class="fas fa-angle-right"></i></button></td></tr>
+                        <tr><td><button id="removeCc" class="btn btn-default"><i class="fas fa-angle-left"></i></button></td></tr>
                         <tr height="43px"><td></td></tr>
-                        <tr><td><button class="btn btn-default"><i class="fas fa-angle-right"></i></button></td></tr>
-                        <tr><td><button class="btn btn-default"><i class="fas fa-angle-left"></i></button></td></tr>
+                        <tr><td><button id="addBcc" class="btn btn-default"><i class="fas fa-angle-right"></i></button></td></tr>
+                        <tr><td><button id="removeBcc" class="btn btn-default"><i class="fas fa-angle-left"></i></button></td></tr>
                     </table>
                 </div>
                 <div class="col3">
@@ -276,8 +286,25 @@
   
     </div>
   </div>
-    
-    
+    <!-- 조직도 관련  script -->
+    <script>
+    	var To = [];
+    	var Cc = [];
+    	var Bcc = [];
+    	$(function(){
+    		$("#select a").on('click', function(){
+    			if($(this).hasClass("selected")){
+    				$(this).removeClass("selected");
+    				$(this).css("color", "black");
+    			}else{
+    				$(this).addClass("selected");
+    				$(this).css("color", "blue");
+    			}
+    		});
+    		
+    	});
+	
+    </script>
     
     
     

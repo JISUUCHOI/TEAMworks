@@ -109,6 +109,11 @@
 				#{docContent}, #{originName}, #{changeName} )
 	</insert>
 	
+	<insert id="insertApproveLine" parameterType="al">
+		insert into approve_line
+		values(#{approverEmpid}, #{docNo}, #{approveStep}, #{approveReject}, #{approveStatus}, null, null)
+	</insert>
+	
 	<!-- 
 	<select id="docListCount" parameterType="Document" resultType="_int">
 		select count(*)
