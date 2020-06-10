@@ -210,9 +210,10 @@
  				   if(num == 1){ 
 	    			   $("#postForm").attr("action","updateProofForm.ap");
 	 		    }else{ 
-	 		    	$("#postForm").attr("action","deleteProof.ap");
+	 		    	$("#postForm").attr("action","deleteVacation.ap");
 					   if(confirm("삭제된 문서는 복구할수없습니다. 그래도 삭제하시겠습니까?")==true){
-						  $("#postForm").submit();
+						   alert("삭제되었습니다.");
+						   $("#postForm").submit();
 					   }else{
 						   return;
 					   }

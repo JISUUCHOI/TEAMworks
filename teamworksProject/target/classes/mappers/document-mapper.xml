@@ -250,6 +250,17 @@
 		delete from draft where doc_no=#{docNo}
 	</delete>
 	
+	<!-- 경조비삭제 -->
+	<delete id="deletefamilyEvent" parameterType="Document">
+		delete from family_event where doc_no=#{docNo}
+	</delete>
+	
+	<!-- 휴가신청서삭제 -->
+	<delete id="deleteVacation" parameterType="Document">
+		delete from vacation where doc_no=#{docNo}
+	</delete>
+	
+	
 	
 
 </mapper>

@@ -119,6 +119,18 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return aDao.deleteDraft(sqlSession, dno);
 	}
 
+	// 경조비 삭제
+	@Override
+	public int deletefamilyEvent(String dno) {
+		return aDao.deletefamilyEvent(sqlSession, dno);
+	}
+
+	// 휴가신청서 삭제
+	@Override
+	public int deleteVacation(String dno) {
+		return aDao.deleteVacation(sqlSession, dno);
+	}
+
 
 
 

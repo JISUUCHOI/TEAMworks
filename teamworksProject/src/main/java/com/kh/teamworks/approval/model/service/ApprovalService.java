@@ -60,6 +60,12 @@ public interface ApprovalService {
 	// 기안서 삭제
 	int deleteDraft(String dno);
 
+	// 경조비 삭제
+	int deletefamilyEvent(String dno);
+
+	// 휴가 삭제
+	int deleteVacation(String dno);
+
 
 
 

@@ -94,6 +94,14 @@ public class ApprovalDao {
 		return sqlSession.delete("documentMapper.deleteDraft",dno);
 	}
 
+	// 경조비 삭제
+	public int deletefamilyEvent(SqlSessionTemplate sqlSession, String dno) {
+		return sqlSession.delete("documentMapper.deletefamilyEvent",dno);	}
+
+	// 휴가신청서 삭제
+	public int deleteVacation(SqlSessionTemplate sqlSession, String dno) {
+		return sqlSession.delete("documentMapper.deleteVacation",dno);	}
+
 
 
 

@@ -283,7 +283,7 @@ public class ApprovalController {
 		
 		if(result>0) {
 			model.addAttribute("msg", "삭제완료");
-			return "approval/selectApprovalForm";
+			return "redirect:docList.ap?approveStatus=11";
 		}else {
 			model.addAttribute("msg", "삭제 실패");
 			return "common/errorPage";
@@ -317,12 +317,41 @@ public class ApprovalController {
 				deleteFile(fileName, request);				
 			}
 			model.addAttribute("msg", "삭제완료");
-			return "approval/selectApprovalForm";
+			return "redirect:docList.ap?approveStatus=11";
 		}else {
 			model.addAttribute("msg", "삭제 실패");
 			return "common/errorPage";
 		}
 		
+	}
+	
+	// 경조비 삭제
+	@RequestMapping("deleteFamilyEvent.ap")
+	public String deletefamilyEvent(String dno, HttpServletRequest request, Model model) {
+		int result = aService.deletefamilyEvent(dno);
+		
+		if(result>0) {
+			model.addAttribute("msg", "삭제완료");
+			return "redirect:docList.ap?approveStatus=11";
+
+		}else {
+			model.addAttribute("msg", "삭제 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 휴가신청서 삭제
+	@RequestMapping("deleteVacation.ap")
+	public String deleteVacation(String dno, HttpServletRequest request, Model model) {
+		int result = aService.deleteVacation(dno);
+		
+		if(result>0) {
+			model.addAttribute("msg", "삭제완료");
+			return "redirect:docList.ap?approveStatus=11";
+		}else {
+			model.addAttribute("msg", "삭제 실패");
+			return "common/errorPage";
+		}
 	}
 	
 	
