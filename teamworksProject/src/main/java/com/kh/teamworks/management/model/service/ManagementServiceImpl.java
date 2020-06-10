@@ -31,7 +31,7 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public CompanyBsns selectCompanyBsnsInfo(String homNo) {
+	public CompanyBsns selectCompanyBsns(String homNo) {
 		return mgDao.selectCompanyBsns(sqlSession, homNo);
 	}
 	

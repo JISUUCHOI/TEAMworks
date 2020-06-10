@@ -42,7 +42,7 @@ public class ManagementController {
 		String homNo = e.getHomNo();
 		
 		CompanyInfo companyInfo = mgService.selectCompanyInfo(homNo);
-		CompanyBsns companyBsns = mgService.selectCompanyBsnsInfo(homNo);
+		CompanyBsns companyBsns = mgService.selectCompanyBsns(homNo);
 		
 		model.addAttribute("companyInfo", companyInfo);
 		model.addAttribute("companyBsns", companyBsns);

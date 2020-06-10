@@ -14,7 +14,7 @@ public interface ManagementService {
 	
 	// 회사 정보 관리
 	CompanyInfo selectCompanyInfo(String homNo);
-	CompanyBsns selectCompanyBsnsInfo(String homNo);
+	CompanyBsns selectCompanyBsns(String homNo);
 	
 	// 회사 정보 관리 - 로고 정보
 	int updateCompanyLogo();
