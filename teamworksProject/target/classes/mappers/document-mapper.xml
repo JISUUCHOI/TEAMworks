@@ -178,6 +178,11 @@
 		delete from proof where doc_no=#{docNo}
 	</delete>
 	
+	<!-- 기안서삭제 -->
+	<delete id="deleteDraft" parameterType="Document">
+		delete from draft where doc_no=#{docNo}
+	</delete>
+	
 	
 
 </mapper>

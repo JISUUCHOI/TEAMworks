@@ -93,6 +93,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return aDao.deleteProof(sqlSession, dno);
 	}
 
+	// 기안서 삭제
+	@Override
+	public int deleteDraft(String dno) {
+		return aDao.deleteDraft(sqlSession, dno);
+	}
+
 
 
 

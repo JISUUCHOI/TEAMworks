@@ -150,7 +150,7 @@ public class ApprovalController {
 
 		
 
-		System.out.println(d);
+		// System.out.println(d);
 	 
 		 int result = aService.insertDraft(d);
 	  
@@ -208,11 +208,12 @@ public class ApprovalController {
 		if(d.getDocSc().equals("기안서")) {		
 			d = aService.draftDetail(d);
 			model.addAttribute("d", d);
-			System.out.println(d);
+			// System.out.println(d);
 			return "approval/draftSubmit";
 		}else {
 			d = aService.proofDetail(d);
 			model.addAttribute("d", d);
+			// System.out.println(d);
 			return "approval/proofSubmit";
 		}
 	
@@ -233,6 +234,25 @@ public class ApprovalController {
 		
 	}
 	
+	// 기안서 삭제
+	@RequestMapping("deleteDraft.ap")
+	public String deleteDraft(String dno, String fileName, HttpServletRequest request, Model model) {
+		int result = aService.deleteDraft(dno);
+		
+		if(result > 0) {
+			if(!fileName.equals("")) {
+				deleteFile(fileName, request);				
+			}
+			model.addAttribute("msg", "삭제완료");
+			return "approval/selectApprovalForm";
+		}else {
+			model.addAttribute("msg", "삭제 실패");
+			return "common/errorPage";
+		}
+		
+	}
+	
+	
 //	@RequestMapping("deleteDraft.ap")
 //	public String deleteDraft(String dno, String fileName, HttpServletRequest request, Model model) {
 //		int result = aService.deleteDraft(dno);
@@ -252,6 +272,9 @@ public class ApprovalController {
 
 	   
 	
+
+
+
 	// 파일
 	public String saveFile(MultipartFile file,  HttpServletRequest request) {
 		
@@ -273,6 +296,15 @@ public class ApprovalController {
 			e.printStackTrace();
 		}
 		return changeName;
+	}
+	
+	// 파일삭제
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources + "\\approveUploadFiles\\";
+		
+		File deleteFile = new File(savePath+fileName);
+		deleteFile.delete();
 	}
 	
 

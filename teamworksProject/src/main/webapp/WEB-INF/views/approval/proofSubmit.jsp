@@ -286,7 +286,7 @@
 	                    <td class="th">부서</td>
 	                    <td>${ d.getDocDepartment() }</td>
 	                    <td class="th">직급</td>
-                        <td></td>
+                        <td>${ d.getJobName() }</td>
                         <td class="th"></td>
 	                    <td></td>
                     </tr>
