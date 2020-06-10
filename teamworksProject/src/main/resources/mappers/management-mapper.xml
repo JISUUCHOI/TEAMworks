@@ -99,11 +99,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			   #{empAddDetail}, #{hireDate}, #{retireDate}, #{salType}, sysdate, 'Y', #{empNote}, #{originName}, #{changeName}, #{homNo})
 	</insert>
 	
-	<select id="idCheck" parameterType="string" resultType="_int">
+	<select id="empIdCheck" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		  FROM EMPLOYEE
 		 WHERE EMP_ID=#{empId}
 	</select>
 	
+	<select id="selectEmpList" resultMap="employeeResultSet">
+		SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL 
+		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
+		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE
+	</select>
 
 </mapper>

@@ -96,6 +96,10 @@ public class ManagementController {
 	//사원 명부
 	@RequestMapping("empList.mg")
 	public String empList() {
+		
+		
+		
+		
 		return "management/companyMemberList";
 	}
 	

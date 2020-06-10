@@ -30,7 +30,10 @@ public class ManagementDao {
 	}
 
 	public int idCheck(SqlSessionTemplate sqlSession, String empId) {
-		return sqlSession.selectOne("managementMapper.idCheck", empId);
+		return sqlSession.selectOne("managementMapper.empIdCheck", empId);
 	}
 	
+	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpList");
+	}
 }
