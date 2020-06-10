@@ -202,7 +202,7 @@
 	            </form><script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 
-		    			   $("#postForm").attr("action","updateProof.ap");
+		    			   $("#postForm").attr("action","updateProofForm.ap");
 		 		    }else{ 
 						   $("#postForm").attr("action","deleteProof.ap");
 				    }			
