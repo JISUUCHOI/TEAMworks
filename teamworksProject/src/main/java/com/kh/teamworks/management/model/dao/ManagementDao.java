@@ -17,11 +17,11 @@ public class ManagementDao {
 		return (ArrayList)sqlSession.selectList("managementMapper.selectJobList");
 	}
 	
-	public CompanyInfo selectCompanyInfo(SqlSessionTemplate sqlSession, String empId) {
-		return sqlSession.selectOne("managementMapper.selectCompanyInfo", empId);
+	public CompanyInfo selectCompanyInfo(SqlSessionTemplate sqlSession, String homNo) {
+		return sqlSession.selectOne("managementMapper.selectCompanyInfo", homNo);
 	}
 
-	public CompanyBsns selectCompanyBsns(SqlSessionTemplate sqlSession, int homNo) {
+	public CompanyBsns selectCompanyBsns(SqlSessionTemplate sqlSession, String homNo) {
 		return sqlSession.selectOne("managementMapper.selectCompanyBsns", homNo);
 	}
 

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.teamworks.employee.model.vo.Employee;
-import com.kh.teamworks.management.model.service.ManagementService;
+import com.kh.teamworks.management.model.service.ManagementServiceImpl;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Job;
@@ -27,22 +27,21 @@ import com.kh.teamworks.management.model.vo.Job;
 public class ManagementController {
 	
 	@Autowired
-	private ManagementService mgService;
+	private ManagementServiceImpl mgService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
-	//회사 정보
+	// 회사 정보 화면
 	@RequestMapping("main.mg")
 	public String selectCompanyInfo(HttpServletRequest request, Model model){
 		
 		HttpSession session = request.getSession();
 		Employee e = (Employee) session.getAttribute("loginUser");
 		
-		String empId = e.getEmpId();
-		CompanyInfo companyInfo = mgService.selectCompanyInfo(empId);
+		String homNo = e.getHomNo();
 		
-		int homNo = companyInfo.getHomNo();
+		CompanyInfo companyInfo = mgService.selectCompanyInfo(homNo);
 		CompanyBsns companyBsns = mgService.selectCompanyBsnsInfo(homNo);
 		
 		model.addAttribute("companyInfo", companyInfo);
@@ -51,12 +50,13 @@ public class ManagementController {
 		return "management/companyMainInfo";
 	}
 	
-	//인사 정보 등록
+	// 인사 정보 등록 화면
 	@RequestMapping("enrollEmp.mg")
 	public String employeeEnroll() {
 		return "management/companyEnrollMemberInfo";
 	}
 	
+	// 인사 정보 등록
 	@RequestMapping("insertEmp.mg")
 	public String insertEmployee(Employee e, Model model, HttpSession session) {
 		
@@ -78,6 +78,7 @@ public class ManagementController {
 		
 	}
 	
+	// 사원 번호 중복 체크
 	@ResponseBody
 	@RequestMapping(value="empIdCheck.mg")
 	public String idCheck(String empId) {
@@ -97,6 +98,8 @@ public class ManagementController {
 	public String empList() {
 		return "management/companyMemberList";
 	}
+	
+	
 	
 	//휴가 관리
 	@RequestMapping("vacationList.mg")

@@ -12,25 +12,34 @@ import com.kh.teamworks.management.model.vo.Vacation;
 
 public interface ManagementService {
 	
-	// 1. 회사 정보 관리
-	CompanyInfo selectCompanyInfo(String empId);
-	int updateCompanyLogo();
-	CompanyBsns selectCompanyBsnsInfo(int homNo);
+	// 회사 정보 관리
+	CompanyInfo selectCompanyInfo(String homNo);
+	CompanyBsns selectCompanyBsnsInfo(String homNo);
 	
-	// 2. 사원 정보 관리
+	// 회사 정보 관리 - 로고 정보
+	int updateCompanyLogo();
+	
+	// 사원 정보 관리
 	Employee selectEmployeeInfo(Employee e);
 	
+	// 인사 정보 등록 
 	int insertEmployee(Employee e);
 	int idCheck(String empId);
 	
+	// 사원 관리
 	ArrayList<Employee> selectEmployeeList();
-	
 	int updateEmpInfo();
+	
+	// 휴가 관리
 	Vacation selectVacationList();
 	void searchEmpVacation(String keyword);
+	
+	// 증명서 발급
 	Proof selectProofList();
 	
-	// 3. 조직도 관리
+	
+	
+	// 조직도 관리
 	Department selectDeptList();
 	int insertDept(String keyword); //
 	int updateDept(); //

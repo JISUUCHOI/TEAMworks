@@ -24,23 +24,24 @@ public class ManagementServiceImpl implements ManagementService{
 	@Autowired
 	private ManagementDao mgDao;
 	
-	
 
 	@Override
-	public CompanyInfo selectCompanyInfo(String empId) {
-		return mgDao.selectCompanyInfo(sqlSession, empId);
+	public CompanyInfo selectCompanyInfo(String homNo) {
+		return mgDao.selectCompanyInfo(sqlSession, homNo);
 	}
 
+	@Override
+	public CompanyBsns selectCompanyBsnsInfo(String homNo) {
+		return mgDao.selectCompanyBsns(sqlSession, homNo);
+	}
+	
+	
 	@Override
 	public int updateCompanyLogo() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	@Override
-	public CompanyBsns selectCompanyBsnsInfo(int homNo) {
-		return mgDao.selectCompanyBsns(sqlSession, homNo);
-	}
 
 	@Override
 	public Employee selectEmployeeInfo(Employee e) {
