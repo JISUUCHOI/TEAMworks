@@ -494,7 +494,7 @@
                 	alert("받는 사람은 필수 입력 사항입니다.");
                 }else{
                	   $.ajax({
-                      	url:"sendMail.ma",
+                      	url:"sendMail",
                       	data:formData,
                       	type:"post",
                       	contentType:false,
@@ -557,7 +557,6 @@
 					},
 					complete : function(data, textStatus) {
 						//alert("작업을완료 했습니다");
-						
 					}
 				}); //end ajax	
 			} 
@@ -570,7 +569,6 @@
 				    	with(jsonInfo[i]){
 						   html += "<span>"+empName+"</span><a href=\"javascript:select('"+email+"')\">"+email+"</a><br/>";
 						   //html += "<a onclick=select('"+email+"');>"+empName+email+"</a><br/>";
-				    		
 				    	}
 				    }
 				    var listView = document.getElementById("suggestList");
