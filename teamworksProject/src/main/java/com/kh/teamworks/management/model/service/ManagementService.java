@@ -46,7 +46,7 @@ public interface ManagementService {
 	ArrayList<Department> selectDeptList();
 	int insertDept(String deptName); //
 	int updateDept(Department dept); //
-	int deleteDept(); //
+	int deleteDept(int deptCode); //
 	
 	ArrayList<Job> selectJobList();
 	void searchEmpInfo(); //

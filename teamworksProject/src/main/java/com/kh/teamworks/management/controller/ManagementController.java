@@ -194,6 +194,25 @@ public class ManagementController {
 		
 	}
 	
+	// 최지수_조직도
+	// 부서 삭제
+	@RequestMapping("deleteDept.mg")
+	public String deleteDept(int deptCode, HttpSession session, Model model) {
+		
+		int result = mgService.deleteDept(deptCode);
+		
+		if(result > 0) { // 부서 삭제 성공 --> 다시 조직도 페이지
+			
+			session.setAttribute("msg", "해당 부서가 삭제되었습니다.");
+			return "redirect:org.mg";
+			
+		}else { // 부서 삭제 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "부서 삭제에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
 	
 	//직급 관리
 	@RequestMapping("orgJobList.mg")

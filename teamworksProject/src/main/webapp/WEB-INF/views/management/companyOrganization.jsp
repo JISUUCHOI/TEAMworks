@@ -106,7 +106,7 @@
 	        <div class="btn_area" align="right">
 	        	<button id="insertBtn" class="btn" data-toggle="modal" data-target="#insertModal">부서 등록</button>
 	        	<button id="updateBtn" class="btn" data-toggle="modal" data-target="#updateModal">부서 수정</button>
-	        	<button id="deleteBtn" class="btn">부서 삭제</button>
+	        	<button id="deleteBtn" class="btn" data-toggle="modal" data-target="#deleteModal">부서 삭제</button>
 	        </div>
 		</div>
 		
@@ -210,7 +210,7 @@
                 <div class="modal-body">
                     <table>
                         <tr>
-                    		<th>변경할 부서 선택</th>
+                    		<th>변경할 부서</th>
                     		<td>
                     			<select name="deptCode">
                     				<c:forEach var="d" items="${ deptList }">
@@ -229,6 +229,43 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">수정</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 부서 삭제 클릭 시 뜨는 모달 -->
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">부서 삭제</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button> 
+            </div>
+
+            <form action="deleteDept.mg" method="post">
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                    		<th>삭제할 부서</th>
+                    		<td>
+                    			<select name="deptCode">
+                    				<c:forEach var="d" items="${ deptList }">
+                    					<option value="${d.deptCode}">${ d.deptName }</option>
+                    				</c:forEach>
+                    			</select>
+                    		</td>
+                    	</tr>
+                    </table>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">삭제</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                 </div>
             </form>
@@ -324,7 +361,6 @@
 							$('#category').text(deptName);
 							$('#empCount').text(0);
 						}
-						
 						
 					},error:function(){
 						console.log("부서명 클릭 시 실행되는 ajax 통신 실패");

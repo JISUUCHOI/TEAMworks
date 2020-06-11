@@ -53,4 +53,8 @@ public class ManagementDao {
 	public int updateDept(SqlSessionTemplate sqlSession, Department dept) {
 		return sqlSession.update("managementMapper.updateDept", dept);
 	}
+	
+	public int deleteDept(SqlSessionTemplate sqlSession, int deptCode) {
+		return sqlSession.delete("managementMapper.deleteDept", deptCode);
+	}
 }

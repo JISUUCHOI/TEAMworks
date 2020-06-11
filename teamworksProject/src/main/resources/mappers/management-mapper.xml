@@ -134,5 +134,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   SET DEPT_NAME=#{deptName}
 		 WHERE DEPT_CODE=#{deptCode}
 	</update>
+	
+	<delete id="deleteDept" parameterType="_int">
+		DELETE FROM DEPARTMENT
+		 WHERE DEPT_CODE=#{deptCode}
+	</delete>
 
 </mapper>

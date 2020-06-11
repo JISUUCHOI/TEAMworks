@@ -115,9 +115,9 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public int deleteDept() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteDept(int deptCode) {
+
+		return mgDao.deleteDept(sqlSession, deptCode);
 	}
 
 	@Override
