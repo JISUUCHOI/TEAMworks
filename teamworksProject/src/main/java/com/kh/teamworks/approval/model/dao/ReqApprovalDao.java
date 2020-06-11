@@ -88,6 +88,18 @@ public class ReqApprovalDao {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectDocList", d, rowBounds);
 	}
 	
+	// 5_3. 검색 결과에 해당하는 게시글 개수 조회
+	public int searchListCount(SqlSessionTemplate sqlSession, ApproveSearchCondition asc) {
+		return sqlSession.selectOne("approveMapper.searchListCount", asc);
+	}
+	
+	// 5_4. 검색 결과에 해당하는 게시글 리스트 조회
+	public ArrayList<Document> searchDocList(SqlSessionTemplate sqlSession, ApproveSearchCondition asc, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.searchDocList", asc, rowBounds);
+	}
+	
 	// 6_1. '진행' 상태인 결재자 id 조회
 	public String selectApId(SqlSessionTemplate sqlSession, Document doc) {
 		return sqlSession.selectOne("approveMapper.selectApId", doc);

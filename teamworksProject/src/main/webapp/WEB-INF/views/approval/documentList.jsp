@@ -166,19 +166,28 @@
 	            <br>
 	
 	            <!-- 검색 -->
-	            <form action="">
+	            <form action="searchList.rap">
+	            	<input type="hidden" name="empId" value="${ loginUser.empId }">
+	            	<input type="hidden" name="approveStatus" value="${ sts }">
+	            	<input type="hidden" name="currentPage" value="1">
 	                <table id="search">
 	                    <tr height="90">
 	                        <th width="150">기안일</th>
 	                        <td width="850">
 	                            <div id=periodBtns>
-	                                <input type="button" class="period" name="period" value="1주일">
-	                                <input type="button" class="period"" name="period" value="1개월">
+	                                <!-- <input type="button" class="period" name="period" value="1주일">
+	                                <input type="button" class="period" name="period" value="1개월">
 	                                <input type="button" class="period" name="period" value="3개월">
-	                                <input type="button" class="period" name="period" value="6개월">
+	                                <input type="button" class="period" name="period" value="6개월"> -->
+	                                
+	                                <input type="button" class="period" value="1주일">
+	                                <input type="button" class="period" value="1개월">
+	                                <input type="button" class="period" value="3개월">
+	                                <input type="button" class="period" value="6개월">
 	                            </div>
 	                            <div id=periodInp>
-	                                <input type="date" name="startDt" id="startDt"> ~ <input type="date" name="endDt" id="endDt">
+	                                <!-- <input type="date" name="startDt" id="startDt"> ~ <input type="date" name="endDt" id="endDt"> -->
+	                                <input type="date" id="startDt"> ~ <input type="date" id="endDt">
 	                            </div>
 	                        </td>
 	                    </tr>
@@ -188,16 +197,26 @@
 	                            <select name="condition" id="schCondition">
 	                                <option value="writer">기안자</option>
 	                                <option value="title">제목</option>
-	                                <option value="content">내용</option>
 	                                <option value="form">양식</option>
 	                            </select>
-	                            <input id="keywordInp" class="btn form-control form-control" type="text" name="keyword">
+	                            <input id="keywordInp" class="btn form-control form-control" type="text" name="keyword" value="${ keyword }">
 	                        </td>
 	                    </tr>
 	                </table>
 	                <br>
 	                <button type="submit" id="schButton">검색</button>
 	            </form>
+	            
+	            <script>
+	            	$(function(){
+	            		switch('${condition}'){
+	            		case "writer" : $("#schCondition option").eq(0).attr("selected", true); break;
+	            		case "title" : $("#schCondition option").eq(1).attr("selected", true); break;
+	            		case "form" : $("#schCondition option").eq(2).attr("selected", true); break;
+	            		}
+	            	});
+	            
+	            </script>
 	           
 	            <br><br>
 	
@@ -261,11 +280,21 @@
 	            <!-- 페이징바 -->
 	            <div id="pagingArea" align="center">
 	                
-	                
 					<c:choose>
 						<c:when test="${ pi.currentPage eq 1 }">
 						</c:when>
 						<c:when test="${ listCount eq 0 }">
+						</c:when>
+						<c:when test="${ keyword != null }">
+							<c:url value="searchList.rap" var='searchUrl'>
+								<c:param name="condition" value="${ condition }" />
+								<c:param name="keyword" value="${ keyword }" />
+								<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
+								<c:param name="empId" value="${ loginUser.empId }" />
+								<c:param name="approveStatus" value="${ sts }" />
+							</c:url>
+						
+							<button class="page able" onclick="location.href='${ searchUrl }'">&lt;</button>
 						</c:when>
 						<c:otherwise>
 							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage - 1 }'">&lt;</button>
@@ -278,7 +307,21 @@
 								<button disabled class="page disable">${ p }</button>
 							</c:when>
 							<c:otherwise>
-		                		<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ p }'">${ p }</button>
+								<c:choose>
+									<c:when test="${ empty keyword }">
+										<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ p }'">${ p }</button>
+									</c:when>
+									<c:otherwise>
+										<c:url value="searchList.rap" var='searchUrl'>
+											<c:param name="condition" value="${ condition }" />
+											<c:param name="keyword" value="${ keyword }" />
+											<c:param name="currentPage" value="${ p }" />
+											<c:param name="empId" value="${ loginUser.empId }" />
+											<c:param name="approveStatus" value="${ sts }" />
+										</c:url>
+										<button class="page able" onclick="location.href='${ searchUrl }'">${ p }</button>
+									</c:otherwise>
+								</c:choose>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
@@ -287,6 +330,17 @@
 						<c:when test="${ pi.currentPage eq pi.maxPage }">
 						</c:when>
 						<c:when test="${ listCount eq 0 }">
+						</c:when>
+						<c:when test="${ keyword != null }">
+							<c:url value="searchList.rap" var='searchUrl'>
+								<c:param name="condition" value="${ condition }" />
+								<c:param name="keyword" value="${ keyword }" />
+								<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
+								<c:param name="empId" value="${ loginUser.empId }" />
+								<c:param name="approveStatus" value="${ sts }" />
+							</c:url>
+						
+							<button class="page able" onclick="location.href='${ searchUrl }'">&gt;</button>
 						</c:when>
 						<c:otherwise>
 							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage + 1 }'">&gt;</button>

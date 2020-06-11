@@ -181,7 +181,17 @@
       			select f.doc_no
         		  from family_event f
         		  join approve_line a on(f.doc_no = a.doc_no)
-        		 where a.approver_empid=#{empId} and a.approve_status=#{approveStatus})
+        		 where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
+        		 UNION ALL
+		        select p.doc_no
+		          from proof p
+		          join approve_line a on(p.doc_no = a.doc_no)
+		         where a.approver_empid='tw103' and a.approve_status=0
+		         UNION ALL
+		        select d.doc_no
+		          from draft d
+		          join approve_line a on(d.doc_no = a.doc_no)
+		         where a.approver_empid='tw103' and a.approve_status=0)
 	</select>
 	
 	<select id="selectDocList" parameterType="Document" resultMap="reqApprovalResultSet">
@@ -219,6 +229,91 @@
                		   order by p.doc_date desc)
       		  )
 		order by doc_date desc
+	</select>
+	
+	<select id="searchListCount" parameterType="asc" resultType="_int">
+		select count(*)
+		  from (select v.doc_no, e.emp_name, v.doc_title, v.doc_sc, v.doc_date
+        		  from vacation v
+        		  join approve_line a on(v.doc_no = a.doc_no)
+        		  join employee e on(v.emp_id = e.emp_id)
+        		 where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
+      			 UNION ALL
+		      	select f.doc_no, e.emp_name, f.doc_title, f.doc_sc, f.doc_date
+		          from family_event f
+		          join approve_line a on(f.doc_no = a.doc_no)
+		          join employee e on(f.emp_id = e.emp_id)
+		         where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
+		        UNION ALL
+		       select p.doc_no, e.emp_name, p.doc_title, p.doc_sc, p.doc_date
+		         from proof p
+		         join approve_line a on(p.doc_no = a.doc_no)
+		         join employee e on(p.emp_id = e.emp_id)
+		        where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
+		        UNION ALL
+		       select d.doc_no, e.emp_name, d.doc_title, d.doc_sc, d.doc_date
+		         from draft d
+		         join approve_line a on(d.doc_no = a.doc_no)
+		         join employee e on(d.emp_id = e.emp_id)
+		        where a.approver_empid=#{empId} and a.approve_status=#{approveStatus})
+		where 
+			<if test="writer != null">
+				emp_name like '%' || #{writer} || '%'
+			</if>
+			<if test="title != null">
+				doc_title like '%' || #{title} || '%'
+			</if>
+			<if test="form != null">
+				doc_sc like '%' || #{form} || '%'
+			</if>
+	</select>
+	
+	<select id="searchDocList" parameterType="asc" resultMap="reqApprovalResultSet">
+		select *
+		  from (select *
+      			  from (select v.doc_no, v.doc_sc, v.doc_title, v.emp_id, e.emp_name, v.doc_department, v.doc_date, a.approve_status
+            			  from vacation v
+            			  join approve_line a on(v.doc_no = a.doc_no)
+            			  join employee e on(v.emp_id = e.emp_id)
+           				 where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
+           				 order by v.doc_date desc)
+				UNION ALL
+				select *
+		  		  from (select f.doc_no, f.doc_sc, f.doc_title, f.emp_id, e.emp_name, f.doc_department, f.doc_date, a.approve_status
+              	  		  from family_event f
+              	  		  join approve_line a on(f.doc_no = a.doc_no)
+              	  		  join employee e on(f.emp_id = e.emp_id)
+            	 		 where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
+              	 		 order by f.doc_date desc)
+               UNION ALL
+      		  select *
+        		from (select d.doc_no, d.doc_sc, d.doc_title, d.emp_id, e.emp_name, d.doc_department, d.doc_date, a.approve_status
+                		from draft d
+                		join approve_line a on(d.doc_no = a.doc_no)
+                		join employee e on(d.emp_id = e.emp_id)
+              		   where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
+               		   order by d.doc_date desc)
+        	   UNION ALL
+      		  select *
+        		from (select p.doc_no, p.doc_sc, p.doc_title, p.emp_id, e.emp_name, p.doc_department, p.doc_date, a.approve_status
+                		from proof p
+                		join approve_line a on(p.doc_no = a.doc_no)
+                		join employee e on(p.emp_id = e.emp_id)
+               		   where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
+               		   order by p.doc_date desc)
+      		  )
+      	where 
+			<if test="writer != null">
+				emp_name like '%' || #{writer} || '%'
+			</if>
+			<if test="title != null">
+				doc_title like '%' || #{title} || '%'
+			</if>
+			<if test="form != null">
+				doc_sc like '%' || #{form} || '%'
+			</if>
+		order by doc_date desc
+	
 	</select>
 	
 	

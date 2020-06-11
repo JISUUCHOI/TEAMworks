@@ -107,6 +107,19 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.selectDocList(sqlSession, d, pi);
 	}
 
+	// 5_3. 검색 결과에 해당하는 게시글 개수 조회
+	@Override
+	public int searchListCount(ApproveSearchCondition asc) {
+		return raDao.searchListCount(sqlSession, asc);
+	}
+
+	// 5_4. 검색 결과에 해당하는 게시글 리스트 조회
+	@Override
+	public ArrayList<Document> searchDocList(ApproveSearchCondition asc, PageInfo pi) {
+		return raDao.searchDocList(sqlSession, asc, pi);
+	}
+
+	
 	// 6_1. '진행' 상태인 결재자 id 조회
 	@Override
 	public String selectApId(Document doc) {
@@ -185,7 +198,6 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.updateAllReject(sqlSession, d);
 	}
 
-	
 	
 	
 	

@@ -13,13 +13,15 @@ import lombok.ToString;
 @ToString
 public class ApproveSearchCondition {
 
+	private String empId;
+	private int approveStatus;
+	
 	private String empName;
 	private String deptName;
 	private String jobName;
 	
 	private String writer;
 	private String title;
-	private String content;
 	private String form;
 	
 }
