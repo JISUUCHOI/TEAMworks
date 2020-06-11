@@ -79,16 +79,16 @@
 	                    <td class="th">기안자</td>
 	                    <td style="text-align:center;">
 	                    	<input type="hidden" id="empId" name="empId" value="${ loginUser.empId }">
-	                    	${ emp.empName }
+	                    	${ loginUser.empName }
 	                    </td>
 	                    <td class="th">기안부서</td>
-	                    <td style="text-align:center;"><input type="text" class="readInput" name="docDepartment" value="${ emp.deptName }" readonly></td>
+	                    <td style="text-align:center;"><input type="text" class="readInput" name="docDepartment" value="${ emp.deptName }" readonly>${ loginUser.deptName }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
 	                    <td>
 	                    	<input type="hidden" id="refedId" name="docReference">
-	                        <input type="text" id="refSch" name="docRefName" readonly>
+	                        <input type="text" id="refSch" name="docRefName" value="${ d.docRefName }" readonly>
 	                        <button type="button" id="refBtn" data-toggle="modal" data-target="#refEmp">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
@@ -96,7 +96,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" required></td>
+	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" value="${ d.docTitle }" required></td>
 	                </tr>
 	            </table>
 				
@@ -125,15 +125,15 @@
 	                    <td class="th">휴가 신청일</td>
                         <td style="padding-left:15px;"><%= now %></td>
                         <td class="th">일수</td>
-                        <td><input type="text" id="vcDays" name="vcCount" onkeypress="numberOnly();" required /></td>
+                        <td><input type="text" id="vcDays" name="vcCount" onkeypress="numberOnly();" value="${ d.vcCount }"required /></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">휴가기간</td>
-                        <td colspan="3"><input type="date" id="vcStartDate" name="vcStart" required><span>~</span><input type="date" id="vcEndDate" name="vcEnd" required></td>
+                        <td colspan="3"><input type="date" id="vcStartDate" name="vcStart" value="${ d.vcStart }" required><span>~</span><input type="date" id="vcEndDate" name="vcEnd" value="${ d.vcEnd }" required></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">휴가사유</td>
-	                    <td colspan="3"><input type="text" id="vcReason" name="vcContent" required></td>
+	                    <td colspan="3"><input type="text" id="vcReason" name="vcContent" value="${ d.vcContent }" required></td>
 	                </tr>
                 </table>
 	        </form>

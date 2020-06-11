@@ -282,6 +282,7 @@
             
             <form action="" id="postForm" method="post">
             	<input type="hidden" name="dno" value="${ d.get(0).getDocNo() }">
+            	<input type="hidden" name="dsc" value="${ d.get(0).getDocSc() }">
             </form>
             <script>
 				function postFormSubmit(num){

@@ -227,20 +227,18 @@ public class ApprovalController {
 	
 	// 참조문서함 연결
 	@RequestMapping("referenceList.ap")
-	public String referenceListView(Model model, HttpServletRequest request, int approveStatus) {
+	public String referenceListView(Model model, HttpServletRequest request) {
 
-		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
-		Document d = new Document();
-		
-		d.setEmpId(empId); 
-		d.setApproveStatus(approveStatus);
-		
-		ArrayList<Document> list = aService.referenceList(d);		 
-		model.addAttribute("list", list);
-		model.addAttribute("sts", approveStatus); 
-		
-		return "approval/referenceList";
-	}
+	      String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+	      Document d = new Document();
+	      
+	      d.setEmpId(empId); 
+	            
+	      ArrayList<Document> list = aService.referenceList(d);       
+	      model.addAttribute("list", list);
+	            
+	      return "approval/referenceList";
+	   }
 	
 	// 상세조회
 	@RequestMapping("docDetail.ap")
