@@ -66,6 +66,9 @@ public interface ApprovalService {
 	// 휴가 삭제
 	int deleteVacation(String dno);
 
+	Document updateDraftForm(String dno);
+
+
 
 
 

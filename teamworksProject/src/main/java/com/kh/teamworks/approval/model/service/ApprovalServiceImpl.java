@@ -131,6 +131,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return aDao.deleteVacation(sqlSession, dno);
 	}
 
+	@Override
+	public Document updateDraftForm(String dno) {
+		return aDao.updateDraftForm(sqlSession, dno);
+	}
+
+
 
 
 
