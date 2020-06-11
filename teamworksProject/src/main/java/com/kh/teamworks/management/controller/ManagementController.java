@@ -115,39 +115,50 @@ public class ManagementController {
 	
 	// 사원 명부 검색
 	@RequestMapping("empListSearch.mg")
-	public String empListKeyword(int currentPage, empSearchCondition sc, Model model) {
+	public String empListKeyword(int currentPage, empSearchCondition eSc, Model model) {
 		
-		if(sc.getKeyword()!=null) {
-			switch(sc.getCondition()) {
-			case "empId" : sc.setEmpId(sc.getKeyword()); break;
-			case "empName" : sc.setEmpName(sc.getKeyword()); break;
-			case "deptName" : sc.setDeptName(sc.getKeyword()); break;
+		if(eSc.getKeyword()!=null) {
+			switch(eSc.getCondition()) {
+			case "empId" : eSc.setEmpId(eSc.getKeyword()); break;
+			case "empName" : eSc.setEmpName(eSc.getKeyword()); break;
+			case "deptName" : eSc.setDeptName(eSc.getKeyword()); break;
 			}
 			
 		}else {
-			sc.setEmpId(null);
-			sc.setEmpName(null);
-			sc.setDeptName(null);
+			eSc.setEmpId(null);
+			eSc.setEmpName(null);
+			eSc.setDeptName(null);
 		}
 		
-		int listCount = mgService.selectEmpCount(sc);
+		int listCount = mgService.selectEmpCount(eSc);
+		
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
-		ArrayList<Employee> empSearchList = mgService.selectEmpListKeyword(sc, pi);
+		ArrayList<Employee> empList = mgService.selectEmpListKeyword(eSc, pi);
 		
-		model.addAttribute("empSearchList", empSearchList);
 		model.addAttribute("pi", pi);
-		model.addAttribute("sc", sc);
+		model.addAttribute("empList", empList);
+		model.addAttribute("eSc", eSc);
 		
-		System.out.println(empSearchList);
+		System.out.println(empList);
 
 		return "management/companyMemberList";
 	}
 	
 	//휴가 관리
 	@RequestMapping("vacationList.mg")
-	public String vacationList() {
+	public String vacationList(int currentPage, Model model) {
+		
+		int listCount = mgService.selectVacationCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		
+		ArrayList<Employee> empList = mgService.selectEmpList(pi);
+		
+		model.addAttribute("empList", empList);
+		model.addAttribute("pi", pi);
+		
 		return "management/companyVacationList";
 	}
 	

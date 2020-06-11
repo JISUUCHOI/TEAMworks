@@ -245,6 +245,14 @@
 	
             <!-- 버튼들 -->
             <div id="btns">
+            	
+            	<!-- 나중에 status값 반려값으로 바꾸기 반려문서아니면 버튼안보이게 -->
+           	    <c:choose>
+           	    	<c:when test="${ d.get(0).docStatus eq 0 }">
+           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
+              			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
+              		</c:when>	
+              	</c:choose>
             
             	<button type="button" id="listBtn" onclick="prePage();">목록</button>
             
@@ -257,6 +265,26 @@
                 </c:choose>
                 
             </div>
+            
+            <form action="" id="postForm" method="post">
+            	<input type="hidden" name="dno" value="${ d.get(0).getDocNo() }">
+            </form>
+            <script>
+  				    function postFormSubmit(num){
+					   if(num == 1){ 
+	    			   $("#postForm").attr("action","updateProofForm.ap");
+	 		    }else{ 
+	 		    	$("#postForm").attr("action","deleteProof.ap");
+					   if(confirm("삭제된 문서는 복구할수없습니다. 그래도 삭제하시겠습니까?")==true){
+						   alert("삭제되었습니다.");
+						   $("#postForm").submit();
+					   }else{
+						   return;
+					   }
+			    }			
+			}
+		    </script>
+            
             <br><br><br>
 
             <h1 style="text-align:center;">${ d.get(0).getDocSc() }</h1>

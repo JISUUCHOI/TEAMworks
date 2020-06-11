@@ -102,6 +102,11 @@ public class ApprovalDao {
 	public int deleteVacation(SqlSessionTemplate sqlSession, String dno) {
 		return sqlSession.delete("documentMapper.deleteVacation",dno);	}
 
+	public Document updateDraftForm(SqlSessionTemplate sqlSession, String dno) {
+		return sqlSession.selectOne("documentMapper.updateDraftForm", dno);
+	}
+
+
 
 
 

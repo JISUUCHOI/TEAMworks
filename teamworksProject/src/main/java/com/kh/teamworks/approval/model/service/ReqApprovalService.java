@@ -74,6 +74,12 @@ public interface ReqApprovalService {
 	// 6_5. 문서 상세조회 - 휴가신청서
 	ArrayList<Document> selectVacDetail(Document doc);
 	
+	// 6_6. 문서 상세조회 - 기안서
+	ArrayList<Document> selectDraftDetail(Document doc);
+	
+	// 6_7. 문서 상세조회 - 제증명신청서
+	ArrayList<Document> selectProofDetail(Document doc);
+	
 	// 7_1. 미결, 진행 결재선 id 조회
 	ArrayList<Document> selectApList(Document doc);
 	

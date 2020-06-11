@@ -204,6 +204,7 @@
 	                        
 	            <form action="" id="postForm" method="post">
 	            	<input type="hidden" name="dno" value="${ d.getDocNo() }">
+	            	<input type="hidden" name="dsc" value="${ d.getDocSc() }">
 	            </form><script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 

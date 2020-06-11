@@ -52,15 +52,15 @@ public class ManagementDao {
 		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpList", null, rowBounds);
 	}
 	
-	public int selectEmpCount(SqlSessionTemplate sqlSession, empSearchCondition sc) {
-		return sqlSession.selectOne("managementMapper.selectEmpKeywordCount", sc);
+	public int selectEmpCount(SqlSessionTemplate sqlSession, empSearchCondition eSc) {
+		return sqlSession.selectOne("managementMapper.selectEmpKeywordCount", eSc);
 	}
 	
-	public ArrayList<Employee> selectEmpListKeyword(SqlSessionTemplate sqlSession, empSearchCondition sc, PageInfo pi){
+	public ArrayList<Employee> selectEmpListKeyword(SqlSessionTemplate sqlSession, empSearchCondition eSc, PageInfo pi){
 		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpList", sc, rowBounds);
+		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpListKeyword", eSc, rowBounds);
 	}
 	
 	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession, int deptCode) {

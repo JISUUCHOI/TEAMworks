@@ -293,16 +293,15 @@ public class ApprovalController {
 	
 	// 기안서 수정 폼
 	@RequestMapping("updateDraftForm.ap")
-	public String updateDraftForm(Document d, Model model, HttpServletRequest request) {
+	public ModelAndView updateForm(String dno, String dsc, Model model, HttpServletRequest request, ModelAndView mv) {
 		
-		String docNo = d.getDocNo();
-		d.setDocNo(docNo);
-
-		d = aService.draftDetail(d);
-		model.addAttribute("d", d);
-		System.out.println(d);
-		return "approval/draftSubmit";
-			
+		if(dsc.equals("기안서")) {
+			Document d = aService.updateDraftForm(dno);
+			// System.out.println(d);
+			mv.addObject("d", d);
+			mv.setViewName("approval/draftUpdateForm");		
+		}
+		return mv;
 	}
 	
 	// 기안서 삭제

@@ -35,14 +35,16 @@ public interface ManagementService {
 	ArrayList<Employee> selectEmpList(int deptCode); // 해당 부서에 소속된 사원 목록 조회용
 	ArrayList<Employee> selectEmpList(String keyword); // 키워드로 검색된 사원 목록 조회용
 	
-	int selectEmpCount(empSearchCondition sc);
-	ArrayList<Employee> selectEmpListKeyword(empSearchCondition sc, PageInfo pi);
+	int selectEmpCount(empSearchCondition eSc);
+	ArrayList<Employee> selectEmpListKeyword(empSearchCondition eSc, PageInfo pi);
 	
 	// 사원 관리
 	int updateEmpInfo();
 	
 	// 휴가 관리
 	Vacation selectVacationList();
+	int selectVacationCount();
+	
 	void searchEmpVacation(String keyword);
 	
 	// 증명서 발급

@@ -44,11 +44,13 @@ public class ManagementServiceImpl implements ManagementService{
 		return 0;
 	}
 	
+	// 사원 조회
 	@Override
 	public ArrayList<Employee> selectEmpList() {
 		return mgDao.selectEmpList(sqlSession);
 	}
 	
+	// 사원 조회
 	@Override
 	public ArrayList<Employee> selectEmpList(PageInfo pi) {
 		return mgDao.selectEmpList(sqlSession, pi);
@@ -69,8 +71,8 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 	
 	@Override
-	public ArrayList<Employee> selectEmpListKeyword(empSearchCondition sc, PageInfo pi){
-		return mgDao.selectEmpListKeyword(sqlSession, sc, pi);
+	public ArrayList<Employee> selectEmpListKeyword(empSearchCondition eSc, PageInfo pi){
+		return mgDao.selectEmpListKeyword(sqlSession, eSc, pi);
 	}
 
 	@Override
@@ -79,8 +81,8 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 	
 	@Override
-	public int selectEmpCount(empSearchCondition sc) {
-		return mgDao.selectEmpCount(sqlSession, sc);
+	public int selectEmpCount(empSearchCondition eSc) {
+		return mgDao.selectEmpCount(sqlSession, eSc);
 	}
 	@Override
 	public Employee selectEmployeeInfo(Employee e) {
@@ -88,27 +90,34 @@ public class ManagementServiceImpl implements ManagementService{
 		return null;
 	}
 	
+	// 인사 정보 등록
 	@Override
 	public int insertEmployee(Employee e) {
 		return mgDao.insertEmployee(sqlSession, e);
 	}
 	
+	// 인사 정보 등록 사번 중복 체크
 	@Override
 	public int idCheck(String empId) {
 		return mgDao.idCheck(sqlSession, empId);
 	}
 	
-
 	@Override
 	public int updateEmpInfo() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
+    // 휴가 리스트
 	@Override
 	public Vacation selectVacationList() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	// 휴가 페이징 처리 
+	@Override
+	public int selectVacationCount() {
+		return 0;
 	}
 
 	@Override
@@ -175,6 +184,8 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 
 
