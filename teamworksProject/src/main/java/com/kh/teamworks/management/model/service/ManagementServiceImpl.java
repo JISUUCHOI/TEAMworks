@@ -108,19 +108,19 @@ public class ManagementServiceImpl implements ManagementService{
 	
     // 휴가 리스트
 	@Override
-	public ArrayList<Vacation> selectVacationList() {
-		return mgDao.selectVacationList(sqlSession);
+	public ArrayList<Vacation> selectVacationList(PageInfo pi) {
+		return mgDao.selectVacationList(sqlSession, pi);
 	}
 	
 	// 휴가 페이징 처리 
 	@Override
-	public int selectVacationCount() {
-		return mgDao.selectVacationCount(sqlSession);
+	public int selectVacationCount(String keyword) {
+		return mgDao.selectVacationCount(sqlSession, keyword);
 	}
 
 	@Override
-	public ArrayList<Vacation> searchEmpVacationList(String keyword) {
-		return mgDao.searchEmpVacationList(sqlSession, keyword);
+	public ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi) {
+		return mgDao.searchVacationList(sqlSession, keyword, pi);
 	}
 
 	@Override
@@ -181,6 +181,13 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	public int selectVacationkeywordCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 
 
 

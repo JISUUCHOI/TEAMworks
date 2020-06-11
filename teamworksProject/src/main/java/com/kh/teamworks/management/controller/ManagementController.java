@@ -25,6 +25,7 @@ import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
+import com.kh.teamworks.management.model.vo.Vacation;
 import com.kh.teamworks.management.model.vo.empSearchCondition;
 
 @Controller
@@ -69,12 +70,11 @@ public class ManagementController {
 		
 		e.setEmpPwd(encPwd);
 		
-		
 		int result = mgService.insertEmployee(e);
 		
 		if(result>0) {
 			session.setAttribute("msg", "인사 정보 등록 성공!!");
-			return "management/companyEnrollMemberInfo";
+			return "redirect:enrollEmp.mg";
 		}else {
 			model.addAttribute("msg", "인사 정보 등록 실패!!");
 			return "common/errorPage";
@@ -140,8 +140,6 @@ public class ManagementController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("empList", empList);
 		model.addAttribute("eSc", eSc);
-		
-		System.out.println(empList);
 
 		return "management/companyMemberList";
 	}
@@ -150,18 +148,34 @@ public class ManagementController {
 	@RequestMapping("vacationList.mg")
 	public String vacationList(int currentPage, Model model) {
 		
-		int listCount = mgService.selectVacationCount();
+		int listCount = mgService.selectEmpCount();
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
-		ArrayList<Employee> empList = mgService.selectEmpList(pi);
+		ArrayList<Vacation> vacList = mgService.selectVacationList(pi);
 		
-		model.addAttribute("empList", empList);
+		model.addAttribute("vacList", vacList);
 		model.addAttribute("pi", pi);
 		
 		return "management/companyVacationList";
 	}
 	
+	
+	//휴가 검색 관리
+	@RequestMapping("vacationSearch.mg")
+	public String vacationSearch(int currentPage, String keyword, Model model) {
+		
+		int listCount = mgService.selectVacationkeywordCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		
+		ArrayList<Vacation> vacList = mgService.searchVacationList(keyword, pi);
+		
+		model.addAttribute("vacList", vacList);
+		model.addAttribute("pi", pi);
+		
+		return "management/companyVacationList";
+	}
 	//증명서 발급
 	@RequestMapping("empDocument.mg")
 	public String empDocument() {

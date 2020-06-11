@@ -44,10 +44,10 @@ public interface ManagementService {
 	int updateEmpInfo();
 	
 	// 휴가 관리
-	ArrayList<Vacation> selectVacationList();
-	int selectVacationCount();
+	ArrayList<Vacation> selectVacationList(PageInfo pi);
 	
-	ArrayList<Vacation> searchEmpVacationList(String keyword);
+	int selectVacationCount(String keyword);
+	ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi);
 	
 	// 증명서 발급
 	Proof selectProofList();

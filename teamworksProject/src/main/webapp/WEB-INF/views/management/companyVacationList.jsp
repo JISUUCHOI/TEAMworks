@@ -34,7 +34,19 @@
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 		<br>
 
-		<div class="container" style="margin-left:0px;">
+		<div class="container" style="margin-left: 0px;">
+
+			<form id="searchForm" action="empListSearch.mg" method="Get" align="center">
+				<div class="text">
+					<input type="text" class="form-control" name="keyword"
+						value="${ eSc.keyword }"> <input type="hidden"
+						name="currentPage" value="1">
+				</div>
+				<button type="submit" class="searchBtn btn btn-secondary">검색</button>
+			</form>
+			
+			
+			
 			<table class="table table-bordered"
 				style="table-layout: fixed; text-align: center;">
 				<thead class="thead-light">
@@ -60,108 +72,72 @@
 						<td>0</td>
 						<td>10</td>
 					</tr>
-					<tr>
-						<td>김정은</td>
-						<td>2019-05-11</td>
-						<td>15</td>
-						<td>4</td>
-						<td>1</td>
-						<td>0</td>
-						<td>0</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr>
 				</tbody>
 			</table>
+			
+			
+			<div id="pagingArea">
+				<ul class="pagination pagination-sm justify-content-center">
+					<c:if test="${ pi.currentPage ne 1 }">
+						<c:choose>
+							<c:when test="${ empty eSc }">
+								<li class="previous page-item"><a class="page-link"
+									href="vacationList.mg?currentPage=${ pi.currentPage - 1 }">Previous</a></li>
+							</c:when>
+							<c:otherwise>
+								<c:url value="vacationList.mg" var="searchUrl">
+									<c:param name="keyword" value="${ eSc.keyword }" />
+									<c:param name="currentPage" value="${  pi.currentPage -1 }" />
+								</c:url>
+								<li class="previous page-item"><a class="page-link"
+									href="${ searchUrl }">Previous</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
 
-			<ul class="pagination pagination-sm justify-content-center" style="margin: 20px 0">
-				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-				<li class="page-item active"><a class="page-link" href="#">1</a></li>
-				<li class="page-item"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
-			</ul>
+					<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+						<c:choose>
+							<c:when test="${ p eq pi.currentPage }">
+								<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
+							</c:when>
+							<c:otherwise>
+								<c:choose>
+									<c:when test="${ empty eSc }">
+										<li class="page-item"><a class="page-link"
+											href="vacationList.mg?currentPage=${ p }">${ p }</a></li>
+									</c:when>
+									<c:otherwise>
+										<c:url value="vacationList.mg" var="searchUrl">
+											<c:param name="keyword" value="${ eSc.keyword }" />
+											<c:param name="currentPage" value="${ p }" />
+										</c:url>
+										<li class="page-item"><a class="page-link"
+											href="${searchUrl}">${ p }</a></li>
+									</c:otherwise>
+								</c:choose>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+
+					<c:if test="${ pi.currentPage ne pi.maxPage }">
+						<c:choose>
+							<c:when test="${ empty eSc }">
+								<li class="next page-item"><a class="page-link"
+									href="vacationList.mg?currentPage=${ pi.currentPage + 1 }">Next</a></li>
+							</c:when>
+							<c:otherwise>
+								<c:url value="vacationList.mg" var="searchUrl">
+									<c:param name="keyword" value="${ eSc.keyword }" />
+									<c:param name="currentPage" value="${  pi.currentPage + 1  }" />
+								</c:url>
+								<li class="next page-item"><a class="page-link"
+									href="${ searchUrl }">Next</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
+				</ul>
+			</div>
 		</div>
-	</div>
 
 </body>
 </html>

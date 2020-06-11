@@ -183,7 +183,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE DEPT_CODE=#{deptCode}
 	</delete>
 	
-
+	<select id="selectVactionList">
+	SELECT EMP.EMP_ID, D.EMP_NAME, D.TOTAL, EMP.HIRE_DATE
+	  FROM (SELECT EMP_NAME, SUM(VCTOTAL) TOTAL
+	        FROM(SELECT V.EMP_ID, E.EMP_NAME, V.VC_COUNT VCTOTAL
+	             FROM VACATION V
+	             JOIN EMPLOYEE E ON(V.EMP_ID = E.EMP_ID))
+	             GROUP BY EMP_NAME) D
+	       JOIN EMPLOYEE EMP ON(D.EMP_NAME= EMP.EMP_NAME)
+	</select>
 
 
 </mapper>

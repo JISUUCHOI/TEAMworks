@@ -89,19 +89,30 @@ public class ManagementDao {
 		return sqlSession.delete("managementMapper.deleteDept", deptCode);
 	}
 
-	public ArrayList<Vacation> searchEmpVacationList(SqlSessionTemplate sqlSession, String keyword) {
-		return (ArrayList)sqlSession.selectList("managementMapper.searchEmpVacation", keyword);
+	
+	
+	
+	public ArrayList<Vacation> selectVacationList(SqlSessionTemplate sqlSession, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return(ArrayList)sqlSession.selectList("managementMapper.selectVacationList", null, rowBounds);
 	}
+	
+	public ArrayList<Vacation> searchVacationList(SqlSessionTemplate sqlSession, String keyword, PageInfo pi) {
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		
+		return (ArrayList)sqlSession.selectList("managementMapper.searchEmpVacation", keyword, rowBounds);
+	}
+	
+	public int selectVacationCount(SqlSessionTemplate sqlSession, String keyword) {
+		return sqlSession.selectOne("managementMapper.selectVacationCount", keyword);
+	}
+	
 
-	public int selectVacationCount(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
-	public ArrayList<Vacation> selectVacationList(SqlSessionTemplate sqlSession) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 
 }
