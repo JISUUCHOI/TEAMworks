@@ -15,6 +15,7 @@ import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
 import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
+import com.kh.teamworks.management.model.vo.empSearchCondition;
 
 @Service("mgService")
 public class ManagementServiceImpl implements ManagementService{
@@ -47,12 +48,21 @@ public class ManagementServiceImpl implements ManagementService{
 	public ArrayList<Employee> selectEmpList(PageInfo pi) {
 		return mgDao.selectEmpList(sqlSession, pi);
 	}
+	
+	@Override
+	public ArrayList<Employee> selectEmpListKeyword(empSearchCondition sc){
+		return mgDao.selectEmpListKeyword(sqlSession, sc);
+	}
 
 	@Override
 	public int selectEmpCount() {
 		return mgDao.selectEmpCount(sqlSession);
 	}
-
+	
+	@Override
+	public int selectEmpCount(empSearchCondition sc) {
+		return mgDao.selectEmpCount(sqlSession);
+	}
 	@Override
 	public Employee selectEmployeeInfo(Employee e) {
 		// TODO Auto-generated method stub

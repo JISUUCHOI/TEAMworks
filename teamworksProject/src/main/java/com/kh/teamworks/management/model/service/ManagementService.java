@@ -10,6 +10,7 @@ import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
 import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
+import com.kh.teamworks.management.model.vo.empSearchCondition;
 
 public interface ManagementService {
 	
@@ -30,6 +31,9 @@ public interface ManagementService {
 	// 사원 명부
 	int selectEmpCount();
 	ArrayList<Employee> selectEmpList(PageInfo pi);
+	
+	int selectEmpCount(empSearchCondition sc);
+	ArrayList<Employee> selectEmpListKeyword(empSearchCondition sc);
 	
 	// 사원 관리
 	int updateEmpInfo();

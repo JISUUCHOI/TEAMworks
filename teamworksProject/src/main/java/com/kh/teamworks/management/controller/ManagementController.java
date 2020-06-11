@@ -24,6 +24,7 @@ import com.kh.teamworks.management.model.service.ManagementServiceImpl;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Job;
+import com.kh.teamworks.management.model.vo.empSearchCondition;
 
 @Controller
 public class ManagementController {
@@ -111,7 +112,21 @@ public class ManagementController {
 		return "management/companyMemberList";
 	}
 	
-	
+	// 사원 명부 검색
+	@RequestMapping("empListSearch.mg")
+	public String empListKeyword(int currentPage, empSearchCondition sc, Model model) {
+		
+		int listCount = mgService.selectEmpCount(sc);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		
+		ArrayList<Employee> empSearchList = mgService.selectEmpListKeyword(sc);
+		
+		model.addAttribute("empSearchList", empSearchList);
+		model.addAttribute("pi", pi);
+
+		return "management/companyMemberSearchList";
+	}
 	
 	//휴가 관리
 	@RequestMapping("vacationList.mg")

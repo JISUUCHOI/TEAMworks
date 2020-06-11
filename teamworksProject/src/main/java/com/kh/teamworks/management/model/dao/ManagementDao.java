@@ -11,6 +11,7 @@ import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Job;
+import com.kh.teamworks.management.model.vo.empSearchCondition;
 
 @Repository("mgDao")
 public class ManagementDao {
@@ -35,14 +36,25 @@ public class ManagementDao {
 		return sqlSession.selectOne("managementMapper.empIdCheck", empId);
 	}
 	
+	public int selectEmpCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managementMapper.selectEmpCount");
+	}
+	
 	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession, PageInfo pi){
 		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpList", null, rowBounds);
 	}
-
-	public int selectEmpCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("managementMapper.selectEmpCount");
+	
+	public int selectEmpKeywordCount(SqlSessionTemplate sqlSession,empSearchCondition sc) {
+		return sqlSession.selectOne("managementMapper.selectEmpKeywordCount", sc);
 	}
+	
+	public ArrayList<Employee> selectEmpListKeyword(SqlSessionTemplate sqlSession, empSearchCondition sc){
+		
+		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpList", sc);
+	}
+
+
 }

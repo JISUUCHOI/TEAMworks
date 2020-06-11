@@ -49,7 +49,7 @@
 		<div class="container" style="margin-left: 10px; width:1070px;">
 			<div>
 			
-				<form id="searchForm" action="" method="Get" align="center">
+				<form id="searchForm" action="empListSearch.mg" method="Get" align="center">
 					<div class="select" >
 						<select class="custom-select" name="condition">
 							<option value="empId">사원번호</option>
@@ -58,7 +58,8 @@
 						</select>
 					</div>
 					<div class="text">
-						<input type="text" class="form-control" name="keyword">
+						<input type="text" class="form-control" name="keyword" value="${ keyword }">
+						<input type="hidden" name="currentPage" value="1">
 					</div>
 					<button type="submit" class="searchBtn btn btn-secondary">검색</button>
 				</form>
@@ -69,8 +70,10 @@
 			</div>
 			<br>
 			
+
+				
 			<table class="table table-bordered"
-				style="table-layout: fixed; text-align: center;">
+				style="table-layout: fixed; text-align: center;" id="result3">
 				<thead class="thead-light">
 					<tr>
 						<th width="40px;"><input type="checkbox"></th>
@@ -81,7 +84,6 @@
 						<th>직위/직급</th>
 						<th>입사일자</th>
 						<th width="250px;">Email</th>
-
 					</tr>
 				</thead>
 				<tbody>
@@ -91,7 +93,7 @@
 							<td>${ e.empId }</td>
 							<td>${ e.empName }</td>
 							<td>${ e.empNo }</td>
-							<td>${ e.deptName }1</td>
+							<td>${ e.deptName }</td>
 							<td>${ e.jobName }</td>
 							<td>${ e.hireDate }</td>
 							<td>${ e.email }</td>
@@ -100,33 +102,7 @@
 				</tbody>
 			</table>
 			
-			
-			<script>
-	        $(function(){
-		           
-		           var $idInput = $("#enrollEmpForm input[name=keyword]");
-		           
-		           $idInput.keyup(function(){
-		              if($idInput.val().length >= 5) { // 적어도 아이디가 5글자 이상되었을 때 중복검사
-		                 $.ajax({
-		                    url:"empIdCheck.mg",
-		                    data:{empId:$idInput.val()},
-		                    success:function(status){
-		                       if(status == "fail"){ // 중복된 아이디 존재 == 사용불가
-		                          idCheckValidate(2);
-		                       }else{ // 중복된 아이디 없음 == 사용가능
-		                          idCheckValidate(3);
-		                       }
-		                    }, error:function(){
-		                       console.log("아이디 중복체크용 ajax 통신실패");
-		                    }
-		                 });
-		              }else{ // 중복검사x
-		                 idCheckValidate(1);
-		              }
-		           });
-		        });
-			</script>
+		
 			
 			
 			

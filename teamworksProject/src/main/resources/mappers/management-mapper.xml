@@ -105,16 +105,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE EMP_ID=#{empId}
 	</select>
 	
-	<select id="selectEmpList" resultMap="employeeResultSet">
-		SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL 
-		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
-		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE
-	</select>
-	
 	<select id="selectEmpCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM EMPLOYEE
 		 WHERE EMP_STATUS='Y'
+	</select>	
+	
+	<select id="selectEmpList" resultMap="employeeResultSet">
+		SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL 
+		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
+		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE AND EMP_STATUS='Y'
 	</select>
+	
+	<select id="selectEmpKeywordCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
+		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE AND #{conditon} like '%'|| #{keyword} ||'%'
+	</select>		
+	
+	<select id="selectEmpListKeyword" resultMap="employeeResultSet">
+		SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL 
+		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
+		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE AND #{conditon} like '%'|| #{keyword} ||'%'
+	</select>
+	
+
+
 
 </mapper>
