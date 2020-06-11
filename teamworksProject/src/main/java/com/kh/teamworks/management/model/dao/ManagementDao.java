@@ -42,6 +42,11 @@ public class ManagementDao {
 		return (ArrayList)sqlSession.selectList("managementMapper.selectOrgEmpList", deptCode);
 	}
 	
+	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession, String keyword) {
+		keyword = '%' + keyword + '%';
+		return (ArrayList)sqlSession.selectList("managementMapper.selectSearchEmpList", keyword);
+	}
+	
 	public ArrayList<Department> selectDeptList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("managementMapper.selectDeptList");
 	}

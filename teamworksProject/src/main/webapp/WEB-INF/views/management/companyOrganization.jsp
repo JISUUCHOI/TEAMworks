@@ -115,9 +115,9 @@
 			<!-- 사원명 검색바 -->
 			<div align="right">
 			<div class="input-group mb-3" style="width:190px; height:30px;">
-			  <input type="text" class="form-control" placeholder="사원명">
+			  <input type="text" id="keyword" class="form-control" placeholder="사원명">
 			  <div class="input-group-append">
-			    <button id="searchBtn" class="btn" type="submit">검색</button>
+			    <button id="searchBtn" class="btn">검색</button>
 			  </div>
 			</div>
 			</div>
@@ -398,6 +398,43 @@
 			});
 		});
 		
+		// 사원명 검색바 스크립트
+		$('#searchBtn').click(function(){
+			var keyword = $('#keyword').val();
+			
+			$.ajax({
+				url:"searchEmpName.mg",
+				data:{keyword:keyword},
+				type:"post",
+				success:function(searchList){
+					
+					$('#empListTable>tbody td').text('');
+					
+					if(searchList.length != 0) {	// 검색 결과가 존재할 경우
+						
+						$('#category').text('검색 결과');
+						$('#empCount').text(searchList.length);						
+						
+						for(var e=0; e<searchList.length; e++) {
+							var selector = '#00' + e;
+							$(selector).children('#empName').text(searchList[e].empName);
+							$(selector).children('#jobName').text(searchList[e].jobName);
+							$(selector).children('#deptName').text(searchList[e].deptName);
+							$(selector).children('#empPhone').text(searchList[e].empPhone);
+							$(selector).children('#empEmail').text(searchList[e].empEmail);
+						}
+						
+					}else {	// 검색 결과가 존재하지 않을 경우
+						
+						$('#category').text('검색 결과');
+						$('#empCount').text(0);
+					}
+					
+				},error:function(){
+					console.log("사원명 검색 시 실행되는 ajax 통신 실패");
+				}
+			});
+		});
 	</script>
 
 </body>

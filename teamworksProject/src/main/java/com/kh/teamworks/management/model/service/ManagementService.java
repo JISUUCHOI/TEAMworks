@@ -29,6 +29,7 @@ public interface ManagementService {
 	// 사원 명부
 	ArrayList<Employee> selectEmpList(); // 모든 사원 목록 조회용
 	ArrayList<Employee> selectEmpList(int deptCode); // 해당 부서에 소속된 사원 목록 조회용
+	ArrayList<Employee> selectEmpList(String keyword); // 키워드로 검색된 사원 목록 조회용
 	
 	// 사원 관리
 	int updateEmpInfo();

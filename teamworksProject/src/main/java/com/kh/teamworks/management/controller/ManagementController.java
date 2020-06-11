@@ -213,6 +213,18 @@ public class ManagementController {
 		}
 	}
 	
+	// 최지수_조직도
+	// 사원명 검색
+	@ResponseBody
+	@RequestMapping(value="searchEmpName.mg", method=RequestMethod.POST)
+	public void searchEmpName(String keyword, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Employee> searchList = mgService.selectEmpList(keyword);
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(searchList, response.getWriter());
+	}
+	
 	
 	//직급 관리
 	@RequestMapping("orgJobList.mg")

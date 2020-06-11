@@ -55,6 +55,13 @@ public class ManagementServiceImpl implements ManagementService{
 		return mgDao.selectEmpList(sqlSession, deptCode);
 	}
 
+	// 키워드로 검색된 사원 목록 조회용
+	@Override
+	public ArrayList<Employee> selectEmpList(String keyword) {
+
+		return mgDao.selectEmpList(sqlSession, keyword);
+	}
+
 	@Override
 	public Employee selectEmployeeInfo(Employee e) {
 		// TODO Auto-generated method stub
@@ -148,6 +155,7 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 	
