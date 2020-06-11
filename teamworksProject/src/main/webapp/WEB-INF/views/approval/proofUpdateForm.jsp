@@ -331,5 +331,15 @@
 	    
 	</div>
 	
+	<script>
+		$(function(){
+		    switch('${d.pfSq}'){
+   			case "재직증명서" : $("#pfSq option").eq(0).attr("selected", true); break;
+  			case "경력증명서" : $("#pfSq option").eq(1).attr("selected", true); break;
+  			case "퇴직증명서" : $("#pfSq option").eq(2).attr("selected", true); break;
+ 			}
+	    });
+	</script>
+	
 </body>
 </html>

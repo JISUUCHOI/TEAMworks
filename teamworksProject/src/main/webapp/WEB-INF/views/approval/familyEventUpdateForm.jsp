@@ -79,16 +79,16 @@
 	                    <td class="th">기안자</td>
 	                    <td style="text-align:center;">
 	                    	<input type="hidden" id="empId" name="empId" value="${ loginUser.empId }">
-	                    	${ emp.empName }
+	                    	${ loginUser.empName }
 	                    </td>
 	                    <td class="th">기안부서</td>
-	                    <td style="text-align:center;"><input type="text" class="readInput" name="docDepartment" value="${ emp.deptName }" readonly></td>
+	                    <td style="text-align:center;"><input type="text" class="readInput" name="docDepartment" value="${ emp.deptName }" readonly>${ loginUser.deptName }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
 	                    <td>
 	                    	<input type="hidden" id="refedId" name="docReference">
-	                        <input type="text" id="refSch" name="docRefName" readonly>
+	                        <input type="text" id="refSch" name="docRefName" value="${ d.docRefName }" readonly>
 	                        <button type="button" id="refBtn" data-toggle="modal" data-target="#refEmp">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
@@ -96,7 +96,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" required></td>
+	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" value="${ d.docTitle }" required></td>
 	                </tr>
 	            </table>
 				
@@ -129,23 +129,24 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">대상자 성명</td>
-	                    <td><input type="text" name="feName" id="feName" required></td>
+	                    <td><input type="text" name="feName" id="feName" value="${ d.feName }"required></td>
 	                    <td class="th">경조일자</td>
-                        <td colspan="3"><input type="date" name="feStart" id="feStartDate" required> <span>~</span> <input type="date" name="feEnd" id="feEndDate" required></td>
+                        <td colspan="3"><input type="date" name="feStart" id="feStartDate" value="${ d.feStart }" required> <span>~</span> 
+                        				<input type="date" name="feEnd" id="feEndDate" value="${ d.feEnd }" required></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">신청금액</td>
-	                    <td><input type="text" id="fePrice" name="fePrice" required></td>
+	                    <td><input type="text" id="fePrice" name="fePrice" value="${ d.fePrice }" required></td>
 	                    <td class="th">경조장소</td>
-	                    <td colspan="3"><input type="text" name="fePlace" id="fePlace" required></td>
+	                    <td colspan="3"><input type="text" name="fePlace" id="fePlace" value="${ d.fePlace }" required></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">은행</td>
-	                    <td><input type="text" id="feBank" name="feBank" required></td>
+	                    <td><input type="text" id="feBank" name="feBank" value="${ d.feBank }" required></td>
 	                    <td class="th">계좌번호</td>
-                        <td><input type="text" id="feAccount" name="feAccount" required></td>
+                        <td><input type="text" id="feAccount" name="feAccount" value="${ d.feAccount }" required></td>
                         <td class="th">예금주</td>
-                        <td><input type="text" id="feAccountName" name="feAccountName" required></td>
+                        <td><input type="text" id="feAccountName" name="feAccountName" value="${ d.feAccountName }" required></td>
 	                </tr>
 	            </table>
 	        </form>
@@ -338,6 +339,27 @@
 	    </div>
 	    
 	</div>
+	
+	<script>
+		$(function(){
+   		    switch('${d.feSq}'){
+       		case "결혼" : $("#feSq option").eq(0).attr("selected", true); break;
+      		case "환갑" : $("#feSq option").eq(1).attr("selected", true); break;
+      		case "칠순" : $("#feSq option").eq(2).attr("selected", true); break;
+      		case "사망" : $("#feSq option").eq(3).attr("selected", true); break;
+     		}
+   	    });
+	
+		$(function(){
+	        switch('${d.feRelation}'){
+	        case "본인" : $("#feRelation option").eq(0).attr("selected", true); break;
+	        case "부모님" : $("#feRelation option").eq(1).attr("selected", true); break;
+	        case "배우자" : $("#feRelation option").eq(2).attr("selected", true); break;
+	        case "자녀" : $("#feRelation option").eq(3).attr("selected", true); break;
+	        case "형제자매" : $("#feRelation option").eq(4).attr("selected", true); break;
+	        }
+	     });
+	</script>
 	
 </body>
 </html>

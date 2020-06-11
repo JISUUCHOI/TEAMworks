@@ -327,5 +327,23 @@
 	    
 	</div>
 	
+	<script>
+		$(function(){
+   		    switch('${d.vcDay}'){
+       		case "전일" : $("#vcDay option").eq(0).attr("selected", true); break;
+      		case "반일" : $("#vcDay option").eq(1).attr("selected", true); break;
+     		}
+   	    });
+	
+		$(function(){
+	        switch('${d.vcSq}'){
+	        case "연차" : $("#vcSq option").eq(0).attr("selected", true); break;
+	        case "경조사" : $("#vcSq option").eq(1).attr("selected", true); break;
+	        case "병가" : $("#vcSq option").eq(2).attr("selected", true); break;
+	        case "출산" : $("#vcSq option").eq(3).attr("selected", true); break;
+	        }
+	     });
+	</script>
+	
 </body>
 </html>
