@@ -1,12 +1,24 @@
 package com.kh.teamworks.mail.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.MaskFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,9 +30,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
+import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.service.MailService;
 import com.kh.teamworks.mail.model.vo.Mail;
+import com.kh.teamworks.mail.model.vo.MailAttachment;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
 import com.kh.teamworks.management.model.vo.Department;
@@ -30,6 +44,8 @@ public class MailController {
 	
 	@Autowired
 	private MailService emService;
+	@Autowired
+	private JavaMailSender mailSender;
 	
 	@RequestMapping("rlist.ma")
 	public String InboxMailList(HttpSession session, int currentPage, Model model) {
@@ -319,14 +335,104 @@ public class MailController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("sendMail.ma")
-	public void sendMail(Mail m, HttpServletRequest request, 
+	@RequestMapping("sendMail")
+	public String sendMail(Mail m, HttpServletRequest request, HttpSession session, HttpServletResponse response,
 			            @RequestParam(name="uploadFile", required=false) MultipartFile[] file) {
+		Employee sender = (Employee)session.getAttribute("loginUser");
+		ArrayList<MailAttachment> attachList = new ArrayList<>();
 		
-		// 
 		// 첨부 파일 있으면 서버에 올리고 
+		if(file.length>0) {
+			String resources = request.getSession().getServletContext().getRealPath("resources"); 
+			String savePath = resources + "\\mailUploadFiles\\";
+			
+			for(int i=0; i<file.length; i++) {
+				MailAttachment ma = new MailAttachment();
+				ma.setOriginFileName(file[i].getOriginalFilename());
+				String changeName = uploadeMailFile(file[i], request);
+				ma.setChangeFileName(changeName);
+				ma.setFilePath(savePath + changeName);
+				ma.setFilesize(file[i].getSize());
+				attachList.add(ma);
+			}
+		}
 		// 실제 메일 보내고 
-	    // 이메일 사번을 조회해야햠 ;
+		try {
+			
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html; charset=utf-8");
+			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+			
+			messageHelper.setFrom(m.getSender());
+			messageHelper.setTo(m.getStrTo());
+			if(!m.getStrCc().equals("")) {
+				messageHelper.setCc(m.getStrCc());;
+			}
+			if(!m.getStrBcc().equals("")) {
+				messageHelper.setBcc(m.getStrBcc());;
+			}
+			messageHelper.setSubject(m.getMailTitle());
+			StringBuffer sb = new StringBuffer();
+			sb.append("<html><body>");
+			sb.append("<meta http-equiv='Content-Type' content='text/html; charset=euc-kr'>");
+			sb.append(m.getMailContent());
+			sb.append("</body></html>");
+			String str = sb.toString();
+			messageHelper.setText(str, true);
+			
+			if(attachList.size()>0) {
+				 
+				for(MailAttachment ma: attachList) {
+					FileSystemResource fsr = new FileSystemResource(ma.getFilePath());
+					messageHelper.addAttachment(MimeUtility.encodeText(ma.getOriginFileName(), "UTF-8","B"),fsr);
+				}
+			}
+			
+			mailSender.send(message);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		Mail mail = new Mail();
+		mail.setMailTitle(m.getMailTitle());
+		mail.setMailContent(m.getMailContent());
+		mail.setSenderId(sender.getEmpId());
+		
+		int result = emService.insertMail(mail);
+		
+		
+		if(result>0) {
+			// int resultTo = emService.insertMailAddress();
+			Employee to = emService.selectUser(m.getStrTo());
+			String toId = to.getEmpId();
+			int toResult = emService.insertMailAddressTo(toId);
+			int ccResult =0;
+			int bccResult=0;
+			int fileResult=0;
+			if(!m.getStrCc().equals("")) {
+				Employee cc = emService.selectUser(m.getStrCc());
+				String ccId=cc.getEmpId();
+				ccResult = emService.insertMailAddressCc(ccId);
+			}
+			if(!m.getStrBcc().equals("")) {
+				Employee bcc = emService.selectUser(m.getStrBcc());
+				String bcId=bcc.getEmpId();
+				bccResult = emService.insertMailAddressBcc(bcId);
+			}
+			if(toResult>0) {
+				if(attachList.size()>0) {
+					for(MailAttachment ma : attachList) {
+						fileResult = emService.insetMailAttachment(ma);
+					}
+				}
+			}
+			return "success";
+		}else {
+			return "fail";
+		}
 		// 디비에 insert 
 	}
 	
@@ -350,5 +456,29 @@ public class MailController {
 		//String jsonInfo = jObj.toString();
 		
 		return new Gson().toJson(keywordList);
+	}
+	
+	public String uploadeMailFile(MultipartFile file, HttpServletRequest request) {
+		String resources = request.getSession().getServletContext().getRealPath("resources"); 
+		String savePath = resources + "\\mailUploadFiles\\";
+		String originName = file.getOriginalFilename();
+		
+		String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		int ranNum = (int)(Math.random() * 90000+ 10000);
+		
+		String ext = originName.substring(originName.lastIndexOf(".")); //".jpg"
+		
+		String changeName = "m"+ currentTime + ranNum + ext; // 20200522202011.jpg
+		
+		try {
+			file.transferTo(new File(savePath + changeName));
+			
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return changeName;
 	}
 }

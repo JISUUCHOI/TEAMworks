@@ -81,28 +81,34 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return aDao.referenceList(sqlSession, d);	
 
 	}
+	
+	// 상세조회 - 결재 코멘트 개수 조회
+	@Override
+	public int selectComment(Document d) {
+		return aDao.selectComment(sqlSession, d);
+	}
 
 	// 상세조회 기안서
 	@Override
-	public Document draftDetail(Document d) {
+	public ArrayList<Document> draftDetail(Document d) {
 		return aDao.draftDetail(sqlSession, d);
 	}
 	
 	// 상세조회 제증명신청서
 	@Override
-	public Document proofDetail(Document d) {
+	public ArrayList<Document> proofDetail(Document d) {
 		return aDao.proofDetail(sqlSession, d);
 	}
 	
 	// 상세조회 경조비신청서
 	@Override
-	public Document familyEventDetail(Document d) {
+	public ArrayList<Document> familyEventDetail(Document d) {
 		return aDao.familyEventDetail(sqlSession, d);
 	}
 	
 	// 상세조회 휴가신청서
 	@Override
-	public Document vacationDetail(Document d) {
+	public ArrayList<Document> vacationDetail(Document d) {
 		return aDao.vacationDetail(sqlSession, d);
 	}
 
@@ -130,6 +136,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public int deleteVacation(String dno) {
 		return aDao.deleteVacation(sqlSession, dno);
 	}
+
+	@Override
+	public Document updateDraftForm(String dno) {
+		return aDao.updateDraftForm(sqlSession, dno);
+	}
+
 
 
 

@@ -110,7 +110,7 @@
                            
                             <td>${ s.recipientsName }</td>
                             <c:choose>
-                            	<c:when test="${ empty r.files }">
+                            	<c:when test="${ empty s.files }">
 	                            	<td>${ s.mailTitle }</td>
                             	</c:when>
                             	<c:otherwise>

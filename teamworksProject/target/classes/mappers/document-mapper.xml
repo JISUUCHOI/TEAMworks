@@ -260,6 +260,11 @@
 		delete from vacation where doc_no=#{docNo}
 	</delete>
 	
+	<select id="updateDraftForm" parameterType="Document" resultMap="documentResultSet">
+		select *
+		  from draft
+		 where doc_no=#{docNo}
+	</select>
 	
 	
 

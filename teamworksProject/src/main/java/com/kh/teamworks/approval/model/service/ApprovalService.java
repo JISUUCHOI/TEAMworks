@@ -42,17 +42,20 @@ public interface ApprovalService {
 	// 참조문서함 list
 	ArrayList<Document> referenceList(Document d);
 
+	// 상세조회-결재 코멘트 개수 조회
+	int selectComment(Document d);
+	
 	// 상세조회 기안서
-	Document draftDetail(Document d);
+	ArrayList<Document> draftDetail(Document d);
 
 	// 상세조회 제증명신청서
-	Document proofDetail(Document d);
+	ArrayList<Document> proofDetail(Document d);
 	
 	// 상세조회 경조비신청서
-	Document familyEventDetail(Document d);
+	ArrayList<Document> familyEventDetail(Document d);
 	
 	// 상세조회 휴가신청서
-	Document vacationDetail(Document d);
+	ArrayList<Document> vacationDetail(Document d);
 
 	// 제증명 삭제
 	int deleteProof(String dno);
@@ -65,6 +68,9 @@ public interface ApprovalService {
 
 	// 휴가 삭제
 	int deleteVacation(String dno);
+
+	Document updateDraftForm(String dno);
+
 
 
 

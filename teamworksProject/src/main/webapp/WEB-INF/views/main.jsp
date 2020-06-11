@@ -128,11 +128,7 @@
                    </h1>
                </div>
                <div  id="weekDiv">
-               		
-	                  
-                  
-                   
-                   
+               	
                </div>
            </div>
 
@@ -211,7 +207,7 @@
 			                           		"<div class='calendarDay' >";
 												 for(var j in list.mvs ){
 						                      	  		if(list.weeks[i].weeks == list.mvs[j].week){
-						                      	  			value += list.mvs[j].schTitle;
+						                      	  			value +="<p>"+ list.mvs[j].schTitle + "</p>";
 						                      	  		}
 						                         }                         
 			                         value +="</div>"+             

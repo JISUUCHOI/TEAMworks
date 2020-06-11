@@ -88,7 +88,7 @@
 			    or  (sysdate+5 >= sch_str_date and sysdate+5 <= sch_end_date)
 			    or  (sysdate+6 >= sch_str_date and sysdate+6 <= sch_end_date)
 			    or  (sysdate+7 >= sch_str_date and sysdate+7 <= sch_end_date))
-			    AND SCH_DEL_STATUS='N' AND (EMP_ID='tw101')
+			    AND SCH_DEL_STATUS='N' AND (EMP_ID IS NULL or EMP_ID=#{empId})
 			    ORDER BY week)
 			WHERE WEEK >= SCH_STR_DATE and week <= sch_end_date
 	     ]]>

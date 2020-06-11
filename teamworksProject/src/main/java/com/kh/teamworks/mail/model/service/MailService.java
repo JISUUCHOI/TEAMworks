@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.vo.Mail;
+import com.kh.teamworks.mail.model.vo.MailAttachment;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
 import com.kh.teamworks.management.model.vo.Department;
@@ -46,4 +47,12 @@ public interface MailService {
 	ArrayList<Employee> selectEmpList();
 	
 	ArrayList<Employee> searchUserMail(String keyword);
+	
+	int insertMail(Mail mail);
+	Employee selectUser(String email);
+	
+	int insertMailAddressTo(String empId);
+	int insertMailAddressCc(String empId);
+	int insertMailAddressBcc(String empId);
+	int insetMailAttachment(MailAttachment ma);
 }

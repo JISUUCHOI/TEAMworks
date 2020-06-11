@@ -54,7 +54,7 @@ public class ApprovalDao {
 	// public int docListCount(SqlSessionTemplate sqlSession, Document d) {
 		// return sqlSession.selectOne("documentMapper.docListCount", d);
 	// }
-
+	
 	// 결재요청함 list
 	public ArrayList<Document> docList(SqlSessionTemplate sqlSession, Document d) {
 		return (ArrayList)sqlSession.selectList("documentMapper.docList", d);
@@ -65,23 +65,28 @@ public class ApprovalDao {
 		return (ArrayList)sqlSession.selectList("documentMapper.referenceList", d);
 	}
 
+	// 상세조회 - 결재 코멘트 개수 조회
+	public int selectComment(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.selectOne("approveMapper.selectComment", doc);
+	}
+	
 	// 상세조회 기안서
-	public Document draftDetail(SqlSessionTemplate sqlSession, Document d) {
-		return sqlSession.selectOne("documentMapper.draftDetail", d);
+	public ArrayList<Document> draftDetail(SqlSessionTemplate sqlSession, Document d) {
+		return (ArrayList)sqlSession.selectList("documentMapper.draftDetail", d);
 	}
 	
 	// 상세조회 제증명
-	public Document proofDetail(SqlSessionTemplate sqlSession, Document d) {
-		return sqlSession.selectOne("documentMapper.proofDetail", d);	}
+	public ArrayList<Document> proofDetail(SqlSessionTemplate sqlSession, Document d) {
+		return (ArrayList)sqlSession.selectList("documentMapper.proofDetail", d);	}
 	
 	// 상세조회 경조비
-	public Document familyEventDetail(SqlSessionTemplate sqlSession, Document d) {
-		return sqlSession.selectOne("documentMapper.familyEventDetail", d);
+	public ArrayList<Document> familyEventDetail(SqlSessionTemplate sqlSession, Document d) {
+		return (ArrayList)sqlSession.selectList("documentMapper.familyEventDetail", d);
 	}
 	
 	// 상세조회 휴가신청서
-	public Document vacationDetail(SqlSessionTemplate sqlSession, Document d) {
-		return sqlSession.selectOne("documentMapper.vacationDetail", d);
+	public ArrayList<Document> vacationDetail(SqlSessionTemplate sqlSession, Document d) {
+		return (ArrayList)sqlSession.selectList("documentMapper.vacationDetail", d);
 	}
 
 	// 제증명 삭제
@@ -101,6 +106,11 @@ public class ApprovalDao {
 	// 휴가신청서 삭제
 	public int deleteVacation(SqlSessionTemplate sqlSession, String dno) {
 		return sqlSession.delete("documentMapper.deleteVacation",dno);	}
+
+	public Document updateDraftForm(SqlSessionTemplate sqlSession, String dno) {
+		return sqlSession.selectOne("documentMapper.updateDraftForm", dno);
+	}
+
 
 
 

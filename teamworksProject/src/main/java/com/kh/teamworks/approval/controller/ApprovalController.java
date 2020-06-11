@@ -246,33 +246,38 @@ public class ApprovalController {
 	@RequestMapping("docDetail.ap")
 	public String detailDoc(Document d, Model model, HttpServletRequest request) {
 		
+		ArrayList<Document> doc = new ArrayList<Document>();
+		
 		String docNo = d.getDocNo();
 		d.setDocNo(docNo);
 		
+		// 결재 코멘트 개수
+		int count = aService.selectComment(d);
+		model.addAttribute("count", count);
+		
 		if(d.getDocSc().equals("기안서")) {		
-			d = aService.draftDetail(d);
-			model.addAttribute("d", d);
-			// System.out.println(d);
+			doc = aService.draftDetail(d);
+			model.addAttribute("d", doc);
 			return "approval/draftSubmit";
 		
 		}else if(d.getDocSc().equals("제증명신청서")) {
-			d = aService.proofDetail(d);
-			model.addAttribute("d", d);
+			doc = aService.proofDetail(d);
+			model.addAttribute("d", doc);
 			// System.out.println(d);
 			return "approval/proofSubmit";
 		
 		}else if(d.getDocSc().equals("경조비신청서")){
-			d = aService.familyEventDetail(d);
-			model.addAttribute("d", d);
-			// System.out.println(d);
-			return "approval/feSubmit";
+			doc = aService.familyEventDetail(d);
+			model.addAttribute("d", doc);
+			return "approval/familyEventSubmit";
 		
 		}else {
-			d = aService.vacationDetail(d);
-			model.addAttribute("d", d);
-			// System.out.println(d);
-			return "approval/vcSubmit";
+			doc = aService.vacationDetail(d);
+			model.addAttribute("d", doc);
+			return "approval/vacationSubmit";
 		}
+		
+		
 	
 	}
 	
@@ -293,16 +298,15 @@ public class ApprovalController {
 	
 	// 기안서 수정 폼
 	@RequestMapping("updateDraftForm.ap")
-	public String updateDraftForm(Document d, Model model, HttpServletRequest request) {
+	public ModelAndView updateForm(String dno, String dsc, Model model, HttpServletRequest request, ModelAndView mv) {
 		
-		String docNo = d.getDocNo();
-		d.setDocNo(docNo);
-
-		d = aService.draftDetail(d);
-		model.addAttribute("d", d);
-		System.out.println(d);
-		return "approval/draftSubmit";
-			
+		if(dsc.equals("기안서")) {
+			Document d = aService.updateDraftForm(dno);
+			// System.out.println(d);
+			mv.addObject("d", d);
+			mv.setViewName("approval/draftUpdateForm");		
+		}
+		return mv;
 	}
 	
 	// 기안서 삭제

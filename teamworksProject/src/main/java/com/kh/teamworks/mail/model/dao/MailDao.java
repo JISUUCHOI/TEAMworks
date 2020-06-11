@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.vo.Mail;
+import com.kh.teamworks.mail.model.vo.MailAttachment;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
 import com.kh.teamworks.management.model.vo.Department;
@@ -125,5 +126,28 @@ public class MailDao {
 	
 	public ArrayList<Employee> searchUserMail(SqlSession sqlSession, String keyword){
 		return (ArrayList)sqlSession.selectList("mailMapper.searchUserMail", keyword);
+	}
+	
+	public int insertMail(SqlSession sqlSession, Mail mail) {
+		return sqlSession.insert("mailMapper.insertMail", mail);
+	}
+	
+	public Employee selectUser(SqlSession sqlSession, String email) {
+		return sqlSession.selectOne("mailMapper.selectUser", email);
+	}
+	
+	public int insertMailAddressTo(SqlSession sqlSession, String empId) {
+		return sqlSession.insert("mailMapper.insertMailAddressTo", empId);
+	}
+	public int insertMailAddressCc(SqlSession sqlSession, String empId) {
+		return sqlSession.insert("mailMapper.insertMailAddressCc", empId);
+	}
+	
+	public int insertMailAddressBcc(SqlSession sqlSession, String empId) {
+		return sqlSession.insert("mailMapper.insertMailAddressBcc", empId);
+	}
+	
+	public int insetMailAttachment(SqlSession sqlSession, MailAttachment ma) {
+		return sqlSession.insert("mailMapper.insetMailAttachment", ma);
 	}
 }
