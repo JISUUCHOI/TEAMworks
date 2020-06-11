@@ -2,10 +2,12 @@ package com.kh.teamworks.employee.model.dao;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
@@ -72,10 +74,20 @@ public class EmployeeDao {
 	}
 
 
-	public ArrayList<SearchEmpAttendance> selectSchEmpAtt(SqlSessionTemplate sqlSession, SearchEmpAttCondition seac) {
-		// TODO Auto-generated method stub
-		System.out.println(seac);
-		return (ArrayList)sqlSession.selectList("employeeMapper.selectSchEmpAtt", seac);
+	public ArrayList<SearchEmpAttendance> selectSchEmpAtt(SqlSessionTemplate sqlSession,  SearchEmpAttCondition seac,PageInfo pi) {
+		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		//System.out.println(seac);
+		return (ArrayList)sqlSession.selectList("employeeMapper.selectSchEmpAtt", seac,rowBounds);
+	}
+
+
+	
+
+
+	public int selectListCount(SqlSessionTemplate sqlSession) {
+		
+		return sqlSession.selectOne("employeeMapper.selectListCount");
 	}
 
 

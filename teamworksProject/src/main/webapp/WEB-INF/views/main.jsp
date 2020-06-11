@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,100 +123,17 @@
            <div>
                <div class="col-lg-12">
                    <h1 class="page-header">
-                   <a href="#"><i class="fa fa-angle-left fa-fw"></i></a>
-                   
-                   <c:out value="${month}"/>5월 <c:out value="${week}"/>4째주
-                   <a href="#"><i class="fa fa-angle-right fa-fw"></i></a>
+                 	 <c:set var="today" value="<%=new java.util.Date()%>" />
+					 <fmt:formatDate value="${today}" pattern="yyyy-MM-dd" />		
                    </h1>
                </div>
                <div  id="weekDiv">
-                   <div class="calendarColumn" >
-                       <div class="panel panel-primary">
-                           <div class="panel-heading" style="text-align:center">
-                             	  월 일 
-                           </div> 
-                           <div class="panel-body"> 
-                                       <div class="calendarDay" >
-                                                 
-                                       </div>                
-                           </div> 
-                       </div>
-                   </div>
-                   <div class="calendarColumn" >
-                       <div class="panel panel-primary">
-                           <div class="panel-heading" style="text-align:center">
-                             	  월 일 
-                           </div> 
-                           <div class="panel-body"> 
-                                       <div class="calendarDay" >
-                                                 
-                                       </div>                
-                           </div> 
-                       </div>
-                   </div>
-                   <div class="calendarColumn" >
-                       <div class="panel panel-primary">
-                           <div class="panel-heading" style="text-align:center">
-                             	  월 일 
-                           </div> 
-                           <div class="panel-body"> 
-                                       <div class="calendarDay" >
-                                                 
-                                       </div>                
-                           </div> 
-                       </div>
-                   </div>
-                   <div class="calendarColumn" >
-                       <div class="panel panel-primary">
-                           <div class="panel-heading" style="text-align:center">
-                             	  월 일 
-                           </div> 
-                           <div class="panel-body"> 
-                                       <div class="calendarDay" >
-                                                 
-                                       </div>                
-                           </div> 
-                       </div>
-                   </div>
-                   <div class="calendarColumn" >
-                       <div class="panel panel-primary">
-                           <div class="panel-heading" style="text-align:center">
-                             	  월 일 
-                           </div> 
-                           <div class="panel-body"> 
-                                       <div class="calendarDay" >
-                                                 
-                                       </div>                
-                           </div> 
-                       </div>
-                   </div>
-                   <div class="calendarColumn" >
-                       <div class="panel panel-primary">
-                           <div class="panel-heading" style="text-align:center">
-                             	  월 일 
-                           </div> 
-                           <div class="panel-body"> 
-                                       <div class="calendarDay" >
-                                                 
-                                       </div>                
-                           </div> 
-                       </div>
-                   </div>
-                   <div class="calendarColumn" >
-                       <div class="panel panel-primary">
-                           <div class="panel-heading" style="text-align:center">
-                             	  월 일 
-                           </div> 
-                           <div class="panel-body"> 
-                                       <div class="calendarDay" >
-                                                 
-                                       </div>                
-                           </div> 
-                       </div>
-                   </div>
+               		
+	                  
+                  
+                   
+                   
                </div>
-               
-
            </div>
 
           
@@ -274,6 +193,40 @@
 	<script type="text/javascript">
 		
 		$(function(){
+			// 일정표 조회용
+			$.ajax({
+				url:"mainschedule.sc",
+				data:{empId:"${loginUser.empId}"},
+				success:function(list){
+					console.log(list);
+					var value="";
+					
+					for(var i in list.weeks){
+						 value +="<div class='calendarColumn' >"+
+				                    "<div class='panel panel-primary'>"+
+			                           "<div class='panel-heading' style='text-align:center'>"+
+			                          		list.weeks[i].weeks
+			                           +"</div>"+
+			                           "<div class='panel-body'>" +
+			                           		"<div class='calendarDay' >";
+												 for(var j in list.mvs ){
+						                      	  		if(list.weeks[i].weeks == list.mvs[j].week){
+						                      	  			value += list.mvs[j].schTitle;
+						                      	  		}
+						                         }                         
+			                         value +="</div>"+             
+			                          "</div>" +
+				                    "</div>"+
+				            		"</div>";
+					}
+					console.log(value);
+					$("#weekDiv").html(value);
+					
+				},errorPage:function(){
+					console.log("실패실패 스케줄 불러오기 실패")
+				}
+			});
+			// 일반게시판 조회용
 			$.ajax({
 				url:"mainlist.bo",
 				data:{empId:"${loginUser.empId}"},
@@ -290,14 +243,10 @@
 						                     }else{
 						                   		 value +="<td>"+list[i].boardTitle+"</td>";
 						                     }
-		                     
-					                     
 					            value+=  "<td>"+list[i].empName+"</td>"+
 					                     "<td>"+list[i].createDate+"</td>"+
 					                     "<td>"+list[i].count+"</td>"+
 					                     "<td>"+list[i].like+"</td>";
-					                     
-					                     
 					                     if(list[i].boardFiles != null ){
 					                    	 value += "<td>"+"<i class='fas fa-paperclip' >"+"</i> "+ "</td>";
 					                     }else{
@@ -308,7 +257,7 @@
 			                         + "</tr>";
 			                    
 					}
-					console.log(value);
+					//console.log(value);
 					$("#boardList tbody").html(value);
 					$("#boardList tbody tr").click(function(){
 		    			

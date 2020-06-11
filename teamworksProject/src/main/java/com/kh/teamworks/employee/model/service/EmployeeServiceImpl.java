@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.dao.EmployeeDao;
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
@@ -73,14 +74,20 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 	@Override
 	public ArrayList<Attendance> selectSchMyAtt(SearchMyAttendance sma) {
-		// TODO Auto-generated method stub
+		
 		return eDao.selectSchMyAtt(sqlSession,sma);
 	}
 
 	@Override
-	public ArrayList<SearchEmpAttendance> selectSchEmpAtt(SearchEmpAttCondition seac) {
+	public ArrayList<SearchEmpAttendance> selectSchEmpAtt(SearchEmpAttCondition seac,PageInfo pi) {
 		
-		return eDao.selectSchEmpAtt(sqlSession,seac);
+		return eDao.selectSchEmpAtt(sqlSession,seac,pi);
+	}
+
+	@Override
+	public int selectListCount() {
+		
+		return eDao.selectListCount(sqlSession);
 	}
 
 	

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -21,7 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.teamworks.schedule.model.service.ScheduleService;
+import com.kh.teamworks.schedule.model.vo.MainViewSchedule;
 import com.kh.teamworks.schedule.model.vo.Schedule;
+import com.kh.teamworks.schedule.model.vo.Weeks;
 
 @Controller
 public class ScheduleController {
@@ -289,5 +291,43 @@ public class ScheduleController {
 		}
 		
 	}
-
+	
+	// 전체 일정 리스트 조회용
+	/*	
+	@ResponseBody
+		@RequestMapping("mainschedule.sc")
+		public ModelAndView MainSelectAllSch(String empId, ModelAndView mv) {
+			
+			
+			ArrayList<Weeks> weeks = scService.selectWeeks();
+			ArrayList<MainViewSchedule> mvs = scService.MainSelectAllSch(empId);
+			
+			mv.addObject("mvs", mvs);
+			mv.addObject("weeks", weeks);
+			mv.setViewName("main");
+			System.out.println(mvs);
+			System.out.println(weeks);
+			
+			return mv;
+		}
+		*/
+	
+	
+	
+		//@ResponseBody
+		@RequestMapping(value="mainschedule.sc")
+		public void MainSelectAllSch(String empId, HttpServletResponse response) throws JsonIOException, IOException {
+			
+			ArrayList<Weeks> weeks = scService.selectWeeks();
+			ArrayList<MainViewSchedule> mvs = scService.MainSelectAllSch(empId);
+			
+			HashMap<String, Object> hashmap = new HashMap<>();
+			
+			hashmap.put("weeks", weeks);
+			hashmap.put("mvs", mvs);
+		
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(hashmap, response.getWriter());
+			
+		}
 }
