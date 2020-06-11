@@ -38,6 +38,10 @@ public class ManagementDao {
 		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpList");
 	}
 	
+	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession, int deptCode) {
+		return (ArrayList)sqlSession.selectList("managementMapper.selectOrgEmpList", deptCode);
+	}
+	
 	public ArrayList<Department> selectDeptList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("managementMapper.selectDeptList");
 	}

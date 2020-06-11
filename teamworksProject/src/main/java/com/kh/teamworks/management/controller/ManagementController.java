@@ -1,8 +1,10 @@
 package com.kh.teamworks.management.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.service.ManagementServiceImpl;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
@@ -125,6 +130,31 @@ public class ManagementController {
 		
 		return "management/companyOrganization";
 	}
+	
+	// 최지수_조직도
+	// 페이지 로딩 시 전체 사원 목록 조회하는 ajax 통신용 서비스
+	@ResponseBody
+	@RequestMapping(value="allEmpList.mg", method=RequestMethod.POST)
+	public void allEmpList(HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Employee> empList = mgService.selectEmpList();
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(empList, response.getWriter());
+	}
+	
+	// 최지수_조직도
+	// 부서명 클릭 시 해당 부서에 소속된 사원 목록 조회하는 ajax 통신용 서비스
+	@ResponseBody
+	@RequestMapping(value="orgEmpList.mg", method=RequestMethod.POST)
+	public void orgEmpList(int deptCode, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Employee> orgEmpList = mgService.selectEmpList(deptCode);
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(orgEmpList, response.getWriter());
+	}
+	
 	
 	//직급 관리
 	@RequestMapping("orgJobList.mg")

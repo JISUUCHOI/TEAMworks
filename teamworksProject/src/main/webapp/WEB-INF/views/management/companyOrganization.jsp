@@ -95,7 +95,9 @@
 				<div class="tree2">(주) TEAMworks</div>
 				
 				<c:forEach var="d" items="${ deptList }">
-					<div class="tree3">${ d.deptName }</div>
+					<div class="tree3">${ d.deptName }
+						<input type="hidden" name="deptCode" value="${ d.deptCode }">
+					</div>
 				</c:forEach>
 
 	        </div>
@@ -121,32 +123,28 @@
 			</div>
 			
 			<!-- 사원 목록 테이블 -->
-			<span id="category">전체</span>&nbsp;<span id="empCount">${fn:length(empList)}</span>
+			<span id="category"></span>&nbsp;<span id="empCount"></span>
 			<table id="empListTable" border="1">
-				<tr style="background-color: #f2f2f2;">
-					<th width="15%">사원명</th>
-					<th width="15%">직급</th>
-					<th width="15%">부서</th>
-					<th width="21%">휴대폰</th>
-					<th width="34%">이메일</th>
-				</tr>
-				<c:forEach var="e" items="${ empList }">
-					<tr>
-						<td id="empName">${ e.empName }</td>
-						<td id="jobName">${ e.jobName }</td>
-						<td id="deptName">${ e.deptName }</td>
-						<td id="empPhone">${ e.empPhone }</td>
-						<td id="empEmail">${ e.empEmail }</td>
+				<thead>
+					<tr style="background-color: #f2f2f2;">
+						<th width="15%">사원명</th>
+						<th width="15%">직급</th>
+						<th width="15%">부서</th>
+						<th width="21%">휴대폰</th>
+						<th width="34%">이메일</th>
 					</tr>
-				</c:forEach>
-				
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="t" begin="0" end="9">
+						<tr id="00${t}">
+							<td id="empName"></td>
+							<td id="jobName"></td>
+							<td id="deptName"></td>
+							<td id="empPhone"></td>
+							<td id="empEmail"></td>
+						</tr>
+					</c:forEach>
+				</tbody>
 			</table>
 			<br>
 			
@@ -183,6 +181,30 @@
 				}else {
 					tree2.slideUp();
 				}
+				
+				$.ajax({
+					url:"allEmpList.mg",
+					data:{},
+					type:"post",
+					success:function(empList){
+						
+						$('#category').text('전체');
+						$('#empCount').text(empList.length);
+						
+						for(var e=0; e<empList.length; e++) {
+							var selector = '#00' + e;
+							$(selector).children('#empName').text(empList[e].empName);
+							$(selector).children('#jobName').text(empList[e].jobName);
+							$(selector).children('#deptName').text(empList[e].deptName);
+							$(selector).children('#empPhone').text(empList[e].empPhone);
+							$(selector).children('#empEmail').text(empList[e].empEmail);
+						}
+						
+					},error:function(){
+						console.log("조직도 전체 클릭 시 사원 목록 불러오는 ajax 통신 실패");
+					}
+				});
+				
 			});
 			
 			$(".tree2").click(function(){
@@ -196,11 +218,63 @@
 			});
 			
 			// 조직도 클릭 시
+			$(".tree3").click(function(){
+				var deptCode = $(this).children('input').val();
+				
+				$.ajax({
+					url:"orgEmpList.mg",
+					data:{deptCode:deptCode},
+					type:"post",
+					success:function(empList){
+						$('#empListTable>tbody td').text('');
+						
+						$('#category').text(empList[0].deptName);
+						$('#empCount').text(empList.length);						
+						
+						for(var e=0; e<empList.length; e++) {
+							var selector = '#00' + e;
+							$(selector).children('#empName').text(empList[e].empName);
+							$(selector).children('#jobName').text(empList[e].jobName);
+							$(selector).children('#deptName').text(empList[e].deptName);
+							$(selector).children('#empPhone').text(empList[e].empPhone);
+							$(selector).children('#empEmail').text(empList[e].empEmail);
+						}
+						
+					},error:function(){
+						console.log("부서명 클릭 시 실행되는 ajax 통신 실패");
+					}
+				});
+				
+			});
 			
 		});
 		
 		
 		// 사원 리스트 스크립트
+		$(function(){
+			$.ajax({
+				url:"allEmpList.mg",
+				data:{},
+				type:"post",
+				success:function(empList){
+					
+					$('#category').text('전체');
+					$('#empCount').text(empList.length);
+					
+					for(var e=0; e<empList.length; e++) {
+						var selector = '#00' + e;
+						$(selector).children('#empName').text(empList[e].empName);
+						$(selector).children('#jobName').text(empList[e].jobName);
+						$(selector).children('#deptName').text(empList[e].deptName);
+						$(selector).children('#empPhone').text(empList[e].empPhone);
+						$(selector).children('#empEmail').text(empList[e].empEmail);
+					}
+					
+				},error:function(){
+					console.log("페이지 로딩 시 사원 목록 불러오는 ajax 통신 실패");
+				}
+			});
+		});
 		
 	</script>
 

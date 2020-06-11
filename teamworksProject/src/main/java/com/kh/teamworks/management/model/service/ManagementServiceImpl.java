@@ -42,9 +42,17 @@ public class ManagementServiceImpl implements ManagementService{
 		return 0;
 	}
 	
+	// 모든 사원 목록 조회용
 	@Override
 	public ArrayList<Employee> selectEmpList() {
 		return mgDao.selectEmpList(sqlSession);
+	}
+	
+	// 해당 부서에 소속된 사원 목록 조회용
+	@Override
+	public ArrayList<Employee> selectEmpList(int deptCode) {
+		
+		return mgDao.selectEmpList(sqlSession, deptCode);
 	}
 
 	@Override
