@@ -42,7 +42,7 @@ public interface ManagementService {
 	
 	
 	// 조직도 관리
-	Department selectDeptList();
+	ArrayList<Department> selectDeptList();
 	int insertDept(String keyword); //
 	int updateDept(); //
 	int deleteDept(); //

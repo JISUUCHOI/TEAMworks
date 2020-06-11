@@ -36,4 +36,6 @@ public class Employee {
 	private String chnageName;
 	private String homNo;
 	
+	private String deptName;
+	private String jobName;
 }

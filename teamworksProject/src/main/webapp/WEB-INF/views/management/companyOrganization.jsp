@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
 <style>
 	.content {
 		margin-left:20%;
@@ -34,11 +36,32 @@
 	
 	.tree_area {
 		margin-top:70px;
+		width:100%;
+		height:300px;
 		border: 2px solid #07355A;
 	}
 	
 	.btn {background-color: #ddd;} 
 	
+	/* 조직도 css */
+	.tree1, .tree2, .tree3 {
+		cursor:pointer;
+		font-size:20px;	
+	}
+	.tree1 {
+       margin:10px 0px 5px 15px;
+    }
+    .tree2 {
+       margin:10px 0px 5px 45px;
+       /* display:none; */
+    }
+    .tree3 {
+       margin-top:10px;
+       margin-left:83px;
+       /* display:none; */
+    }
+	
+	/* 사원 리스트 css */
 	#empCount {color:red;}
 	#empListTable {
 		width:100%;
@@ -68,32 +91,13 @@
 		<div class="tree_box">
 			<!-- 조직도 영역 -->
 			<div class="tree_area">
-		        <ul id="tree_menu" class="tree_menu">
-		            <li class="depth_1"><strong>전체</strong>
-		                <ul class="depth_2" >
-		                    <li>
-		                        <a href="#none"><em>폴더</em> 팀 명 1 </a>
-		                        <ul class="depth_3">
-		                            <li><a href="#none">사원정보1</a></li>
-		                            <li><a href="#none">사원정보2</a></li>
-		                            <li><a href="#none">사원정보3</a></li>
-		                            <li><a href="#none">사원정보4</a></li>
-		                            <li><a href="#none">사원정보5</a></li>
-		                        </ul>
-		                    </li>
-		                    <li class="last">
-		                        <a href="#none"><em>폴더</em> 팀 명 2 </a>
-		                        <ul class="depth_3">
-		                            <li><a href="#none">사원정보1</a></li>
-		                            <li><a href="#none">사원정보2</a></li>
-		                            <li><a href="#none">사원정보3</a></li>
-		                            <li><a href="#none">사원정보4</a></li>
-		                            <li class="end"><a href="#none">사원정보5</a></li>
-		                        </ul>
-		                    </li>
-		                </ul>
-		            </li>
-		        </ul>
+				<div class="tree1">전체</div>
+				<div class="tree2">(주) TEAMworks</div>
+				
+				<c:forEach var="d" items="${ deptList }">
+					<div class="tree3">${ d.deptName }</div>
+				</c:forEach>
+
 	        </div>
 	        <br>
 	        <!-- 부서 추가/수정/삭제 버튼 영역 -->
@@ -105,7 +109,7 @@
 		</div>
 		
 		<!-- 오른쪽 영역 -->
-		<div class="list_box" style="border:1px solid black;">
+		<div class="list_box">
 			<!-- 사원명 검색바 -->
 			<div align="right">
 			<div class="input-group mb-3" style="width:190px; height:30px;">
@@ -117,7 +121,7 @@
 			</div>
 			
 			<!-- 사원 목록 테이블 -->
-			<span id="category">전체</span>&nbsp;<span id="empCount">10</span>
+			<span id="category">전체</span>&nbsp;<span id="empCount">${fn:length(empList)}</span>
 			<table id="empListTable" border="1">
 				<tr style="background-color: #f2f2f2;">
 					<th width="15%">사원명</th>
@@ -126,69 +130,16 @@
 					<th width="21%">휴대폰</th>
 					<th width="34%">이메일</th>
 				</tr>
-				<tr>
-					<td>최지수</td>
-					<td>이사</td>
-					<td>영업지원팀</td>
-					<td>010-2222-3333</td>
-					<td>twgroupware.vo@gmail.com</td>
-				</tr>
-				<tr>
-					<td>라공주</td>
-					<td>사원</td>
-					<td>영업지원팀</td>
-					<td>010-3434-2323</td>
-					<td>twgroupware.vo@gmail.com</td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+				<c:forEach var="e" items="${ empList }">
+					<tr>
+						<td id="empName">${ e.empName }</td>
+						<td id="jobName">${ e.jobName }</td>
+						<td id="deptName">${ e.deptName }</td>
+						<td id="empPhone">${ e.empPhone }</td>
+						<td id="empEmail">${ e.empEmail }</td>
+					</tr>
+				</c:forEach>
+				
 				<tr>
 					<td></td>
 					<td></td>
@@ -211,6 +162,47 @@
 		
     </div>
 
+
+	<script>
+		// 조직도 스크립트
+		$(function(){
+			
+			// 조직도 slideDown slideUp
+			$(".tree1").click(function(){
+				var tree2 = $(this).nextAll(".tree2");
+				var tree3 = $(this).nextAll(".tree3");
+				
+				if(tree3.css("display") == "none") {
+					tree3.slideDown();
+				}else {
+					tree3.slideUp();
+				}
+				
+				if(tree2.css("display") == "none") {
+					tree2.slideDown();
+				}else {
+					tree2.slideUp();
+				}
+			});
+			
+			$(".tree2").click(function(){
+				var tree3 = $(this).nextAll(".tree3");
+				
+				if(tree3.css("display") == "none") {
+					tree3.slideDown();
+				}else {
+					tree3.slideUp();
+				}
+			});
+			
+			// 조직도 클릭 시
+			
+		});
+		
+		
+		// 사원 리스트 스크립트
+		
+	</script>
 
 </body>
 </html>

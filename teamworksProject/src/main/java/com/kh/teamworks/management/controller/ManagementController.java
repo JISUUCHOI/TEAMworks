@@ -1,10 +1,6 @@
 package com.kh.teamworks.management.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,12 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.service.ManagementServiceImpl;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
+import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
 
 @Controller
@@ -117,9 +113,16 @@ public class ManagementController {
 		return "management/companyMemberDocument";
 	}
 	
-	//조직도
+	//최지수_조직도
 	@RequestMapping("org.mg")
-	public String orgList() {
+	public String orgList(Model model) {
+		
+		ArrayList<Department> deptList = mgService.selectDeptList();
+		ArrayList<Employee> empList = mgService.selectEmpList();
+		
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("empList", empList);
+		
 		return "management/companyOrganization";
 	}
 	

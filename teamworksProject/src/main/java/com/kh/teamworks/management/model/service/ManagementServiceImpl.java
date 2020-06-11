@@ -89,9 +89,9 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public Department selectDeptList() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Department> selectDeptList() {
+
+		return mgDao.selectDeptList(sqlSession);
 	}
 
 	@Override

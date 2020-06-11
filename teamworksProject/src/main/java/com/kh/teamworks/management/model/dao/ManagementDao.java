@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
+import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
 
 @Repository("mgDao")
@@ -35,5 +36,9 @@ public class ManagementDao {
 	
 	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("managementMapper.selectEmpList");
+	}
+	
+	public ArrayList<Department> selectDeptList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("managementMapper.selectDeptList");
 	}
 }
