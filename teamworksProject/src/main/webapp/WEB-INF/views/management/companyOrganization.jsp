@@ -13,7 +13,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
+	<!-- 아이콘 스크립트 -->
+	<script src="https://use.fontawesome.com/8f77921a99.js"></script>
 <style>
 	.content {
 		margin-left:20%;
@@ -41,7 +42,7 @@
 		border: 2px solid #07355A;
 	}
 	
-	.btn {background-color: #ddd;} 
+	#searchBtn, #insertBtn, #updateBtn, #deleteBtn {background-color: #ddd;} 
 	
 	/* 조직도 css */
 	.tree1, .tree2, .tree3 {
@@ -74,6 +75,18 @@
 		height:30px;
 	}
 	
+	/* 모달 css */
+	.modal-content {width:350px;}
+	.modalTable {
+		width:300px;
+		border: 1px solid #ddd;
+	}
+	.modalTable tr {height:35px;}
+	.modalTable th {
+		text-align:center;
+		background-color:#f2f2f2;
+	}
+	
 	#pagingArea{width:fit-content; margin:auto; color:rgb(7, 53, 90);}
 	
 </style>
@@ -91,12 +104,12 @@
 		<div class="tree_box">
 			<!-- 조직도 영역 -->
 			<div class="tree_area">
-				<div class="tree1">전체</div>
-				<div class="tree2">(주) TEAMworks</div>
+				<div class="tree1"><i class="fa fa-folder-o" aria-hidden="true">&nbsp;</i>전체</div>
+				<div class="tree2"><i class="fa fa-folder-o" aria-hidden="true">&nbsp;</i>(주)TEAMworks</div>
 				
 				<c:forEach var="d" items="${ deptList }">
-					<div class="tree3">${ d.deptName }
-						<input type="hidden" name="deptCode" value="${ d.deptCode }">
+					<div class="tree3"><i class="fa fa-folder-o" aria-hidden="true">&nbsp;</i>${ d.deptName }
+					<input type="hidden" name="deptCode" value="${ d.deptCode }">
 					</div>
 				</c:forEach>
 	        </div>
@@ -173,10 +186,10 @@
             <form action="insertDept.mg" method="post">
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <table>
+                    <table class="modalTable" border="1">
                     	<tr>
-                    		<th>상위 부서명</th>
-                    		<td>(주) TEAMworks</td>
+                    		<th width="40%">상위 부서명</th>
+                    		<td width="60%">(주) TEAMworks</td>
                     	</tr>
                     	<tr>
                     		<th>부서명</th>
@@ -208,11 +221,11 @@
             <form action="updateDept.mg" method="post">
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <table>
+                    <table class="modalTable" border="1">
                         <tr>
-                    		<th>변경할 부서</th>
-                    		<td>
-                    			<select name="deptCode">
+                    		<th width="40%">변경할 부서</th>
+                    		<td width="60%">
+                    			<select name="deptCode" style="width:150px;">
                     				<c:forEach var="d" items="${ deptList }">
                     					<option value="${d.deptCode}">${ d.deptName }</option>
                     				</c:forEach>
@@ -221,7 +234,7 @@
                     	</tr>
                     	<tr>
                     		<th>부서명</th>
-                    		<td><input type="text" name="deptName" required></td>
+                    		<td><input type="text" name="deptName" style="width:150px;" required></td>
                     	</tr>
                     </table>
                 </div>
@@ -249,11 +262,11 @@
             <form action="deleteDept.mg" method="post">
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <table>
+                    <table class="modalTable" border="1">
                         <tr>
-                    		<th>삭제할 부서</th>
-                    		<td>
-                    			<select name="deptCode">
+                    		<th width="40%">삭제할 부서</th>
+                    		<td width="60%">
+                    			<select name="deptCode" style="width:150px;">
                     				<c:forEach var="d" items="${ deptList }">
                     					<option value="${d.deptCode}">${ d.deptName }</option>
                     				</c:forEach>
