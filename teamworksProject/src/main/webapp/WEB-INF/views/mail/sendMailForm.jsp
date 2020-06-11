@@ -138,7 +138,7 @@
                     <tr>
                         <th width="150px">받는 사람</th>
                         <td style="position:relative;">
-                            <input type="text" id="to" name="strTo" class="form-control" value="" required onKeyUp="keywordSearch();">
+                            <input type="text" id="to" name="strTo" class="form-control" value="" required onKeyUp="keywordSearch();"  autocomplete="off" >
                             <div id="suggest" style="position:absolute;z-index:99; background-color:white; width:95%; ">
 						        <div id="suggestList"></div>
 						   </div>
@@ -150,7 +150,7 @@
                     <tr>
                         <th width="150px">참조</th>
                         <td>
-                            <input type="email" name="strCc" class="form-control">
+                            <input type="email" name="strCc" class="form-control"  autocomplete="off" >
                         </td>
                         <td>
                           
@@ -159,7 +159,7 @@
                     <tr>
                         <th width="150px">숨은 참조</th>
                         <td>
-                            <input type="email" name="strBcc" class="form-control">
+                            <input type="email" name="strBcc" class="form-control"  autocomplete="off" >
                         </td>
                         <td>
                            
@@ -501,16 +501,14 @@
       					processData: false,
       					success:function(result){
       						if(result == "success"){
-      							alert("게시글 등록 완료");
+      							alert("메일 전송 완료");
       							location.href="slist.ma?currentPage=1";
-      						}else if(result == "insertFail"){
-      							alert("게시판 등록에 실패하셨습니다.");
-      						}else{
-      							alert("첨부파일 업로드에 실패하셨습니다.");
+      						}else if(result == "fail"){
+      							alert("메일 전송 실패");
       						}
       					},
       					error:function(){
-      						console.log("board ajax통신 실패");
+      						console.log("mail ajax통신 실패");
       					}
                       });
                        

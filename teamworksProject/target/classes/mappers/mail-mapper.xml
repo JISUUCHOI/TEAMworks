@@ -300,4 +300,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		 where emp_name like '%'||#{keyword}||'%' 
  		       or emp_email like '%'||#{keyword}||'%'
  	</select>
+ 	
+ 	<insert id="insertMail" parameterType="Mail">
+ 		insert into email
+ 		values(SEQ_MNO.NEXTVAL, #{mailTitle}, #{mailContent}, SYSDATE, null, #{senderId}, 'Y', 'N')
+ 	</insert>
+ 	
+ 	<select id="selectUser" parameterType="string" resultMap="employeeResultSet">
+ 		select * 
+ 		  from employee
+ 		 where emp_email = #{email}
+ 	</select>
+ 	<insert id="insertMailAddressTo" parameterType="string">
+ 		insert into email_address
+ 		values(SEQ_MNO.CURRVAL, #{empId}, 'T', 'N', 'N', 'Y')
+ 	</insert>
+ 	<insert id="insertMailAddressCc" parameterType="string">
+ 		insert into email_address
+ 		values(SEQ_MNO.CURRVAL, #{empId}, 'C', 'N', 'N', 'Y')
+ 	</insert>
+ 	<insert id="insertMailAddressBcc" parameterType="string">
+ 		insert into email_address
+ 		values(SEQ_MNO.CURRVAL, #{empId}, 'B', 'N', 'N', 'Y')
+ 	</insert>
+ 	<insert id="insetMailAttachment" parameterType="com.kh.teamworks.mail.model.vo.MailAttachment">
+ 		insert into email_attachment
+ 		values(SEQ_MANO.NEXTVAL, #{changeFileName}, #{originFileName}, #{filesize}, SEQ_MNO.CURRVAL)
+ 	</insert>
+ 	
 </mapper>

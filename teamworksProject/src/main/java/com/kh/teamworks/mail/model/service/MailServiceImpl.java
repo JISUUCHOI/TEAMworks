@@ -10,6 +10,7 @@ import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.dao.MailDao;
 import com.kh.teamworks.mail.model.vo.Mail;
+import com.kh.teamworks.mail.model.vo.MailAttachment;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.MailInfo;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
@@ -143,6 +144,36 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public ArrayList<Employee> searchUserMail(String keyword) {
 		return emDao.searchUserMail(sqlSession, keyword);
+	}
+
+	@Override
+	public int insertMail(Mail mail) {
+		return emDao.insertMail(sqlSession, mail);
+	}
+
+	@Override
+	public Employee selectUser(String email) {
+		return emDao.selectUser(sqlSession, email);
+	}
+
+	@Override
+	public int insertMailAddressTo(String empId) {
+		return emDao.insertMailAddressTo(sqlSession, empId);
+	}
+
+	@Override
+	public int insertMailAddressCc(String empId) {
+		return emDao.insertMailAddressCc(sqlSession, empId);
+	}
+
+	@Override
+	public int insertMailAddressBcc(String empId) {
+		return emDao.insertMailAddressBcc(sqlSession, empId);
+	}
+
+	@Override
+	public int insetMailAttachment(MailAttachment ma) {
+		return emDao.insetMailAttachment(sqlSession, ma);
 	}
 	
 	

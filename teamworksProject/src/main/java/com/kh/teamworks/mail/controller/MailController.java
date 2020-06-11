@@ -13,6 +13,7 @@ import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.text.MaskFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -29,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
+import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.service.MailService;
 import com.kh.teamworks.mail.model.vo.Mail;
@@ -44,7 +46,7 @@ public class MailController {
 	private MailService emService;
 	@Autowired
 	private JavaMailSender mailSender;
-
+	
 	@RequestMapping("rlist.ma")
 	public String InboxMailList(HttpSession session, int currentPage, Model model) {
 		
@@ -336,7 +338,7 @@ public class MailController {
 	@RequestMapping("sendMail")
 	public String sendMail(Mail m, HttpServletRequest request, HttpSession session, HttpServletResponse response,
 			            @RequestParam(name="uploadFile", required=false) MultipartFile[] file) {
-		
+		Employee sender = (Employee)session.getAttribute("loginUser");
 		ArrayList<MailAttachment> attachList = new ArrayList<>();
 		
 		// 첨부 파일 있으면 서버에 올리고 
@@ -350,6 +352,7 @@ public class MailController {
 				String changeName = uploadeMailFile(file[i], request);
 				ma.setChangeFileName(changeName);
 				ma.setFilePath(savePath + changeName);
+				ma.setFilesize(file[i].getSize());
 				attachList.add(ma);
 			}
 		}
@@ -393,9 +396,43 @@ public class MailController {
 			e.printStackTrace();
 		}
 		
+		Mail mail = new Mail();
+		mail.setMailTitle(m.getMailTitle());
+		mail.setMailContent(m.getMailContent());
+		mail.setSenderId(sender.getEmpId());
 		
-		return "success";
-	    // 이메일 사번을 조회해야햠 ;
+		int result = emService.insertMail(mail);
+		
+		
+		if(result>0) {
+			// int resultTo = emService.insertMailAddress();
+			Employee to = emService.selectUser(m.getStrTo());
+			String toId = to.getEmpId();
+			int toResult = emService.insertMailAddressTo(toId);
+			int ccResult =0;
+			int bccResult=0;
+			int fileResult=0;
+			if(!m.getStrCc().equals("")) {
+				Employee cc = emService.selectUser(m.getStrCc());
+				String ccId=cc.getEmpId();
+				ccResult = emService.insertMailAddressCc(ccId);
+			}
+			if(!m.getStrBcc().equals("")) {
+				Employee bcc = emService.selectUser(m.getStrBcc());
+				String bcId=bcc.getEmpId();
+				bccResult = emService.insertMailAddressBcc(bcId);
+			}
+			if(toResult>0) {
+				if(attachList.size()>0) {
+					for(MailAttachment ma : attachList) {
+						fileResult = emService.insetMailAttachment(ma);
+					}
+				}
+			}
+			return "success";
+		}else {
+			return "fail";
+		}
 		// 디비에 insert 
 	}
 	

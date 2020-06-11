@@ -16,7 +16,7 @@ public class MailAttachment {
 	private int emailNo;
 	private String changeFileName;
 	private String originFileName;
-	private int filesize;
+	private long filesize;
 	private int fileNo;
 	private String filePath;
 
