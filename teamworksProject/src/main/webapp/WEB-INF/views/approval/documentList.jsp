@@ -124,7 +124,7 @@
 	
 	/* Datepicker */
 	/* Default */
-	input[type=text],input[type=password]{font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
+	/* input[type=text],input[type=password]{font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
 	*{margin:0;padding:0;font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
 	body{font-size:12px;color:#555;background:transparent;-webkit-user-select:none;-moz-user-select:none;-webkit-text-size-adjust:none;-moz-text-size-adjust:none;-ms-text-size-adjust:none}
 	ol,ul{list-style:none} 
@@ -138,7 +138,7 @@
 	input,select{margin:0;padding:0;vertical-align:middle}
 	button{margin:0;padding:0;font-family:inherit;border:0 none;background:transparent;cursor:pointer}
 	button::-moz-focus-inner{border:0;padding:0}
-	header,footer,aside,nav,section,article{display:block}
+	header,footer,aside,nav,section,article{display:block} */
 	
 	.clearfix{*zoom:1}
 	.clearfix:after{content:"";display:block;clear:both;overflow:hidden}
@@ -201,11 +201,11 @@
 		        <!-- search -->
 		        <form>
 		        <table class="searchBox">
-		            <caption>조회</caption>
+		            <%-- <caption>조회</caption>
 		            <colgroup>
 		                <col width="123px">
 		                <col width="*">
-		            </colgroup>
+		            </colgroup> --%>
 		            <tbody>
 		                <tr>
 		                    <th width="150">조회기간</th>

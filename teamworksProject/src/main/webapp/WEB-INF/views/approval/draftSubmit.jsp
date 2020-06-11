@@ -14,6 +14,12 @@
 <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/writeDraftForm.css">
 <!-- js 연결 -->
 <script src="${ pageContext.servletContext.contextPath }/resources/js/writeDraftForm.js" rel="javascript" type="text/javascript"></script>
+<!-- jQuery 라이브러리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- 부트스트랩에서 제공하고 있는 스타일 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- 부트스트랩에서 제공하고 있는 스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <style>
     #paymentOpinion, #paymentOpinion tr, #paymentOpinion td, #paymentOpinion th{
@@ -25,10 +31,20 @@
     #aa{
         background:lightsteelblue;
     }  
-    
+    /* 버튼 */
     #btns{
         width:200px;
         float:right;
+    }
+    #approveBtn{
+        width:60px;
+        height:28px;
+        background: rgb(7, 53, 90);
+        color:white;
+        border:none;
+        font-size:12px;
+        float:right;
+        margin-left:70px;
     }
     #modifyBtn, #deleteBtn{
         width:60px;
@@ -37,8 +53,9 @@
         color:white;
         border:none;
         font-size:12px;
+        float:right;
     }
-    #modifyBtn:hover, #deleteBtn:hover, #refBtn:hover{
+    #modifyBtn:hover, #deleteBtn:hover, #approveBtn:hover, #refBtn:hover{
         background:deepskyblue;
         cursor:pointer;
     }
@@ -51,10 +68,62 @@
         font-size:12px;
         font-weight:600;
         cursor:pointer;
+        float:right;
+        margin-left:10px;
     }
     #draftContent{
     	height:250px;
     }
+    
+    /* 결재/반려용 모달 */
+    #approveOuter{
+        width:460px;
+        height:150px;
+    }
+    #chooseApprove, #chooseApprove tr, #chooseApprove th, #chooseApprove td {
+        border: 1px solid lightgrey;
+        border-collapse: collapse;
+        font-size:13px;
+    }
+    #chooseApprove th{
+        background:lightsteelblue;
+        color:white;
+        text-align:center;
+    }
+    #chooseApprove td{
+        padding:10px 0px 10px 15px;
+    }
+
+    /* 결재 모달 버튼 */
+    #modalBtns{
+        width:120px;
+        height:40px;
+        float:right;
+    }
+    #submitBtn{
+        width:50px;
+        height:28px;
+        background: rgb(7, 53, 90);
+        color:white;
+        border:none;
+        font-size:13px;
+        margin-top:2px;
+    }
+    #submitBtn:hover{
+        background:deepskyblue;
+        cursor:pointer;
+    }
+    #cancelBtn{
+        width:50px;
+        height:28px;
+        background:white;
+        border:1px solid rgb(7, 53, 90);
+        font-size:12px;
+        font-weight:600;
+        cursor:pointer;
+        margin-left:5px;
+    }
+    
 </style>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
@@ -62,27 +131,36 @@
 	<div id="bodyWrapper">
 	    <div id="draftOuter">
 	
-	        <h4>⊙ 결재문서</h4>
+	        <h6>⊙ 결재문서</h6>
 	        <hr>
 	        <br>
-	
 
 	            <!-- 버튼들 -->
 	            <div id="btns">
-	           	    <!-- 나중에 status값 반려값으로 바꾸기 반려문서아니면 버튼안보이게 -->
+	              	
+	                <button type="button" id="listBtn" onclick="history.back();">목록</button>
+	                
+	                <!-- 나중에 status값 반려값으로 바꾸기 반려문서아니면 버튼안보이게 -->
 	           	    <c:choose>
-	           	    	<c:when test="${ d.docStatus eq 0 }">
-	           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
+	           	    	<c:when test="${ d.get(0).docStatus eq 0 and loginUser.empId eq d.get(0).getEmpId() }">
 	              			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
+	           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
 	              		</c:when>	
 	              	</c:choose>
-	                <button type="button" id="listBtn" onclick="history.back();">목록</button>
+	                
+	                <c:choose>
+		            	<c:when test="${ loginUser.empId eq approveEmpid }">
+		                	<button type="button" id="approveBtn" data-toggle="modal" data-target="#responseApprove">결재</button>
+		                </c:when>
+		                <c:otherwise>
+		                </c:otherwise>
+                	</c:choose>
 	            </div>
 	            
 	           	<form action="" id="postForm" method="post">
-	            	<input type="hidden" name="dno" value="${ d.getDocNo() }">
-	            	<input type="hidden" name="fileName" value="${ d.changeName }">
-	            	<input type="hidden" name="dsc" value="${ d.getDocSc() }">
+	            	<input type="hidden" name="dno" value="${ d.get(0).getDocNo() }">
+	            	<input type="hidden" name="fileName" value="${ d.get(0).changeName }">
+	            	<input type="hidden" name="dsc" value="${ d.get(0).getDocSc() }">
 	            </form><script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 
@@ -104,31 +182,34 @@
 	            <br><br><br>
 	
 	            <h1 style="text-align:center;">기안서</h1>
-	            <br>
+	            <br><br><br>
 	
 	            <!-- 결재선 -->
 	            <div id="appoveLine">
 	                <table id="approveLineTb">
-	                    <tr height="20">
-	                        <td rowspan="3" width="20">결<br>재</td>
-                            <td width="70">기안</td>
-                            <td width="70">팀장</td>
-                            <td width="70">이사</td>
-                            <td width="70">사장</td>
-	                    </tr>
-	                    <tr height="">
-                            <td>최해성</td>
-                            <td>이용석</td>
-                            <td>김용명</td>
-                            <td>최지수</td>
-                        </tr>
-                        <tr height="">
-                            <td>승인(날짜)</td>
-                            <td>승인(날짜)</td>
-                            <td>진행</td>
-                            <td>미결</td>
-	                    </tr>
-	                </table>
+                    <tr height="20">
+                        <td rowspan="2" width="20">결<br>재</td>
+                           <td width="80">기안</td>
+                           <c:forEach var="d" items="${ d }">
+                           	<td width="80">결재</td>
+                           </c:forEach>
+                    </tr>
+                    <tr height="70">
+                        <td>${ d.get(0).getEmpName() }</td>
+                        <c:forEach var="d" items="${ d }">
+                           	<td>
+                           		${ d.approverName }<br>${ d.approveReject } 
+	                           	<c:choose>
+	                           		<c:when test="${ d.approveReject eq '승인' }">
+	                           			<br>(${ d.approveDate })
+	                           		</c:when>
+	                           		<c:otherwise>
+	                           		</c:otherwise>
+	                           	</c:choose>
+                           	</td>
+                        </c:forEach>
+                    </tr>
+                </table>
 	            </div>
 	            <br><br><br><br><br><br><br><br>
 	
@@ -136,35 +217,35 @@
 	            <table class="docContents">
 	                <tr width="1000">
 	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200">${ d.getDocNo() }</td>
+	                    <td width="200">${ d.get(0).getDocNo() }</td>
 	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200">${ d.getDocDate() }</td>
+	                    <td width="200">${ d.get(0).getDocDate() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td>${ d.getEmpName() }</td>
+	                    <td>${ d.get(0).getEmpName() }</td>
 	                    <td class="th">마감일자</td>
-	                    <td>${ d.getDocEnd() }</td>
+	                    <td>${ d.get(0).getDocEnd() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td>${ d.getDocRefName() }</td>
+	                    <td>${ d.get(0).getDocRefName() }</td>
 	                    <td class="th">기안부서</td>
-	                    <td>${ d.getDocDepartment() }</td>
+	                    <td>${ d.get(0).getDocDepartment() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">문서제목</td>
-	                    <td colspan="3">${ d.getDocTitle() }</td>
+	                    <td colspan="3">${ d.get(0).getDocTitle() }</td>
                     </tr>
-                        <tr>
+                    <tr>
                     	<td class="th">내용</td>
-	                    <td colspan="4" id="draftContent">${ d.getDocContent() }</td>
+	                    <td colspan="4" id="draftContent">${ d.get(0).getDocContent() }</td>
                     </tr>
                     <tr>
 	                    <td class="th">첨부파일</td>
 	                    <c:choose>
-	                    	<c:when test="${ !empty d.originName }">	
-	                    		<td colspan="3" id="draftFile"><a href="${ pageContext.servletContext.contextPath }/resources/approveUploadFiles/${ d.changeName }" download="${ d.originName }">${ d.originName }</a></td>
+	                    	<c:when test="${ !empty d.get(0).originName }">	
+	                    		<td colspan="3" id="draftFile"><a href="${ pageContext.servletContext.contextPath }/resources/approveUploadFiles/${ d.get(0).changeName }" download="${ d.get(0).originName }">${ d.get(0).originName }</a></td>
 	                    	</c:when>
 	                    	<c:otherwise>
 	                    		<td colspan="3" id="draftFile">첨부파일이 없습니다.</td>
@@ -175,33 +256,105 @@
                 </table>
 
                 <br><br>
-	            <h4>결재의견</h4>
+	            <h6>결재의견</h6>
 	            <hr>
-                <br>
                 
                 <div id="Opinion">
-	                <table id="paymentOpinion">
-	                    <tr height="20" id="aa">
-                            <td width="80">결재</td>
-                            <td width="120">결재자</td>
-                            <td width="100">부서</td>
-                            <td width="160">결재일시</td>
-                            <td width="320">의견</td>
-	                    </tr>
-	                    <tr height="">
-                            <td>승인</td>
-                            <td>최해성 이사</td>
-                            <td>개발팀</td>
-                            <td>2020.05.06 23:11</td>
-                            <td>승인합니다</td>
-                        </tr>
-
-	                </table>
-	            </div>
-
-
-	
+                <c:choose>
+	                 <c:when test="${ count lt 1 }">
+	                 	<br><br><br><br><br>
+	                 </c:when>
+	                 <c:otherwise>
+		                <table id="paymentOpinion">
+		                    <tr height="35" id="aa">
+	                            <td class="th" width="80">결재</td>
+	                            <td class="th" width="120">결재자</td>
+	                            <td class="th" width="100">부서</td>
+	                            <td class="th" width="160">결재일시</td>
+	                            <td class="th" width="340">의견</td>
+		                    </tr>
+		                    
+		                    <!-- 코멘트 개수 세어오기 -->
+		                    <c:forEach var="i" begin="0" end="${ count - 1 }">
+			                    <tr height="35">
+		                            <td>${ d.get(i).getApproveReject() }</td>
+		                            <td>${ d.get(i).getApproverName() } ${ d.get(i).getJobName() }</td>
+		                            <td>${ d.get(i).getDeptName() }</td>
+		                            <td>${ d.get(i).getApproveDate() }</td>
+		                            <td>${ d.get(i).getApproveComment() }</td>
+		                        </tr>
+	                        </c:forEach>
+		                </table>
+	                </c:otherwise>
+                </c:choose>
+            </div>
+			<br><br><br><br><br>
 	    </div>
 	</div>
+	
+	
+	<!-- 결재/반려용 모달 -->
+	<div class="modal fade" id="responseApprove">
+        <div class="modal-dialog">
+            <div class="modal-content">
+	            <!-- Modal Header -->
+	            <div class="modal-header">
+	                <h6 class="modal-title">결재처리</h6>
+	            </div>
+	
+				<form action="updateApprove.rap" method="post">
+	                <!-- Modal Body -->
+	                <div class="modal-body">
+		                <div id="approveOuter">
+					        
+				        	<input type="hidden" name="docNo" value="${ d.get(0).getDocNo() }">
+				        	<input type="hidden" name="docSc" value="${ d.get(0).getDocSc() }">
+				        	<input type="hidden" name="approverEmpid" value="${ loginUser.empId }">
+				            <table id="chooseApprove">
+				                <tr height="50px">
+				                    <th width="100px">결재처리</th>
+				                    <td width="360px">
+				                        <input type="radio" name="approveReject" value="승인"> 승인
+				                        <input type="radio" name="approveReject" value="반려" style="margin-left:20px;"> 반려
+				                    </td>
+				                </tr>
+				                <tr height="80px">
+				                    <th>결재의견</th>
+				                    <td>
+				                        <textarea name="approveComment" cols="55" rows="3" style="resize:none" required></textarea>
+				                    </td>
+				                </tr>
+				            </table>
+				            <br>
+					        
+					    </div>
+	                </div>
+	                
+	                <!-- Modal footer -->
+	                <div class="modal-footer">
+	                	<div id="modalBtns">
+			                <button type="submit" id="submitBtn">결재</button>
+			                <button type="reset" id="cancelBtn">취소</button>
+			            </div>
+	                </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+	
+	
+	<script>
+		$(function(){
+			
+			/* 결재 모달 취소버튼 클릭 시  */
+			$("#cancelBtn").click(function(){
+				$('#responseApprove').modal("hide");
+			});
+			
+		});
+		
+	</script>
+	
 </body>
 </html>

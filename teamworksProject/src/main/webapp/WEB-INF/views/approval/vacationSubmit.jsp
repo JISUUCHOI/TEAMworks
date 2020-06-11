@@ -31,8 +31,8 @@
     }
 
     /* 버튼 */
-    #btns{
-        width:140px;
+   #btns{
+        width:210px;
         float:right;
     }
     #approveBtn{
@@ -43,8 +43,19 @@
         border:none;
         font-size:12px;
         float:right;
+        margin-left:70px;
     }
-    #approveBtn:hover, #refBtn:hover{
+    #modifyBtn, #deleteBtn{
+        width:60px;
+        height:28px;
+        background: rgb(7, 53, 90);
+        color:white;
+        border:none;
+        font-size:12px;
+        float:right;
+        margin-left:10px;
+    }
+    #modifyBtn:hover, #deleteBtn:hover, #approveBtn:hover, #refBtn:hover{
         background:deepskyblue;
         cursor:pointer;
     }
@@ -246,18 +257,18 @@
 	        <hr>
 	        <br>
 	
-            <!-- 버튼들 -->
+           <!-- 버튼들 -->
             <div id="btns">
-            
-            	<!-- 나중에 status값 반려값으로 바꾸기 반려문서아니면 버튼안보이게 -->
+            	
+            	<button type="button" id="listBtn" onclick="prePage();">목록</button>
+
+				<!-- 나중에 status값 반려값으로 바꾸기 반려문서아니면 버튼안보이게 -->
            	    <c:choose>
-           	    	<c:when test="${ d.get(0).docStatus eq 0 }">
-           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
+           	    	<c:when test="${ d.get(0).docStatus eq 0 and loginUser.empId eq d.get(0).getEmpId() }">
               			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
+           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
               		</c:when>	
               	</c:choose>
-            
-            	<button type="button" id="listBtn" onclick="prePage();">목록</button>
             
             	<c:choose>
 	            	<c:when test="${ loginUser.empId eq approveEmpid }">
@@ -305,7 +316,7 @@
                            </c:forEach>
                     </tr>
                     <tr height="70">
-                        <td>최해성</td>
+                        <td>${ d.get(0).getEmpName() }</td>
                         <c:forEach var="d" items="${ d }">
                            	<td>
                            		${ d.approverName }<br>${ d.approveReject } 
@@ -378,6 +389,7 @@
             <div id="Opinion">
                 <c:choose>
 	                 <c:when test="${ count lt 1 }">
+	                 	<br><br><br><br><br>
 	                 </c:when>
 	                 <c:otherwise>
 		                <table id="paymentOpinion">
@@ -403,7 +415,7 @@
 	                </c:otherwise>
                 </c:choose>
             </div>
-            
+            <br><br><br><br><br>
 	    </div>
 	</div>
 	

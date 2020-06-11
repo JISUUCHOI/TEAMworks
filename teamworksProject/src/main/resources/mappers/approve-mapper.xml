@@ -349,11 +349,11 @@
                                                                                                                    					 join employee e on(e.dept_code = d.dept_code)
                                                                                                                     				where e.emp_id = a.approver_empid) dept_name,
 	           a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date
-		from family_event f
-		join employee e on(f.emp_id = e.emp_id)
-		join approve_line a on(f.doc_no = a.doc_no)
-	   where f.doc_no=#{docNo}
-	   order by a.approve_step
+		 from family_event f
+		 join employee e on(f.emp_id = e.emp_id)
+		 join approve_line a on(f.doc_no = a.doc_no)
+	    where f.doc_no=#{docNo}
+	    order by a.approve_step
 	</select>
 	
 	<select id="selectVacDetail" parameterType="Document" resultMap="reqApprovalResultSet">
