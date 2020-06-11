@@ -58,7 +58,7 @@
 						</select>
 					</div>
 					<div class="text">
-						<input type="text" class="form-control" name="keyword" value="${ keyword }">
+						<input type="text" class="form-control" name="keyword" value="${ eSc.keyword }">
 						<input type="hidden" name="currentPage" value="1">
 					</div>
 					<button type="submit" class="searchBtn btn btn-secondary">검색</button>
@@ -70,7 +70,16 @@
 			</div>
 			<br>
 			
-
+	       <script type="text/javascript">
+	       		$(function(){
+	       			switch('${eSc.condition}'){
+	       			case "empId": $("#searchArea option").eq(0).attr("selected", true);  break;
+					case "empName":  $("#searchArea option").eq(1).attr("selected", true);  break;
+					case "deptName": $("#searchArea option").eq(2).attr("selected", true);  break;
+					 
+	       			}
+	       		});
+	       </script>
 				
 			<table class="table table-bordered"
 				style="table-layout: fixed; text-align: center;" id="result3">
@@ -102,48 +111,73 @@
 				</tbody>
 			</table>
 			
-		
-			
 			
 			
 			<div id="pagingArea">
                 <ul class="pagination pagination-sm justify-content-center">
-                	<c:choose>
-                		<c:when test="${ pi.currentPage eq 1 }">
-	                    	<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-	                    </c:when>
-	                    <c:otherwise>
-	                    	<li class="page-item"><a class="page-link" href="empList.mg?currentPage=${ pi.currentPage - 1 }">Previous</a></li>
-	                    </c:otherwise>
-                    </c:choose>
-                    
-                    <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                    	<c:choose>
-	                    	<c:when test="${ p eq pi.currentPage }">
-	                    		<li class="page-item disabled"><a class="page-link" href="#">${ p }</a></li>
-	                    	</c:when>
-	                    	<c:otherwise>
-	                    		<li class="page-item"><a class="page-link" href="empList.mg?currentPage=${ p }">${ p }</a></li>
-	                    	</c:otherwise>
-                    	</c:choose>
-                    </c:forEach>
-                    
-                    <c:choose>
-                		<c:when test="${ pi.currentPage eq pi.maxPage }">
-	                    	<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-	                    </c:when>
-	                    <c:otherwise>
-	                    	<li class="page-item"><a class="page-link" href="empList.mg?currentPage=${ pi.currentPage+1 }">Next</a></li>
-	                    </c:otherwise>
-                    </c:choose>
-                </ul>
+	                <c:if test="${ pi.currentPage ne 1 }">
+	            		<c:choose>
+	            			<c:when test="${ empty eSc }">
+	            				<li class="previous page-item"><a class="page-link" href="empList.mg?currentPage=${ pi.currentPage - 1 }">Previous</a></li>
+	            			</c:when>
+	            			<c:otherwise>
+	            					<c:url value="empListSearch.mg" var="searchUrl">
+											<c:param name="condition" value="${ eSc.condition }"/>
+											<c:param name="keyword" value="${ eSc.keyword }"/>
+											<c:param name="currentPage" value="${  pi.currentPage -1 }"/>
+									</c:url>
+	            				<li class="previous page-item">
+	            				<a class="page-link" href="${ searchUrl }">Previous</a>
+	            				</li>
+	            			</c:otherwise>
+	            		</c:choose>
+	            	</c:if>
+	            	
+	            	 <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+	            	 	<c:choose>
+	            	 		<c:when test="${ p eq pi.currentPage }">
+	            	 			<li class="page-item disabled"><a class="page-link" href="">${ p }</a></li>
+	            	 		</c:when>
+	            	 		<c:otherwise>
+	            	 			<c:choose>
+		            	 			<c:when test="${ empty eSc }">
+		            					<li class="page-item"><a class="page-link" href="empList.mg?currentPage=${ p }">${ p }</a></li>
+		            				</c:when>
+		            				<c:otherwise>
+		            					<c:url value="empListSearch.mg" var="searchUrl">
+											<c:param name="condition" value="${ eSc.condition }"/>
+											<c:param name="keyword" value="${ eSc.keyword }"/>
+											<c:param name="currentPage" value="${ p }"/>
+										</c:url>
+		            					<li class="page-item">
+		            						<a class="page-link" href="${searchUrl}">${ p }</a>
+		            					</li>
+		            				</c:otherwise>
+	            				</c:choose>
+	            	 		</c:otherwise>
+	            	 	</c:choose>
+	            	 </c:forEach>
+	            	
+	            	<c:if test="${ pi.currentPage ne pi.maxPage }">
+	            		<c:choose>
+							<c:when test="${ empty eSc }">
+								<li class="next page-item"><a class="page-link" href="empList.mg?currentPage=${ pi.currentPage + 1 }">Next</a></li>
+							</c:when>
+							<c:otherwise>
+								<c:url value="empListSearch.mg" var="searchUrl">
+											<c:param name="condition" value="${ eSc.condition }"/>
+											<c:param name="keyword" value="${ eSc.keyword }"/>
+											<c:param name="currentPage" value="${  pi.currentPage + 1  }"/>
+								</c:url>
+								<li class="next page-item">
+								<a class="page-link" href="${ searchUrl }">Next</a>
+								</li>
+							</c:otherwise>        		
+	            		</c:choose>
+	            	</c:if>
+	            </ul>
             </div>
-            
-
-		            
-            
 		</div>
-
 	</div>
 
 

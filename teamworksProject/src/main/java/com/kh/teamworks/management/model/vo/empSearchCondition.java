@@ -16,5 +16,6 @@ public class empSearchCondition {
 	private String deptName;
 	private String condition;
 	private String keyword;
+		
 	
 }
