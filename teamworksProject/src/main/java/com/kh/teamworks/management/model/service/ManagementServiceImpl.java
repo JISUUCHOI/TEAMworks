@@ -103,9 +103,9 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public int insertDept(String keyword) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertDept(String deptName) {
+
+		return mgDao.insertDept(sqlSession, deptName);
 	}
 
 	@Override

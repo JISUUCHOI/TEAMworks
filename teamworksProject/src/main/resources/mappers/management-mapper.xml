@@ -123,5 +123,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  FROM DEPARTMENT
 		 ORDER BY DEPT_CODE
 	</select>
+	
+	<insert id="insertDept" parameterType="string">
+		INSERT INTO DEPARTMENT
+		VALUES(SEQ_DEPTNO.NEXTVAL, #{deptName})
+	</insert>
 
 </mapper>

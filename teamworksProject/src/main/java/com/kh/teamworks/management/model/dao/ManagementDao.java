@@ -45,4 +45,8 @@ public class ManagementDao {
 	public ArrayList<Department> selectDeptList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("managementMapper.selectDeptList");
 	}
+	
+	public int insertDept(SqlSessionTemplate sqlSession, String deptName) {
+		return sqlSession.insert("managementMapper.insertDept", deptName);
+	}
 }
