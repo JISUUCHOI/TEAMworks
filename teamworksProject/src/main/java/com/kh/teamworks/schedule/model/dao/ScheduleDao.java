@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.teamworks.schedule.model.vo.MainViewSchedule;
 import com.kh.teamworks.schedule.model.vo.Schedule;
+import com.kh.teamworks.schedule.model.vo.Weeks;
 
 @Repository("scDao")
 public class ScheduleDao {
@@ -57,5 +59,17 @@ public class ScheduleDao {
 		
 		return sqlSession.insert("scheduleMapper.insertManageSch", sch);
 	}
+
+	public ArrayList<MainViewSchedule> MainSelectAllSch(SqlSessionTemplate sqlSession, String empId) {
+		
+		return (ArrayList)sqlSession.selectList("scheduleMapper.MainSelectAllSch", empId);
+	}
+
+	public ArrayList<Weeks> selectWeeks(SqlSessionTemplate sqlSession) {
+		
+		return (ArrayList)sqlSession.selectList("scheduleMapper.selectWeeks");
+	}
+
+	
 
 }

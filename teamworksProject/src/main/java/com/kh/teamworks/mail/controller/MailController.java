@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.employee.model.vo.Employee;
@@ -336,6 +336,7 @@ public class MailController {
 		
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("utf-8");
+		
 		if(keyword == null || keyword.equals("")) {
 			return null;
 		}
@@ -343,10 +344,11 @@ public class MailController {
 		keyword = keyword.toLowerCase();
 		ArrayList<Employee> keywordList = emService.searchUserMail(keyword);
 		
-		JSONObject jObj = new JSONObject();
-		jObj.put("keyword", keywordList);
-		String jsonInfo = jObj.toString();
+		//System.out.println(keywordList);
+		//JSONObject jObj = new JSONObject();
+		//jObj.put("keyword", keywordList);
+		//String jsonInfo = jObj.toString();
 		
-		return jsonInfo;
+		return new Gson().toJson(keywordList);
 	}
 }

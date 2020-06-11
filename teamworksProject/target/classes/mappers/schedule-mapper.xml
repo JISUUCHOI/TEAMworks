@@ -13,6 +13,21 @@
 		<result column="SCH_DEL_STATUS" property="deleteStatus"/>
 	</resultMap>
 	
+	<resultMap type="com.kh.teamworks.schedule.model.vo.MainViewSchedule" id="weekScheduleResultSet">
+		<id column="SCH_NO" property="schNo"/>
+		<result column="SCH_CATEGORY" property="schCategory"/>
+		<result column="EMP_ID" property="empId"/>
+		<result column="SCH_TITLE" property="schTitle"/>
+		<result column="SCH_CONTENT" property="schContent"/>
+		<result column="SCH_STR_DATE" property="startDate"/>
+		<result column="SCH_END_DATE" property="endDate"/>
+		<result column="SCH_DEL_STATUS" property="deleteStatus"/>
+	</resultMap>
+	
+	<resultMap type="com.kh.teamworks.schedule.model.vo.Weeks" id="weeksResultSet">
+		<id column="WEEKS" property="weeks" />
+	</resultMap>
+	
 	<select id="selectAllSch" parameterType="string" resultMap="scheduleResultSet">
 		SELECT *
 		  FROM SCHEDULE
@@ -58,5 +73,32 @@
 		INSERT INTO SCHEDULE
 		VALUES(SEQ_SCHNO.NEXTVAL, '회사', NULL, #{schTitle}, #{schContent}, #{startDate}, #{endDate}, 'N')		
 	</insert>
+	
+	<select id="MainSelectAllSch" parameterType="string" resultMap="weekScheduleResultSet">
+		<![CDATA[
+		SELECT *
+			FROM (select *
+			from schedule S,(SELECT TO_CHAR(SYSDATE + (LEVEL -1), 'YYYY-MM-DD') week FROM DUAL CONNECT BY LEVEL <= 7 )
+			where 
+			    ((sysdate >= sch_str_date and sysdate <= sch_end_date)
+			    or  (sysdate+1 >= sch_str_date and sysdate+1 <= sch_end_date)
+			    or  (sysdate+2 >= sch_str_date and sysdate+2 <= sch_end_date)
+			    or  (sysdate+3 >= sch_str_date and sysdate+3 <= sch_end_date)
+			    or  (sysdate+4 >= sch_str_date and sysdate+4 <= sch_end_date)
+			    or  (sysdate+5 >= sch_str_date and sysdate+5 <= sch_end_date)
+			    or  (sysdate+6 >= sch_str_date and sysdate+6 <= sch_end_date)
+			    or  (sysdate+7 >= sch_str_date and sysdate+7 <= sch_end_date))
+			    AND SCH_DEL_STATUS='N' AND (EMP_ID='tw101')
+			    ORDER BY week)
+			WHERE WEEK >= SCH_STR_DATE and week <= sch_end_date
+	     ]]>
+	</select>
+	
+	<select id="selectWeeks" parameterType="string" resultMap="weeksResultSet">
+		<![CDATA[
+		SELECT weeks
+		  FROM (SELECT TO_CHAR(SYSDATE + (LEVEL -1), 'YYYY-MM-DD') weeks FROM DUAL CONNECT BY LEVEL <= 7 )
+		]]>
+	</select>
 
 </mapper>

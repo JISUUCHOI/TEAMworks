@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.teamworks.schedule.model.dao.ScheduleDao;
+import com.kh.teamworks.schedule.model.vo.MainViewSchedule;
 import com.kh.teamworks.schedule.model.vo.Schedule;
+import com.kh.teamworks.schedule.model.vo.Weeks;
 
 @Service("scService")
 public class ScheduleServiceImpl implements ScheduleService {
@@ -73,6 +75,22 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 		return scDao.insertManageSch(sqlSession, sch);
 	}
+	
+	// 전체일정조회 메인페이지용
+	@Override
+	public ArrayList<MainViewSchedule> MainSelectAllSch(String empId) {
+	
+		return scDao.MainSelectAllSch(sqlSession,empId);
+	}
+
+	@Override
+	public ArrayList<Weeks> selectWeeks() {
+		
+		return scDao.selectWeeks(sqlSession);
+	}
+	
+	
+	
 
 
 }

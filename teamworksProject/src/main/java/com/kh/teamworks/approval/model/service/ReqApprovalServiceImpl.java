@@ -118,7 +118,6 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 	public ArrayList<Document> searchDocList(ApproveSearchCondition asc, PageInfo pi) {
 		return raDao.searchDocList(sqlSession, asc, pi);
 	}
-
 	
 	// 6_1. '진행' 상태인 결재자 id 조회
 	@Override
@@ -150,6 +149,16 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.selectVacDetail(sqlSession, doc);
 	}
 	
+	// 6_6. 문서 상세조회 - 기안서
+	public ArrayList<Document> selectDraftDetail(Document doc) {
+		return raDao.selectDraftDetail(sqlSession, doc);
+	}
+	
+	// 6_7. 문서 상세조회 - 제증명신청서
+	public ArrayList<Document> selectProofDetail(Document doc) {
+		return raDao.selectProofDetail(sqlSession, doc);
+	}
+	 
 	// 7_1. 미결, 진행 결재선 id 조회
 	@Override
 	public ArrayList<Document> selectApList(Document doc) {

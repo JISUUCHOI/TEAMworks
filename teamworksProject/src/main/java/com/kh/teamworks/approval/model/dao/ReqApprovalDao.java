@@ -125,6 +125,16 @@ public class ReqApprovalDao {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectVacDetail", doc);
 	}
 	
+	// 6_6. 문서 상세조회 - 기안서
+	public ArrayList<Document> selectDraftDetail(SqlSessionTemplate sqlSession, Document doc) {
+		return (ArrayList)sqlSession.selectList("approveMapper.selectDraftDetail", doc);
+	}
+	
+	// 6_7. 문서 상세조회 - 제증명신청서
+	public ArrayList<Document> selectProofDetail(SqlSessionTemplate sqlSession, Document doc) {
+		return (ArrayList)sqlSession.selectList("approveMapper.selectProofDetail", doc);
+	}
+	
 	// 7_1. 미결, 진행 결재선 id 조회
 	public ArrayList<Document> selectApList(SqlSessionTemplate sqlSession, Document doc) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectApList", doc);

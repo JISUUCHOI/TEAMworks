@@ -2,7 +2,9 @@ package com.kh.teamworks.schedule.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.teamworks.schedule.model.vo.MainViewSchedule;
 import com.kh.teamworks.schedule.model.vo.Schedule;
+import com.kh.teamworks.schedule.model.vo.Weeks;
 
 public interface ScheduleService {
 	
@@ -29,6 +31,13 @@ public interface ScheduleService {
 	
 	// 회사 일정 관리 --> 회사 일정 추가용 서비스
 	int insertManageSch(Schedule sch);
+
+	// 메인페이지에서 전체일정 조회하기 서비스 
+	ArrayList<MainViewSchedule> MainSelectAllSch(String empId);
+
+	ArrayList<Weeks> selectWeeks();
+
+	
 	
 
 }

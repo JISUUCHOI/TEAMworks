@@ -117,6 +117,7 @@
         #angle{border-collapse: separate; border-spacing: 10px;}
         .col2{padding-top: 80px;}
      	.tree a:hover{cursor:pointer}
+     	
     </style>
 </head>
 <body>
@@ -136,9 +137,9 @@
                 <table class="table">
                     <tr>
                         <th width="150px">받는 사람</th>
-                        <td>
-                            <input type="email" id="to" name="strTo" class="form-control" required onKeyUp="keywordSearch();">
-                            <div id="suggest">
+                        <td style="position:relative;">
+                            <input type="text" id="to" name="strTo" class="form-control" value="" required onKeyUp="keywordSearch();">
+                            <div id="suggest" style="position:absolute;z-index:99; background-color:white; width:95%; ">
 						        <div id="suggestList"></div>
 						   </div>
 						</td>
@@ -537,7 +538,7 @@
     <script>
 		    var loopSearch=true;
 		    
-			function keywordSearch(){
+		    function keywordSearch(){
 				if(loopSearch==false)
 					return;
 			 	var value=$("#to").val();
@@ -547,8 +548,8 @@
 					url : "userMail",
 					data : {keyword:value},
 					success : function(data, textStatus) {
-					    var jsonInfo = data;
-					    console.log(jsonInfo);
+						var jsonInfo =data;
+					    // console.log(jsonInfo);
 						displayResult(jsonInfo);
 					},
 					error : function(data, textStatus) {
@@ -562,11 +563,15 @@
 			} 
 			
 			function displayResult(jsonInfo){
-				var count = jsonInfo.keyword.length;
+				var count = jsonInfo.length;
 				if(count > 0) {
 				    var html = '';
-				    for(var i in jsonInfo.keyword){
-					   html += "<a href=\"javascript:select('"+jsonInfo.keyword[i]+"')\">"+jsonInfo.keyword[i]+"</a><br/>";
+				    for(var i in jsonInfo){
+				    	with(jsonInfo[i]){
+						   html += "<span>"+empName+"</span><a href=\"javascript:select('"+email+"')\">"+email+"</a><br/>";
+						   //html += "<a onclick=select('"+email+"');>"+empName+email+"</a><br/>";
+				    		
+				    	}
 				    }
 				    var listView = document.getElementById("suggestList");
 				    listView.innerHTML = html;
@@ -576,9 +581,12 @@
 				} 
 			}
 			
-			function select(selectedKeyword) {
-				 document.frmSearch.searchWord.value=selectedKeyword;
-				 loopSearch = false;
+			function select(email) {
+				//document.sendMailForm.to.value=selectedKeyword;
+				//console.log(email);
+				document.getElementById("to").value=email;
+				 //$("#to").val()=email;
+				 //loopSearch = false;
 				 hide('suggest');
 			}
 				

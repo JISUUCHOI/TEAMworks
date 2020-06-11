@@ -3,6 +3,7 @@ package com.kh.teamworks.employee.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
@@ -41,8 +42,11 @@ public interface EmployeeService {
 	int QRattInsert(String empId);
 
 	ArrayList<Attendance> selectSchMyAtt(SearchMyAttendance sma);
+	
+	int selectListCount();
+	ArrayList<SearchEmpAttendance> selectSchEmpAtt(SearchEmpAttCondition seac,PageInfo pi);
 
-	ArrayList<SearchEmpAttendance> selectSchEmpAtt(SearchEmpAttCondition seac);
+	
 
 
 

@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.GsonBuilder;
+import com.kh.teamworks.common.model.vo.PageInfo;
+import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Attendance;
 import com.kh.teamworks.employee.model.vo.Employee;
@@ -386,19 +388,25 @@ public class EmployeeController {
 		
 		@ResponseBody
 		@RequestMapping("empAttSch.em")
-		public ModelAndView selectSchEmpAtt(@RequestParam ("searchStartDate") String startDate,@RequestParam("searchEndDate") String endDate,@RequestParam(name="empName", required=false) String empName, ModelAndView mv,@RequestParam(name="condition", required=false) String condition) {
+		public ModelAndView selectSchEmpAtt(int currentPage,@RequestParam ("searchStartDate") String startDate,@RequestParam("searchEndDate") String endDate,@RequestParam(name="empName", required=false) String empName, ModelAndView mv,@RequestParam(name="condition", required=false) String condition) {
 			//System.out.println(startDate);
 			//System.out.println(condition);
+			int listCount = eService.selectListCount();
+			int pageLimit = 10;
+			int boardLimit = 10;
 			
+			PageInfo pi = Pagination.getPageInfo(listCount,currentPage , 10, 10);
 			SearchEmpAttCondition seac = new SearchEmpAttCondition();
 			seac.setStartDate(startDate);
 			seac.setEndDate(endDate);
 			seac.setEmpName(empName);
 			seac.setCondition(condition);
 			
+			
 			//System.out.println(sma);
-			ArrayList<SearchEmpAttendance> list = eService.selectSchEmpAtt(seac);
-			System.out.println(list);
+			ArrayList<SearchEmpAttendance> list = eService.selectSchEmpAtt(seac,pi);
+			//System.out.println(list);
+			mv.addObject("pi",pi);
 			mv.addObject("list", list);
 			mv.setViewName("employee/empAttendanceSch");
 			return mv;

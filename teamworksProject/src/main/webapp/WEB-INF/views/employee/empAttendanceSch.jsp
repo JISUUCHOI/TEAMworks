@@ -119,7 +119,7 @@
             <div class="title">
             <span>사원별 근태 현황</span> 
             </div>
-            <form id="searchForm" action="empAttSch.em" method="Get">
+            <form id="searchForm" action="empAtt.em?currentPage=1" method="post">
                 <table class="table-bordered searchBox">
                     <tr>
                         <th width="160"height="40">검색기간</th>
@@ -258,7 +258,47 @@
                             
                         </tbody>
                     </table>
-     
+     				<div id="pagingArea">
+               		 <ul class="pagination">
+              		 <!-- 이전  -->
+              		 <c:choose>
+              		 	<c:when test="${pi.currentPage eq 1 }">
+		                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+              		 	</c:when>
+              		 	<c:otherwise>
+              		 		<li class="page-item"><a class="page-link" href="empAtt.em?currentPage=${ pi.currentPage - 1 }">Previous</a></li>
+              		 	</c:otherwise>
+              		 </c:choose>
+                    
+                    <!-- [번호들]  -->
+					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
+						<c:choose>
+							<c:when test="${p eq pi.currentPage }">
+									<li class="page-item disabled">
+										<a class="page-link " href="#">${p }</a>
+									</li>							
+							</c:when>
+							<c:otherwise>
+									<li class="page-item">
+										<a class="page-link" href="empAtt.em?currentPage=${p }">${p }</a>
+									</li>			
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+                    
+                    
+                    <!-- 다음  -->
+                   <c:choose>
+              		 	<c:when test="${pi.currentPage eq pi.maxPage }">
+		                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+              		 	</c:when>
+              		 	<c:otherwise>
+              		 		<li class="page-item"><a class="page-link" href="empAtt.em?currentPage=1${ pi.currentPage + 1 }">Next</a></li>
+              		 	</c:otherwise>
+              		</c:choose>
+                </ul>
+            </div>
+           
                 
             </div>
 
