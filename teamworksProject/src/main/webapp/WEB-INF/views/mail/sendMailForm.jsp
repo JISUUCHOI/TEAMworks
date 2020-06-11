@@ -149,8 +149,11 @@
                     </tr>
                     <tr>
                         <th width="150px">참조</th>
-                        <td>
-                            <input type="email" name="strCc" class="form-control"  autocomplete="off" >
+                        <td style="position:relative;">
+                            <input type="email" id="cc" name="strCc" class="form-control" value="" onKeyUp="keywordSearch1();"  autocomplete="off" >
+                            <div id="suggest1" style="position:absolute;z-index:99; background-color:white; width:95%; ">
+						        <div id="suggestList1"></div>
+						   </div>
                         </td>
                         <td>
                           
@@ -158,8 +161,11 @@
                     </tr>
                     <tr>
                         <th width="150px">숨은 참조</th>
-                        <td>
-                            <input type="email" name="strBcc" class="form-control"  autocomplete="off" >
+                        <td style="position:relative;">
+                            <input type="email" id="bcc" name="strBcc" class="form-control" value="" onKeyUp="keywordSearch2();" autocomplete="off" >
+                            <div id="suggest2" style="position:absolute;z-index:99; background-color:white; width:95%; ">
+						        <div id="suggestList2"></div>
+						   </div>
                         </td>
                         <td>
                            
@@ -532,10 +538,9 @@
     	});
     </script>
     
-    <!-- 자동완성  -->
+    <!-- 자동완성 To  -->
     <script>
 		    var loopSearch=true;
-		    
 		    function keywordSearch(){
 				if(loopSearch==false)
 					return;
@@ -594,6 +599,140 @@
 				}
 			
 			function hide(elementId){
+			   var element = document.getElementById(elementId);
+			   if(element){
+				  element.style.display = 'none';
+			   }
+			}
+    </script>
+    <!-- 자동완성 cc  -->
+    <script>
+		    var loopSearch=true;
+		    function keywordSearch1(){
+				if(loopSearch==false)
+					return;
+			 	var value=$("#cc").val();
+				$.ajax({
+					type : "get",
+					async : true, //false인 경우 동기식으로 처리한다.
+					url : "userMail",
+					data : {keyword:value},
+					success : function(data, textStatus) {
+						var jsonInfo =data;
+					    // console.log(jsonInfo);
+						displayResult1(jsonInfo);
+					},
+					error : function(data, textStatus) {
+						alert("에러가 발생했습니다."+data);
+					},
+					complete : function(data, textStatus) {
+						//alert("작업을완료 했습니다");
+					}
+				}); //end ajax	
+			} 
+			
+			function displayResult1(jsonInfo){
+				var count = jsonInfo.length;
+				if(count > 0) {
+				    var html = '';
+				    for(var i in jsonInfo){
+				    	with(jsonInfo[i]){
+						   html += "<span>"+empName+"</span><a href=\"javascript:select1('"+email+"')\">"+email+"</a><br/>";
+						   //html += "<a onclick=select('"+email+"');>"+empName+email+"</a><br/>";
+				    	}
+				    }
+				    var listView = document.getElementById("suggestList1");
+				    listView.innerHTML = html;
+				    show1('suggest1');
+				}else{
+				    hide1('suggest1');
+				} 
+			}
+			
+			function select1(email) {
+				//document.sendMailForm.to.value=selectedKeyword;
+				//console.log(email);
+				document.getElementById("cc").value=email;
+				 //$("#to").val()=email;
+				 //loopSearch = false;
+				 hide1('suggest1');
+			}
+				
+			function show1(elementId) {
+				 var element = document.getElementById(elementId);
+				 if(element) {
+				  element.style.display = 'block';
+				 }
+				}
+			
+			function hide1(elementId){
+			   var element = document.getElementById(elementId);
+			   if(element){
+				  element.style.display = 'none';
+			   }
+			}
+    </script>
+    <!-- 자동 완성 bcc -->
+    <script>
+		    var loopSearch=true;
+		    function keywordSearch2(){
+				if(loopSearch==false)
+					return;
+			 	var value=$("#bcc").val();
+				$.ajax({
+					type : "get",
+					async : true, //false인 경우 동기식으로 처리한다.
+					url : "userMail",
+					data : {keyword:value},
+					success : function(data, textStatus) {
+						var jsonInfo =data;
+					    // console.log(jsonInfo);
+						displayResult2(jsonInfo);
+					},
+					error : function(data, textStatus) {
+						alert("에러가 발생했습니다."+data);
+					},
+					complete : function(data, textStatus) {
+						//alert("작업을완료 했습니다");
+					}
+				}); //end ajax	
+			} 
+			
+			function displayResult2(jsonInfo){
+				var count = jsonInfo.length;
+				if(count > 0) {
+				    var html = '';
+				    for(var i in jsonInfo){
+				    	with(jsonInfo[i]){
+						   html += "<span>"+empName+"</span><a href=\"javascript:select2('"+email+"')\">"+email+"</a><br/>";
+						   //html += "<a onclick=select('"+email+"');>"+empName+email+"</a><br/>";
+				    	}
+				    }
+				    var listView = document.getElementById("suggestList2");
+				    listView.innerHTML = html;
+				    show2('suggest2');
+				}else{
+				    hide2('suggest2');
+				} 
+			}
+			
+			function select2(email) {
+				//document.sendMailForm.to.value=selectedKeyword;
+				//console.log(email);
+				document.getElementById("bcc").value=email;
+				 //$("#to").val()=email;
+				 //loopSearch = false;
+				 hide2('suggest2');
+			}
+				
+			function show2(elementId) {
+				 var element = document.getElementById(elementId);
+				 if(element) {
+				  element.style.display = 'block';
+				 }
+				}
+			
+			function hide2(elementId){
 			   var element = document.getElementById(elementId);
 			   if(element){
 				  element.style.display = 'none';
