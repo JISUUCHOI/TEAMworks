@@ -30,7 +30,10 @@ public interface ManagementService {
 	
 	// 사원 명부
 	int selectEmpCount();
+	ArrayList<Employee> selectEmpList();
 	ArrayList<Employee> selectEmpList(PageInfo pi);
+	ArrayList<Employee> selectEmpList(int deptCode); // 해당 부서에 소속된 사원 목록 조회용
+	ArrayList<Employee> selectEmpList(String keyword); // 키워드로 검색된 사원 목록 조회용
 	
 	int selectEmpCount(empSearchCondition sc);
 	ArrayList<Employee> selectEmpListKeyword(empSearchCondition sc);
@@ -48,10 +51,10 @@ public interface ManagementService {
 	
 	
 	// 조직도 관리
-	Department selectDeptList();
-	int insertDept(String keyword); //
-	int updateDept(); //
-	int deleteDept(); //
+	ArrayList<Department> selectDeptList();
+	int insertDept(String deptName); //
+	int updateDept(Department dept); //
+	int deleteDept(int deptCode); //
 	
 	ArrayList<Job> selectJobList();
 	void searchEmpInfo(); //
