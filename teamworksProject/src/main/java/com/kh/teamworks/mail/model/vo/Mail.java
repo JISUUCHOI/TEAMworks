@@ -25,6 +25,7 @@ public class Mail {
 	private String deleteStatus;
 	private int emInfoNo;
 	private String sender; // 보낸 사람
+	private String senderId;
 	private String recipients; // 받는 사람 
 	private String readStatus;
 	

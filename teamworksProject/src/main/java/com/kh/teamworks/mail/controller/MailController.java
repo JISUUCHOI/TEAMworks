@@ -2,8 +2,11 @@ package com.kh.teamworks.mail.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
@@ -314,4 +318,35 @@ public class MailController {
 		return "mail/sendMailForm";
 	}
 	
+	@ResponseBody
+	@RequestMapping("sendMail.ma")
+	public void sendMail(Mail m, HttpServletRequest request, 
+			            @RequestParam(name="uploadFile", required=false) MultipartFile[] file) {
+		
+		// 
+		// 첨부 파일 있으면 서버에 올리고 
+		// 실제 메일 보내고 
+	    // 이메일 사번을 조회해야햠 ;
+		// 디비에 insert 
+	}
+	
+	@RequestMapping(value="userMail", produces="application/json; charset=utf-8", method=RequestMethod.GET)
+	public @ResponseBody String searchUserMail(@RequestParam("keyword") String keyword,
+			 			                       HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		response.setContentType("text/html; charset=utf-8");
+		response.setCharacterEncoding("utf-8");
+		if(keyword == null || keyword.equals("")) {
+			return null;
+		}
+		
+		keyword = keyword.toLowerCase();
+		ArrayList<Employee> keywordList = emService.searchUserMail(keyword);
+		
+		JSONObject jObj = new JSONObject();
+		jObj.put("keyword", keywordList);
+		String jsonInfo = jObj.toString();
+		
+		return jsonInfo;
+	}
 }

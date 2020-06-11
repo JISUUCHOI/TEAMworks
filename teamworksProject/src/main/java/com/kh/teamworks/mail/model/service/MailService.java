@@ -44,4 +44,6 @@ public interface MailService {
 	
 	ArrayList<Department> selectDeptList();
 	ArrayList<Employee> selectEmpList();
+	
+	ArrayList<Employee> searchUserMail(String keyword);
 }

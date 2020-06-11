@@ -81,7 +81,7 @@ public class BoardController {
 		// System.out.println(cat);
 		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
-		model.addAttribute("pi", pi);
+		model.addAttribute("sc", sc);
 		
 		if(sc.getBoardCategory()==1) {
 			return "board/noticeListView";
