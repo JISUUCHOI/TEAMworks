@@ -186,12 +186,12 @@
 		        select p.doc_no
 		          from proof p
 		          join approve_line a on(p.doc_no = a.doc_no)
-		         where a.approver_empid='tw103' and a.approve_status=0
+		         where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
 		         UNION ALL
 		        select d.doc_no
 		          from draft d
 		          join approve_line a on(d.doc_no = a.doc_no)
-		         where a.approver_empid='tw103' and a.approve_status=0)
+		         where a.approver_empid=#{empId} and a.approve_status=#{approveStatus})
 	</select>
 	
 	<select id="selectDocList" parameterType="Document" resultMap="reqApprovalResultSet">
@@ -217,7 +217,7 @@
                 		from draft d
                 		join approve_line a on(d.doc_no = a.doc_no)
                 		join employee e on(d.emp_id = e.emp_id)
-              		   where a.approver_empid='tw102' and a.approve_status=0
+              		   where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
                		   order by d.doc_date desc)
         	   UNION ALL
       		  select *
@@ -225,7 +225,7 @@
                 		from proof p
                 		join approve_line a on(p.doc_no = a.doc_no)
                 		join employee e on(p.emp_id = e.emp_id)
-               		   where a.approver_empid='tw102' and a.approve_status=0
+               		   where a.approver_empid=#{empId} and a.approve_status=#{approveStatus}
                		   order by p.doc_date desc)
       		  )
 		order by doc_date desc
@@ -373,6 +373,46 @@
 		 join employee e on(v.emp_id = e.emp_id)
 		 join approve_line a on(v.doc_no = a.doc_no)
 		where v.doc_no=#{docNo}
+		order by a.approve_step
+	</select>
+	
+	<select id="selectDraftDetail" parameterType="Document" resultMap="reqApprovalResultSet">
+		select dr.doc_no, dr.emp_id, e.emp_name, dr.doc_sc, dr.doc_status, dr.doc_title, dr.doc_reference, dr.doc_refname, dr.doc_date, dr.doc_end, dr.doc_department,
+				dr.doc_content, dr.origin_name, dr.change_name,
+				a.approver_empid, (select emp_name
+				                    from employee
+				                    where emp_id = a.approver_empid) approver_name, (select job_name
+                                                                       				  from job j
+                                                                       				  join employee e on(e.job_code = j.job_code)
+                                                                      				 where e.emp_id = a.approver_empid) job_name, (select d.dept_name
+                                                                                                                    				 from department d
+                                                                                                                   					 join employee e on(e.dept_code = d.dept_code)
+                                                                                                                    				where e.emp_id = a.approver_empid) dept_name,
+				a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date				
+		 from draft dr
+		 join employee e on(dr.emp_id = e.emp_id)
+		 join approve_line a on(dr.doc_no = a.doc_no)
+		where dr.doc_no=#{docNo}
+		order by a.approve_step
+	</select>
+	
+	<select id="selectProofDetail" parameterType="Document" resultMap="reqApprovalResultSet">
+		select p.doc_no, p.emp_id, e.emp_name, p.doc_sc, p.doc_status, p.doc_title, p.doc_reference, p.doc_refname, p.doc_date, p.doc_end, p.doc_department,
+				p.pf_sq, p.pf_purpose, p.pf_status,
+				a.approver_empid, (select emp_name
+				                    from employee
+				                    where emp_id = a.approver_empid) approver_name, (select job_name
+                                                                       				  from job j
+                                                                       				  join employee e on(e.job_code = j.job_code)
+                                                                      				 where e.emp_id = a.approver_empid) job_name, (select d.dept_name
+                                                                                                                    				 from department d
+                                                                                                                   					 join employee e on(e.dept_code = d.dept_code)
+                                                                                                                    				where e.emp_id = a.approver_empid) dept_name,
+				a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date				
+		 from proof p
+		 join employee e on(p.emp_id = e.emp_id)
+		 join approve_line a on(p.doc_no = a.doc_no)
+		where p.doc_no=#{docNo}
 		order by a.approve_step
 	</select>
 	

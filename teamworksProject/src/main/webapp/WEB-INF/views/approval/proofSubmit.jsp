@@ -194,17 +194,28 @@
 	            <div id="btns">
 	           	    <!-- 나중에 status값 반려값으로 바꾸기 반려문서아니면 버튼안보이게 -->
 	           	    <c:choose>
-	           	    	<c:when test="${ d.docStatus eq 0 }">
+	           	    	<c:when test="${ d.get(0).docStatus eq 0 }">
 	           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
 	              			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
 	              		</c:when>	
 	              	</c:choose>
+	              	
 	                <button type="button" id="listBtn" onclick="history.back();">목록</button>
+	                
+	                <c:choose>
+		            	<c:when test="${ loginUser.empId eq approveEmpid }">
+		                	<button type="button" id="approveBtn" data-toggle="modal" data-target="#responseApprove">결재</button>
+		                </c:when>
+		                <c:otherwise>
+		                </c:otherwise>
+	                </c:choose>
+	                
 	            </div>
 	                        
 	            <form action="" id="postForm" method="post">
-	            	<input type="hidden" name="dno" value="${ d.getDocNo() }">
-	            </form><script>
+	            	<input type="hidden" name="dno" value="${ d.get(0).getDocNo() }">
+	            </form>
+	            <script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 
 		    			   $("#postForm").attr("action","updateProofForm.ap");
@@ -229,19 +240,26 @@
 	            <div id="appoveLine">
 	                <table id="approveLineTb">
 	                    <tr height="20">
-	                        <td rowspan="3" width="20">결<br>재</td>
-                            <td width="70">기안</td>
-                            <td width="70">이사</td>
-
+                        <td rowspan="2" width="20">결<br>재</td>
+                           <td width="80">기안</td>
+                           <c:forEach var="d" items="${ d }">
+                           	<td width="80">결재</td>
+                           </c:forEach>
 	                    </tr>
-	                    <tr height="">
-                            <td>이용석</td>
-                            <td>최해성</td>
-                        </tr>
-                        <tr height="">
-                            <td>승인(날짜)</td>
-                            <td>진행</td>
-
+	                    <tr height="70">
+	                        <td>최해성</td>
+	                        <c:forEach var="d" items="${ d }">
+	                           	<td>
+	                           		${ d.approverName }<br>${ d.approveReject } 
+		                           	<c:choose>
+		                           		<c:when test="${ d.approveReject eq '승인' }">
+		                           			<br>(${ d.approveDate })
+		                           		</c:when>
+		                           		<c:otherwise>
+		                           		</c:otherwise>
+		                           	</c:choose>
+	                           	</td>
+	                        </c:forEach>
 	                    </tr>
 	                </table>
 	            </div>
@@ -251,25 +269,25 @@
 	            <table class="docContents">
 	                <tr width="1000">
 	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200">${ d.getDocNo() }</td>
+	                    <td width="200">${ d.get(0).getDocNo() }</td>
 	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200">${ d.getDocDate() }</td>
+	                    <td width="200">${ d.get(0).getDocDate() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td>${ d.getEmpName() }</td>
+	                    <td>${ d.get(0).getEmpName() }</td>
 	                    <td class="th">마감일자</td>
-	                    <td>${ d.getDocEnd() }</td>
+	                    <td>${ d.get(0).getDocEnd() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td>${ d.getDocRefName() }</td>
+	                    <td>${ d.get(0).getDocRefName() }</td>
 	                    <td class="th">기안부서</td>
-	                    <td>${ d.getDocDepartment() }</td>
+	                    <td>${ d.get(0).getDocDepartment() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3">${ d.getDocTitle() }</td>
+	                    <td colspan="3">${ d.get(0).getDocTitle() }</td>
 	                </tr>
 	            </table>
 				
@@ -278,58 +296,65 @@
                 <table class="docContents">
 	                <tr width="">
 	                    <td width="150" class="th">증명서번호</td>
-	                    <td width="150">${ d.getDocNo() }</td>
+	                    <td width="150">${ d.get(0).getDocNo() }</td>
 	                    <td width="150" class="th">증명서구분</td>
-                        <td width="150">${ d.getDocSc() }</td>
+                        <td width="150">${ d.get(0).getDocSc() }</td>
                         <td width="150" class="th">신청일자</td>
-	                    <td width="150">${ d.getDocDate() }</td>
+	                    <td width="150">${ d.get(0).getDocDate() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">사원번호</td>
-	                    <td>${ d.getEmpId() }</td>
+	                    <td>${ d.get(0).getEmpId() }</td>
 	                    <td class="th">성명</td>
-                        <td width="">${ d.getEmpName() }</td>
+                        <td width="">${ d.get(0).getEmpName() }</td>
                         <td class="th">사업장</td>
                         <td width="">(주)팀웍스</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">부서</td>
-	                    <td>${ d.getDocDepartment() }</td>
+	                    <td>${ d.get(0).getDocDepartment() }</td>
 	                    <td class="th">직급</td>
-                        <td>${ d.getJobName() }</td>
+                        <td>${ d.get(0).getJobName() }</td>
                         <td class="th"></td>
 	                    <td></td>
                     </tr>
                     <tr>
 	                    <td class="th">용도</td>
-	                    <td colspan="5">${ d.getPfPurpose() }</td>
+	                    <td colspan="5">${ d.get(0).getPfPurpose() }</td>
 	                </tr>
                 </table>
                 
                 <br><br>
 	            <h4>결재의견</h4>
 	            <hr>
-                <br>
-                
                 <div id="Opinion">
-	                <table id="paymentOpinion">
-	                    <tr height="20" id="aa">
-                            <td width="80">결재</td>
-                            <td width="120">결재자</td>
-                            <td width="100">부서</td>
-                            <td width="160">결재일시</td>
-                            <td width="320">의견</td>
-	                    </tr>
-	                    <tr height="">
-                            <td>승인</td>
-                            <td>최해성 이사</td>
-                            <td>개발팀</td>
-                            <td>2020.05.06 23:11</td>
-                            <td>승인합니다</td>
-                        </tr>
-
-	                </table>
-	            </div>
+                <c:choose>
+	                 <c:when test="${ count lt 1 }">
+	                 </c:when>
+	                 <c:otherwise>
+		                <table id="paymentOpinion">
+		                    <tr height="35" id="aa">
+	                            <td class="th" width="80">결재</td>
+	                            <td class="th" width="120">결재자</td>
+	                            <td class="th" width="100">부서</td>
+	                            <td class="th" width="160">결재일시</td>
+	                            <td class="th" width="340">의견</td>
+		                    </tr>
+		                    
+		                    <!-- 코멘트 개수 세어오기 -->
+		                    <c:forEach var="i" begin="0" end="${ count - 1 }">
+			                    <tr height="35">
+		                            <td>${ d.get(i).getApproveReject() }</td>
+		                            <td>${ d.get(i).getApproverName() } ${ d.get(i).getJobName() }</td>
+		                            <td>${ d.get(i).getDeptName() }</td>
+		                            <td>${ d.get(i).getApproveDate() }</td>
+		                            <td>${ d.get(i).getApproveComment() }</td>
+		                        </tr>
+	                        </c:forEach>
+		                </table>
+	                </c:otherwise>
+                </c:choose>
+            </div>
 	 	   </div>
 	  </div>
 	

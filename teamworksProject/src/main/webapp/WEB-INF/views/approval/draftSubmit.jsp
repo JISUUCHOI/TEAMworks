@@ -71,17 +71,27 @@
 	            <div id="btns">
 	           	    <!-- 나중에 status값 반려값으로 바꾸기 반려문서아니면 버튼안보이게 -->
 	           	    <c:choose>
-	           	    	<c:when test="${ d.docStatus eq 0 }">
+	           	    	<c:when test="${ d.get(0).docStatus eq 0 }">
 	           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
 	              			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
 	              		</c:when>	
 	              	</c:choose>
+	              	
 	                <button type="button" id="listBtn" onclick="history.back();">목록</button>
+	                
+	                <c:choose>
+		            	<c:when test="${ loginUser.empId eq approveEmpid }">
+		                	<button type="button" id="approveBtn" data-toggle="modal" data-target="#responseApprove">결재</button>
+		                </c:when>
+		                <c:otherwise>
+		                </c:otherwise>
+	                </c:choose>
+	                
 	            </div>
 	            
 	           	<form action="" id="postForm" method="post">
-	            	<input type="hidden" name="dno" value="${ d.getDocNo() }">
-	            	<input type="hidden" name="fileName" value="${ d.changeName }">
+	            	<input type="hidden" name="dno" value="${ d.get(0).getDocNo() }">
+	            	<input type="hidden" name="fileName" value="${ d.get(0).changeName }">
 	            </form><script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 
@@ -102,30 +112,33 @@
 			    
 	            <br><br><br>
 	
-	            <h1 style="text-align:center;">기안서</h1>
+	            <h1 style="text-align:center;">${ d.get(0).getDocSc() }</h1>
 	            <br>
 	
 	            <!-- 결재선 -->
 	            <div id="appoveLine">
 	                <table id="approveLineTb">
 	                    <tr height="20">
-	                        <td rowspan="3" width="20">결<br>재</td>
-                            <td width="70">기안</td>
-                            <td width="70">팀장</td>
-                            <td width="70">이사</td>
-                            <td width="70">사장</td>
+                        <td rowspan="2" width="20">결<br>재</td>
+                           <td width="80">기안</td>
+                           <c:forEach var="d" items="${ d }">
+                           	<td width="80">결재</td>
+                           </c:forEach>
 	                    </tr>
-	                    <tr height="">
-                            <td>최해성</td>
-                            <td>이용석</td>
-                            <td>김용명</td>
-                            <td>최지수</td>
-                        </tr>
-                        <tr height="">
-                            <td>승인(날짜)</td>
-                            <td>승인(날짜)</td>
-                            <td>진행</td>
-                            <td>미결</td>
+	                    <tr height="70">
+	                        <td>최해성</td>
+	                        <c:forEach var="d" items="${ d }">
+	                           	<td>
+	                           		${ d.approverName }<br>${ d.approveReject } 
+		                           	<c:choose>
+		                           		<c:when test="${ d.approveReject eq '승인' }">
+		                           			<br>(${ d.approveDate })
+		                           		</c:when>
+		                           		<c:otherwise>
+		                           		</c:otherwise>
+		                           	</c:choose>
+	                           	</td>
+	                        </c:forEach>
 	                    </tr>
 	                </table>
 	            </div>
@@ -133,37 +146,37 @@
 	
 	            <!-- 기안문서 -->
 	            <table class="docContents">
-	                <tr width="1000">
+	                <tr width="800">
 	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200">${ d.getDocNo() }</td>
+	                   	<td width="200">${ d.get(0).getDocNo() }</td>
 	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200">${ d.getDocDate() }</td>
+	                    <td width="200">${ d.get(0).getDocDate() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td>${ d.getEmpName() }</td>
-	                    <td class="th">마감일자</td>
-	                    <td>${ d.getDocEnd() }</td>
+	                    <td>${ d.get(0).getEmpName() }</td>
+	                    <td class="th">기안부서</td>
+	                    <td>${ d.get(0).getDocDepartment() }</td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
-	                    <td>${ d.getDocRefName() }</td>
-	                    <td class="th">기안부서</td>
-	                    <td>${ d.getDocDepartment() }</td>
+	                    <td>${ d.get(0).getDocRefName() }</td>
+	                    <td class="th">마감일자</td>
+	                    <td>${ d.get(0).getDocEnd() }</td>
 	                </tr>
 	                <tr>
-	                    <td class="th">문서제목</td>
-	                    <td colspan="3">${ d.getDocTitle() }</td>
-                    </tr>
-                        <tr>
+	                    <td class="th">제목</td>
+	                    <td colspan="3">${ d.get(0).getDocTitle() }</td>
+	                </tr>
+                    <tr>
                     	<td class="th">내용</td>
-	                    <td colspan="4" id="draftContent">${ d.getDocContent() }</td>
+	                    <td colspan="4" id="draftContent">${ d.get(0).getDocContent() }</td>
                     </tr>
                     <tr>
 	                    <td class="th">첨부파일</td>
 	                    <c:choose>
-	                    	<c:when test="${ !empty d.originName }">	
-	                    		<td colspan="3" id="draftFile"><a href="${ pageContext.servletContext.contextPath }/resources/approveUploadFiles/${ d.changeName }" download="${ d.originName }">${ d.originName }</a></td>
+	                    	<c:when test="${ !empty d.get(0).originName }">	
+	                    		<td colspan="3" id="draftFile"><a href="${ pageContext.servletContext.contextPath }/resources/approveUploadFiles/${ d.get(0).changeName }" download="${ d.originName }">${ d.get(0).originName }</a></td>
 	                    	</c:when>
 	                    	<c:otherwise>
 	                    		<td colspan="3" id="draftFile">첨부파일이 없습니다.</td>
@@ -173,33 +186,38 @@
 
                 </table>
 
-                <br><br>
-	            <h4>결재의견</h4>
-	            <hr>
-                <br>
-                
-                <div id="Opinion">
-	                <table id="paymentOpinion">
-	                    <tr height="20" id="aa">
-                            <td width="80">결재</td>
-                            <td width="120">결재자</td>
-                            <td width="100">부서</td>
-                            <td width="160">결재일시</td>
-                            <td width="320">의견</td>
-	                    </tr>
-	                    <tr height="">
-                            <td>승인</td>
-                            <td>최해성 이사</td>
-                            <td>개발팀</td>
-                            <td>2020.05.06 23:11</td>
-                            <td>승인합니다</td>
-                        </tr>
-
-	                </table>
-	            </div>
-
-
-	
+                <br><br><br>
+            <h4>결재의견</h4>
+            <hr>
+            <div id="Opinion">
+                <c:choose>
+	                 <c:when test="${ count lt 1 }">
+	                 </c:when>
+	                 <c:otherwise>
+		                <table id="paymentOpinion">
+		                    <tr height="35" id="aa">
+	                            <td class="th" width="80">결재</td>
+	                            <td class="th" width="120">결재자</td>
+	                            <td class="th" width="100">부서</td>
+	                            <td class="th" width="160">결재일시</td>
+	                            <td class="th" width="340">의견</td>
+		                    </tr>
+		                    
+		                    <!-- 코멘트 개수 세어오기 -->
+		                    <c:forEach var="i" begin="0" end="${ count - 1 }">
+			                    <tr height="35">
+		                            <td>${ d.get(i).getApproveReject() }</td>
+		                            <td>${ d.get(i).getApproverName() } ${ d.get(i).getJobName() }</td>
+		                            <td>${ d.get(i).getDeptName() }</td>
+		                            <td>${ d.get(i).getApproveDate() }</td>
+		                            <td>${ d.get(i).getApproveComment() }</td>
+		                        </tr>
+	                        </c:forEach>
+		                </table>
+	                </c:otherwise>
+                </c:choose>
+            </div>
+            
 	    </div>
 	</div>
 </body>
