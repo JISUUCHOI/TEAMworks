@@ -69,7 +69,17 @@ public interface ApprovalService {
 	// 휴가 삭제
 	int deleteVacation(String dno);
 
+	// 경조비 수정폼
 	Document updateDraftForm(String dno);
+
+	// 제증명 수정폼
+	Document updateProofForm(String dno);
+
+	// 경조비 수정폼
+	Document updateFamilyEventForm(String dno);
+
+	// 휴가 수정폼
+	Document updateVacationForm(String dno);
 
 
 

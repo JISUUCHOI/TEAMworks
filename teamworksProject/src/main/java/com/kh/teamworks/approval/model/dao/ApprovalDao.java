@@ -107,8 +107,27 @@ public class ApprovalDao {
 	public int deleteVacation(SqlSessionTemplate sqlSession, String dno) {
 		return sqlSession.delete("documentMapper.deleteVacation",dno);	}
 
+	// 기안서 수정폼
 	public Document updateDraftForm(SqlSessionTemplate sqlSession, String dno) {
 		return sqlSession.selectOne("documentMapper.updateDraftForm", dno);
+	}
+
+	// 제증명 수정폼
+	public Document updateProofForm(SqlSessionTemplate sqlSession, String dno) {
+		return sqlSession.selectOne("documentMapper.updateProofForm", dno);
+
+	}
+
+	// 경조비 수정폼
+	public Document updateFamilyEventForm(SqlSessionTemplate sqlSession, String dno) {
+		return sqlSession.selectOne("documentMapper.updateFamilyEventForm", dno);
+
+	}
+
+	// 휴가 수정폼
+	public Document updateVacationForm(SqlSessionTemplate sqlSession, String dno) {
+		return sqlSession.selectOne("documentMapper.updateVacationForm", dno);
+
 	}
 
 

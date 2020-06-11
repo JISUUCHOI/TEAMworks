@@ -283,7 +283,8 @@
             <script>
   				    function postFormSubmit(num){
 					   if(num == 1){ 
-	    			   $("#postForm").attr("action","updateProofForm.ap");
+	    			   $("#postForm").attr("action","updateForm.ap");
+	    			   $("#postForm").submit();
 	 		    }else{ 
 	 		    	$("#postForm").attr("action","deleteProof.ap");
 					   if(confirm("삭제된 문서는 복구할수없습니다. 그래도 삭제하시겠습니까?")==true){

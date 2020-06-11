@@ -164,7 +164,7 @@
 	            </form><script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 
- 						  $("#postForm").attr("action","updateDraftForm.ap");
+ 						  $("#postForm").attr("action","updateForm.ap");
  						  $("#postForm").submit();
 		 		   	   }else{ 						   
 		 		    	$("#postForm").attr("action","deleteDraft.ap");

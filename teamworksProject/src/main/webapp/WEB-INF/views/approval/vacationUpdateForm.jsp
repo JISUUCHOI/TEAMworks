@@ -1,44 +1,45 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*, java.text.SimpleDateFormat"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-   Date date = new Date();
-   SimpleDateFormat sf = new SimpleDateFormat("yyyy.MM.dd");
+	Date today = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+	String now = sf.format(today);
+	
+	Calendar week = Calendar.getInstance();
+	week.add(Calendar.DATE, +7);
+	String docEnd = new SimpleDateFormat("yyyy-MM-dd").format(week.getTime());
 %>
- 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>기안서작성</title>
-<!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 <!-- jQuery 라이브러리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 부트스트랩에서 제공하고 있는 스타일 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <!-- css 연결 -->
-<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/proofForm.css">
+<link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/vacationForm.css">
 <!-- js 연결 -->
-<script src="${ pageContext.servletContext.contextPath }/resources/js/proofForm.js" rel="javascript" type="text/javascript"></script>
-
+<script src="${ pageContext.servletContext.contextPath }/resources/js/vacationForm.js" rel="javascript" type="text/javascript"></script>
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
-	<jsp:include page="approvalSidebar.jsp"/>
-	<div id="bodyWrapper">
+    <jsp:include page="approvalSidebar.jsp"/>
+    
+	<div id="vacationWrapper">
 	    <div id="draftOuter">
-	        <h4>⊙ 기안문 작성</h4>
+	
+	        <h6>⊙ 기안문 작성</h6>
 	        <hr>
 	        <br>
 	
-	        <form id="docForm"  action="proofInsert.ap" method="post">
-	            <!-- 결재선으로 선택된 값들 -->
+	        <form id="docForm" action="requestVac.rap" method="post">
+	        	<!-- 결재선으로 선택된 값들 -->
 	        	<input type="hidden" id="approver" name="approver">
 	            <!-- 버튼들 -->
 	            <div id="btns">
@@ -48,8 +49,8 @@
 	            </div>
 	            <br><br><br>
 	
-	            <h1 style="text-align:center;">제증명 신청서</h1>
-	            <input type="hidden" name="docSc" value="제증명신청서">
+	            <h2 style="text-align:center;">휴가신청서</h2>
+	            <input type="hidden" name="docSc" value="휴가신청서">
 	            <br>
 	
 	            <!-- 결재선 -->
@@ -60,7 +61,7 @@
 	                        <td width="70">기안</td>
 	                    </tr>
 	                    <tr height="70">
-	                        <td>${ loginUser.empName }</td>
+	                        <td>${ emp.empName }</td>
 	                    </tr>
 	                </table>
 	            </div>
@@ -68,81 +69,76 @@
 	
 	            <!-- 기안문서 -->
 	            <table class="docContents">
-	                <tr width="1000">
-	                    <td width="200" class="th">문서번호</td>
-	                    <td width="200">자동부여</td>
-	                    <td width="200" class="th">기안일자</td>
-	                    <td width="200"><jsp:useBean id="docDate" class="java.util.Date" />
-										<fmt:formatDate value="${docDate}" pattern="yyyy-MM-dd" var="docDate" /><c:out value="${docDate}"/>
-										<input type="hidden" id="docDate" name="docDate" value="${ docDate}">
-						</td>			 
+	                <tr>
+	                    <td width="150" class="th">문서번호</td>
+	                    <td width="250" style="text-align:center;">자동부여</td>
+	                    <td width="150" class="th">기안일자</td>
+	                    <td width="250" style="text-align:center;"><input type="text" class="readInput" name="docDate" value="<%= now %>" readonly></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">기안자</td>
-	                    <td>${ loginUser.empName }</td>
-	                    <input type="hidden" id="empId" name="empId" value="${ loginUser.empId }">
+	                    <td style="text-align:center;">
+	                    	<input type="hidden" id="empId" name="empId" value="${ loginUser.empId }">
+	                    	${ emp.empName }
+	                    </td>
 	                    <td class="th">기안부서</td>
-			            <td>${ loginUser.deptName }</td>
-			            <td><input type="hidden" id="docDepartment" name="docDepartment" value="${ loginUser.deptName }" readonly></td>
+	                    <td style="text-align:center;"><input type="text" class="readInput" name="docDepartment" value="${ emp.deptName }" readonly></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>
 	                    <td>
 	                    	<input type="hidden" id="refedId" name="docReference">
-	                        <input type="text" id="refSch" name="docRefName" value="${ d.docRefName }" readonly>
+	                        <input type="text" id="refSch" name="docRefName" readonly>
 	                        <button type="button" id="refBtn" data-toggle="modal" data-target="#refEmp">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
-	                    <td><jsp:useBean id="docEnd" class="java.util.Date"/>
-							<jsp:setProperty name="docEnd" property="date" value="${docEnd.date + 7}"/>
-							<fmt:formatDate value="${docEnd}" pattern="yyyy-MM-dd" var="docEnd"/><c:out value="${docEnd}"/>
-							<input type="hidden" id="docEnd" name="docEnd" value="${ docEnd}">
-						</td>
+	                    <td style="text-align:center;"><input type="text" class="readInput" name="docEnd" value="<%= docEnd %>" readonly></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" value="${ d.docTitle }" required></td>
+	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" required></td>
 	                </tr>
 	            </table>
 				
 				<br><br>
-				
-                <table class="docContents">
-	                <tr width="1000">
-                        <td width="200" class="th">신청번호</td>
-                        <td width="200">자동생성</td>
-	                    <td width="200" class="th">증명서구분</td>
-                        <td width="200"><select name="pfSq" id="pfSq">
-                            <option value="재직증명서">재직증명서</option>
-                            <option value="경력증명서">경력증명서</option>
-                            <option value="퇴직증명서">퇴직증명서</option>
-                       </select>
+                
+                <!-- 휴가신청서 -->
+                <table class="docContents" id="requestVacation">
+	                <tr width="800">
+	                    <td width="150" class="th">휴가구분</td>
+	                    <td width="250">
+                            <select name="vcSq" id="vcSq">
+                                <option value="연차">연차</option>
+                                <option value="경조사">경조사</option>
+                                <option value="병가">병가</option>
+                                <option value="출산">출산</option>
+                            </select>
+	                    <td width="150" class="th">전일/반일 구분</td>
+                        <td width="250">
+                        	<select name="vcDay" id="vcDay">
+	                            <option value="전일">전일</option>
+	                            <option value="반일">반일</option>
+                       		</select>
+                       	</td>
 	                </tr>
 	                <tr>
-	                    <td width="200" class="th">사원번호</td>
-                        <td>${ loginUser.empId }</td>
-	                    <td width="200" class="th">성명</td>
-                        <td>${ loginUser.empName }</td>
+	                    <td class="th">휴가 신청일</td>
+                        <td style="padding-left:15px;"><%= now %></td>
+                        <td class="th">일수</td>
+                        <td><input type="text" id="vcDays" name="vcCount" onkeypress="numberOnly();" required /></td>
 	                </tr>
 	                <tr>
-	                    <td width="200" class="th">사업장</td>
-                        <td>(주)팀웍스</td>
-	                    <td width="200" class="th">부서</td>
-			            <td>${ loginUser.deptName }</td>
-                    </tr>
-                    <tr>
-	                    <td width="200" class="th">직급</td>
-                        <td>${ loginUser.jobName }</td>
-	                    <td width="200" class="th">신청일자</td>
-                        <td width="">${ docDate}</td>
+	                    <td class="th">휴가기간</td>
+                        <td colspan="3"><input type="date" id="vcStartDate" name="vcStart" required><span>~</span><input type="date" id="vcEndDate" name="vcEnd" required></td>
 	                </tr>
 	                <tr>
-	                    <td class="th">용도</td>
-	                    <td colspan="3"><input type="text" id="titleInput"  name="pfPurpose" value="${ d.pfPurpose }" required></td>
+	                    <td class="th">휴가사유</td>
+	                    <td colspan="3"><input type="text" id="vcReason" name="vcContent" required></td>
 	                </tr>
                 </table>
 	        </form>
 	    </div>
+	    
 	    <!-- 참조 클릭 시 뜨는 모달 -->
 	    <div class="modal fade" id="refEmp">
 	        <div class="modal-dialog modal-lg">

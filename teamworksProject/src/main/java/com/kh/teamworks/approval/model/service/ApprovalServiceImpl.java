@@ -137,9 +137,32 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return aDao.deleteVacation(sqlSession, dno);
 	}
 
+	// 기안서 수정폼
 	@Override
 	public Document updateDraftForm(String dno) {
 		return aDao.updateDraftForm(sqlSession, dno);
+	}
+
+	// 제증명 수정폼
+	@Override
+	public Document updateProofForm(String dno) {
+		return aDao.updateProofForm(sqlSession, dno);
+
+	}
+
+	// 경조비 수정폼
+	@Override
+	public Document updateFamilyEventForm(String dno) {
+		return aDao.updateFamilyEventForm(sqlSession, dno);
+
+	}
+
+	// 휴가 수정폼
+	@Override
+	public Document updateVacationForm(String dno) {
+		return aDao.updateVacationForm(sqlSession, dno);
+
+
 	}
 
 
