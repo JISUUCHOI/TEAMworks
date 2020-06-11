@@ -267,8 +267,8 @@ public class requestApprovalController {
 	@RequestMapping("searchList.rap")
 	public String searchDocList(HttpServletRequest request, ApproveSearchCondition asc, Model model) {
 		
-		String condition = request.getParameter("condition");
-		String keyword = request.getParameter("keyword");
+		String condition = asc.getCondition();
+		String keyword = asc.getKeyword();
 		
 		switch(condition) {
 		case "writer" : asc.setWriter(keyword); break;
@@ -279,18 +279,16 @@ public class requestApprovalController {
 		// 5_3. 검색 결과에 해당하는 게시글 개수 조회
 		int listCount = raService.searchListCount(asc);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
 		// 5_4. 검색 결과에 해당하는 게시글 리스트 조회
 		ArrayList<Document> list = raService.searchDocList(asc, pi);
 		
-		model.addAttribute("condition", condition);
-		model.addAttribute("keyword", keyword);
 		model.addAttribute("listCount", listCount);
 		model.addAttribute("sts", asc.getApproveStatus());
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
+		model.addAttribute("asc", asc);
 		
 		return "approval/documentList";
 		

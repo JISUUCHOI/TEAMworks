@@ -20,8 +20,13 @@ public class ApproveSearchCondition {
 	private String deptName;
 	private String jobName;
 	
+	private String condition;
+	private String keyword;
 	private String writer;
 	private String title;
 	private String form;
+	
+	private String startDate;
+	private String endDate;
 	
 }

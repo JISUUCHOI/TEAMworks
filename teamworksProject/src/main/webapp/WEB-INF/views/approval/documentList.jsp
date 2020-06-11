@@ -9,6 +9,7 @@
 <title>결재문서보관함</title>
 <!-- jQuery 라이브러리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <style>
 	/* 전체 윤곽 */
 	html, body{height:100%;}
@@ -37,7 +38,7 @@
 	    font-size:13px;
 	}
 	#search th, .searchBox th{background:lightsteelblue; color:white;}
-	#periodBtns, #periodInp{margin:10px 0px 10px 15px;}
+	#periodBtns, #periodInp, #searchStartDate, #searchEndDate{margin:10px 0px 10px 15px;}
 	
 	.period{
 	    width:45px;
@@ -123,38 +124,34 @@
 	
 	
 	/* Datepicker */
-	/* Default */
-	/* input[type=text],input[type=password]{font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
-	*{margin:0;padding:0;font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
-	body{font-size:12px;color:#555;background:transparent;-webkit-user-select:none;-moz-user-select:none;-webkit-text-size-adjust:none;-moz-text-size-adjust:none;-ms-text-size-adjust:none}
-	ol,ul{list-style:none} 
-	table{table-layout:fixed;width:100%;border-collapse:collapse;border-spacing:0}
-	caption{overflow:hidden;width:0;height:0;font-size:0;line-height:0;text-indent:-999em}
-	img,fieldset{border:0}
-	legend{height:0;visibility:hidden}
-	em,address{font-style:normal}
-	img{border:0 none;vertical-align:middle}
-	a{color:#555;text-decoration:none}
-	input,select{margin:0;padding:0;vertical-align:middle}
-	button{margin:0;padding:0;font-family:inherit;border:0 none;background:transparent;cursor:pointer}
-	button::-moz-focus-inner{border:0;padding:0}
-	header,footer,aside,nav,section,article{display:block} */
-	
+	input[type=text],input[type=password]{font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
+    *{margin:0;padding:0;font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
+    body{font-size:12px;color:#555;background:transparent;-webkit-user-select:none;-moz-user-select:none;-webkit-text-size-adjust:none;-moz-text-size-adjust:none;-ms-text-size-adjust:none}
+    ol,ul{list-style:none} 
+    table{table-layout:fixed;width:100%;border-collapse:collapse;border-spacing:0}
+    caption{overflow:hidden;width:0;height:0;font-size:0;line-height:0;text-indent:-999em}
+    img,fieldset{border:0}
+    legend{height:0;visibility:hidden}
+    em,address{font-style:normal}
+    img{border:0 none;vertical-align:middle}
+    a{color:#555;text-decoration:none}
+    input,select{margin:0;padding:0;vertical-align:middle}
+    button{margin:0;padding:0;font-family:inherit;border:0 none;background:transparent;cursor:pointer}
+    button::-moz-focus-inner{border:0;padding:0}
+    header,footer,aside,nav,section,article{display:block}
+
 	.clearfix{*zoom:1}
 	.clearfix:after{content:"";display:block;clear:both;overflow:hidden}
 	
 	/* Search */
-	.searchBox{border:none}
-	.searchBox tbody th{padding:20px 10px 20px 35px;font-size:14px;font-weight:bold;text-align:left;vertical-align:middle;}
-	.searchBox tbody td{padding:12px 10px 12px 25px;}
 	
-	.searchDate{overflow:hidden;margin-bottom:10px;*zoom:1}
+	.searchDate{overflow:hidden;margin:10px 0px 0px 20px;*zoom:1}
 	.searchDate:after{display:block;clear:both;content:''}
 	.searchDate li{position:relative;float:left;margin:0 7px 0 0}
 	.searchDate li .chkbox2{display:block;text-align:center}
 	.searchDate li .chkbox2 input{position:absolute;z-index:-1}
-	.searchDate li .chkbox2 label{display:block;width:72px;height:26px;font-size:14px;font-weight:bold;color:#fff;text-align:center;line-height:25px;text-decoration:none;cursor:pointer;background:#a5b0b6}
-	.searchDate li .chkbox2.on label{background:#ec6a6a}
+	.searchDate li .chkbox2 label{display:block;width:60px;height:30px;font-size:12px;color:#fff;text-align:center;line-height:30px;text-decoration:none;cursor:pointer;background:rgb(7, 53, 90)}
+	.searchDate li .chkbox2.on label{background:deepskyblue;}
 	
 	.demi{display:inline-block;margin:0 1px;vertical-align:middle}
 	.inpType{padding-left:6px;height:24px;line-height:24px;border:1px solid #dbdbdb}
@@ -197,20 +194,17 @@
 	            <hr>
 	            <br>
 
-
-		        <!-- search -->
-		        <form>
-		        <table class="searchBox">
-		            <%-- <caption>조회</caption>
-		            <colgroup>
-		                <col width="123px">
-		                <col width="*">
-		            </colgroup> --%>
-		            <tbody>
-		                <tr>
+	
+	            <!-- 검색 -->
+	            <form action="searchList.rap" method="post">
+	            	<input type="hidden" name="empId" value="${ loginUser.empId }">
+	            	<input type="hidden" name="approveStatus" value="${ sts }">
+	            	<input type="hidden" name="currentPage" value="1">
+	                <table id="search" class="searchBox">
+	                    <tr>
 		                    <th width="150">조회기간</th>
 		                    <td width="850">
-		                        <ul class="searchDate">
+		                        <ul class="searchDate" class="searchBox">
 		                            <li>
 		                                <span class="chkbox2">
 		                                    <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
@@ -246,54 +240,18 @@
 		                        <div class="clearfix">
 		                            <!-- 시작일 -->
 		                            <span class="dset">
-		                                <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
+		                                <input type="text" class="datepicker inpType" name="startDate" id="searchStartDate" >
 		                                <a href="#none" class="btncalendar dateclick">달력</a>
 		                            </span>
 		                            <span class="demi">~</span>
 		                            <!-- 종료일 -->
 		                            <span class="dset">
-		                                <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" >
+		                                <input type="text" class="datepicker inpType" name="endDate" id="searchEndDate" >
 		                                <a href="#none" class="btncalendar dateclick">달력</a>
 		                            </span>
 		                        </div>    
 		                    </td>
 		                </tr>
-		
-		            <tbody>
-		        </table>
-		        </form>
-
-
-
-
-
-	
-	            <!-- 검색 -->
-	            <form action="searchList.rap">
-	            	<input type="hidden" name="empId" value="${ loginUser.empId }">
-	            	<input type="hidden" name="approveStatus" value="${ sts }">
-	            	<input type="hidden" name="currentPage" value="1">
-	                <table id="search">
-	                    <!-- <tr height="90">
-	                        <th width="150">기안일</th>
-	                        <td width="850">
-	                            <div id=periodBtns>
-	                                <input type="button" class="period" name="period" value="1주일">
-	                                <input type="button" class="period" name="period" value="1개월">
-	                                <input type="button" class="period" name="period" value="3개월">
-	                                <input type="button" class="period" name="period" value="6개월">
-	                                
-	                                <input type="button" class="period" value="1주일">
-	                                <input type="button" class="period" value="1개월">
-	                                <input type="button" class="period" value="3개월">
-	                                <input type="button" class="period" value="6개월">
-	                            </div>
-	                            <div id=periodInp>
-	                                <input type="date" name="startDt" id="startDt"> ~ <input type="date" name="endDt" id="endDt">
-	                                <input type="date" id="startDt"> ~ <input type="date" id="endDt">
-	                            </div>
-	                        </td>
-	                    </tr> -->
 	                    <tr height="50">
 	                        <th width="150">문서검색</th>
 	                        <td width="850">
@@ -388,15 +346,16 @@
 						</c:when>
 						<c:when test="${ listCount eq 0 }">
 						</c:when>
-						<c:when test="${ keyword != null }">
+						<c:when test="${ !empty asc }">
 							<c:url value="searchList.rap" var='searchUrl'>
-								<c:param name="condition" value="${ condition }" />
-								<c:param name="keyword" value="${ keyword }" />
 								<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="approveStatus" value="${ sts }" />
+								<c:param name="condition" value="${ asc.condition }" />
+								<c:param name="keyword" value="${ asc.keyword }" />
+								<c:param name="startDate" value="${ asc.startDate }" />
+								<c:param name="endDate" value="${ asc.endDate }" />
 							</c:url>
-						
 							<button class="page able" onclick="location.href='${ searchUrl }'">&lt;</button>
 						</c:when>
 						<c:otherwise>
@@ -411,16 +370,18 @@
 							</c:when>
 							<c:otherwise>
 								<c:choose>
-									<c:when test="${ empty keyword }">
+									<c:when test="${ empty asc }">
 										<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ p }'">${ p }</button>
 									</c:when>
 									<c:otherwise>
 										<c:url value="searchList.rap" var='searchUrl'>
-											<c:param name="condition" value="${ condition }" />
-											<c:param name="keyword" value="${ keyword }" />
 											<c:param name="currentPage" value="${ p }" />
 											<c:param name="empId" value="${ loginUser.empId }" />
 											<c:param name="approveStatus" value="${ sts }" />
+											<c:param name="condition" value="${ asc.condition }" />
+											<c:param name="keyword" value="${ asc.keyword }" />
+											<c:param name="startDate" value="${ asc.startDate }" />
+											<c:param name="endDate" value="${ asc.endDate }" />
 										</c:url>
 										<button class="page able" onclick="location.href='${ searchUrl }'">${ p }</button>
 									</c:otherwise>
@@ -434,15 +395,16 @@
 						</c:when>
 						<c:when test="${ listCount eq 0 }">
 						</c:when>
-						<c:when test="${ keyword != null }">
+						<c:when test="${ !empty asc }">
 							<c:url value="searchList.rap" var='searchUrl'>
-								<c:param name="condition" value="${ condition }" />
-								<c:param name="keyword" value="${ keyword }" />
 								<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="approveStatus" value="${ sts }" />
+								<c:param name="condition" value="${ asc.condition }" />
+								<c:param name="keyword" value="${ asc.keyword }" />
+								<c:param name="startDate" value="${ asc.startDate }" />
+								<c:param name="endDate" value="${ asc.endDate }" />
 							</c:url>
-						
 							<button class="page able" onclick="location.href='${ searchUrl }'">&gt;</button>
 						</c:when>
 						<c:otherwise>
@@ -490,21 +452,21 @@
 		}); 
 
         //시작일.
-        $('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {    
+        /* $('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {    
             // 시작일 datepicker가 닫힐때
             // 종료일의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
             $("#searchEndDate").datepicker( "option", "minDate", selectedDate );
             $(".searchDate").find(".chkbox2").removeClass("on");
-        });
+        }); */
         
 
         //종료일.
-        $('#searchEndDate').datepicker("option","onClose", function( selectedDate ) {    
+       /*  $('#searchEndDate').datepicker("option","onClose", function( selectedDate ) {    
             // 종료일 datepicker가 닫힐때
             // 시작일의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
             $("#searchStartDate").datepicker( "option", "maxDate", selectedDate );
             $(".searchDate").find(".chkbox2").removeClass("on");
-        });
+        }); */
         
 
         $(".dateclick").dateclick();    // DateClick
