@@ -33,7 +33,7 @@ public interface ManagementService {
 	ArrayList<Employee> selectEmpList(PageInfo pi);
 	
 	int selectEmpCount(empSearchCondition sc);
-	ArrayList<Employee> selectEmpListKeyword(empSearchCondition sc);
+	ArrayList<Employee> selectEmpListKeyword(empSearchCondition sc, PageInfo pi);
 	
 	// 사원 관리
 	int updateEmpInfo();

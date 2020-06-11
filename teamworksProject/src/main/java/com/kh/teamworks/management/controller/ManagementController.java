@@ -116,16 +116,32 @@ public class ManagementController {
 	@RequestMapping("empListSearch.mg")
 	public String empListKeyword(int currentPage, empSearchCondition sc, Model model) {
 		
+		if(sc.getKeyword()!=null) {
+			switch(sc.getCondition()) {
+			case "empId" : sc.setEmpId(sc.getKeyword()); break;
+			case "empName" : sc.setEmpName(sc.getKeyword()); break;
+			case "deptName" : sc.setDeptName(sc.getKeyword()); break;
+			}
+			
+		}else {
+			sc.setEmpId(null);
+			sc.setEmpName(null);
+			sc.setDeptName(null);
+		}
+		
 		int listCount = mgService.selectEmpCount(sc);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
-		ArrayList<Employee> empSearchList = mgService.selectEmpListKeyword(sc);
+		ArrayList<Employee> empSearchList = mgService.selectEmpListKeyword(sc, pi);
 		
 		model.addAttribute("empSearchList", empSearchList);
 		model.addAttribute("pi", pi);
+		model.addAttribute("sc", sc);
+		
+		System.out.println(empSearchList);
 
-		return "management/companyMemberSearchList";
+		return "management/companyMemberList";
 	}
 	
 	//휴가 관리

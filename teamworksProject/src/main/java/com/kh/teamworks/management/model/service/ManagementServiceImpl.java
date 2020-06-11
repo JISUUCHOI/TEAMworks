@@ -50,8 +50,8 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 	
 	@Override
-	public ArrayList<Employee> selectEmpListKeyword(empSearchCondition sc){
-		return mgDao.selectEmpListKeyword(sqlSession, sc);
+	public ArrayList<Employee> selectEmpListKeyword(empSearchCondition sc, PageInfo pi){
+		return mgDao.selectEmpListKeyword(sqlSession, sc, pi);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class ManagementServiceImpl implements ManagementService{
 	
 	@Override
 	public int selectEmpCount(empSearchCondition sc) {
-		return mgDao.selectEmpCount(sqlSession);
+		return mgDao.selectEmpCount(sqlSession, sc);
 	}
 	@Override
 	public Employee selectEmployeeInfo(Employee e) {

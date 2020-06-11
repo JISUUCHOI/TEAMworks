@@ -11,6 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class empSearchCondition {
 	
+	private String empName;
+	private String empId;
+	private String deptName;
 	private String condition;
 	private String keyword;
 	

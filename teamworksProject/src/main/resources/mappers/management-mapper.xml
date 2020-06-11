@@ -120,13 +120,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectEmpKeywordCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
-		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE AND #{conditon} like '%'|| #{keyword} ||'%'
+		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE AND 
+		 	<if test="empId != null">
+       			AND EMP_ID LIKE '%'||#{empId}||'%'
+       		</if>
+			<if test="empName != null">
+				AND EMP_NAME LIKE '%'||#{empName}||'%'
+			</if>
+			<if test="deptName != null">
+				AND DEPT_NAME LIKE '%'||#{deptName}||'%'
+			</if>
 	</select>		
 	
 	<select id="selectEmpListKeyword" resultMap="employeeResultSet">
 		SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL 
 		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
-		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE AND #{conditon} like '%'|| #{keyword} ||'%'
+		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE AND 
+		 	<if test="empId != null">
+       			AND EMP_ID LIKE '%'||#{empId}||'%'
+       		</if>
+			<if test="empName != null">
+				AND EMP_NAME LIKE '%'||#{empName}||'%'
+			</if>
+			<if test="deptName != null">
+				AND DEPT_NAME LIKE '%'||#{deptName}||'%'
+			</if>
 	</select>
 	
 
