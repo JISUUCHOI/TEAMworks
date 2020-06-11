@@ -313,13 +313,36 @@
 		delete from vacation where doc_no=#{docNo}
 	</delete>
 	
+	<!-- 기안서 수정폼 -->
 	<select id="updateDraftForm" parameterType="Document" resultMap="documentResultSet">
 		select *
 		  from draft
 		 where doc_no=#{docNo}
 	</select>
 	
+	<!-- 제증명 수정폼 -->
+	<select id="updateProofForm" parameterType="Document" resultMap="documentResultSet">
+		select *
+		  from proof
+		 where doc_no=#{docNo}
+	</select>
 	
+	<!-- 경조비 수정폼 -->
+	<select id="updateFamilyEventForm" parameterType="Document" resultMap="documentResultSet">
+		select *
+		  from family_event
+		 where doc_no=#{docNo}
+	</select>
+	
+	<!-- 휴가 수정폼 -->
+	<select id="updateVacationForm" parameterType="Document" resultMap="documentResultSet">
+		select *
+		  from vacation
+		 where doc_no=#{docNo}
+	</select>
+	
+	
+
 
 </mapper>
 

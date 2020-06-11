@@ -81,25 +81,6 @@ public interface ApprovalService {
 	// 휴가 수정폼
 	Document updateVacationForm(String dno);
 
-
-
-
-
-
-
-
-
-
-
 	
-
-	
-
-	
-
-
-
-
-
 	
 }
