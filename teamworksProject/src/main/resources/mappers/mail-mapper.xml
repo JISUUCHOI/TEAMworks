@@ -293,4 +293,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		  join job using(job_code)
 		 where emp_status='Y'
  	</select>
+ 	
+ 	<select id="searchUserMail" resultMap="employeeResultSet">
+ 		select * 
+ 		  from employee
+ 		 where emp_name like '%'||#{keyword}||'%' 
+ 		       or emp_email like '%'||#{keyword}||'%'
+ 	</select>
 </mapper>

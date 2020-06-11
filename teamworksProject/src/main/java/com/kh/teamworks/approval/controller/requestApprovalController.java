@@ -77,7 +77,7 @@ public class requestApprovalController {
 	
 	// 3_1. 경조비신청서 insert
 	@RequestMapping("requestFe.rap")
-	public String insertFamilyEvent(Document d) {
+	public String insertFamilyEvent(Document d, Model model) {
 		
 		/* 문서번호 발생 */
 		Date now = new Date();
@@ -116,6 +116,7 @@ public class requestApprovalController {
 		
 		/* 반환 */
 		if(result1 * result2 > 0) {
+			model.addAttribute("msg", "제출 완료");
 			return "approval/selectApprovalForm";
 		}else {
 			return "common/errorPage";
@@ -125,7 +126,7 @@ public class requestApprovalController {
 	
 	// 3_2. 휴가신청서 insert
 	@RequestMapping("requestVac.rap")
-	public String insertVacation(Document d) {
+	public String insertVacation(Document d, Model model) {
 
 		/* 문서번호 발생 */
 		Date now = new Date();
@@ -166,6 +167,7 @@ public class requestApprovalController {
 		
 		/* 반환 */
 		if(result1 * result2 > 0) {
+			model.addAttribute("msg", "제출 완료");
 			return "approval/selectApprovalForm";
 		}else {
 			return "common/errorPage";
@@ -259,6 +261,39 @@ public class requestApprovalController {
 		model.addAttribute("pi", pi);
 		
 		return "approval/documentList";
+	}
+	
+	// 5. 검색 결과 리스트 조회
+	@RequestMapping("searchList.rap")
+	public String searchDocList(HttpServletRequest request, ApproveSearchCondition asc, Model model) {
+		
+		String condition = request.getParameter("condition");
+		String keyword = request.getParameter("keyword");
+		
+		switch(condition) {
+		case "writer" : asc.setWriter(keyword); break;
+		case "title" : asc.setTitle(keyword); break;
+		case "form" : asc.setForm(keyword); break;
+		}
+		
+		// 5_3. 검색 결과에 해당하는 게시글 개수 조회
+		int listCount = raService.searchListCount(asc);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		// 5_4. 검색 결과에 해당하는 게시글 리스트 조회
+		ArrayList<Document> list = raService.searchDocList(asc, pi);
+		
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("listCount", listCount);
+		model.addAttribute("sts", asc.getApproveStatus());
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "approval/documentList";
+		
 	}
 	
 	// 6. 문서 상세조회

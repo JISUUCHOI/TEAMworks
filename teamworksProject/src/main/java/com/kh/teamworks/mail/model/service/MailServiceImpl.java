@@ -139,6 +139,11 @@ public class MailServiceImpl implements MailService {
 	public ArrayList<Employee> selectEmpList() {
 		return emDao.selectEmpList(sqlSession);
 	}
+
+	@Override
+	public ArrayList<Employee> searchUserMail(String keyword) {
+		return emDao.searchUserMail(sqlSession, keyword);
+	}
 	
 	
 	

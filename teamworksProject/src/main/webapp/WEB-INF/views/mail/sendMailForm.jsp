@@ -112,7 +112,7 @@
         }
         .col1{margin-left:120px}
         /* div{border:1px solid red}  */
-        .outline{ width: 300px; height: 420px; overflow:scroll; border:1px solid lightgrey; border-radius: 3px; padding: 10px;} 
+        .outline{ width: 300px; height: 420px; overflow-y:scroll; border:1px solid lightgrey; border-radius: 3px; padding: 10px;} 
         .col3{ width: 300px; padding-top: 45px;}
         #angle{border-collapse: separate; border-spacing: 10px;}
         .col2{padding-top: 80px;}
@@ -131,12 +131,17 @@
                 <!-- /.col-lg-12 -->
             </div>
             <form action="" id="sendMailForm" method="post" onSubmit="return false" enctype="multipart/form-data">
+            	<input type="hidden" name="sender" value="${ loginUser.email }">
+            	<input type="hidden" name="senderId" value="${ loginUser.empId }">
                 <table class="table">
                     <tr>
                         <th width="150px">받는 사람</th>
                         <td>
-                            <input type="email" name="" class="form-control">
-                        </td>
+                            <input type="email" id="to" name="strTo" class="form-control" required onKeyUp="keywordSearch();">
+                            <div id="suggest">
+						        <div id="suggestList"></div>
+						   </div>
+						</td>
                         <td width="50px">
                             <button type="button" class="btn btn-default" data-toggle="modal" data-target="#myModal"><i class="far fa-address-book"></i></button>
                         </td>
@@ -144,7 +149,7 @@
                     <tr>
                         <th width="150px">참조</th>
                         <td>
-                            <input type="email" name="" class="form-control">
+                            <input type="email" name="strCc" class="form-control">
                         </td>
                         <td>
                           
@@ -153,7 +158,7 @@
                     <tr>
                         <th width="150px">숨은 참조</th>
                         <td>
-                            <input type="email" name="" class="form-control">
+                            <input type="email" name="strBcc" class="form-control">
                         </td>
                         <td>
                            
@@ -162,7 +167,7 @@
                     <tr>
                         <th>제목</th>
                         <td colspan="2">
-                            <input type="text" name="" class="form-control">
+                            <input type="text" name="mailTitle" class="form-control">
                         </td>
                     </tr>
                     <tr>
@@ -230,10 +235,11 @@
                                     	<c:forEach var="e" items="${ empList }">
                                     		<c:if test="${ d.deptCode eq e.deptCode }">
 	                                        	<li>
-	                                        	<input type="hidden" name="empId" value="${ e.empId }">
-	                                        	<input type="hidden" name="jobName" value="${ e.jobName }">
-	                                        	<input type="hidden" name="email" value="${ e.email }">
-	                                        	<a>${ e.empName }&nbsp;${ e.jobName }</a>
+	                                        	<input type="checkbox" name="check" value="">
+	                                        	<input id="t1" type="hidden" name="empId" value="${ e.empId }">
+	                                        	<input id="t3" type="hidden" name="email" value="${ e.email }">
+	                                        	<input id="t5" type="hidden" name="empName" value="${ e.empName }">
+	                                        	<a id="t4">${ e.empName }&nbsp;${ e.jobName }</a>
 	                                        	</li>
                                     		</c:if>
                                     	</c:forEach>
@@ -259,20 +265,20 @@
                     </table>
                 </div>
                 <div class="col3">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered fixed">
                         <tr><td>수신</td></tr>
-                        <tr>
-                            <td height="100px">
+                        <tr height="100px">
+                            <td  id="toList" style="overflow-y:scroll">
                             </td>
                         </tr>
                         <tr><td>참조</td></tr>
-                        <tr>
-                            <td height="100px">
+                        <tr height="100px">
+                            <td  style="overflow-y:scroll">
                             </td>
                         </tr>
                         <tr><td>숨은 참조</td></tr>
-                        <tr>
-                            <td height="100px">
+                        <tr height="100px">
+                            <td  style="overflow-y:scroll">
                             </td>
                         </tr>
                     </table>
@@ -288,22 +294,85 @@
   </div>
     <!-- 조직도 관련  script -->
     <script>
-    	var To = [];
-    	var Cc = [];
-    	var Bcc = [];
+    	
+    	var ToEmail = new Array();
+    	var ToName = new Array();
+    	var ToId = new Array();
+    	var Cc = new Array();
+    	var CcId = new Array();
+		var CcName = new Array();
+    	var Bcc = new Array();
+    	var BccId = new Array();
+    	var BccName = new Array();
+    	var selected = new Array();
+    	
     	$(function(){
     		$("#select a").on('click', function(){
     			if($(this).hasClass("selected")){
     				$(this).removeClass("selected");
+    				$(this).siblings("input[name=check]").prop("checked", false);
+    			 	$(this).siblings("input[name=email]").removeClass("selectedMail");
+    				$(this).siblings("input[name=empId]").removeClass("selectedId");
+    				$(this).siblings("input[name=empName]").removeClass("selectedName"); 
     				$(this).css("color", "black");
     			}else{
+    			 	$(this).siblings("input[name=email]").addClass("selectedMail");
+    				$(this).siblings("input[name=empId]").addClass("selectedId");
+    				$(this).siblings("input[name=empName]").addClass("selectedName"); 
     				$(this).addClass("selected");
+    				$(this).siblings("input[name=check]").prop("checked", true);
     				$(this).css("color", "blue");
     			}
     		});
     		
+    		
+    		$("#addTo").click(function(){
+    			var mail = new Array();
+    			var name = new Array();
+    			var id = new Array();
+    			$("input[class=selectedId]").each(function(){
+    				id.push($(this).val());
+    				$(this).siblings("a").css("color", "black");
+    			});
+    			
+    			$("input[class=selectedName]").each(function(){
+    				name.push($(this).val());
+    				$(this).siblings("a").css("color", "black");
+    			});
+    			$("input[class=selectedMail]").each(function(){
+    				mail.push($(this).val());
+    				$(this).siblings("a").css("color", "black");
+    			});
+    			$("input[name=empId]").removeClass();
+    			$("input[name=email]").removeClass();
+    			$("input[name=empName]").removeClass();
+    			$("a[class=selected]").removeClass();
+    			
+    			if($.isEmptyObject(mail)){
+    				alert("추가할 항목을 선택해주세요.");
+    			}else{
+    				// console.log(To);
+    				// console.log(ToName);
+    				var list = "";
+    		
+    			 	for(var i=0; i<mail.length; i++){
+    					ToName.push(name[i]);
+    					ToEmail.push(mail[i]);
+    					ToId.push(id[i]);
+    					list +="<h5>"+ name[i] + " "+ mail[i]+" <i data-idx='"+i+"' class='fas fa-times'></i>"+
+    					"<input type='hidden' name='empId' value='"+ id[i]+ "'></h5>"
+    				}
+    				$("#toList").append(list);
+    				console.log(ToName);
+    				console.log(ToEmail);
+    				console.log(ToId);
+    			}
+    			
+    			
+    		});
     	});
-	
+		
+    	
     </script>
     
     
@@ -420,11 +489,11 @@
                     
                 });
                 
-                if($("#title").val()== "" || $("#content").val()== ""){
-                	alert("제목과 내용을 입력해주세요.");
+                if($("#strTo").val()== ""){
+                	alert("받는 사람은 필수 입력 사항입니다.");
                 }else{
                	   $.ajax({
-                      	url:"",
+                      	url:"sendMail.ma",
                       	data:formData,
                       	type:"post",
                       	contentType:false,
@@ -462,6 +531,70 @@
 			  placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
 		    });
     	});
+    </script>
+    
+    <!-- 자동완성  -->
+    <script>
+		    var loopSearch=true;
+		    
+			function keywordSearch(){
+				if(loopSearch==false)
+					return;
+			 	var value=$("#to").val();
+				$.ajax({
+					type : "get",
+					async : true, //false인 경우 동기식으로 처리한다.
+					url : "userMail",
+					data : {keyword:value},
+					success : function(data, textStatus) {
+					    var jsonInfo = data;
+					    console.log(jsonInfo);
+						displayResult(jsonInfo);
+					},
+					error : function(data, textStatus) {
+						alert("에러가 발생했습니다."+data);
+					},
+					complete : function(data, textStatus) {
+						//alert("작업을완료 했습니다");
+						
+					}
+				}); //end ajax	
+			} 
+			
+			function displayResult(jsonInfo){
+				var count = jsonInfo.keyword.length;
+				if(count > 0) {
+				    var html = '';
+				    for(var i in jsonInfo.keyword){
+					   html += "<a href=\"javascript:select('"+jsonInfo.keyword[i]+"')\">"+jsonInfo.keyword[i]+"</a><br/>";
+				    }
+				    var listView = document.getElementById("suggestList");
+				    listView.innerHTML = html;
+				    show('suggest');
+				}else{
+				    hide('suggest');
+				} 
+			}
+			
+			function select(selectedKeyword) {
+				 document.frmSearch.searchWord.value=selectedKeyword;
+				 loopSearch = false;
+				 hide('suggest');
+			}
+				
+			function show(elementId) {
+				 var element = document.getElementById(elementId);
+				 if(element) {
+				  element.style.display = 'block';
+				 }
+				}
+			
+			function hide(elementId){
+			   var element = document.getElementById(elementId);
+			   if(element){
+				  element.style.display = 'none';
+			   }
+			}
     </script>
 </body>
 </html>

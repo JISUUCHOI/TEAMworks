@@ -122,4 +122,8 @@ public class MailDao {
 	public ArrayList<Employee> selectEmpList(SqlSession sqlSession){
 		return (ArrayList)sqlSession.selectList("mailMapper.selectEmpList");
 	}
+	
+	public ArrayList<Employee> searchUserMail(SqlSession sqlSession, String keyword){
+		return (ArrayList)sqlSession.selectList("mailMapper.searchUserMail", keyword);
+	}
 }

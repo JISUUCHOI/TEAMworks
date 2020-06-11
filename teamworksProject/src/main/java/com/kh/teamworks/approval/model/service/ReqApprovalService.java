@@ -53,6 +53,12 @@ public interface ReqApprovalService {
 	// 5_2. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 - 문서 리스트 조회
 	ArrayList<Document> selectDocList(Document d, PageInfo pi);
 	
+	// 5_3. 검색 결과에 해당하는 게시글 개수 조회
+	int searchListCount(ApproveSearchCondition asc);
+	
+	// 5_4. 검색 결과에 해당하는 게시글 리스트 조회
+	ArrayList<Document> searchDocList(ApproveSearchCondition asc, PageInfo pi);
+	
 	// 6_1. '진행' 상태인 결재자 id 조회
 	String selectApId(Document doc);
 	
