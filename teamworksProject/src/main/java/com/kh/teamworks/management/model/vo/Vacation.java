@@ -1,5 +1,7 @@
 package com.kh.teamworks.management.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,12 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Vacation {
-	private int docNO;
-	private String vcSq;
-	private String vcDate;
-	private String vcStart;
-	private String vcEnd;
-	private int vcCount;
-	private String vcContent;
 	
+	private String empName;
+	private String empId;
+	private Date hireDate;
+	private int vcTotal;
+	private int vcCount;
+	
+
 }

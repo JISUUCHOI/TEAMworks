@@ -59,14 +59,12 @@ public class ManagementServiceImpl implements ManagementService{
 	// 해당 부서에 소속된 사원 목록 조회용
 	@Override
 	public ArrayList<Employee> selectEmpList(int deptCode) {
-		
 		return mgDao.selectEmpList(sqlSession, deptCode);
 	}
 
 	// 키워드로 검색된 사원 목록 조회용
 	@Override
 	public ArrayList<Employee> selectEmpList(String keyword) {
-
 		return mgDao.selectEmpList(sqlSession, keyword);
 	}
 	
@@ -110,20 +108,19 @@ public class ManagementServiceImpl implements ManagementService{
 	
     // 휴가 리스트
 	@Override
-	public Vacation selectVacationList() {
-		return null;
+	public ArrayList<Vacation> selectVacationList() {
+		return mgDao.selectVacationList(sqlSession);
 	}
 	
 	// 휴가 페이징 처리 
 	@Override
 	public int selectVacationCount() {
-		return 0;
+		return mgDao.selectVacationCount(sqlSession);
 	}
 
 	@Override
-	public void searchEmpVacation(String keyword) {
-		// TODO Auto-generated method stub
-		
+	public ArrayList<Vacation> searchEmpVacationList(String keyword) {
+		return mgDao.searchEmpVacationList(sqlSession, keyword);
 	}
 
 	@Override
@@ -184,6 +181,7 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 
 

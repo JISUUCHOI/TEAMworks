@@ -12,6 +12,7 @@ import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
+import com.kh.teamworks.management.model.vo.Vacation;
 import com.kh.teamworks.management.model.vo.empSearchCondition;
 
 @Repository("mgDao")
@@ -86,6 +87,20 @@ public class ManagementDao {
 	
 	public int deleteDept(SqlSessionTemplate sqlSession, int deptCode) {
 		return sqlSession.delete("managementMapper.deleteDept", deptCode);
+	}
+
+	public ArrayList<Vacation> searchEmpVacationList(SqlSessionTemplate sqlSession, String keyword) {
+		return (ArrayList)sqlSession.selectList("managementMapper.searchEmpVacation", keyword);
+	}
+
+	public int selectVacationCount(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public ArrayList<Vacation> selectVacationList(SqlSessionTemplate sqlSession) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

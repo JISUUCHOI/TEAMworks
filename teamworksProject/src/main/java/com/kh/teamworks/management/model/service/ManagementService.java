@@ -32,20 +32,22 @@ public interface ManagementService {
 	int selectEmpCount();
 	ArrayList<Employee> selectEmpList();
 	ArrayList<Employee> selectEmpList(PageInfo pi);
-	ArrayList<Employee> selectEmpList(int deptCode); // 해당 부서에 소속된 사원 목록 조회용
-	ArrayList<Employee> selectEmpList(String keyword); // 키워드로 검색된 사원 목록 조회용
-	
 	int selectEmpCount(empSearchCondition eSc);
 	ArrayList<Employee> selectEmpListKeyword(empSearchCondition eSc, PageInfo pi);
 	
+	
+	ArrayList<Employee> selectEmpList(int deptCode); // 해당 부서에 소속된 사원 목록 조회용
+	ArrayList<Employee> selectEmpList(String keyword); // 키워드로 검색된 사원 목록 조회용
+
+
 	// 사원 관리
 	int updateEmpInfo();
 	
 	// 휴가 관리
-	Vacation selectVacationList();
+	ArrayList<Vacation> selectVacationList();
 	int selectVacationCount();
 	
-	void searchEmpVacation(String keyword);
+	ArrayList<Vacation> searchEmpVacationList(String keyword);
 	
 	// 증명서 발급
 	Proof selectProofList();
