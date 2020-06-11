@@ -1,12 +1,10 @@
 package com.kh.teamworks.management.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +12,18 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.service.ManagementServiceImpl;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
+import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
 import com.kh.teamworks.management.model.vo.empSearchCondition;
 
@@ -156,10 +157,111 @@ public class ManagementController {
 		return "management/companyMemberDocument";
 	}
 	
-	//조직도
+	//최지수_조직도
 	@RequestMapping("org.mg")
-	public String orgList() {
+	public String orgList(Model model) {
+		
+		ArrayList<Department> deptList = mgService.selectDeptList();
+		ArrayList<Employee> empList = mgService.selectEmpList();
+		
+		model.addAttribute("deptList", deptList);
+		model.addAttribute("empList", empList);
+		
 		return "management/companyOrganization";
+	}
+	
+	// 최지수_조직도
+	// 페이지 로딩 시 전체 사원 목록 조회하는 ajax 통신용 서비스
+	@ResponseBody
+	@RequestMapping(value="allEmpList.mg", method=RequestMethod.POST)
+	public void allEmpList(HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Employee> empList = mgService.selectEmpList();
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(empList, response.getWriter());
+	}
+	
+	// 최지수_조직도
+	// 부서명 클릭 시 해당 부서에 소속된 사원 목록 조회하는 ajax 통신용 서비스
+	@ResponseBody
+	@RequestMapping(value="orgEmpList.mg", method=RequestMethod.POST)
+	public void orgEmpList(int deptCode, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Employee> orgEmpList = mgService.selectEmpList(deptCode);
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(orgEmpList, response.getWriter());
+	}
+	
+	// 최지수_조직도
+	// 부서 등록
+	@RequestMapping("insertDept.mg")
+	public String insertDept(String deptName, HttpSession session, Model model) {
+		
+		int result = mgService.insertDept(deptName);
+		
+		if(result > 0) { // 부서 등록 성공 --> 다시 조직도 페이지
+			
+			session.setAttribute("msg", "부서가 성공적으로 등록되었습니다.");
+			return "redirect:org.mg";
+			
+		}else { // 부서 등록 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "부서 등록에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 최지수_조직도
+	// 부서 수정
+	@RequestMapping("updateDept.mg")
+	public String updateDept(Department dept, HttpSession session, Model model) {
+		
+		int result = mgService.updateDept(dept);
+		
+		if(result > 0) { // 부서 수정 성공 --> 다시 조직도 페이지
+			
+			session.setAttribute("msg", "부서가 성공적으로 수정되었습니다.");
+			return "redirect:org.mg";
+			
+		}else {	// 부서 수정 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "부서 수정에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+		
+	}
+	
+	// 최지수_조직도
+	// 부서 삭제
+	@RequestMapping("deleteDept.mg")
+	public String deleteDept(int deptCode, HttpSession session, Model model) {
+		
+		int result = mgService.deleteDept(deptCode);
+		
+		if(result > 0) { // 부서 삭제 성공 --> 다시 조직도 페이지
+			
+			session.setAttribute("msg", "해당 부서가 삭제되었습니다.");
+			return "redirect:org.mg";
+			
+		}else { // 부서 삭제 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "부서 삭제에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 최지수_조직도
+	// 사원명 검색
+	@ResponseBody
+	@RequestMapping(value="searchEmpName.mg", method=RequestMethod.POST)
+	public void searchEmpName(String keyword, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		ArrayList<Employee> searchList = mgService.selectEmpList(keyword);
+		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(searchList, response.getWriter());
 	}
 	
 	//직급 관리

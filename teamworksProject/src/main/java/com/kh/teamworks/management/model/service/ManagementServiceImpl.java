@@ -45,8 +45,27 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 	
 	@Override
+	public ArrayList<Employee> selectEmpList() {
+		return mgDao.selectEmpList(sqlSession);
+	}
+	
+	@Override
 	public ArrayList<Employee> selectEmpList(PageInfo pi) {
 		return mgDao.selectEmpList(sqlSession, pi);
+	}
+	
+	// 해당 부서에 소속된 사원 목록 조회용
+	@Override
+	public ArrayList<Employee> selectEmpList(int deptCode) {
+		
+		return mgDao.selectEmpList(sqlSession, deptCode);
+	}
+
+	// 키워드로 검색된 사원 목록 조회용
+	@Override
+	public ArrayList<Employee> selectEmpList(String keyword) {
+
+		return mgDao.selectEmpList(sqlSession, keyword);
 	}
 	
 	@Override
@@ -105,27 +124,27 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public Department selectDeptList() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Department> selectDeptList() {
+
+		return mgDao.selectDeptList(sqlSession);
 	}
 
 	@Override
-	public int insertDept(String keyword) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertDept(String deptName) {
+
+		return mgDao.insertDept(sqlSession, deptName);
 	}
 
 	@Override
-	public int updateDept() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateDept(Department dept) {
+
+		return mgDao.updateDept(sqlSession, dept);
 	}
 
 	@Override
-	public int deleteDept() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteDept(int deptCode) {
+
+		return mgDao.deleteDept(sqlSession, deptCode);
 	}
 
 	@Override

@@ -99,14 +99,14 @@
 						<input type="hidden" name="deptCode" value="${ d.deptCode }">
 					</div>
 				</c:forEach>
-
 	        </div>
 	        <br>
+	        
 	        <!-- 부서 추가/수정/삭제 버튼 영역 -->
 	        <div class="btn_area" align="right">
-	        	<button id="insertBtn" class="btn">부서 추가</button>
-	        	<button id="updateBtn" class="btn">부서 수정</button>
-	        	<button id="deleteBtn" class="btn">부서 삭제</button>
+	        	<button id="insertBtn" class="btn" data-toggle="modal" data-target="#insertModal">부서 등록</button>
+	        	<button id="updateBtn" class="btn" data-toggle="modal" data-target="#updateModal">부서 수정</button>
+	        	<button id="deleteBtn" class="btn" data-toggle="modal" data-target="#deleteModal">부서 삭제</button>
 	        </div>
 		</div>
 		
@@ -115,9 +115,9 @@
 			<!-- 사원명 검색바 -->
 			<div align="right">
 			<div class="input-group mb-3" style="width:190px; height:30px;">
-			  <input type="text" class="form-control" placeholder="사원명">
+			  <input type="text" id="keyword" class="form-control" placeholder="사원명">
 			  <div class="input-group-append">
-			    <button id="searchBtn" class="btn" type="submit">검색</button>
+			    <button id="searchBtn" class="btn">검색</button>
 			  </div>
 			</div>
 			</div>
@@ -157,7 +157,120 @@
 		    	</ul>
 	    	</div>
 		</div>
-		
+    </div>
+    
+    
+    <!-- 부서 등록 클릭 시 뜨는 모달 -->
+    <div class="modal fade" id="insertModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">부서 등록</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button> 
+            </div>
+
+            <form action="insertDept.mg" method="post">
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <table>
+                    	<tr>
+                    		<th>상위 부서명</th>
+                    		<td>(주) TEAMworks</td>
+                    	</tr>
+                    	<tr>
+                    		<th>부서명</th>
+                    		<td><input type="text" name="deptName" required></td>
+                    	</tr>
+                    </table>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">등록</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 부서 수정 클릭 시 뜨는 모달 -->
+    <div class="modal fade" id="updateModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">부서 수정</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button> 
+            </div>
+
+            <form action="updateDept.mg" method="post">
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                    		<th>변경할 부서</th>
+                    		<td>
+                    			<select name="deptCode">
+                    				<c:forEach var="d" items="${ deptList }">
+                    					<option value="${d.deptCode}">${ d.deptName }</option>
+                    				</c:forEach>
+                    			</select>
+                    		</td>
+                    	</tr>
+                    	<tr>
+                    		<th>부서명</th>
+                    		<td><input type="text" name="deptName" required></td>
+                    	</tr>
+                    </table>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">수정</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 부서 삭제 클릭 시 뜨는 모달 -->
+    <div class="modal fade" id="deleteModal">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">부서 삭제</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button> 
+            </div>
+
+            <form action="deleteDept.mg" method="post">
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <table>
+                        <tr>
+                    		<th>삭제할 부서</th>
+                    		<td>
+                    			<select name="deptCode">
+                    				<c:forEach var="d" items="${ deptList }">
+                    					<option value="${d.deptCode}">${ d.deptName }</option>
+                    				</c:forEach>
+                    			</select>
+                    		</td>
+                    	</tr>
+                    </table>
+                </div>
+                
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">삭제</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                </div>
+            </form>
+            </div>
+        </div>
     </div>
 
 
@@ -196,8 +309,8 @@
 							$(selector).children('#empName').text(empList[e].empName);
 							$(selector).children('#jobName').text(empList[e].jobName);
 							$(selector).children('#deptName').text(empList[e].deptName);
-							$(selector).children('#empPhone').text(empList[e].empPhone);
-							$(selector).children('#empEmail').text(empList[e].empEmail);
+							$(selector).children('#empPhone').text(empList[e].phone);
+							$(selector).children('#empEmail').text(empList[e].email);
 						}
 						
 					},error:function(){
@@ -217,9 +330,10 @@
 				}
 			});
 			
-			// 조직도 클릭 시
+			// 조직도 클릭 시 --> 해당 부서의 사원 목록 조회
 			$(".tree3").click(function(){
 				var deptCode = $(this).children('input').val();
+				var deptName = $(this).text();
 				
 				$.ajax({
 					url:"orgEmpList.mg",
@@ -228,16 +342,24 @@
 					success:function(empList){
 						$('#empListTable>tbody td').text('');
 						
-						$('#category').text(empList[0].deptName);
-						$('#empCount').text(empList.length);						
-						
-						for(var e=0; e<empList.length; e++) {
-							var selector = '#00' + e;
-							$(selector).children('#empName').text(empList[e].empName);
-							$(selector).children('#jobName').text(empList[e].jobName);
-							$(selector).children('#deptName').text(empList[e].deptName);
-							$(selector).children('#empPhone').text(empList[e].empPhone);
-							$(selector).children('#empEmail').text(empList[e].empEmail);
+						if(empList.length != 0) {	// 해당 부서에 사원이 존재할 경우
+							
+							$('#category').text(deptName);
+							$('#empCount').text(empList.length);						
+							
+							for(var e=0; e<empList.length; e++) {
+								var selector = '#00' + e;
+								$(selector).children('#empName').text(empList[e].empName);
+								$(selector).children('#jobName').text(empList[e].jobName);
+								$(selector).children('#deptName').text(empList[e].deptName);
+								$(selector).children('#empPhone').text(empList[e].phone);
+								$(selector).children('#empEmail').text(empList[e].email);
+							}
+							
+						}else {	// 해당 부서에 사원이 존재하지 않을 경우
+							
+							$('#category').text(deptName);
+							$('#empCount').text(0);
 						}
 						
 					},error:function(){
@@ -250,7 +372,7 @@
 		});
 		
 		
-		// 사원 리스트 스크립트
+		// 사원 리스트 스크립트 --> 페이지 로딩 시 실행
 		$(function(){
 			$.ajax({
 				url:"allEmpList.mg",
@@ -266,8 +388,8 @@
 						$(selector).children('#empName').text(empList[e].empName);
 						$(selector).children('#jobName').text(empList[e].jobName);
 						$(selector).children('#deptName').text(empList[e].deptName);
-						$(selector).children('#empPhone').text(empList[e].empPhone);
-						$(selector).children('#empEmail').text(empList[e].empEmail);
+						$(selector).children('#empPhone').text(empList[e].phone);
+						$(selector).children('#empEmail').text(empList[e].email);
 					}
 					
 				},error:function(){
@@ -276,6 +398,43 @@
 			});
 		});
 		
+		// 사원명 검색바 스크립트
+		$('#searchBtn').click(function(){
+			var keyword = $('#keyword').val();
+			
+			$.ajax({
+				url:"searchEmpName.mg",
+				data:{keyword:keyword},
+				type:"post",
+				success:function(searchList){
+					
+					$('#empListTable>tbody td').text('');
+					
+					if(searchList.length != 0) {	// 검색 결과가 존재할 경우
+						
+						$('#category').text('검색 결과');
+						$('#empCount').text(searchList.length);						
+						
+						for(var e=0; e<searchList.length; e++) {
+							var selector = '#00' + e;
+							$(selector).children('#empName').text(searchList[e].empName);
+							$(selector).children('#jobName').text(searchList[e].jobName);
+							$(selector).children('#deptName').text(searchList[e].deptName);
+							$(selector).children('#empPhone').text(searchList[e].phone);
+							$(selector).children('#empEmail').text(searchList[e].email);
+						}
+						
+					}else {	// 검색 결과가 존재하지 않을 경우
+						
+						$('#category').text('검색 결과');
+						$('#empCount').text(0);
+					}
+					
+				},error:function(){
+					console.log("사원명 검색 시 실행되는 ajax 통신 실패");
+				}
+			});
+		});
 	</script>
 
 </body>
