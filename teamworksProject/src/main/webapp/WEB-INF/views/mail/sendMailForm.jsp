@@ -280,12 +280,12 @@
                         </tr>
                         <tr><td>참조</td></tr>
                         <tr height="100px">
-                            <td  style="overflow-y:scroll">
+                            <td id="ccList" style="overflow-y:scroll">
                             </td>
                         </tr>
                         <tr><td>숨은 참조</td></tr>
                         <tr height="100px">
-                            <td  style="overflow-y:scroll">
+                            <td id="bccList" style="overflow-y:scroll">
                             </td>
                         </tr>
                     </table>
@@ -293,7 +293,7 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">적용</button>
+          <button type="button" id="emailList" class="btn btn-default" data-dismiss="modal">적용</button>
         </div>
       </div>
   
@@ -304,13 +304,13 @@
     	
     	var ToEmail = new Array();
     	var ToName = new Array();
-    	var ToId = new Array();
+    	
     	var Cc = new Array();
-    	var CcId = new Array();
 		var CcName = new Array();
-    	var Bcc = new Array();
-    	var BccId = new Array();
+    
+		var Bcc = new Array();
     	var BccName = new Array();
+    	
     	var selected = new Array();
     	
     	$(function(){
@@ -331,16 +331,10 @@
     				$(this).css("color", "blue");
     			}
     		});
-    		
-    		
+    		/* To */		
     		$("#addTo").click(function(){
     			var mail = new Array();
     			var name = new Array();
-    			var id = new Array();
-    			$("input[class=selectedId]").each(function(){
-    				id.push($(this).val());
-    				$(this).siblings("a").css("color", "black");
-    			});
     			
     			$("input[class=selectedName]").each(function(){
     				name.push($(this).val());
@@ -354,29 +348,121 @@
     			$("input[name=email]").removeClass();
     			$("input[name=empName]").removeClass();
     			$("a[class=selected]").removeClass();
-    			
-    			if($.isEmptyObject(mail)){
-    				alert("추가할 항목을 선택해주세요.");
-    			}else{
+    			if(ToEmail.length <1){
+    				if($.isEmptyObject(mail)){
+    					alert("추가할 항목을 선택해주세요.");
+    				}else{
     				// console.log(To);
     				// console.log(ToName);
-    				var list = "";
-    		
-    			 	for(var i=0; i<mail.length; i++){
-    					ToName.push(name[i]);
-    					ToEmail.push(mail[i]);
-    					ToId.push(id[i]);
-    					list +="<h5>"+ name[i] + " "+ mail[i]+" <i data-idx='"+i+"' class='fas fa-times'></i>"+
-    					"<input type='hidden' name='empId' value='"+ id[i]+ "'></h5>"
+    					var list = "";
+        			 	for(var i=0; i<mail.length; i++){
+        					ToName.push(name[i]);
+        					ToEmail.push(mail[i]);
+        					list +="<h5 id='toEmail'>"+ name[i] + " "+ mail[i]+"</h5>"
+        				}
+        				$("#toList").append(list);
     				}
-    				$("#toList").append(list);
-    				console.log(ToName);
-    				console.log(ToEmail);
-    				console.log(ToId);
-    			}
-    			
-    			
+    			}else{
+					alert("받는 사람은 한명만 가능합니다.");
+				}
     		});
+    		
+    		$("#removeTo").click(function(){
+    			$("#toEmail").remove();
+				ToName.length=0;
+				ToEmail.length=0;
+    		});
+    	/* Cc */	
+    		$("#addCc").click(function(){
+    			var mail = new Array();
+    			var name = new Array();
+    			
+    			$("input[class=selectedName]").each(function(){
+    				name.push($(this).val());
+    				$(this).siblings("a").css("color", "black");
+    			});
+    			$("input[class=selectedMail]").each(function(){
+    				mail.push($(this).val());
+    				$(this).siblings("a").css("color", "black");
+    			});
+    			$("input[name=empId]").removeClass();
+    			$("input[name=email]").removeClass();
+    			$("input[name=empName]").removeClass();
+    			$("a[class=selected]").removeClass();
+    			if(Cc.length <1){
+    				if($.isEmptyObject(mail)){
+    					alert("추가할 항목을 선택해주세요.");
+    				}else{
+    				// console.log(To);
+    				// console.log(ToName);
+    					var list = "";
+        			 	for(var i=0; i<mail.length; i++){
+        					CcName.push(name[i]);
+        					Cc.push(mail[i]);
+        					list +="<h5 id='CcEmail'>"+ name[i] + " "+ mail[i]+"</h5>"
+        				}
+        				$("#ccList").append(list);
+    				}
+    			}else{
+					alert("받는 사람은 한명만 가능합니다.");
+				}
+    		});
+    		
+    		$("#removeCc").click(function(){
+    			$("#CcEmail").remove();
+    			CcName.length=0;
+    			Cc.length=0;
+    		});
+    		
+    		/* Bcc */
+    		
+    		$("#addBcc").click(function(){
+    			var mail = new Array();
+    			var name = new Array();
+    			
+    			$("input[class=selectedName]").each(function(){
+    				name.push($(this).val());
+    				$(this).siblings("a").css("color", "black");
+    			});
+    			$("input[class=selectedMail]").each(function(){
+    				mail.push($(this).val());
+    				$(this).siblings("a").css("color", "black");
+    			});
+    			$("input[name=empId]").removeClass();
+    			$("input[name=email]").removeClass();
+    			$("input[name=empName]").removeClass();
+    			$("a[class=selected]").removeClass();
+    			if(Bcc.length <1){
+    				if($.isEmptyObject(mail)){
+    					alert("추가할 항목을 선택해주세요.");
+    				}else{
+    				// console.log(To);
+    				// console.log(ToName);
+    					var list = "";
+        			 	for(var i=0; i<mail.length; i++){
+        					BccName.push(name[i]);
+        					Bcc.push(mail[i]);
+        					list +="<h5 id='BccEmail'>"+ name[i] + " "+ mail[i]+"</h5>"
+        				}
+        				$("#bccList").append(list);
+    				}
+    			}else{
+					alert("받는 사람은 한명만 가능합니다.");
+				}
+    		});
+    		
+    		$("#removeBcc").click(function(){
+    			$("#BccEmail").remove();
+    			BccName.length=0;
+    			Bcc.length=0;
+    		});
+    		
+    		$("#emailList").click(function(){
+    			document.getElementById("to").value=ToEmail;
+    			document.getElementById("cc").value=Cc;
+    			document.getElementById("bcc").value=Bcc;
+    		});
+    		
     	});
 		
     	
@@ -384,7 +470,7 @@
     
     
     
-    
+    <!-- 파일 관련 스크립트  -->
      <script>
          
             var uploadFiles = [];

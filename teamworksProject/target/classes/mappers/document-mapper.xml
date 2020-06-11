@@ -199,45 +199,98 @@
 		  join employee e on(d.emp_id = e.emp_id) 
 		 where d.emp_id=#{empId}  
 	</select>
-	 -->	 
+	 -->
+	 
+	 <!-- 상세조회 - 결재 코멘트 개수 조회 -->
+	 <select id="selectComment" parameterType="Document" resultType="_int">
+		select count(approve_comment)
+		from approve_line
+		where doc_no=#{docNo}
+	 </select>
 	
 	<!-- 기안서 상세조회 -->
 	<select id="draftDetail" parameterType="Document" resultMap="documentResultSet">
-	 	select d.doc_no, e.emp_name, d.doc_sc, d.doc_status, d.doc_title, d.DOC_REFERENCE, d.DOC_REFERENCE, d.DOC_REFNAME,
-	 	       d.DOC_END, d.doc_date, d.DOC_DEPARTMENT, d.DOC_CONTENT, d.ORIGIN_NAME, d.CHANGE_NAME
+	 	select d.doc_no, d.emp_id, e.emp_name, d.doc_sc, d.doc_status, d.doc_title, d.DOC_REFERENCE, d.DOC_REFERENCE, d.DOC_REFNAME,
+	 	       d.DOC_END, d.doc_date, d.DOC_DEPARTMENT, d.DOC_CONTENT, d.ORIGIN_NAME, d.CHANGE_NAME,
+ 	        a.approver_empid, (select emp_name
+                    			from employee
+                   			   where emp_id = a.approver_empid) approver_name, (select job_name
+                                                                      				  from job j
+                                                                      				  join employee e on(e.job_code = j.job_code)
+                                                                     				 where e.emp_id = a.approver_empid) job_name, (select de.dept_name
+                                                                                                                   				 from department de
+                                                                                                                  					 join employee e on(e.dept_code = de.dept_code)
+                                                                                                                   				where e.emp_id = a.approver_empid) dept_name,
+           a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date
 	 	  from draft d
 	 	  join employee e on(d.emp_id = e.emp_id)
+	 	  join approve_line a on(d.doc_no = a.doc_no)
 	 	 where d.doc_no=#{docNo}
+	 	 order by a.approve_step
 	</select>
 	
 	<!-- 제증명 상세조회 -->
 	<select id="proofDetail" parameterType="Document" resultMap="documentResultSet">
 		select p.doc_no, p.emp_id, p.doc_sc, p.doc_status, p.doc_title, e.emp_name, p.doc_department, p.doc_date, p.doc_status,
-		       p.doc_end, p.doc_reference, p.DOC_REFNAME, p.PF_SQ, p.PF_PURPOSE, p.PF_STATUS, j.job_name
+		       p.doc_end, p.doc_reference, p.DOC_REFNAME, p.PF_SQ, p.PF_PURPOSE, p.PF_STATUS,
+		       a.approver_empid, (select emp_name
+                    			from employee
+                   			   where emp_id = a.approver_empid) approver_name, (select job_name
+                                                                      				  from job j
+                                                                      				  join employee e on(e.job_code = j.job_code)
+                                                                     				 where e.emp_id = a.approver_empid) job_name, (select de.dept_name
+                                                                                                                   				 from department de
+                                                                                                                  					 join employee e on(e.dept_code = de.dept_code)
+                                                                                                                   				where e.emp_id = a.approver_empid) dept_name,
+           a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date
  		  from proof p
  		  join employee e on(p.emp_id = e.emp_id)
- 		  join job j on(e.job_code = j.job_code)
+ 		  join approve_line a on(p.doc_no = a.doc_no)
 	 	 where p.doc_no=#{docNo}
+	 	 order by a.approve_step
 	</select>
 	
 	<!-- 경조비 상세조회 -->
 	<select id="familyEventDetail" parameterType="Document" resultMap="documentResultSet">
 		select f.doc_no, f.emp_id, f.doc_sc, f.doc_status, f.doc_title, e.emp_name, f.doc_department, f.doc_date, f.doc_status,
-		       f.doc_end, f.doc_reference, f.DOC_REFNAME, j.job_name, f.FE_PRICE, f.FE_ACCOUNT_NAME, f.FE_ACCOUNT, f.FE_BANK,
-		       f.FE_PLACE, f.FE_END, f.FE_START, f.FE_NAME, f.FE_RELATION, f.FE_SQ
+		       f.doc_end, f.doc_reference, f.DOC_REFNAME, f.FE_PRICE, f.FE_ACCOUNT_NAME, f.FE_ACCOUNT, f.FE_BANK,
+		       f.FE_PLACE, f.FE_END, f.FE_START, f.FE_NAME, f.FE_RELATION, f.FE_SQ,
+		       a.approver_empid, (select emp_name
+                    			from employee
+                   			   where emp_id = a.approver_empid) approver_name, (select job_name
+                                                                      				  from job j
+                                                                      				  join employee e on(e.job_code = j.job_code)
+                                                                     				 where e.emp_id = a.approver_empid) job_name, (select de.dept_name
+                                                                                                                   				 from department de
+                                                                                                                  					 join employee e on(e.dept_code = de.dept_code)
+                                                                                                                   				where e.emp_id = a.approver_empid) dept_name,
+           a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date
  		  from family_event f
  		  join employee e on(f.emp_id = e.emp_id)
- 		  join job j on(e.job_code = j.job_code)
+ 		  join approve_line a on(f.doc_no = a.doc_no)
 	 	 where f.doc_no=#{docNo}
+	 	 order by a.approve_step
 	</select>
 	
 	<!-- 휴가 상세조회 -->
 	<select id="vacationDetail" parameterType="Document" resultMap="documentResultSet">
-		select v.doc_no, e.emp_name, v.DOC_SC, v.DOC_STATUS, v.DOC_TITLE, v.DOC_REFERENCE, v.DOC_REFNAME, v.DOC_DATE, 
-			   v.DOC_END, v.DOC_DEPARTMENT, v.VC_SQ, v.VC_DAY, v.VC_START, v.VC_END, v.VC_COUNT, v.VC_CONTENT
+		select v.doc_no, v.emp_id, e.emp_name, v.DOC_SC, v.DOC_STATUS, v.DOC_TITLE, v.DOC_REFERENCE, v.DOC_REFNAME, v.DOC_DATE, 
+			   v.DOC_END, v.DOC_DEPARTMENT, v.VC_SQ, v.VC_DAY, v.VC_START, v.VC_END, v.VC_COUNT, v.VC_CONTENT,
+			   a.approver_empid, (select emp_name
+                    			from employee
+                   			   where emp_id = a.approver_empid) approver_name, (select job_name
+                                                                      				  from job j
+                                                                      				  join employee e on(e.job_code = j.job_code)
+                                                                     				 where e.emp_id = a.approver_empid) job_name, (select de.dept_name
+                                                                                                                   				 from department de
+                                                                                                                  					 join employee e on(e.dept_code = de.dept_code)
+                                                                                                                   				where e.emp_id = a.approver_empid) dept_name,
+           a.approve_step, a.approve_reject, a.approve_status, a.approve_comment, a.approve_date
  		  from vacation v
  		  join employee e on(v.emp_id = e.emp_id)
+ 		  join approve_line a on(v.doc_no = a.doc_no)
 	 	 where v.doc_no=#{docNo}
+	 	 order by a.approve_step
 	</select>
 	
 	<!-- 제증명삭제 -->
