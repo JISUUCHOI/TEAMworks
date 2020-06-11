@@ -24,6 +24,15 @@
 .container td {
 	height: 40px;
 }
+#searchForm{
+	width:500px;
+	margin:auto;
+	margin-left:50px;
+}
+#searchForm>*{
+	float:left;
+	margin:5px;
+}
 
 </style>
 </head>
@@ -37,13 +46,26 @@
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 		<br>
 		
-	
 		<div class="container" style="margin-left: 10px; width:1070px;">
 			<div>
-				<input class="" type="text" name="keyword" placeholder="Search" style="margin-left:50px; height:30px;">
-				<button type="submit" style="" class="">검색</button>
+			
+				<form id="searchForm" action="" method="Get" align="center">
+					<div class="select" >
+						<select class="custom-select" name="condition">
+							<option value="empId">사원번호</option>
+							<option value="empName">성명</option>
+							<option value="deptName">부서명</option>
+						</select>
+					</div>
+					<div class="text">
+						<input type="text" class="form-control" name="keyword">
+					</div>
+					<button type="submit" class="searchBtn btn btn-secondary">검색</button>
+				</form>
+				
 				<input type="checkbox" name="status" id="status" style="margin-left:30px; margin-right:10px;"><b>퇴직자 포함</b>
 				<button type="" class="btn btn-outline-primary btn-sm"  style="float:right; margin-right:50px;">퇴사자 등록</button>
+				
 			</div>
 			<br>
 			
@@ -77,6 +99,34 @@
 					</c:forEach>
 				</tbody>
 			</table>
+			
+			
+			<script>
+	        $(function(){
+		           
+		           var $idInput = $("#enrollEmpForm input[name=keyword]");
+		           
+		           $idInput.keyup(function(){
+		              if($idInput.val().length >= 5) { // 적어도 아이디가 5글자 이상되었을 때 중복검사
+		                 $.ajax({
+		                    url:"empIdCheck.mg",
+		                    data:{empId:$idInput.val()},
+		                    success:function(status){
+		                       if(status == "fail"){ // 중복된 아이디 존재 == 사용불가
+		                          idCheckValidate(2);
+		                       }else{ // 중복된 아이디 없음 == 사용가능
+		                          idCheckValidate(3);
+		                       }
+		                    }, error:function(){
+		                       console.log("아이디 중복체크용 ajax 통신실패");
+		                    }
+		                 });
+		              }else{ // 중복검사x
+		                 idCheckValidate(1);
+		              }
+		           });
+		        });
+			</script>
 			
 			
 			
@@ -113,10 +163,11 @@
                 </ul>
             </div>
             
+
+		            
             
 		</div>
-		
-		
+
 	</div>
 
 
