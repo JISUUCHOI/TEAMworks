@@ -88,6 +88,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{empId},TO_CHAR(SYSDATE,'HH24:MI'),DEFAULT,DEFAULT)
 	</insert>
 	
+	<insert id="QRattInsert" parameterType="com.kh.teamworks.employee.model.vo.Attendance">
+		insert into Attendance values
+		(TO_CHAR(SYSDATE,'YYYY-MM-DD'),#{empId},TO_CHAR(SYSDATE,'HH24:MI'),DEFAULT,DEFAULT)
+	</insert>
+	
 	<select id="selectAttTime" parameterType="com.kh.teamworks.employee.model.vo.Attendance" resultMap="attendanceResultSet"> 
 		SELECT ATT_DATE,EMP_ID,START_TIME,END_TIME,AT_TYPE
 		  FROM ATTENDANCE
@@ -148,6 +153,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 	<if test="startDate != '' and endDate != ''">
 		 and att_date between #{startDate} and #{endDate}
 		 </if>
+	     order by att_date desc
+	</select>
+	
+	<select id="selectListCount" parameterType="com.kh.teamworks.employee.model.vo.SearchEmpAttCondition" resultMap="empAttResultSet">
+	  SELECT count(*)
+		FROM EMPLOYEE 
+		JOIN DEPARTMENT USING (DEPT_CODE)
+		JOIN JOB USING (JOB_CODE)
+		JOIN ATTENDANCE USING (EMP_ID)
+	   WHERE 1=1
+	   
 	     order by att_date desc
 	</select>
 	
