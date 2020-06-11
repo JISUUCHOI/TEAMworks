@@ -205,18 +205,30 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button> 
             </div>
 
-            <form action="로그인요청받아주는서버" method="post">
+            <form action="updateDept.mg" method="post">
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <label for="userId" class="mr-sm-2">ID :</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="userId"> <br>
-                    <label for="userPwd" class="mr-sm-2">Password:</label>
-                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter password" id="userPwd">
+                    <table>
+                        <tr>
+                    		<th>변경할 부서 선택</th>
+                    		<td>
+                    			<select name="deptCode">
+                    				<c:forEach var="d" items="${ deptList }">
+                    					<option value="${d.deptCode}">${ d.deptName }</option>
+                    				</c:forEach>
+                    			</select>
+                    		</td>
+                    	</tr>
+                    	<tr>
+                    		<th>부서명</th>
+                    		<td><input type="text" name="deptName" required></td>
+                    	</tr>
+                    </table>
                 </div>
                 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">로그인</button>
+                    <button type="submit" class="btn btn-primary">수정</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
                 </div>
             </form>

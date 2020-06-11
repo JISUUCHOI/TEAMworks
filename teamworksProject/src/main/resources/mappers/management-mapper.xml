@@ -128,5 +128,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO DEPARTMENT
 		VALUES(SEQ_DEPTNO.NEXTVAL, #{deptName})
 	</insert>
+	
+	<update id="updateDept" parameterType="MgDept">
+		UPDATE DEPARTMENT
+		   SET DEPT_NAME=#{deptName}
+		 WHERE DEPT_CODE=#{deptCode}
+	</update>
 
 </mapper>

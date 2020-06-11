@@ -109,9 +109,9 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public int updateDept() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateDept(Department dept) {
+
+		return mgDao.updateDept(sqlSession, dept);
 	}
 
 	@Override

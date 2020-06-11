@@ -45,7 +45,7 @@ public interface ManagementService {
 	// 조직도 관리
 	ArrayList<Department> selectDeptList();
 	int insertDept(String deptName); //
-	int updateDept(); //
+	int updateDept(Department dept); //
 	int deleteDept(); //
 	
 	ArrayList<Job> selectJobList();

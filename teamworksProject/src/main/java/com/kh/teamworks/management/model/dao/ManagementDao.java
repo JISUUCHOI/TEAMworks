@@ -49,4 +49,8 @@ public class ManagementDao {
 	public int insertDept(SqlSessionTemplate sqlSession, String deptName) {
 		return sqlSession.insert("managementMapper.insertDept", deptName);
 	}
+	
+	public int updateDept(SqlSessionTemplate sqlSession, Department dept) {
+		return sqlSession.update("managementMapper.updateDept", dept);
+	}
 }
