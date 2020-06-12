@@ -322,7 +322,8 @@ public class requestApprovalController {
 		// 6_5. 문서 상세조회 - 휴가신청서
 		case "휴가신청서" : d = raService.selectVacDetail(doc); model.addAttribute("d", d); return "approval/vacationSubmit";
 		// 6_6. 문서 상세조회 - 기안서
-		case "기안서" : d = raService.selectDraftDetail(doc); model.addAttribute("d", d); return "approval/draftSubmit";
+		case "기안서" : d = raService.selectDraftDetail(doc); System.out.println(d); model.addAttribute("d", d); return "approval/draftSubmit";
+		
 		// 6_7. 문서 상세조회 - 제증명신청서
 		default : d = raService.selectProofDetail(doc); model.addAttribute("d", d); return "approval/proofSubmit";
 		}

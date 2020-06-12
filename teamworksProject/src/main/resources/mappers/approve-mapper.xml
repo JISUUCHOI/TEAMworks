@@ -44,6 +44,14 @@
 		<result column="vc_count" property="vcCount"/>
 		<result column="vc_content" property="vcContent"/>
 		
+		<result column="doc_content" property="docContent"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+		
+		<result column="pf_sq" property="pfSq"/>
+		<result column="pf_purpose" property="pfPurpose"/>
+		<result column="pf_status" property="pfStatus"/>
+		
 		<result column="approve_status" property="approveStatus"/>
 		<result column="emp_name" property="empName"/>
 		
