@@ -107,7 +107,7 @@
                         <td>${ n.boardNo }</td>
                          <c:choose>
                         	<c:when test="${ n.rcount ne 0}">
-                        		<td>${ n.boardTitle } (${ n.rcount })</td>
+                        		<td>${ n.boardTitle } <span style="color:rgb(255, 80, 80)">(${ n.rcount })</span></td>
                         	</c:when>
                         	<c:otherwise>
                         		<td>${ n.boardTitle }</td>
