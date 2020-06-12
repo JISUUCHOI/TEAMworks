@@ -71,8 +71,14 @@ public class ApprovalController {
 		// if/else구문 걸어서 화면단에서 넘어온 값이 경조사면 familyEvetForm으로 return, 휴가면 vacationForm으로 return		
 		if(doc.equals("기안서")) {
 			return "approval/writeDraftForm";
-		}else {
+		}else if(doc.equals("경조비신청서")){
+			return "approval/familyEventForm";
+		}else if(doc.equals("휴가신청서")){
+			return "approval/vacationForm";
+		}else if(doc.equals("제증명신청서")){
 			return "approval/proofForm";
+		}else {
+			return "";
 		}
 	}
 	
