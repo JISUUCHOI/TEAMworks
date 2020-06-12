@@ -122,7 +122,7 @@
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 		<h3>인적사항</h3>
 
-		<form  action="insertEmp.mg" method="post" id="enrollEmpForm" style="padding-top: 50px;">
+		<form  action="insertEmp.mg" method="post" id="enrollEmpForm" enctype="multipart/form-data" style="padding-top: 50px;">
 			<div id="t1" style="padding-left:50px;">
 				<table class="tg" style="width: 1000px;">
 					<tr>
@@ -138,7 +138,9 @@
 						</th>
 					</tr>
 					<tr>
-						<td rowspan="4" width="250px;"><input type="file"></td>
+						<td rowspan="4" width="250px;">
+							<input type="file" id="upfile" class="form-control-file border" name="uploadFile">
+						</td>
 						<td class="tg-uzvj">주민 등록 번호</td>
 						<td class="tg-9wq8"><input type="text" id="empNo"
 							name="empNo" placeholder="사원 주민번호 입력(-포함)" required></td>
@@ -166,8 +168,8 @@
 					</tr>
 					<tr>
 						<td colspan="3">
-							<b>주소 : <b></b><input name="empAdd" id="empAdd"	size="60"><br>
-							<b>상세주소 : </b><input name="empAddDetail"	id="empAddDetail" size="60">
+							<b>주소 : </b><input name="empAdd" id="empAdd"	size="60"><br>
+							<b>상세주소 : </b><input name="empAddDetail"	id="empAddDetail" size="56">
 						</td>
 					</tr>
 				</table>
@@ -263,12 +265,17 @@
 				}
 			</script>
 
-			<div id="t2" style="padding-top: 20px; padding-left: 270px;">
+			<div id="t2" style="padding-top: 20px; padding-left: 250px;">
 				<table class="border">
 					<table class="job infoTable" style="float: left" border="1px solid black;">
 						<tr>
 							<th>사업장</th>
-							<td><input type="text" name="homNo" id="homNo" placeholder="사업장 입력" size="10" required></td>
+							<td>
+								<select name="homNo" id="homNo">
+									<option value="1">1번 사업장</option>
+								</select>
+								<!-- <input type="text" name="homNo" id="homNo" placeholder="사업장 입력" size="10" required> -->
+							</td>
 						</tr>
 						<tr>
 							<th>직급</th>

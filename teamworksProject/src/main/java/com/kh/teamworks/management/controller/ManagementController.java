@@ -1,7 +1,10 @@
 package com.kh.teamworks.management.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
@@ -63,12 +68,26 @@ public class ManagementController {
 	
 	// 인사 정보 등록
 	@RequestMapping("insertEmp.mg")
-	public String insertEmployee(Employee e, Model model, HttpSession session) {
+	public String insertEmployee(Employee e, HttpServletRequest request, HttpSession session,
+								 @RequestParam(name="uploadFile", required=false) MultipartFile file) {
+		
+		System.out.println(e);
+		System.out.println(file.getOriginalFilename());
+		
+		if(!file.getOriginalFilename().equals("")) {
+			
+			String changeName = saveFile(file, request);
+			
+			e.setOriginName(file.getOriginalFilename());
+			e.setChangeName(e.getEmpName()+ changeName);
+		}
 		
 		String tempPwd = e.getEmpNo().substring(0, 6);
 		String encPwd = bcryptPasswordEncoder.encode(tempPwd);
 		
 		e.setEmpPwd(encPwd);
+		
+		System.out.println(e);
 		
 		int result = mgService.insertEmployee(e);
 		
@@ -76,11 +95,80 @@ public class ManagementController {
 			session.setAttribute("msg", "인사 정보 등록 성공!!");
 			return "redirect:enrollEmp.mg";
 		}else {
-			model.addAttribute("msg", "인사 정보 등록 실패!!");
+			session.setAttribute("msg", "인사 정보 등록 실패!!");
 			return "common/errorPage";
 		}
 		
 	}
+
+	// 전달받은 파일명을 가지고 서버로부터 삭제하는 메소드
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources + "\\empMguploadFiles\\";
+
+		File deleteFile = new File(savePath + fileName);
+		deleteFile.delete();
+	}
+	
+	// 공유해서 쓸수 있게끔 따로 정의 해놓은 메소드
+	// 전달받은 파일을 서버에 업로드 시킨 후 수정명 리턴하는 메소드
+	private String saveFile(MultipartFile file, HttpServletRequest request) {
+
+		// 파일을 업로드 시킬 폴더 경로 (String savePath)
+		String resources = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = resources + "\\empMguploadFiles\\";
+		
+		// 원본명 (aaa.jpg)
+		String originName = file.getOriginalFilename();
+		
+		// 수정명 (20200522202011.jpg)
+		// 년월일시분초 (String currentTime)
+		String currentTime = new SimpleDateFormat("yyyyMMddHH").format(new Date());
+		
+		// 확장자(String ext)
+		String ext =originName.substring(originName.lastIndexOf(".")); // ".jpg"
+		
+		String changeName = currentTime + ext;
+
+		try {
+			file.transferTo(new File(savePath + changeName));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return changeName;
+	}
+
+	  @RequestMapping("updateLogo.mg")
+	  public String updateBoard(Employee e, HttpServletRequest request, Model model,
+			  					@RequestParam(name="reUploadFile", required=false) MultipartFile file) {
+		  // 새로 넘어온 첨부파일이 있을 경우 --> 서버에 업로드 해야됨
+		  if(!file.getOriginalFilename().equals("")) {
+			  
+			  // 기존의 첨부파일이 있었을 경우 --> 업로드 된 파일 지워야 됨
+			  if(e.getChangeName() != null) {
+				  // 새로 넘어온 첨부파일도 있고 기존의 첨부파일도 있었을 경우
+				  deleteFile(e.getChangeName(), request);
+			  }
+			  
+			  String changeName = saveFile(file, request);
+			  
+			  e.setChangeName(changeName);
+			  e.setOriginName(file.getOriginalFilename());
+			  
+		  }
+			int result = mgService.insertEmployee(e);
+			
+			if(result>0) {
+				model.addAttribute("msg", "로고 변경 성공!!");
+				return "redirect:main.mg";
+			}else {
+				model.addAttribute("msg", "로고 변경 실패!!");
+				return "redirect:";
+			}
+	  }
+	
 	
 	// 사원 번호 중복 체크
 	@ResponseBody

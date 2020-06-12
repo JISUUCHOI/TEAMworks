@@ -117,7 +117,7 @@ public class ManagementServiceImpl implements ManagementService{
 	public int selectVacationCount(String keyword) {
 		return mgDao.selectVacationCount(sqlSession, keyword);
 	}
-
+	
 	@Override
 	public ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi) {
 		return mgDao.searchVacationList(sqlSession, keyword, pi);
@@ -186,6 +186,8 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 
 
