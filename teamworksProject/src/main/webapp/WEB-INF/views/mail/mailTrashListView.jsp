@@ -90,7 +90,7 @@
                 	<div class="col-xs-4"></div>
                     <div class="col-xs-6">
                      	<button class="btn btn-info btn-sm" id="revoke" style="margin-right: 10px;" onclick="revoke();" disabled>복구</button>
-                        <button class="btn btn-danger btn-sm" id="comDelete" style="margin-right: 10px;" disabled>영구삭제</button>
+                        <!-- <button class="btn btn-danger btn-sm" id="comDelete" style="margin-right: 10px;" disabled>영구삭제</button> -->
                     </div>
                 </div>
                 
