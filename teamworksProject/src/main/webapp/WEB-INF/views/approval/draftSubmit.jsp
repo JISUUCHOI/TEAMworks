@@ -139,7 +139,7 @@
 		<script>
 			alertify.alert("${msg}");
 		</script>
-		<c:remove var="msg" scope="session"/>	<!-- session scope 안에 담겨있는 msg 값 지워주겠다 -->
+		<c:remove var="msg" scope="session"/>
 	</c:if>
 	
 	<div id="bodyWrapper">
