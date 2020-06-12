@@ -69,7 +69,7 @@
             <div class="subCate" id="requestApprove"><a href="docList.ap?approveStatus=11">결재요청함</a></div>
             <div class="subCate" id="callbackDoc"><a href="docList.rap?approveStatus=5&currentPage=1">결재회수함</a></div>
             <div class="category">결재</div>
-            <div class="subCate" id="readyForApprove"><a href="docList.rap?approveStatus=0&currentPage=1">결재대기함</a> <span id="stand"><b>1</b></span></div>
+            <div class="subCate" id="readyForApprove"><a href="docList.rap?approveStatus=0&currentPage=1">결재대기함</a> <span id="stand" style="font-weight:bold;"></span></div>
             <div class="subCate" id="pendingApprove"><a href="docList.rap?approveStatus=1&currentPage=1">결재진행함</a> <span id="pending"><b>1</b></span></div>
             <div class="subCate" id="doneApprove"><a href="docList.rap?approveStatus=2&currentPage=1">완료문서함</a> <span id="complete"><b>1</b></span></div>
             <div class="subCate" id="refuseApprove"><a href="docList.rap?approveStatus=3&currentPage=1">반려문서함</a> <span id="refuse"><b>1</b></span></div>

@@ -502,13 +502,15 @@
 			var sts = "${sts}";
 			
 			switch(sts){
-			case '0': $("#readyForApprove>a").css("color", "deepskyblue"); break;
+			case '0': $("#readyForApprove>a").css("color", "deepskyblue"); $("#stand").text("${listCount}"); break;
 			case '1': $("#pendingApprove>a").css("color", "deepskyblue"); break;
 			case '2': $("#doneApprove>a").css("color", "deepskyblue"); break;
 			case '3': $("#refuseApprove>a").css("color", "deepskyblue"); break;
 			case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
 			case '5': $("#callbackDoc>a").css("color", "deepskyblue"); break;
 			}
+			
+			$("#stand").text()
 			
 		});	
 	</script>
