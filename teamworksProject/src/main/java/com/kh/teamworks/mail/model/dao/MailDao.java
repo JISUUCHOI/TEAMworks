@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.vo.Mail;
+import com.kh.teamworks.mail.model.vo.MailAddress;
 import com.kh.teamworks.mail.model.vo.MailAttachment;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
@@ -149,5 +150,21 @@ public class MailDao {
 	
 	public int insetMailAttachment(SqlSession sqlSession, MailAttachment ma) {
 		return sqlSession.insert("mailMapper.insetMailAttachment", ma);
+	}
+	
+	public ArrayList<MailDTO> selectMail(SqlSession sqlSession, int emailNo) {
+		return (ArrayList)sqlSession.selectList("mailMapper.selectMail", emailNo);
+	}
+	
+	public ArrayList<MailAddress> selectMailAddress(SqlSession sqlSession, int emailNo){
+		return (ArrayList)sqlSession.selectList("mailMapper.selectMailAddress", emailNo);
+	}
+	
+	public ArrayList<MailAttachment> selectMailAttachment(SqlSession sqlSession, int emailNo){
+		return (ArrayList)sqlSession.selectList("mailMapper.selectMailAttachment", emailNo);
+	}
+	
+	public Employee selectUserId(SqlSession sqlSession, String empId) {
+		return sqlSession.selectOne("mailMapper.selectUserId", empId);
 	}
 }

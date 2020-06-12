@@ -13,7 +13,6 @@ import javax.mail.internet.MimeUtility;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.MaskFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
@@ -34,6 +33,7 @@ import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.service.MailService;
 import com.kh.teamworks.mail.model.vo.Mail;
+import com.kh.teamworks.mail.model.vo.MailAddress;
 import com.kh.teamworks.mail.model.vo.MailAttachment;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.SearchMailCondition;
@@ -480,5 +480,55 @@ public class MailController {
 		}
 		
 		return changeName;
+	}
+	
+	
+	@RequestMapping("receiveDetail.ma")
+	public String detailMail(HttpSession session, int emailNo, int no, Model model) {
+		Employee e  = (Employee)session.getAttribute("loginUser");
+		
+		Mail mail = new Mail();
+		mail.setRecipients(e.getEmpId());
+		mail.setEmailNo(emailNo);
+		
+		if(no==1) {
+			int result = emService.changeReadStatus(mail); // 읽음 처리
+			
+			if(result>0) {
+				// sender
+//				Mail mailList = emService.selectMail(emailNo); // 메일 조회 
+//				//Employee sender = new Employee();
+//				// System.out.println(mailList.getSender());
+//				Employee senderEmp = emService.selectUserId(mailList.getSender());
+//				mailList.setSender(senderEmp.getEmail());
+				
+				ArrayList<MailDTO> mailList = emService.selectMail(emailNo);
+				
+//				ArrayList<MailAddress> mailAddList = emService.selectMailAddress(emailNo);
+//				for(MailAddress m : mailAddList) {
+//					Employee r = emService.selectUserId(m.getReceiver());
+//					
+//				}
+//				
+				ArrayList<MailAttachment> attachList = emService.selectMailAttachment(emailNo);
+				
+				model.addAttribute("mailList", mailList);
+//				model.addAttribute("mailAddList", mailAddList);
+				model.addAttribute("attachList", attachList);
+				// System.out.println(attachList);
+				return "mail/receiveDetailView";
+			}
+			
+			
+		}else {
+			ArrayList<MailDTO> mailList = emService.selectMail(emailNo);
+			ArrayList<MailAttachment> attachList = emService.selectMailAttachment(emailNo);
+			model.addAttribute("mailList", mailList);
+			model.addAttribute("attachList", attachList);
+			return "mail/sendDetailView";
+		}
+		
+		
+		return "" ;
 	}
 }

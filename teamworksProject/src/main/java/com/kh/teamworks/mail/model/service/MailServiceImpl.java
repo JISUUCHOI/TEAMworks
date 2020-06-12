@@ -10,6 +10,7 @@ import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.mail.model.dao.MailDao;
 import com.kh.teamworks.mail.model.vo.Mail;
+import com.kh.teamworks.mail.model.vo.MailAddress;
 import com.kh.teamworks.mail.model.vo.MailAttachment;
 import com.kh.teamworks.mail.model.vo.MailDTO;
 import com.kh.teamworks.mail.model.vo.MailInfo;
@@ -174,6 +175,26 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public int insetMailAttachment(MailAttachment ma) {
 		return emDao.insetMailAttachment(sqlSession, ma);
+	}
+
+	@Override
+	public ArrayList<MailDTO> selectMail(int emailNo) {
+		return emDao.selectMail(sqlSession, emailNo);
+	}
+
+	@Override
+	public ArrayList<MailAddress> selectMailAddress(int emailNo) {
+		return emDao.selectMailAddress(sqlSession, emailNo);
+	}
+
+	@Override
+	public ArrayList<MailAttachment> selectMailAttachment(int emailNo) {
+		return emDao.selectMailAttachment(sqlSession, emailNo);
+	}
+
+	@Override
+	public Employee selectUserId(String empId) {
+		return emDao.selectUserId(sqlSession, empId);
 	}
 	
 	

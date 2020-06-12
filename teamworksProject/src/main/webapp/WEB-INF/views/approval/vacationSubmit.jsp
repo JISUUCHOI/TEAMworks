@@ -326,6 +326,9 @@
 	                           		<c:when test="${ d.approveReject eq '승인' }">
 	                           			<br>(${ d.approveDate })
 	                           		</c:when>
+	                           		<c:when test="${ d.approveReject eq '반려' }">
+	                           			<br>(${ d.approveDate })
+	                           		</c:when>
 	                           		<c:otherwise>
 	                           		</c:otherwise>
 	                           	</c:choose>
@@ -436,6 +439,7 @@
 		                <div id="approveOuter">
 					        
 				        	<input type="hidden" name="docNo" value="${ d.get(0).getDocNo() }">
+				        	<input type="hidden" name="empId" value="${ d.get(0).getEmpId() }">
 				        	<input type="hidden" name="docSc" value="${ d.get(0).getDocSc() }">
 				        	<input type="hidden" name="approverEmpid" value="${ loginUser.empId }">
 				            <table id="chooseApprove">

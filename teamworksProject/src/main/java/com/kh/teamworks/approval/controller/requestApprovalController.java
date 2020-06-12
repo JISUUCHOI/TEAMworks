@@ -334,8 +334,9 @@ public class requestApprovalController {
 		
 		int result1 = 0;
 		int result2 = 0;
+		int result3 = 0;
 		
-		// 7_5. 이전 승인권자들 id 조회
+		// 7_6. 이전 승인권자들 id 조회
 		ArrayList<Document> all = new ArrayList<>();
 		all = raService.selectAllList(doc);
 
@@ -350,34 +351,47 @@ public class requestApprovalController {
 			ArrayList<Document> list = raService.selectApList(doc);
 			
 			if(list.size() > 1) {
-				// 7_2. 첫번째 승인권자 승인/반려, 결재의견 insert
+				// 7_2. 첫번째 승인권자 승인, 결재의견 insert
 				result1 = raService.updateApprove(doc);
 				
-				// 7_3. 다음 승인권자 상태 update
+				// 7_3. 기안자 상태 doc_status '진행'로 update
+				result2 = raService.updateDocStatus(doc);
+				
+				System.out.println(result2);
+				
+				// 7_4. 다음 승인권자 상태 update
 				doc.setApproverEmpid(list.get(1).getApproverEmpid());
-				result2 = raService.updateLine(doc);
+				result3 = raService.updateLine(doc);
 			}else {
-				// 7_4. 마지막 승인권자 상태 update -> 완료함
+				// 7_5. 마지막 승인권자 상태 update -> 완료함
 				result1 = raService.updateComplete(doc);
 				
-				// 7_6. 이전 승인권자들 상태 '완료'로 update
+				// 7_7. 이전 승인권자들 상태 '완료'로 update
 				for(int i=0; i<all.size()-1; i++) {
 					d.setApproverEmpid(all.get(i).getApproverEmpid());
-					result2 = raService.updateAllComplete(d);
+					result3 = raService.updateAllComplete(d);
 				}
+				
+				// 7_8. 기안자 상태 doc_status '완료'로 update
+				result2 = raService.updateDs(doc);
+				System.out.println(result2);
 			}
 		}else {	// 반려할 경우
-			// 7_7. 현재 진행중인 승인권자가 반려할 경우
+			// 7_9. 현재 진행중인 승인권자가 반려할 경우
 			result1 = raService.updateReject(doc);
 			
-			// 7_8. 나머지 승인권자들 상태 '반려'로 update
+			// 7_10. 나머지 승인권자들 상태 '반려'로 update
 			for(int i=0; i<all.size(); i++) {
 				d.setApproverEmpid(all.get(i).getApproverEmpid());
-				result2 = raService.updateAllReject(d);
+				result3 = raService.updateAllReject(d);
 			}
+			
+			// 7_11. 기안자 상태 doc_status '반려'로 update
+			result2 = raService.updateDsReject(doc);
+			
 		}
 		
-		if(result1 * result2 > 0) {
+		if(result1 * result2 * result3 > 0) {
 			model.addAttribute("docNo", doc.getDocNo());
 			model.addAttribute("docSc", doc.getDocSc());
 			return "redirect:detailDoc.rap";
@@ -388,5 +402,71 @@ public class requestApprovalController {
 			return "common/errorPage";
 		}
 	}
+	
+	// 8. 참조문서함
+	@RequestMapping("referenceList.rap")
+	public String selectRefList(HttpServletRequest request, Model model, int currentPage) {
+		
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+	    Document d = new Document();
+	    d.setEmpId(empId);
+	    
+	    // 8_1. 참조문서 총 개수 조회
+	    int listCount = raService.selectRefCount(d);
+	    PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+	    
+		// 8_2. 참조문서 리스트 조회
+		ArrayList<Document> list = raService.selectRefList(d, pi);
+		
+		model.addAttribute("listCount", listCount);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "approval/refDocListjsp";
+		
+	}
+	
+	// 8_3. 참조문서함 검색
+	@RequestMapping("docSearch.rap")
+	public String searchRefList(HttpServletRequest request, ApproveSearchCondition asc, Model model) {
+		
+		String condition = asc.getCondition();
+		String keyword = asc.getKeyword();
+		String docStatus = asc.getDocStatus();
+		
+		if(condition != null) {
+			switch(condition) {
+			case "writer" : asc.setWriter(keyword); break;
+			case "title" : asc.setTitle(keyword); break;
+			case "form" : asc.setForm(keyword); break;
+			}
+		}
+		
+		if(docStatus != null) {
+			switch(docStatus) {
+			case "stand" : asc.setStand(0); break;
+			case "pending" : asc.setPending(1); break;
+			case "complete" : asc.setComplete(2); break;
+			case "refuse" : asc.setRefuse(3); break;
+			}
+		}
+		
+		// 8_1. 검색 결과에 해당하는 참조문서 개수 조회
+		int listCount = raService.searchRefCount(asc);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		// 8_2. 검색 결과에 해당하는 참조문서 리스트 조회
+		ArrayList<Document> list = raService.searchRefList(asc, pi);
+		
+		model.addAttribute("listCount", listCount);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		model.addAttribute("asc", asc);
+		
+		return "approval/refDocListjsp";
+		
+	}
+	
 	
 }

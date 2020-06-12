@@ -18,4 +18,11 @@ public class MailAddress {
 	private String emaType;
 	private String emAddress;
 	private int emaSq;
+	
+	private String receiver;
+	private String readStatus;
+	private String deleteStatus;
+	private String status;
+	
+	
 }

@@ -144,8 +144,9 @@
                 <script>
                 	$(function(){
                 		$("#receiveList tbody tr td").click(function(){
-                			$(this).sibings().childred()
-                			location.href=""
+                			var emailNo =$(this).parents().children().eq(0).children().val();
+                			//console.log(emailNo);
+                			location.href="receiveDetail.ma?no=1&emailNo="+emailNo;
                 		});
                 	});
                 	
