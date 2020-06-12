@@ -23,7 +23,7 @@
 			width:1250px;
 			float:left;
 			margin-left:220px;
-			margin-top:50px;
+			margin-top:20px;
 		
 		 }
     .inner{width: 900px;}
@@ -37,7 +37,7 @@
   <div class="outer" align="center">
         <br>
         <div class="inner">
-        <h4>자유게시판</h4>
+        <h4 align="left"><i class="far fa-list-alt"></i>&nbsp;&nbsp;<b>자유게시판</b></h4>
             <hr>
            <form action="search.bo" class="form-inline" style="float: right;">
          	<input type="hidden" name="cat" value="2"> 
