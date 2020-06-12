@@ -123,7 +123,9 @@
                 <div class="menu" id="board"><a href="list.bo?currentPage=1&cat=1">게시판</a></div>
                 <div class="menu" id="calender"><a href="selectAllSch.sc?empId=${loginUser.empId }">일정</a></div>
                 <div class="menu" id="book"><a href="showListView.re">예약</a></div>
-                <div class="menu" id="orgManage"><a href="main.mg">조직관리</a></div>
+                <c:if test="${ loginUser.deptCode eq 1001 }">
+                	<div class="menu" id="orgManage"><a href="main.mg">조직관리</a></div>
+                </c:if>
             </div>
         </div>
 

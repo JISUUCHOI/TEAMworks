@@ -182,14 +182,6 @@ public class ManagementServiceImpl implements ManagementService{
 		return 0;
 	}
 
-	public int selectVacationkeywordCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-
-
-
 
 
 

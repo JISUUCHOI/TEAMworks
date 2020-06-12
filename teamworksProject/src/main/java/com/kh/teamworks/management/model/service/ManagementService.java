@@ -43,10 +43,11 @@ public interface ManagementService {
 	// 사원 관리
 	int updateEmpInfo();
 	
-	// 휴가 관리
+	// 휴가 관리 리스트
 	ArrayList<Vacation> selectVacationList(PageInfo pi);
-	
 	int selectVacationCount(String keyword);
+	
+	// 휴가 관리 내 검색
 	ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi);
 	
 	// 증명서 발급

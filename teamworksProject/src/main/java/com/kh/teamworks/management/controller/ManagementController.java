@@ -71,9 +71,6 @@ public class ManagementController {
 	public String insertEmployee(Employee e, HttpServletRequest request, HttpSession session,
 								 @RequestParam(name="uploadFile", required=false) MultipartFile file) {
 		
-		System.out.println(e);
-		System.out.println(file.getOriginalFilename());
-		
 		if(!file.getOriginalFilename().equals("")) {
 			
 			String changeName = saveFile(file, request);
@@ -81,13 +78,10 @@ public class ManagementController {
 			e.setOriginName(file.getOriginalFilename());
 			e.setChangeName(e.getEmpName()+ changeName);
 		}
-		
 		String tempPwd = e.getEmpNo().substring(0, 6);
 		String encPwd = bcryptPasswordEncoder.encode(tempPwd);
 		
 		e.setEmpPwd(encPwd);
-		
-		System.out.println(e);
 		
 		int result = mgService.insertEmployee(e);
 		
@@ -104,7 +98,7 @@ public class ManagementController {
 	// 전달받은 파일명을 가지고 서버로부터 삭제하는 메소드
 	public void deleteFile(String fileName, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources + "\\empMguploadFiles\\";
+		String savePath = resources + "\\empUploadFiles\\";
 
 		File deleteFile = new File(savePath + fileName);
 		deleteFile.delete();
@@ -116,7 +110,7 @@ public class ManagementController {
 
 		// 파일을 업로드 시킬 폴더 경로 (String savePath)
 		String resources = request.getSession().getServletContext().getRealPath("resources");
-		String savePath = resources + "\\empMguploadFiles\\";
+		String savePath = resources + "\\empUploadFiles\\";
 		
 		// 원본명 (aaa.jpg)
 		String originName = file.getOriginalFilename();
@@ -253,7 +247,7 @@ public class ManagementController {
 	@RequestMapping("vacationSearch.mg")
 	public String vacationSearch(int currentPage, String keyword, Model model) {
 		
-		int listCount = mgService.selectVacationkeywordCount();
+		int listCount = mgService.selectVacationCount(keyword);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 		
