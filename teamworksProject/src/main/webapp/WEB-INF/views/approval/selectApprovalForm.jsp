@@ -6,16 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>기안문작성양식</title>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <style>
+	html, body{height:100%;}	
 	#formOuter{
 		width:1250px;
+		height:100%;
 		float:left;
 	}
     /* 본문 */
     #formListArea{
         width:1000px;
-		margin:50px auto;
+	    height:670px;
+	    margin:auto;
+	    margin-top:50px;
     }
     /* 조회버튼 */
     #schArea{
@@ -82,6 +87,18 @@
         border-color:cornflowerblue;
         cursor:pointer;
     }
+
+	input[type=text],input[type=password]{}
+    *{margin:0;padding:0;font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
+    body{font-size:12px;color:#555;background:transparent;-webkit-user-select:none;-moz-user-select:none;-webkit-text-size-adjust:none;-moz-text-size-adjust:none;-ms-text-size-adjust:none}
+    ol,ul{list-style:none} 
+    img{border:0 none;vertical-align:middle}
+
+
+
+
+	
+
 </style>
 </head>
 <body>
@@ -92,7 +109,8 @@
     <!-- 본문 -->
     <div id="formOuter">
     	<div id="formListArea">
-	        <h4>⊙ 기안문 작성</h4>
+	        <h3>⊙ 기안문 작성</h3>
+	        <br>
 	        <hr>
 	        <br>
 	
