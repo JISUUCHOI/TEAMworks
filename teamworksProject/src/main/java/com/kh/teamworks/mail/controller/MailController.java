@@ -548,4 +548,22 @@ public class MailController {
 			return "fail" ;
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("delSmail")
+	public String deleteSmail(int emailNo, String empId) {
+		System.out.println(emailNo);
+		System.out.println(empId);
+		Mail mail = new Mail();
+		mail.setSender(empId);
+		mail.setEmailNo(emailNo);
+		
+		int result = emService.deleteSendMail(mail);
+		
+		if(result>0) {
+			return "success" ;
+		}else {
+			return "fail" ;
+		}
+	}
 }

@@ -104,10 +104,36 @@
                     <button class="btn btn-default" onclick="location.href='slist.ma?currentPage=1'">목록</button>
                 </div>
                 <div class="col-xs-1">
-                    <button class="btn btn-danger">삭제</button>
+                    <button class="btn btn-danger" onclick="deleteSmail();">삭제</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    	function deleteSmail(){
+    		var emailNo = ${ mailList[0].emailNo}
+    		var empId = '${loginUser.empId}'
+    		
+    		$.ajax({
+    			url:"delSmail",
+    			data:{emailNo:emailNo, empId:empId},
+    			type:"post",
+    			success:function(status){
+    				if(status=="success"){
+    					location.href="slist.ma?currentPage=1"
+    				}else{
+    					alert("아 실패했다.");
+    				}
+    			},
+    			error:function(){
+    				console.log("sendMailDelete ajax fail");
+    			}
+    			
+  
+    		});
+    	}
+    	
+    </script>
+    
 </body>
 </html>
