@@ -19,7 +19,7 @@ public interface ManagementService {
 	CompanyBsns selectCompanyBsns(String homNo);
 	
 	// 회사 정보 관리 - 로고 정보
-	int updateCompanyLogo();
+	int updateLogo(CompanyInfo ci);
 	
 	// 사원 정보 관리
 	Employee selectEmployeeInfo(Employee e);

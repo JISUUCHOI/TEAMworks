@@ -13,6 +13,16 @@
 <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+<!-- alertifyJS 라이브러리 -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<!-- alertifyCSS 라이브러리 -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+	
+
 <style type="text/css">
 .tg {
 	border-collapse: collapse;
@@ -132,6 +142,13 @@
 
 	<jsp:include page="../common/menubar.jsp" />
 	<jsp:include page="../common/sidebarMg.jsp" />
+	
+	<c:if test="${ !empty msg }">
+		<script>
+			alertify.alert("${msg}");
+		</script>
+		<c:remove var="msg" scope="session"/>
+	</c:if>
 
 
 	<div class="content">
@@ -139,28 +156,36 @@
 		<h1>회사 정보</h1>
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 
-		<div id="d1-logo" style="padding-left:200px; padding-top:30px;">
+		<div id="d1-logo" style="padding-left:300px; padding-top:30px;">
 			<div id="t2">
 				<p style="font-size: 13px;">
 					<b>회사 로고</b>
 				</p>
-				<img src="${ pageContext.servletContext.contextPath }/resources/CompanyLogo/${ companyInfo.logoChange }" class="img-rounded">
+				<img src="${ pageContext.servletContext.contextPath }/resources/CompanyLogo/${ companyInfo.logoChange }" class="img-rounded"
+				style="width:200px;">
 			</div>
 
 			<div id="t3" style="padding:10; font-size:13px;">
-				<div id="t3-1" style="margin-top:60px;">
+				<div id="t3-1" style="margin-top:50px;">
 					서비스 이용중 표시되는 로고를 등록 할 수 있습니다.<br> 
 					<img src="/teamworks/resources/icons/redMark.png" width="30px">
-					최대 사이즈 : 150*60 px, 용량 500KB 미만, 확장자 PNG <br>
-					<button type="button" class="btn btn-secondary btn-sm">등록</button>
-					&nbsp;
-					<button type="button" class="btn btn-secondary btn-sm">삭제</button>
+					최대 사이즈 : 용량 500KB 미만, 확장자 PNG, JPG <br>
+					<form id="logoChange" action="updateLogo.mg" method="post" enctype="multipart/form-data" style="margin-top:20px;">
+						<input type="file" id="reUplogo" class="form-control-file border" name="reUploadLogo"><br>
+						<button type="submit" class="btn btn-secondary btn-sm"
+							name="logoChangeFile">변경</button>
+						&nbsp;
+						<button type="button" class="btn btn-secondary btn-sm">삭제</button>
+					</form>
+
 					<!-- <input type="file"> 등록 누르면 팝업창으로 뜨게 설정하기 -->
 				</div>
 			</div>
 		</div>
 
-		<div id="d2-info" style="padding-left:200px;">
+	
+		<div id="d2-info" style="padding-left:200px;">	
+			<h4><b>회사 정보</b></h4>
 			<table id="infoTable" align="center" style="border: 1px solid black;">
 				<table class="tg" style="width: 800px;">
 					<thead>

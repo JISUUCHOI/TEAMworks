@@ -109,6 +109,10 @@ public class ManagementDao {
 	public int selectVacationCount(SqlSessionTemplate sqlSession, String keyword) {
 		return sqlSession.selectOne("managementMapper.selectVacationCount", keyword);
 	}
+
+	public int updateLogo(SqlSessionTemplate sqlSession, CompanyInfo ci) {
+		return sqlSession.update("managementMapper.updateLogo", ci);
+	}
 	
 
 

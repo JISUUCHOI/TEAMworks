@@ -44,7 +44,7 @@ public class ManagementController {
 	
 	// 회사 정보 화면
 	@RequestMapping("main.mg")
-	public String selectCompanyInfo(HttpServletRequest request, Model model){
+	public String selectCompanyInfo(HttpServletRequest request){
 		
 		HttpSession session = request.getSession();
 		Employee e = (Employee) session.getAttribute("loginUser");
@@ -54,8 +54,8 @@ public class ManagementController {
 		CompanyInfo companyInfo = mgService.selectCompanyInfo(homNo);
 		CompanyBsns companyBsns = mgService.selectCompanyBsns(homNo);
 		
-		model.addAttribute("companyInfo", companyInfo);
-		model.addAttribute("companyBsns", companyBsns);
+		session.setAttribute("companyInfo", companyInfo);
+		session.setAttribute("companyBsns", companyBsns);
 		
 		return "management/companyMainInfo";
 	}
@@ -106,6 +106,7 @@ public class ManagementController {
 	
 	// 공유해서 쓸수 있게끔 따로 정의 해놓은 메소드
 	// 전달받은 파일을 서버에 업로드 시킨 후 수정명 리턴하는 메소드
+	// 인사 정보 등록 사진 등록 메소드
 	private String saveFile(Employee ee, MultipartFile file, HttpServletRequest request) {
 
 		// 파일을 업로드 시킬 폴더 경로 (String savePath)
@@ -134,35 +135,78 @@ public class ManagementController {
 	}
 
 	  @RequestMapping("updateLogo.mg")
-	  public String updateBoard(Employee e, HttpServletRequest request, Model model,
-			  					@RequestParam(name="reUploadFile", required=false) MultipartFile file) {
+	  public String updateBoard(CompanyInfo ci, HttpServletRequest request,
+			  					@RequestParam(name="reUploadLogo", required=false) MultipartFile file) {
+		  
+			HttpSession session = request.getSession();
+			CompanyInfo e = (CompanyInfo) session.getAttribute("companyInfo");
+			
+			ci.setHomNo(e.getHomNo());
+			
 		  // 새로 넘어온 첨부파일이 있을 경우 --> 서버에 업로드 해야됨
 		  if(!file.getOriginalFilename().equals("")) {
 			  
 			  // 기존의 첨부파일이 있었을 경우 --> 업로드 된 파일 지워야 됨
-			  if(e.getChangeName() != null) {
+			  if(ci.getLogoChange() != null) {
 				  // 새로 넘어온 첨부파일도 있고 기존의 첨부파일도 있었을 경우
-				  deleteFile(e.getChangeName(), request);
+				  deleteLogoFile(ci.getLogoChange(), request);
 			  }
 			  
-			  String changeName = saveFile(e, file, request);
+			  String changeName = saveFile(file, request);
 			  
-			  e.setChangeName(changeName);
-			  e.setOriginName(file.getOriginalFilename());
-			  
+			  ci.setLogoChange(changeName);
+			  ci.setLogoOrigin(file.getOriginalFilename());
 		  }
-			int result = mgService.insertEmployee(e);
+		  	System.out.println(e);
+			int result = mgService.updateLogo(ci);
+			System.out.println(ci);
 			
 			if(result>0) {
-				model.addAttribute("msg", "로고 변경 성공!!");
+				session.setAttribute("msg", "로고 변경 성공!!");
 				return "redirect:main.mg";
 			}else {
-				model.addAttribute("msg", "로고 변경 실패!!");
-				return "redirect:";
+				session.setAttribute("msg", "로고 변경 실패!!");
+				return "redirect:main.mg";
 			}
 	  }
 	
+		// 공유해서 쓸수 있게끔 따로 정의 해놓은 메소드
+		// 전달받은 파일을 서버에 업로드 시킨 후 수정명 리턴하는 메소드
+		public String saveFile(MultipartFile file, HttpServletRequest request) {
 	
+			String resources = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = resources + "\\CompanyLogo\\";
+	
+			String originName = file.getOriginalFilename();
+	
+			String currentTime = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+	
+			// 확장자(String ext)
+			String ext = originName.substring(originName.lastIndexOf(".")); // ".jpg"
+			
+			String changeName = currentTime + ext;
+	
+			try {
+				file.transferTo(new File(savePath + changeName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			return changeName;
+		}
+	
+		
+		// 전달받은 파일명을 가지고 서버로부터 삭제하는 메소드
+		public void deleteLogoFile(String fileName, HttpServletRequest request) {
+			String resources = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = resources + "\\CompanyLogo\\";
+
+			File deleteFile = new File(savePath + fileName);
+			deleteFile.delete();
+		}
+		
+		
 	// 사원 번호 중복 체크
 	@ResponseBody
 	@RequestMapping(value="empIdCheck.mg")

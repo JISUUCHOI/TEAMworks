@@ -64,11 +64,16 @@
 					<button type="submit" class="searchBtn btn btn-secondary">검색</button>
 				</form>
 				
-				<input type="checkbox" name="status" id="status" style="margin-left:30px; margin-right:10px;"><b>퇴직자 포함</b>
-				<button type="" class="btn btn-outline-primary btn-sm"  style="float:right; margin-right:50px;">퇴사자 등록</button>
+				<input type="checkbox" name="status" id="status" style="margin-left:30px; margin-right:10px; margin-top:20px;"><b>퇴직자 포함</b>
+				<button type="" class="btn btn-outline-primary btn-sm"  style="float:right; margin-right:50px; margin-top:20px;" onclick="$('#postForm').submit();">퇴사자 등록</button>
 				
 			</div>
 			<br>
+			
+			<form id="postForm" action="deleteEmp.mg" method="post">
+				<input type="hidden" name="empList" value="">
+			</form>
+			
 			
 	       <script type="text/javascript">
 	       		$(function(){
@@ -82,7 +87,7 @@
 	       </script>
 				
 			<table class="table table-bordered"
-				style="table-layout: fixed; text-align: center; margin-top: 50px;">
+				style="table-layout: fixed; text-align: center; margin-top: 30px;">
 				<thead class="thead-light">
 					<tr>
 						<th width="40px;"><input type="checkbox"></th>
@@ -98,7 +103,7 @@
 				<tbody>
 					<c:forEach items="${ empList }" var="e">
 						<tr>
-							<td><input type="checkbox"></td>
+							<td><input type="checkbox" name="" id="" value=""></td>
 							<td>${ e.empId }</td>
 							<td>${ e.empName }</td>
 							<td>${ e.empNo }</td>

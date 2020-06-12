@@ -192,6 +192,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	             GROUP BY EMP_NAME) D
 	       JOIN EMPLOYEE EMP ON(D.EMP_NAME= EMP.EMP_NAME)
 	</select>
-
+	
+	<update id="updateLogo" parameterType="MgInfo">
+		UPDATE COMPANY_INFO
+		   SET LOGO_CHANGE_NAME = #{logoChange},
+		       LOGO_ORIGIN_NAME = #{logoOrigin}
+		 WHERE HOM_NO=#{homNo}
+	</update>
+	
 
 </mapper>

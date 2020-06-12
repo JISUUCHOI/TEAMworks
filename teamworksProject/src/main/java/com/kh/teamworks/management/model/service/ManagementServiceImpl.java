@@ -26,24 +26,23 @@ public class ManagementServiceImpl implements ManagementService{
 	@Autowired
 	private ManagementDao mgDao;
 	
-
+	// 회사 정보 조회
 	@Override
 	public CompanyInfo selectCompanyInfo(String homNo) {
 		return mgDao.selectCompanyInfo(sqlSession, homNo);
 	}
-
+	
+	// 연결 사업장 조회
 	@Override
 	public CompanyBsns selectCompanyBsns(String homNo) {
 		return mgDao.selectCompanyBsns(sqlSession, homNo);
 	}
 	
-	
-	@Override
-	public int updateCompanyLogo() {
-		// TODO Auto-generated method stub
-		return 0;
+	// 로고 업데이트
+	public int updateLogo(CompanyInfo ci) {
+		return mgDao.updateLogo(sqlSession, ci);
 	}
-	
+
 	// 사원 조회
 	@Override
 	public ArrayList<Employee> selectEmpList() {
@@ -68,25 +67,24 @@ public class ManagementServiceImpl implements ManagementService{
 		return mgDao.selectEmpList(sqlSession, keyword);
 	}
 	
+	// 사원 키워드 조회
 	@Override
 	public ArrayList<Employee> selectEmpListKeyword(empSearchCondition eSc, PageInfo pi){
 		return mgDao.selectEmpListKeyword(sqlSession, eSc, pi);
 	}
-
+	
+	// 사원 수 카운트
 	@Override
 	public int selectEmpCount() {
 		return mgDao.selectEmpCount(sqlSession);
 	}
 	
+	// 검색 조건 사원 수 카운트
 	@Override
 	public int selectEmpCount(empSearchCondition eSc) {
 		return mgDao.selectEmpCount(sqlSession, eSc);
 	}
-	@Override
-	public Employee selectEmployeeInfo(Employee e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 	// 인사 정보 등록
 	@Override
@@ -99,13 +97,7 @@ public class ManagementServiceImpl implements ManagementService{
 	public int idCheck(String empId) {
 		return mgDao.idCheck(sqlSession, empId);
 	}
-	
-	@Override
-	public int updateEmpInfo() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
+
     // 휴가 리스트
 	@Override
 	public ArrayList<Vacation> selectVacationList(PageInfo pi) {
@@ -158,6 +150,19 @@ public class ManagementServiceImpl implements ManagementService{
 		return mgDao.selectJobList(sqlSession);
 	}
 
+	
+	//
+	@Override
+	public Employee selectEmployeeInfo(Employee e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int updateEmpInfo() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	@Override
 	public void searchEmpInfo() {
 		// TODO Auto-generated method stub
