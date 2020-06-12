@@ -50,12 +50,13 @@
         font-size:17px;
     }
     .subCate>a{text-decoration:none; color:white;}
-    .subCate>a:hover, #logout>a:hover, #messenger>a:hover{
+    .subCate>a:hover, #logout>a:hover, #messenger>a:hover, .category a:hover{
         color:deepskyblue;
     }
     .subCate>span{
         color:red;
     }
+    .category a{text-decoration:none; color:white;}
 </style>
 </head>
 <body>
