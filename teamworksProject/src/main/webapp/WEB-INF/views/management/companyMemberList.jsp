@@ -46,9 +46,9 @@
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 		<br>
 		
-		<div class="container" style="margin-left: 10px; width:1070px;">
-			<div>
+		<div class="container" style="margin-left: 10px; margin-top:10px; width:1070px;">
 			
+			<div>
 				<form id="searchForm" action="empListSearch.mg" method="Get" align="center">
 					<div class="select" >
 						<select class="custom-select" name="condition">
@@ -82,7 +82,7 @@
 	       </script>
 				
 			<table class="table table-bordered"
-				style="table-layout: fixed; text-align: center;" id="result3">
+				style="table-layout: fixed; text-align: center; margin-top: 50px;">
 				<thead class="thead-light">
 					<tr>
 						<th width="40px;"><input type="checkbox"></th>
@@ -113,7 +113,7 @@
 			
 			
 			
-			<div id="pagingArea">
+			<div id="pagingArea" style="margin-top:50px;">
                 <ul class="pagination pagination-sm justify-content-center">
 	                <c:if test="${ pi.currentPage ne 1 }">
 	            		<c:choose>

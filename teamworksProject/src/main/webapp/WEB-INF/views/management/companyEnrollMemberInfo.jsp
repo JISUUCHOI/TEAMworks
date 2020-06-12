@@ -265,7 +265,7 @@
 				}
 			</script>
 
-			<div id="t2" style="padding-top: 20px; padding-left: 250px;">
+			<div id="t2" style="padding-top: 50px; padding-left: 250px;">
 				<table class="border">
 					<table class="job infoTable" style="float: left" border="1px solid black;">
 						<tr>

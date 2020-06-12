@@ -73,10 +73,10 @@ public class ManagementController {
 		
 		if(!file.getOriginalFilename().equals("")) {
 			
-			String changeName = saveFile(file, request);
+			String changeName = saveFile(e, file, request);
 			
 			e.setOriginName(file.getOriginalFilename());
-			e.setChangeName(e.getEmpName()+ changeName);
+			e.setChangeName(changeName);
 		}
 		String tempPwd = e.getEmpNo().substring(0, 6);
 		String encPwd = bcryptPasswordEncoder.encode(tempPwd);
@@ -106,23 +106,22 @@ public class ManagementController {
 	
 	// 공유해서 쓸수 있게끔 따로 정의 해놓은 메소드
 	// 전달받은 파일을 서버에 업로드 시킨 후 수정명 리턴하는 메소드
-	private String saveFile(MultipartFile file, HttpServletRequest request) {
+	private String saveFile(Employee ee, MultipartFile file, HttpServletRequest request) {
 
 		// 파일을 업로드 시킬 폴더 경로 (String savePath)
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources + "\\empUploadFiles\\";
 		
-		// 원본명 (aaa.jpg)
 		String originName = file.getOriginalFilename();
 		
-		// 수정명 (20200522202011.jpg)
-		// 년월일시분초 (String currentTime)
 		String currentTime = new SimpleDateFormat("yyyyMMddHH").format(new Date());
 		
 		// 확장자(String ext)
 		String ext =originName.substring(originName.lastIndexOf(".")); // ".jpg"
 		
-		String changeName = currentTime + ext;
+		String empName = ee.getEmpName();
+		
+		String changeName = empName + currentTime + ext;
 
 		try {
 			file.transferTo(new File(savePath + changeName));
@@ -146,7 +145,7 @@ public class ManagementController {
 				  deleteFile(e.getChangeName(), request);
 			  }
 			  
-			  String changeName = saveFile(file, request);
+			  String changeName = saveFile(e, file, request);
 			  
 			  e.setChangeName(changeName);
 			  e.setOriginName(file.getOriginalFilename());
