@@ -160,8 +160,8 @@ public class MailDao {
 		return (ArrayList)sqlSession.selectList("mailMapper.selectMailAddress", emailNo);
 	}
 	
-	public ArrayList<MailAttachment> selectMailAttachment(SqlSession sqlSession, int emilNo){
-		return (ArrayList)sqlSession.selectList("mailMapper.selectMailAttachment");
+	public ArrayList<MailAttachment> selectMailAttachment(SqlSession sqlSession, int emailNo){
+		return (ArrayList)sqlSession.selectList("mailMapper.selectMailAttachment", emailNo);
 	}
 	
 	public Employee selectUserId(SqlSession sqlSession, String empId) {

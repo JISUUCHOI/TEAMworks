@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- 	<!-- Latest compiled and minified CSS -->
+	<!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -45,8 +45,14 @@
                     <td>${mailList[0].mailTitle }</td>
                 </tr>
                 <tr>
-                    <th>보낸사람</th>
-                    <td>${ mailList[0].senderEmail }</td>
+                    <th>받는사람</th>
+                    <td>
+                    <c:forEach var="m" items="${ mailList }">
+                    	<c:if test="${ m.refType eq 'T' }">
+		                    ${ m.recipientsEmail }
+                    	</c:if>
+                    </c:forEach>
+                    </td>
                 </tr>
                 <tr>
                     <th>참조</th>
@@ -62,7 +68,7 @@
                     <th>숨은참조</th>
                     <td>
                      <c:forEach var="m" items="${ mailList }">
-                    	<c:if test="${ m.refType eq 'B' && loginUser.email eq m.recipientsEmail}">
+                    	<c:if test="${ m.refType eq 'B' }">
 		                    ${ m.recipientsEmail }
                     	</c:if>
                     </c:forEach>

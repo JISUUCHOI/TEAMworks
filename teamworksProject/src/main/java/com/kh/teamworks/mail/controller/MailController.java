@@ -515,13 +515,17 @@ public class MailController {
 				model.addAttribute("mailList", mailList);
 //				model.addAttribute("mailAddList", mailAddList);
 				model.addAttribute("attachList", attachList);
-				System.out.println(attachList);
+				// System.out.println(attachList);
 				return "mail/receiveDetailView";
 			}
 			
 			
 		}else {
-			
+			ArrayList<MailDTO> mailList = emService.selectMail(emailNo);
+			ArrayList<MailAttachment> attachList = emService.selectMailAttachment(emailNo);
+			model.addAttribute("mailList", mailList);
+			model.addAttribute("attachList", attachList);
+			return "mail/sendDetailView";
 		}
 		
 		

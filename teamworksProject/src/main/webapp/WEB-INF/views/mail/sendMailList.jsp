@@ -89,7 +89,7 @@
                 </div>
                 
                 <hr>
-                <table class="table table-hover text-left">
+                <table id="sendList" class="table table-hover text-left">
                     <thead>
                         <tr>
                             <th width="50px">
@@ -129,7 +129,16 @@
                     	</c:forEach> 
                     </tbody>
                 </table>
-                
+                 <script>
+                	$(function(){
+                		$("#sendList tbody tr td").click(function(){
+                			var emailNo =$(this).parents().children().eq(0).children().val();
+                			//console.log(emailNo);
+                			location.href="receiveDetail.ma?no=2&emailNo="+emailNo;
+                		});
+                	});
+                	
+                </script>
                 
                 <ul class="pagination">
             	<c:if test="${ pi.currentPage ne 1 }">
