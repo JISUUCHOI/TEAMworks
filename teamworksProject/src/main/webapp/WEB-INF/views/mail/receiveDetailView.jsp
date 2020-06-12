@@ -95,13 +95,36 @@
             <div class="row">
                 <div class="col-xs-10"></div>
                 <div class="col-xs-1">
-                    <button class="btn btn-default">목록</button>
+                    <button class="btn btn-default" onclick="location.href='rlist.ma?currentPage=1'">목록</button>
                 </div>
                 <div class="col-xs-1">
-                    <button class="btn btn-danger">삭제</button>
+                    <button class="btn btn-danger" onclick="deleteMail();">삭제</button>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script>
+    	function deleteMail(){
+    		var emailNo = ${mailList[0].emailNo}
+    		var empId = '${loginUser.empId}'
+    		$.ajax({
+    			url:"delMail",
+    			data:{emailNo:emailNo, empId:empId},
+    			type:"post",
+    			success:function(status){
+    				if(status=="success"){
+    					location.href="rlist.ma?currentPage=1"
+    				}else{
+    					alert("삭제에 실패했습니다.");
+    				}
+    			},
+    			error:function(){
+    				console.log("삭제 ajax 통신 실패");
+    			}
+    			
+    		});
+    	}
+    </script>
 </body>
 </html>

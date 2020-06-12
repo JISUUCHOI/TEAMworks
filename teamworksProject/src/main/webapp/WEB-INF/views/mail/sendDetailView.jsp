@@ -101,7 +101,7 @@
             <div class="row">
                 <div class="col-xs-10"></div>
                 <div class="col-xs-1">
-                    <button class="btn btn-default">목록</button>
+                    <button class="btn btn-default" onclick="location.href='slist.ma?currentPage=1'">목록</button>
                 </div>
                 <div class="col-xs-1">
                     <button class="btn btn-danger">삭제</button>

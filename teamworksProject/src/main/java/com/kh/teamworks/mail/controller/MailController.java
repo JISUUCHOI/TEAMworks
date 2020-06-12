@@ -516,9 +516,9 @@ public class MailController {
 //				model.addAttribute("mailAddList", mailAddList);
 				model.addAttribute("attachList", attachList);
 				// System.out.println(attachList);
-				return "mail/receiveDetailView";
 			}
 			
+			return "mail/receiveDetailView";
 			
 		}else {
 			ArrayList<MailDTO> mailList = emService.selectMail(emailNo);
@@ -528,7 +528,24 @@ public class MailController {
 			return "mail/sendDetailView";
 		}
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping("delMail")
+	public String deleteRmail(int emailNo, String empId) {
+		//System.out.println(emailNo);
+		//System.out.println(empId);
 		
-		return "" ;
+		Mail mail = new Mail();
+		mail.setRecipients(empId);
+		mail.setEmailNo(emailNo);
+		
+		int result = emService.deleteMail(mail);
+		
+		if(result>0) {
+			return "success" ;
+		}else {
+			return "fail" ;
+		}
 	}
 }
