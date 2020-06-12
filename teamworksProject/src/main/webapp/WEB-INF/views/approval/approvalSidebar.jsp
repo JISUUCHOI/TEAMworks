@@ -58,8 +58,6 @@
 </head>
 <body>
 
-	<%-- <jsp:forward page="WEB-INF/views/main.jsp"/> --%>
-
 	<div id="sidebarOuter">
 		<!-- 사이드바 -->
         <div id="sidebar">
@@ -92,9 +90,6 @@
 		    		type:"post",
 		    		success:function(count){
 
-		    			console.log(count);
-		    			console.log(Object.keys(count).length);
-		    			
 						for(var i=0; i<Object.keys(count).length; i++){
 							$("#count" + i).text(count[i]);
 						}

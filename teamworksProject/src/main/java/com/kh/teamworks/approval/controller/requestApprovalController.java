@@ -491,6 +491,7 @@ public class requestApprovalController {
 		count[3] = refuse;
 		count[4] = ref;
 		count[5] = callback;
+		
 		return new Gson().toJson(count);
 	}
 	
