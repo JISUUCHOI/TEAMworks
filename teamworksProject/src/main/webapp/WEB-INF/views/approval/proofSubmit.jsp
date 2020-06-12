@@ -324,6 +324,9 @@
 	                           		<c:when test="${ d.approveReject eq '승인' }">
 	                           			<br>(${ d.approveDate })
 	                           		</c:when>
+	                           		<c:when test="${ d.approveReject eq '반려' }">
+	                           			<br>(${ d.approveDate })
+	                           		</c:when>
 	                           		<c:otherwise>
 	                           		</c:otherwise>
 	                           	</c:choose>

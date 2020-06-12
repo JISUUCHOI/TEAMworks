@@ -171,43 +171,82 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.updateApprove(sqlSession, doc);
 	}
 
-	// 7_3. 다음 승인권자 상태 update
+	// 7_3. 기안자 상태 doc_status '진행'로 update
+	@Override
+	public int updateDocStatus(Document doc) {
+		return raDao.updateDocStatus(sqlSession, doc);
+	}
+	
+	// 7_4. 다음 승인권자 상태 update
 	@Override
 	public int updateLine(Document doc) {
 		return raDao.updateLine(sqlSession, doc);
 	}
 
-	// 7_4. 마지막 승인권자 상태 update -> 완료함
+	// 7_5. 마지막 승인권자 상태 update -> 완료함
 	@Override
 	public int updateComplete(Document doc) {
 		return raDao.updateComplete(sqlSession, doc);
 	}
 
-	// 7_5. 이전 승인권자들 id 조회
+	// 7_6. 이전 승인권자들 id 조회
 	@Override
 	public ArrayList<Document> selectAllList(Document doc) {
 		return raDao.selectAllList(sqlSession, doc);
 	}
 
-	// 7_6. 이전 승인권자들 상태 '완료'로 update
+	// 7_7. 이전 승인권자들 상태 '완료'로 update
 	@Override
 	public int updateAllComplete(Document d) {
 		return raDao.updateAllComplete(sqlSession, d);
 	}
+	
+	// 7_8. 기안자 상태 doc_status '완료'로 update
+	@Override
+	public int updateDs(Document d) {
+		return raDao.updateDs(sqlSession, d);
+	}
 
-	// 7_7. 현재 진행중인 승인권자가 반려할 경우
+	// 7_9. 현재 진행중인 승인권자가 반려할 경우
 	@Override
 	public int updateReject(Document doc) {
 		return raDao.updateReject(sqlSession, doc);
 	}
 
-	// 7_8. 나머지 승인권자들 상태 '반려'로 update
+	// 7_10. 나머지 승인권자들 상태 '반려'로 update
 	@Override
 	public int updateAllReject(Document d) {
 		return raDao.updateAllReject(sqlSession, d);
 	}
 
+	// 7_11. 기안자 상태 doc_status '반려'로 update
+	@Override
+	public int updateDsReject(Document doc) {
+		return raDao.updateDsReject(sqlSession, doc);
+	}
 	
+	// 8_1. 참조문서함 문서 개수 조회
+	public int selectRefCount(Document d) {
+		return raDao.selectRefCount(sqlSession, d);
+	}
+	
+	// 8_2. 참조문서 리스트 조회
+	@Override
+	public ArrayList<Document> selectRefList(Document d, PageInfo pi) {
+		return raDao.selectRefList(sqlSession, d, pi);
+	}
+	
+	// 8_3. 검색 결과에 해당하는 참조문서 개수 조회
+	@Override
+	public int searchRefCount(ApproveSearchCondition asc) {
+		return raDao.searchRefCount(sqlSession, asc);
+	}
+
+	// 8_4. 검색 결과에 해당하는 참조문서 리스트 조회
+	public ArrayList<Document> searchRefList(ApproveSearchCondition asc, PageInfo pi) {
+		return raDao.searchRefList(sqlSession, asc, pi);
+	}
+
 	
 	
 }

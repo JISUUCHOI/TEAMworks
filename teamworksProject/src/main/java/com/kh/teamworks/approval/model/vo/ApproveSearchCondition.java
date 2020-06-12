@@ -29,4 +29,10 @@ public class ApproveSearchCondition {
 	private String startDate;
 	private String endDate;
 	
+	private String docStatus;
+	private int stand;
+	private int pending;
+	private int complete;
+	private int refuse;
+	
 }

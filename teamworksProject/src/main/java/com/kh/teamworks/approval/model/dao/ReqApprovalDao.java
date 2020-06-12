@@ -145,33 +145,75 @@ public class ReqApprovalDao {
 		return sqlSession.update("approveMapper.updateApprove", doc);
 	}
 	
-	// 7_3. 다음 승인권자 상태 update
+	// 7_3. 기안자 상태 doc_status '진행'로 update
+	public int updateDocStatus(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.update("approveMapper.updateDocStatus", doc);
+	}
+	
+	// 7_4. 다음 승인권자 상태 update
 	public int updateLine(SqlSessionTemplate sqlSession, Document doc) {
 		return sqlSession.update("approveMapper.updateLine", doc);
 	}
 	
-	// 7_4. 마지막 승인권자 상태 update -> 완료함
+	// 7_5. 마지막 승인권자 상태 update -> 완료함
 	public int updateComplete(SqlSessionTemplate sqlSession, Document doc) {
 		return sqlSession.update("approveMapper.updateComplete", doc);
 	}
 	
-	// 7_5. 이전 승인권자들 id 조회
+	// 7_6. 이전 승인권자들 id 조회
 	public ArrayList<Document> selectAllList(SqlSessionTemplate sqlSession, Document doc) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectAllList", doc);
 	}
 	
-	// 7_6. 이전 승인권자들 상태 '완료'로 update
+	// 7_7. 이전 승인권자들 상태 '완료'로 update
 	public int updateAllComplete(SqlSessionTemplate sqlSession, Document d) {
 		return sqlSession.update("approveMapper.updateAllComplete", d);
 	}
 	
-	// 7_7. 현재 진행중인 승인권자가 반려할 경우
+	// 7_8. 기안자 상태 doc_status '완료'로 update
+	public int updateDs(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.updateDs", d);
+	}
+	
+	
+	// 7_9. 현재 진행중인 승인권자가 반려할 경우
 	public int updateReject(SqlSessionTemplate sqlSession, Document doc) {
 		return sqlSession.update("approveMapper.updateReject", doc);
 	}
 	
-	// 7_8. 나머지 승인권자들 상태 '반려'로 update
+	// 7_10. 나머지 승인권자들 상태 '반려'로 update
 	public int updateAllReject(SqlSessionTemplate sqlSession, Document d) {
 		return sqlSession.update("approveMapper.updateAllReject", d);
 	}
+	
+	// 7_11. 기안자 상태 doc_status '반려'로 update
+	public int updateDsReject(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.update("approveMapper.updateDsReject", doc);
+	}
+	
+	
+	// 8_1. 참조문서함 문서 개수 조회
+	public int selectRefCount(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.selectRefCount", d);
+	}
+	
+	// 8_2. 참조문서 리스트 조회
+	public ArrayList<Document> selectRefList(SqlSessionTemplate sqlSession, Document d, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.selectRefList", d, rowBounds);
+	}
+	
+	// 8_3. 검색 결과에 해당하는 참조문서 개수 조회
+	public int searchRefCount(SqlSessionTemplate sqlSession, ApproveSearchCondition asc) {
+		return sqlSession.selectOne("approveMapper.searchRefCount", asc);
+	}
+	
+	// 8_4. 검색 결과에 해당하는 참조문서 리스트 조회
+	public ArrayList<Document> searchRefList(SqlSessionTemplate sqlSession, ApproveSearchCondition asc, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.searchRefList", asc, rowBounds);
+	}
+	
 }

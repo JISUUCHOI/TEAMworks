@@ -38,16 +38,7 @@
 	    font-size:13px;
 	}
 	#search th, .searchBox th{background:lightsteelblue; color:white;}
-	#periodBtns, #periodInp, #searchStartDate, #searchEndDate{margin:10px 0px 10px 15px;}
-	
-	.period{
-	    width:45px;
-	    height:28px;
-	    background: rgb(7, 53, 90);
-	    color:white;
-	    border:none;
-	    font-size:13px;
-	}
+	#searchStartDate, #searchEndDate{margin:10px 0px 10px 15px;}
 	
 	#schCondition{
 	    margin-left:15px;
@@ -71,7 +62,7 @@
 	    display:block;
 	    margin:auto;
 	}
-	#schButton:hover, .period:hover{
+	#schButton:hover{
 	    background:lightsteelblue;
 	    cursor:pointer;
 	}
@@ -171,22 +162,22 @@
 	            <!-- 조건:대기/진행/완료/반려/회수요청/회수 -->
 	            <c:choose>
 					<c:when test="${ sts eq 0 }">
-			            <h4>⊙ 결재대기함</h4>
+			            <h3>⊙ 결재대기함</h3><br>
 		        	</c:when>
 		        	<c:when test="${ sts eq 1 }">
-			            <h4>⊙ 결재진행함</h4>
+			            <h3>⊙ 결재진행함</h3><br>
 		        	</c:when>
 		        	<c:when test="${ sts eq 2 }">
-			            <h4>⊙ 결재완료함</h4>
+			            <h3>⊙ 결재완료함</h3><br>
 		        	</c:when>
 		        	<c:when test="${ sts eq 3 }">
-			            <h4>⊙ 반려문서함</h4>
+			            <h3>⊙ 반려문서함</h3><br>
 		        	</c:when>
 		        	<c:when test="${ sts eq 4 }">
-			            <h4>⊙ 회수요청함</h4>
+			            <h3>⊙ 회수요청함</h3><br>
 		        	</c:when>
 		        	<c:otherwise>
-			            <h4>⊙ 결재회수함</h4>
+			            <h3>⊙ 결재회수함</h3><br>
 		        	</c:otherwise>
 		        </c:choose>
 	            <hr>
@@ -504,9 +495,6 @@
 	    }
     
 		$(function(){
-			$("#approveDoc>a").css("color", "dimgray");
-			$("#approveDoc").css("border-bottom-style", "groove");
-			
 			$(".disable").css("color", "deepskyblue");
 			$(".disable").css("border", "1.3px solid deepskyblue");
 			$(".disable").css("text-align", "center");
