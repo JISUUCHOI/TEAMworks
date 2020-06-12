@@ -67,6 +67,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="job_name" property="jobName"/>
 	</resultMap>
 	
+	<resultMap type="Mail" id="mailResultSet">
+		<id column="email_no" property="emailNo"/>
+		<result column="email_title" property="mailTitle"/>
+		<result column="email_content" property="mailContent"/>
+		<result column="create_date" property="createDate"/>
+		<result column="sender" property="sender"/>
+		<result column="email_status" property="emailStatus"/>
+		<result column="delete_status" property="deleteStatus"/>
+	</resultMap>
+	
+	<resultMap type="MailAddress" id="mailAddressResultSet">
+		<result column="email_no" property="emailNo"/>
+		<result column="receiver" property="receiver"/>
+		<result column="eatype" property="emaType"/>
+		<result column="read_status" property="readStatus"/>
+		<result column="delete_status" property="deleteStatus"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	<resultMap type="com.kh.teamworks.mail.model.vo.MailAttachment" id="mailAttachmentResultSet">
+		<id column="em_file_no" property="fileNo"/>
+		<result column="em_file_name" property="changeFileName"/>		
+		<result column="em_ori_file_name" property="originFileName"/>		
+		<result column="em_file_size" property="filesize"/>		
+		<result column="email_no" property="emailNo"/>		
+	</resultMap>
  	<select id="selectInboxListCount" parameterType="string" resultType="_int">
  		select count(*)
 		  from v_email_list 
@@ -328,4 +353,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		values(SEQ_MANO.NEXTVAL, #{changeFileName}, #{originFileName}, #{filesize}, SEQ_MNO.CURRVAL)
  	</insert>
  	
+ 	<select id="selectMail" parameterType="_int" resultMap="mailDtoResultSet">
+ 		select * 
+ 		  from v_email_list
+ 		 where email_no = #{emailNo}
+ 	</select>
+ 	
+ 	<select id="selectMailAddress" parameterType="_int" resultMap="mailAddressResultSet">
+ 		select * 
+ 		from email_address
+ 		where email_no=#{emailNo}
+ 	</select>
+ 	
+ 	<select id="selectMailAttachment" parameterType="_int" resultMap="mailAttachmentResultSet">
+ 		select *
+ 		from email_attachment
+ 		where email_no=#{emailNo}
+ 	</select>
+ 	
+ 	<select id="selectUserId" parameterType="string" resultMap="employeeResultSet">
+ 		select *
+ 		  from employee
+ 		 where emp_id = #{empId}
+ 	</select>
 </mapper>

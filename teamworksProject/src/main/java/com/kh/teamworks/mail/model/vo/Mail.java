@@ -29,6 +29,7 @@ public class Mail {
 	private String recipients; // 받는 사람 
 	private String readStatus;
 	
+	
 	private String strTo;
 	private String strCc;
 	private String strBcc;
