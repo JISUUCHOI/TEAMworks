@@ -144,7 +144,7 @@
 				<p style="font-size: 13px;">
 					<b>회사 로고</b>
 				</p>
-				<img src="/teamworks/resources/images/No-image-available.png" class="img-rounded">
+				<img src="${ pageContext.servletContext.contextPath }/resources/CompanyLogo/${ companyInfo.logoChange }" class="img-rounded">
 			</div>
 
 			<div id="t3" style="padding:10; font-size:13px;">
