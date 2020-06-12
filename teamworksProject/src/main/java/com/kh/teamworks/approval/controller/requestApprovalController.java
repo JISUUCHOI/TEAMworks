@@ -468,5 +468,30 @@ public class requestApprovalController {
 		
 	}
 	
+	// 9. sidebar 보관함별 문서개수 count
+	@ResponseBody
+	@RequestMapping(value="count.rap", produces="application/json; charset=utf-8")
+	public String countDoc(HttpServletRequest request, Model model) {
+		
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+	    Document d = new Document();
+		d.setEmpId(empId);
+		
+		int stand = raService.countStand(d);
+		int pending = raService.countPending(d);
+		int complete = raService.countComplete(d);
+		int refuse = raService.countRefuse(d);
+		int ref = raService.selectRefCount(d);
+		int callback = raService.countCallback(d);
+		
+		int[] count = new int[6];
+		count[0] = stand;
+		count[1] = pending;
+		count[2] = complete;
+		count[3] = refuse;
+		count[4] = ref;
+		count[5] = callback;
+		return new Gson().toJson(count);
+	}
 	
 }

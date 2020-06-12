@@ -216,4 +216,21 @@ public class ReqApprovalDao {
 		return (ArrayList)sqlSession.selectList("approveMapper.searchRefList", asc, rowBounds);
 	}
 	
+	// 9. sidebar 보관함별 문서개수 count
+	public int countStand(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countStand", d);
+	}
+	public int countPending(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countPending", d);
+	}
+	public int countComplete(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countComplete", d);
+	}
+	public int countRefuse(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countRefuse", d);
+	}
+	public int countCallback(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countCallback", d);
+	}
+	
 }

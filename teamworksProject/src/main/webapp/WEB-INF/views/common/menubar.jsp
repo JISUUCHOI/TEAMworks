@@ -52,7 +52,6 @@
             cursor:pointer;
             float:left;
         }
-
         @media (max-width:1100px) {
             #center{
                 margin-top:0px;
@@ -71,7 +70,6 @@
                 padding-left:50px;
             }
         }
-
         .menu:hover{
             border-bottom-style:groove;
             color:dimgray;
@@ -79,7 +77,6 @@
         .menu>a:hover{
             color:dimgray;
         }
-
         
         /* 메신저, 로그아웃 */
         #logout{
@@ -96,7 +93,6 @@
             color:white;
             font-size:12px;
         }
-
     </style>
 
 </head>

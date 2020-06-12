@@ -58,6 +58,8 @@
 </head>
 <body>
 
+	<%-- <jsp:forward page="WEB-INF/views/main.jsp"/> --%>
+
 	<div id="sidebarOuter">
 		<!-- 사이드바 -->
         <div id="sidebar">
@@ -69,12 +71,12 @@
             <div class="subCate" id="requestApprove"><a href="docList.ap?approveStatus=11">결재요청함</a></div>
             <div class="subCate" id="callbackDoc"><a href="docList.rap?approveStatus=5&currentPage=1">결재회수함</a></div>
             <div class="category">결재</div>
-            <div class="subCate" id="readyForApprove"><a href="docList.rap?approveStatus=0&currentPage=1">결재대기함</a> <span id="stand" style="font-weight:bold;"></span></div>
-            <div class="subCate" id="pendingApprove"><a href="docList.rap?approveStatus=1&currentPage=1">결재진행함</a> <span id="pending"><b>1</b></span></div>
-            <div class="subCate" id="doneApprove"><a href="docList.rap?approveStatus=2&currentPage=1">완료문서함</a> <span id="complete"><b>1</b></span></div>
-            <div class="subCate" id="refuseApprove"><a href="docList.rap?approveStatus=3&currentPage=1">반려문서함</a> <span id="refuse"><b>1</b></span></div>
-            <div class="subCate" id="refDoc"><a href="referenceList.rap?currentPage=1">참조문서함</a> <span><b>1</b></span id="ref"></div>
-            <div class="subCate" id="requestCallback"><a href="docList.rap?approveStatus=4&currentPage=1">회수요청함</a> <span id="callback"><b>1</b></span></div>
+            <div class="subCate" id="readyForApprove"><a href="docList.rap?approveStatus=0&currentPage=1">결재대기함</a> <span id="count0" style="font-weight:bold;"></span></div>
+            <div class="subCate" id="pendingApprove"><a href="docList.rap?approveStatus=1&currentPage=1">결재진행함</a> <span id="count1" style="font-weight:bold;"></span></div>
+            <div class="subCate" id="doneApprove"><a href="docList.rap?approveStatus=2&currentPage=1">완료문서함</a> <span id="count2" style="font-weight:bold;"></span></div>
+            <div class="subCate" id="refuseApprove"><a href="docList.rap?approveStatus=3&currentPage=1">반려문서함</a> <span id="count3" style="font-weight:bold;"></span></div>
+            <div class="subCate" id="refDoc"><a href="referenceList.rap?currentPage=1">참조문서함</a> <span id="count4" style="font-weight:bold;"></span></div>
+            <div class="subCate" id="requestCallback"><a href="docList.rap?approveStatus=4&currentPage=1">회수요청함</a> <span id="count5" style="font-weight:bold;"></span></div>
         </div>
    </div>
    
@@ -82,6 +84,29 @@
 	   $(function(){
 		    $("#approveDoc>a").css("color", "dimgray");
 		    $("#approveDoc").css("border-bottom-style", "groove");
+		    
+		    $(document).ready(function() {
+		    	
+		    	$.ajax({
+		    		url:"count.rap",
+		    		type:"post",
+		    		success:function(count){
+
+		    			console.log(count);
+		    			console.log(Object.keys(count).length);
+		    			
+						for(var i=0; i<Object.keys(count).length; i++){
+							$("#count" + i).text(count[i]);
+						}
+		    			
+		    		}, error:function(){
+		    			alert("보관함별 문서개수 count ajax 통신실패");
+		    		}
+		    	});
+		    	
+		    	
+		    });
+		    
 	   });
    </script>
 

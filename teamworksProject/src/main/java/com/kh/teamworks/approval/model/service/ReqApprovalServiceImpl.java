@@ -247,6 +247,32 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.searchRefList(sqlSession, asc, pi);
 	}
 
+	// 9. sidebar 보관함별 문서개수 count
+	@Override
+	public int countStand(Document d) {
+		return raDao.countStand(sqlSession, d);
+	}
+
+	@Override
+	public int countPending(Document d) {
+		return raDao.countPending(sqlSession, d);
+	}
+
+	@Override
+	public int countComplete(Document d) {
+		return raDao.countComplete(sqlSession, d);
+	}
+
+	@Override
+	public int countRefuse(Document d) {
+		return raDao.countRefuse(sqlSession, d);
+	}
+
+	@Override
+	public int countCallback(Document d) {
+		return raDao.countCallback(sqlSession, d);
+	}
+
 	
 	
 }
