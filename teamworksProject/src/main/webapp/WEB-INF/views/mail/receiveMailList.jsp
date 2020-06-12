@@ -101,7 +101,7 @@
                 	});
                 </script>
                 <hr>
-                <table class="table table-hover text-left">
+                <table id="receiveList" class="table table-hover text-left">
                     <thead>
                         <tr>
                             <th width="50px">
@@ -141,7 +141,15 @@
                     	</c:forEach> 
                     </tbody>
                 </table>
-                
+                <script>
+                	$(function(){
+                		$("#receiveList tbody tr td").click(function(){
+                			$(this).sibings().childred()
+                			location.href=""
+                		});
+                	});
+                	
+                </script>
                 
                 <ul class="pagination">
             	<c:if test="${ pi.currentPage ne 1 }">

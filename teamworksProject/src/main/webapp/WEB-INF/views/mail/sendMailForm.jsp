@@ -293,6 +293,7 @@
             </div>
         </div>
         <div class="modal-footer">
+                       하나씩 선택해주세요.
           <button type="button" id="emailList" class="btn btn-default" data-dismiss="modal">적용</button>
         </div>
       </div>
@@ -348,7 +349,7 @@
     			$("input[name=email]").removeClass();
     			$("input[name=empName]").removeClass();
     			$("a[class=selected]").removeClass();
-    			if(ToEmail.length <1){
+    			if(ToEmail.length<1 && mail.length<=1){
     				if($.isEmptyObject(mail)){
     					alert("추가할 항목을 선택해주세요.");
     				}else{
@@ -389,7 +390,7 @@
     			$("input[name=email]").removeClass();
     			$("input[name=empName]").removeClass();
     			$("a[class=selected]").removeClass();
-    			if(Cc.length <1){
+    			if(Cc.length <1  && mail.length<=1){
     				if($.isEmptyObject(mail)){
     					alert("추가할 항목을 선택해주세요.");
     				}else{
@@ -432,7 +433,7 @@
     			$("input[name=email]").removeClass();
     			$("input[name=empName]").removeClass();
     			$("a[class=selected]").removeClass();
-    			if(Bcc.length <1){
+    			if(Bcc.length <1  && mail.length<=1){
     				if($.isEmptyObject(mail)){
     					alert("추가할 항목을 선택해주세요.");
     				}else{
