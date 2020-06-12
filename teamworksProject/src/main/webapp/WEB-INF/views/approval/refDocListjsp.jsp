@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>참조문서함</title>
+<title>결재요청함</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <style>
@@ -157,7 +157,7 @@
 
         <!-- 본문 -->
         <div id="docListArea">
-            <h3>⊙ 참조문서함</h3><br>
+            <h3>⊙ 결재요청함</h3><br>
             <hr>
             <br>
 	            
@@ -224,7 +224,7 @@
                                 <option value="stand">대기</option>
                                 <option value="pending">진행</option>
                                 <option value="complete">완료</option>
-                                <option value="refuese">반려</option>
+                                <option value="refuse">반려</option>
                             </select>
                         </td>
                     </tr>
@@ -234,7 +234,6 @@
                             <select name="condition" class="schCondition">
                                 <option value="writer">기안자</option>
                                 <option value="title">제목</option>
-                                <option value="content">내용</option>
                                 <option value="form">양식</option>
                             </select>
                             <input id="keywordInp" class="btn form-control form-control" type="text" name="keyword">

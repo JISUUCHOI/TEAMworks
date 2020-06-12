@@ -602,18 +602,18 @@
 				and doc_date between #{startDate} and #{endDate}
 			</if>
 			<if test="stand != null">
-				and doc_status = #{stand}
+				and doc_status = 0
 			</if>
 			<if test="pending != null">
-				and doc_status = #{pending}
+				and doc_status = 1
 			</if>
 			<if test="complete != null">
-				and doc_status = #{complete}
+				and doc_status = 2
 			</if>
 			<if test="refuse != null">
-				and doc_status = #{refuse}
+				and doc_status = 3
 			</if>
- 		 order by doc_date asc
+ 		 order by doc_date desc
 	</select>
 	
 	<select id="searchRefList" parameterType="asc" resultMap="reqApprovalResultSet">
@@ -648,18 +648,18 @@
 				and doc_date between #{startDate} and #{endDate}
 			</if>
 			<if test="stand != null">
-				and doc_status = #{stand}
+				and doc_status = 0
 			</if>
 			<if test="pending != null">
-				and doc_status = #{pending}
+				and doc_status = 1
 			</if>
 			<if test="complete != null">
-				and doc_status = #{complete}
+				and doc_status = 2
 			</if>
 			<if test="refuse != null">
-				and doc_status = #{refuse}
+				and doc_status = 3
 			</if>
- 		 order by doc_date asc
+ 		 order by doc_date desc
 	
 	</select>
 	

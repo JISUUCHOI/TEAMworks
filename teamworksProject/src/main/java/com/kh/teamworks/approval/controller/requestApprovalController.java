@@ -422,7 +422,7 @@ public class requestApprovalController {
 		model.addAttribute("list", list);
 		model.addAttribute("pi", pi);
 		
-		return "approval/refDocListjsp";
+		return "approval/referenceList";
 		
 	}
 	
@@ -434,6 +434,7 @@ public class requestApprovalController {
 		String keyword = asc.getKeyword();
 		String docStatus = asc.getDocStatus();
 		
+		
 		if(condition != null) {
 			switch(condition) {
 			case "writer" : asc.setWriter(keyword); break;
@@ -444,13 +445,13 @@ public class requestApprovalController {
 		
 		if(docStatus != null) {
 			switch(docStatus) {
-			case "stand" : asc.setStand(0); break;
-			case "pending" : asc.setPending(1); break;
-			case "complete" : asc.setComplete(2); break;
-			case "refuse" : asc.setRefuse(3); break;
+			case "stand" : asc.setStand("stand"); break;
+			case "pending" : asc.setPending("pending"); break;
+			case "complete" : asc.setComplete("complete"); break;
+			case "refuse" : asc.setRefuse("refuse"); break;
 			}
 		}
-		
+		System.out.println(asc);
 		// 8_1. 검색 결과에 해당하는 참조문서 개수 조회
 		int listCount = raService.searchRefCount(asc);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -464,7 +465,7 @@ public class requestApprovalController {
 		model.addAttribute("pi", pi);
 		model.addAttribute("asc", asc);
 		
-		return "approval/refDocListjsp";
+		return "approval/referenceList";
 		
 	}
 	
