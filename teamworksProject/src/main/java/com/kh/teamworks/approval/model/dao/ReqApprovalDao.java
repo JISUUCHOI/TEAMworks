@@ -257,4 +257,13 @@ public class ReqApprovalDao {
 		return sqlSession.selectOne("approveMapper.countCallback", d);
 	}
 	
+	// 11_1. '진행'중인 결재권자에게 회수요청
+	public int requestCallback(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.requestCallback",d);
+	}
+	
+	// 11_2. 기안자 doc_status 4.회수요청으로 변경
+	public int updateDocSt(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.updateDocSt", d);
+	}
 }

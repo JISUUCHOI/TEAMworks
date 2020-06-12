@@ -298,6 +298,18 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.countCallback(sqlSession, d);
 	}
 
+	// 11_1. '진행'중인 결재권자에게 회수요청
+	@Override
+	public int requestCallback(Document d) {
+		return raDao.requestCallback(sqlSession, d);
+	}
+
+	// 11_2. 기안자 doc_status 4.회수요청으로 변경
+	@Override
+	public int updateDocSt(Document d) {
+		return raDao.updateDocSt(sqlSession, d);
+	}
+
 	
 
 	

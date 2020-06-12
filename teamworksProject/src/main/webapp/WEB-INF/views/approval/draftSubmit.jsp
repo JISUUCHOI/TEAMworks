@@ -20,6 +20,11 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- alertifyJS 라이브러리-->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
 </head>
 <style>
     #paymentOpinion, #paymentOpinion tr, #paymentOpinion td, #paymentOpinion th{
@@ -36,7 +41,7 @@
         width:200px;
         float:right;
     }
-    #approveBtn{
+    #approveBtn, #callbackBtn{
         width:60px;
         height:28px;
         background: rgb(7, 53, 90);
@@ -128,6 +133,15 @@
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="approvalSidebar.jsp"/>
+	
+	
+	<c:if test="${ !empty msg }">
+		<script>
+			alertify.alert("${msg}");
+		</script>
+		<c:remove var="msg" scope="session"/>	<!-- session scope 안에 담겨있는 msg 값 지워주겠다 -->
+	</c:if>
+	
 	<div id="bodyWrapper">
 	    <div id="draftOuter">
 	
@@ -145,7 +159,16 @@
 	           	    	<c:when test="${ d.get(0).docStatus eq 3 and loginUser.empId eq d.get(0).getEmpId() }">
 	              			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
 	           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
-	              		</c:when>	
+	              		</c:when>
+	              		<c:when test="${ d.get(0).docStatus eq 0 and loginUser.empId eq d.get(0).getEmpId() }">
+	              			<form action="reqCallback.rap" method="post">
+		              			<input type="hidden" name="docNo" value="${ d.get(0).getDocNo() }">
+		              			<input type="hidden" name="docSc" value="${ d.get(0).getDocSc() }">
+		              			<button type="submit" id="callbackBtn">회수요청</button>
+	              			</form>
+	              		</c:when>
+	              		<c:otherwise>
+	              		</c:otherwise>
 	              	</c:choose>
 	                
 	                <c:choose>

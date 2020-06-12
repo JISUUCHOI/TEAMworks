@@ -900,5 +900,30 @@
 		where approver_empid=#{empId} and approve_status=4
 	</select>
 	
+
+
+	<update id="requestCallback" parameterType="Document">
+		update approve_line
+		   set approve_status=4,
+		   	   approve_reject='회수요청'
+		 where doc_no=#{docNo} and approve_step=0
+	</update>
+	
+	<update id="updateDocSt" parameterType="Document">
+		<if test="docSc == '경조비신청서'">
+			update family_event
+		</if>
+		<if test="docSc == '제증명신청서'">
+			update proof
+		</if>
+		<if test="docSc == '휴가신청서'">
+			update vacation
+		</if>
+		<if test="docSc == '기안서'">
+			update draft
+		</if>
+			   set doc_status=4
+			 where doc_no=#{docNo}
+	</update>
 	
 </mapper>

@@ -144,4 +144,10 @@ public interface ReqApprovalService {
 	 int countRefuse(Document d);
 	 int countCallback(Document d);
 	 
+	// 11_1. '진행'중인 결재권자에게 회수요청
+	 int requestCallback(Document d);
+	 
+	// 11_2. 기안자 doc_status 4.회수요청으로 변경
+	 int updateDocSt(Document d);
+	 
 }

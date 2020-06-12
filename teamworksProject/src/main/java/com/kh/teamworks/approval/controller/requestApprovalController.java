@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -479,7 +480,6 @@ public class requestApprovalController {
 	    // 9_1. 결재요청함 총 문서개수 조회
 	    int listCount = raService.selectMyDocCount(d);
 	    PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-	    System.out.println(pi);
 	    
 	    
 		// 9_2. 결재요청함 리스트 조회
@@ -500,7 +500,6 @@ public class requestApprovalController {
 			String condition = asc.getCondition();
 			String keyword = asc.getKeyword();
 			String docStatus = asc.getDocStatus();
-			
 			
 			if(condition != null) {
 				switch(condition) {
@@ -527,8 +526,6 @@ public class requestApprovalController {
 			
 			// 9_4. 검색 결과에 해당하는 참조문서 리스트 조회
 			ArrayList<Document> list = raService.searchMyDocList(asc, pi);
-			
-			System.out.println(list);
 			
 			model.addAttribute("listCount", listCount);
 			model.addAttribute("list", list);
@@ -566,5 +563,28 @@ public class requestApprovalController {
 		
 		return new Gson().toJson(count);
 	}
+	
+	// 11. 회수요청
+	@RequestMapping("reqCallback.rap")
+	public String requestCallback(Document d, Model model, HttpSession session) {
+		
+		// 11_1. '진행'중인 결재권자에게 회수요청
+		int result1 = raService.requestCallback(d);
+
+		// 11_2. 기안자 doc_status 4.회수요청으로 변경
+		int result2 = raService.updateDocSt(d);
+		
+		if(result1 * result2>0) {
+			model.addAttribute("docNo", d.getDocNo());
+			model.addAttribute("docSc", d.getDocSc());
+			
+			session.setAttribute("msg", "회수요청 완료");
+			return "redirect:detailDoc.rap";
+		}else {
+			return "common/errorPage";
+		}
+		
+	}
+	
 	
 }
