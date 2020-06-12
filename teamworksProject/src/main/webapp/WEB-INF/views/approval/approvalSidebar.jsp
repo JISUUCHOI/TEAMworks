@@ -66,7 +66,7 @@
             
             <div class="category">기안</div>
             <div class="subCate" id="writeDoc"><a href="formList.ap">기안문작성</a></div>
-            <div class="subCate" id="requestApprove"><a href="docList.ap?approveStatus=11">결재요청함</a></div>
+            <div class="subCate" id="requestApprove"><a href="myDocList.rap?currentPage=1">결재요청함</a></div>
             <div class="subCate" id="callbackDoc"><a href="docList.rap?approveStatus=5&currentPage=1">결재회수함</a></div>
             <div class="category">결재</div>
             <div class="subCate" id="readyForApprove"><a href="docList.rap?approveStatus=0&currentPage=1">결재대기함</a> <span id="count0" style="font-weight:bold;"></span></div>

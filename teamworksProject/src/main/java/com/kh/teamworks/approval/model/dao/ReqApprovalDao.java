@@ -216,7 +216,31 @@ public class ReqApprovalDao {
 		return (ArrayList)sqlSession.selectList("approveMapper.searchRefList", asc, rowBounds);
 	}
 	
-	// 9. sidebar 보관함별 문서개수 count
+	// 9_1. 결재요청함 총 문서개수 조회
+	public int selectMyDocCount(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.selectMyDocCount", d);
+	}
+	
+	// 9_2. 결재요청함 리스트 조회
+	public ArrayList<Document> selectMyDocList(SqlSessionTemplate sqlSession, Document d, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.selectMyDocList", d, rowBounds);
+	}
+	
+	// 9_3. 검색 결과에 해당하는 참조문서 개수 조회
+	public int searchMyDocCount(SqlSessionTemplate sqlSession, ApproveSearchCondition asc) {
+		return sqlSession.selectOne("approveMapper.searchMyDocCount", asc);
+	}
+	
+	// 9_4. 검색 결과에 해당하는 참조문서 리스트 조회
+	public ArrayList<Document> searchMyDocList(SqlSessionTemplate sqlSession, ApproveSearchCondition asc, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.searchMyDocList", asc, rowBounds);
+	}
+	
+	// 10. sidebar 보관함별 문서개수 count
 	public int countStand(SqlSessionTemplate sqlSession, Document d) {
 		return sqlSession.selectOne("approveMapper.countStand", d);
 	}

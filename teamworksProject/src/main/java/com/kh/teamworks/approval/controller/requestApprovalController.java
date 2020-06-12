@@ -451,13 +451,12 @@ public class requestApprovalController {
 			case "refuse" : asc.setRefuse("refuse"); break;
 			}
 		}
-		System.out.println(asc);
-		// 8_1. 검색 결과에 해당하는 참조문서 개수 조회
+		// 8_3. 검색 결과에 해당하는 참조문서 개수 조회
 		int listCount = raService.searchRefCount(asc);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
-		// 8_2. 검색 결과에 해당하는 참조문서 리스트 조회
+		// 8_4. 검색 결과에 해당하는 참조문서 리스트 조회
 		ArrayList<Document> list = raService.searchRefList(asc, pi);
 		
 		model.addAttribute("listCount", listCount);
@@ -469,7 +468,79 @@ public class requestApprovalController {
 		
 	}
 	
-	// 9. sidebar 보관함별 문서개수 count
+	// 9.결재요청함
+	@RequestMapping("myDocList.rap")
+	public String selectMyDocList(HttpServletRequest request, Model model, int currentPage) {
+		
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+	    Document d = new Document();
+	    d.setEmpId(empId);
+	    
+	    // 9_1. 결재요청함 총 문서개수 조회
+	    int listCount = raService.selectMyDocCount(d);
+	    PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+	    System.out.println(pi);
+	    
+	    
+		// 9_2. 결재요청함 리스트 조회
+		ArrayList<Document> list = raService.selectMyDocList(d, pi);
+		
+		model.addAttribute("listCount", listCount);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "approval/refDocListjsp";
+		
+	}
+	
+	// 9_3. 참조문서함 검색
+		@RequestMapping("myDocSearch.rap")
+		public String searchMyDocList(HttpServletRequest request, ApproveSearchCondition asc, Model model) {
+			
+			String condition = asc.getCondition();
+			String keyword = asc.getKeyword();
+			String docStatus = asc.getDocStatus();
+			
+			
+			if(condition != null) {
+				switch(condition) {
+				case "writer" : asc.setWriter(keyword); break;
+				case "title" : asc.setTitle(keyword); break;
+				case "form" : asc.setForm(keyword); break;
+				}
+			}
+			
+			if(docStatus != null) {
+				switch(docStatus) {
+				case "stand" : asc.setStand("stand"); break;
+				case "pending" : asc.setPending("pending"); break;
+				case "complete" : asc.setComplete("complete"); break;
+				case "refuse" : asc.setRefuse("refuse"); break;
+				}
+			}
+
+			// 9_3. 검색 결과에 해당하는 참조문서 개수 조회
+			int listCount = raService.searchMyDocCount(asc);
+			System.out.println(listCount);
+			int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+			
+			// 9_4. 검색 결과에 해당하는 참조문서 리스트 조회
+			ArrayList<Document> list = raService.searchMyDocList(asc, pi);
+			
+			System.out.println(list);
+			
+			model.addAttribute("listCount", listCount);
+			model.addAttribute("list", list);
+			model.addAttribute("pi", pi);
+			model.addAttribute("asc", asc);
+			
+			return "approval/refDocListjsp";
+			
+		}
+	
+	
+	// 10. sidebar 보관함별 문서개수 count
 	@ResponseBody
 	@RequestMapping(value="count.rap", produces="application/json; charset=utf-8")
 	public String countDoc(HttpServletRequest request, Model model) {
