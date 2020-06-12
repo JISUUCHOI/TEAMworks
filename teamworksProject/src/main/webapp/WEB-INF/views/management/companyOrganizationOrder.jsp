@@ -49,20 +49,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="j" begin="1" end="${fn:length(jobList)}">
-						<tr id="00${j}">
-							<td id="no"></td>
-							<td id="jobName"></td>
-							<td id="btnArea">
-								<button type="button" class="btn btn-info btn-primary btn-sm" data-toggle="modal"  data-target="#myModal" >수정</button>
-								<button type="button" class="btn btn-secondary btn btn-primary btn-sm">삭제</button>
-							</td>
-							<td id="arrowArea"></td>
-						</tr>
-					</c:forEach>
-				
-				
-<%-- 					<c:forEach items="${jobList}" var="j">
+ 					<c:forEach items="${jobList}" var="j">
 						<tr>
 							<td><b>${j.jobCode % 10}</b></td>
 							<td>${j.jobName}</td>
@@ -99,13 +86,13 @@
 							</c:choose>
 
 						</tr>
-					</c:forEach> --%>
+					</c:forEach>
 		
 					<tr>
 						<th scope="row"></th>
 						<td><input type="text" placeholder="내용을 입력해주세요"></td>
 						<td><button type="button"
-								class="btn btn-warning btn btn-primary btn-sm"">추가</button></td>
+								class="btn btn-warning btn btn-primary btn-sm">추가</button></td>
 						<td></td>
 					</tr>
 				</tbody>
@@ -140,39 +127,6 @@
 	
 	
 	<script>
-		$(function(){
-			$.ajax({
-				url:"jobList.mg",
-				data:{},
-				type:"post",
-				success:function(list){
-					
-					for(var i=0; i<list.length; i++) {
-						var index = i+1;
-						var selector = '#00' + index;
-						$(selector).children('#no').text(index);
-						$(selector).children('#jobName').text(list[i].jobName);
-/* 						$(selector).children('#btnArea').text(empList[e].deptName);
-						$(selector).children('#arrowArea').text(empList[e].phone); */
-						if(i == 0) { // 제일 위 직급
-							var value = '<button class="btn" onclick="moveUp(this);" disabled><i class="fa fa-arrow-up" aria-hidden="true"></i></button>&nbsp;<button class="btn" onclick="moveDown(this);"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>'
-							$(selector).children('#arrowArea').html(value);
-						}else if(i == list.length-1) { // 제일 아래 직급
-							var value = '<button class="btn" onclick="moveUp(this);"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>&nbsp;<button class="btn" onclick="moveDown(this);" disabled><i class="fa fa-arrow-down" aria-hidden="true"></i></button>';
-							$(selector).children('#arrowArea').html(value);
-						}else {
-							var value = '<button class="btn" onclick="moveUp(this);"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>&nbsp;<button class="btn" onclick="moveDown(this);"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>';
-							$(selector).children('#arrowArea').html(value);
-						}
-						
-					}
-					
-				},error:function(){
-					console.log("테이블에 값 넣는 용도의 ajax 통신 실패");
-				}
-			});
-		});
-	
 		function moveUp(el) {
 			var $tr = $(el).parent().parent(); // 클릭한 버튼이 속한 tr 요소
 			$tr.prev().before($tr); // 현재 tr 의 이전 tr 앞에 선택한 tr 넣기

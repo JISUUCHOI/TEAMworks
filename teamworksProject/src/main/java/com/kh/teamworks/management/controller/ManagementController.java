@@ -312,19 +312,6 @@ public class ManagementController {
 
 		return "management/companyOrganizationOrder";
 	}
-	
-	// 직급 관리
-	// 테이블에 값 넣는 용도의 ajax
-	@ResponseBody
-	@RequestMapping(value="jobList.mg", method=RequestMethod.POST)
-	public void selectJobList(HttpServletResponse response) throws JsonIOException, IOException {
-		
-		ArrayList<Job> jobList = mgService.selectJobList();
-		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(jobList, response.getWriter());
-	}
 
-	
 
 }
