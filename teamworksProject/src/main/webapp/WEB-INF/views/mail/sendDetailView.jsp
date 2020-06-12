@@ -49,7 +49,7 @@
                     <td>
                     <c:forEach var="m" items="${ mailList }">
                     	<c:if test="${ m.refType eq 'T' }">
-		                    ${ m.recipientsEmail }
+		                    [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
                     	</c:if>
                     </c:forEach>
                     </td>
@@ -59,7 +59,7 @@
                     <td>
                     <c:forEach var="m" items="${ mailList }">
 	                    	<c:if test="${ m.refType eq 'C' }">
-			                    ${ m.recipientsEmail }
+			                    [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
 	                    	</c:if>
                     </c:forEach>
                     </td>
@@ -69,7 +69,7 @@
                     <td>
                      <c:forEach var="m" items="${ mailList }">
                     	<c:if test="${ m.refType eq 'B' }">
-		                    ${ m.recipientsEmail }
+		                    [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
                     	</c:if>
                     </c:forEach>
                     </td>

@@ -602,18 +602,18 @@
 				and doc_date between #{startDate} and #{endDate}
 			</if>
 			<if test="stand != null">
-				and doc_status = #{stand}
+				and doc_status = 0
 			</if>
 			<if test="pending != null">
-				and doc_status = #{pending}
+				and doc_status = 1
 			</if>
 			<if test="complete != null">
-				and doc_status = #{complete}
+				and doc_status = 2
 			</if>
 			<if test="refuse != null">
-				and doc_status = #{refuse}
+				and doc_status = 3
 			</if>
- 		 order by doc_date asc
+ 		 order by doc_date desc
 	</select>
 	
 	<select id="searchRefList" parameterType="asc" resultMap="reqApprovalResultSet">
@@ -648,21 +648,122 @@
 				and doc_date between #{startDate} and #{endDate}
 			</if>
 			<if test="stand != null">
-				and doc_status = #{stand}
+				and doc_status = 0
 			</if>
 			<if test="pending != null">
-				and doc_status = #{pending}
+				and doc_status = 1
 			</if>
 			<if test="complete != null">
-				and doc_status = #{complete}
+				and doc_status = 2
 			</if>
 			<if test="refuse != null">
-				and doc_status = #{refuse}
+				and doc_status = 3
 			</if>
- 		 order by doc_date asc
+ 		 order by doc_date desc
 	
 	</select>
 	
 	
+	
+	<select id="countStand" parameterType="Document" resultType="_int">
+		select count(*)
+		  from (select v.doc_no, a.approver_empid, a.approve_status
+        		  from vacation v
+        		  join approve_line a on(v.doc_no = a.doc_no)
+      			 UNION ALL
+      			select f.doc_no, a.approver_empid, a.approve_status
+        		  from family_event f
+        		  join approve_line a on(f.doc_no = a.doc_no)
+        		 UNION ALL
+		        select p.doc_no, a.approver_empid, a.approve_status
+		          from proof p
+		          join approve_line a on(p.doc_no = a.doc_no)
+		         UNION ALL
+		        select d.doc_no, a.approver_empid, a.approve_status
+		          from draft d
+		          join approve_line a on(d.doc_no = a.doc_no))
+		where approver_empid=#{empId} and approve_status=0
+	</select>
+	
+	<select id="countPending" parameterType="Document" resultType="_int">
+		select count(*)
+		  from (select v.doc_no, a.approver_empid, a.approve_status
+        		  from vacation v
+        		  join approve_line a on(v.doc_no = a.doc_no)
+      			 UNION ALL
+      			select f.doc_no, a.approver_empid, a.approve_status
+        		  from family_event f
+        		  join approve_line a on(f.doc_no = a.doc_no)
+        		 UNION ALL
+		        select p.doc_no, a.approver_empid, a.approve_status
+		          from proof p
+		          join approve_line a on(p.doc_no = a.doc_no)
+		         UNION ALL
+		        select d.doc_no, a.approver_empid, a.approve_status
+		          from draft d
+		          join approve_line a on(d.doc_no = a.doc_no))
+		where approver_empid=#{empId} and approve_status=1
+	</select>
 
+	<select id="countComplete" parameterType="Document" resultType="_int">
+		select count(*)
+		  from (select v.doc_no, a.approver_empid, a.approve_status
+        		  from vacation v
+        		  join approve_line a on(v.doc_no = a.doc_no)
+      			 UNION ALL
+      			select f.doc_no, a.approver_empid, a.approve_status
+        		  from family_event f
+        		  join approve_line a on(f.doc_no = a.doc_no)
+        		 UNION ALL
+		        select p.doc_no, a.approver_empid, a.approve_status
+		          from proof p
+		          join approve_line a on(p.doc_no = a.doc_no)
+		         UNION ALL
+		        select d.doc_no, a.approver_empid, a.approve_status
+		          from draft d
+		          join approve_line a on(d.doc_no = a.doc_no))
+		where approver_empid=#{empId} and approve_status=2
+	</select>
+	
+	<select id="countRefuse" parameterType="Document" resultType="_int">
+		select count(*)
+		  from (select v.doc_no, a.approver_empid, a.approve_status
+        		  from vacation v
+        		  join approve_line a on(v.doc_no = a.doc_no)
+      			 UNION ALL
+      			select f.doc_no, a.approver_empid, a.approve_status
+        		  from family_event f
+        		  join approve_line a on(f.doc_no = a.doc_no)
+        		 UNION ALL
+		        select p.doc_no, a.approver_empid, a.approve_status
+		          from proof p
+		          join approve_line a on(p.doc_no = a.doc_no)
+		         UNION ALL
+		        select d.doc_no, a.approver_empid, a.approve_status
+		          from draft d
+		          join approve_line a on(d.doc_no = a.doc_no))
+		where approver_empid=#{empId} and approve_status=3
+	</select>
+	
+	<select id="countCallback" parameterType="Document" resultType="_int">
+		select count(*)
+		  from (select v.doc_no, a.approver_empid, a.approve_status
+        		  from vacation v
+        		  join approve_line a on(v.doc_no = a.doc_no)
+      			 UNION ALL
+      			select f.doc_no, a.approver_empid, a.approve_status
+        		  from family_event f
+        		  join approve_line a on(f.doc_no = a.doc_no)
+        		 UNION ALL
+		        select p.doc_no, a.approver_empid, a.approve_status
+		          from proof p
+		          join approve_line a on(p.doc_no = a.doc_no)
+		         UNION ALL
+		        select d.doc_no, a.approver_empid, a.approve_status
+		          from draft d
+		          join approve_line a on(d.doc_no = a.doc_no))
+		where approver_empid=#{empId} and approve_status=4
+	</select>
+	
+	
 </mapper>

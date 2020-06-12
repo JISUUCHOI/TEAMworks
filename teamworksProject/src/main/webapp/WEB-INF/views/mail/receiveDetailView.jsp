@@ -46,14 +46,14 @@
                 </tr>
                 <tr>
                     <th>보낸사람</th>
-                    <td>${ mailList[0].senderEmail }</td>
+                    <td>[${mailList[0].senderName}]&nbsp;${ mailList[0].senderEmail }</td>
                 </tr>
                 <tr>
                     <th>참조</th>
                     <td>
                     <c:forEach var="m" items="${ mailList }">
 	                    	<c:if test="${ m.refType eq 'C' }">
-			                    ${ m.recipientsEmail }
+			                    [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
 	                    	</c:if>
                     </c:forEach>
                     </td>
@@ -63,7 +63,7 @@
                     <td>
                      <c:forEach var="m" items="${ mailList }">
                     	<c:if test="${ m.refType eq 'B' && loginUser.email eq m.recipientsEmail}">
-		                    ${ m.recipientsEmail }
+		                     [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
                     	</c:if>
                     </c:forEach>
                     </td>
