@@ -241,6 +241,8 @@
 				<c:if test="${ !empty d.originName }">
 					현재 업로드된 파일 :
 					<a href="${ pageContext.servletContext.contextPath}/resources/approveUploadFiles/${ d.changeName }" download="${ d.originName }">${ d.originName }</a>
+					<input type="hidden" name="originName" value="originName">
+					<input type="hidden" name="changeName" value="changeName">
 	            </c:if>	
 	        </form>
 	    </div>

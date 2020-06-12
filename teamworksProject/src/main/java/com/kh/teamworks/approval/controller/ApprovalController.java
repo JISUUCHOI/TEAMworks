@@ -164,6 +164,11 @@ public class ApprovalController {
 
 		for (MultipartFile file : fileList) {
 			if(!file.getOriginalFilename().equals("")) {
+				
+				if(d.getChangeName() != null) {
+					deleteFile(d.getChangeName(), request);
+				}
+				
 				String changeName = saveFile(file, request);
 				d.setOriginName(file.getOriginalFilename());
 				d.setChangeName(changeName);
@@ -342,6 +347,7 @@ public class ApprovalController {
 		}
 		
 	}
+		
 	
 	// 경조비 삭제
 	@RequestMapping("deleteFamilyEvent.ap")
