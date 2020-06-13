@@ -171,7 +171,17 @@
 				//console.log($('#rankTable>tbody>tr:nth-child('+i+')').attr("id"));
 			}
 
-			
+
+			$.ajax({
+				url:"saveRank.mg",
+				type:"post",
+				data:{newList:newList},
+				success:function(){
+					
+				},error:function(){
+					console.log('순서 저장용 ajax 통신 실패!');
+				}
+			});
 		}
 	</script>
 	

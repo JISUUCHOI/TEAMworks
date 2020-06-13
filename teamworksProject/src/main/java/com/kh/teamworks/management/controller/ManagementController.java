@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -438,8 +440,14 @@ public class ManagementController {
 		return "management/companyOrganizationOrder";
 	}
 	
-	
-
+	//직급 관리
+	@ResponseBody
+	@RequestMapping(value="saveRank.mg", method=RequestMethod.POST)
+	public void saveRank(@RequestParam(value="newList[]") ArrayList<Job> newList, HttpServletResponse response) {
+		
+		System.out.println(newList);
+		//int result = mgService.saveRank(newList);
+	}
 	
 
 }
