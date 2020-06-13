@@ -372,10 +372,6 @@ public class ManagementController {
 
 		ArrayList<Vacation> vacList =mgService.selectVacationList(pi);
 
-
-		
-		System.out.println(vacList);
-
 		
 		model.addAttribute("vacList", vacList);
 
