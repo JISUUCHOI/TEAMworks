@@ -234,6 +234,7 @@ public class ApprovalController {
 		// System.out.println(list);
 		 
 		return "approval/refDocListjsp";
+		
 	}
 	
 	// 참조문서함 연결
@@ -406,6 +407,30 @@ public class ApprovalController {
 		}
 		return changeName;
 	}
+	
+	// 기안문 검색
+	@RequestMapping("searchDoc.ap")
+	public String searchDoc(HttpServletRequest request, String d, Model model) {
+		return d;
+		
+	}
+	
+	// 기안문작성 연결
+	@RequestMapping("writeDocList.ap")
+	public String writeDocList(Model model, HttpServletRequest request) {
+		
+		Document d = new Document();
+		
+		
+		ArrayList<Document> list = aService.docList(d);		 
+		model.addAttribute("list", list);
+
+		System.out.println(list);
+		 
+		return "approval/selectApprovalForm";
+	}
+	
+
 	
 	// 파일삭제
 	public void deleteFile(String fileName, HttpServletRequest request) {

@@ -114,7 +114,7 @@
 	        <hr>
 	        <br>
 	
-	        <form id="schArea" action="">
+	        <form id="schArea" action="searchDoc.ap">
 	            <input type="search" id="schInput" name="formSch">
 	            <button type="submit" id="schButton">검색</button>
 	            

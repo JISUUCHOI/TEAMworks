@@ -76,6 +76,15 @@
 		<result column="dept_name" property="deptName"/>
 		<result column="approve_step" property="approveStep"/>
 	</resultMap>
+	
+	<resultMap id="reqApprovalResultSet" type="DocumentList">
+		<id column="doc_no" property="docNo"/>
+		<result column="emp_id" property="empId"/>
+		<result column="doc_sc" property="docSc"/>
+		<result column="doc_status" property="docStatus"/>
+		<result column="doc_title" property="docTitle"/>	
+		
+	</resultMap>
 
 
 	<select id="selectEmpInfo" parameterType="string" resultMap="empInfoResultSet">
