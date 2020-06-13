@@ -15,10 +15,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<resultMap id="empVacationResultSet" type="MgVac">
-		<id column="vacation_year" property="vacationYear" />
-		<result column="emp_id" property="empId" />
-		<result column="vacation_total" property="vacationTotal" />
-		<result column="vacation_count" property="vacationCount" />
+		<id column="emp_id" property="empId" />
+		<result column="vacation_year" property="vcYear" />
+		<result column="emp_name" property="empName"/>
+		<result column="hire_date" property="hireDate"/>
+		<result column="vacation_total" property="vcTotal" />
+		<result column="vacation_count" property="vcCount" />
 	</resultMap>
 
 	<resultMap id="companyBsnsResultSet" type="MgBsns">
@@ -30,6 +32,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="company_kind" property="companyKind" />
 		<result column="company_adrs" property="companyAdrs" />
 		<result column="company_exno" property="companyExno" />
+		<result column="seal_origin_name" property="sealOrigin"/>
+		<result column="seal_change_name" property="sealChange"/>
 	</resultMap>
 
 	<resultMap id="companyInfoResultSet" type="MgInfo">
@@ -40,7 +44,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="emp_id" property="empId" />
 		<result column="logo_origin_name" property="logoOrigin" />
 		<result column="logo_change_name" property="logoChange" />
-		<result column="logo_path" property="logoPath" />
 	</resultMap>
 
 	<resultMap id="empProofResultSet" type="MgProof">
@@ -108,13 +111,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectEmpCount" resultType="_int">
 		SELECT COUNT(*)
 		  FROM EMPLOYEE
-		 WHERE EMP_STATUS='Y'
+		 WHERE EMP_STATUS = 'Y'
 	</select>	
 	
 	<select id="selectEmpList" resultMap="employeeResultSet">
-		SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL, EMP_PHONE 
-		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
-		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE AND EMP_STATUS='Y'
+        SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL, EMP_PHONE
+		  FROM EMPLOYEE E
+          JOIN JOB USING(JOB_CODE)
+          JOIN DEPARTMENT USING(DEPT_CODE)
+		 WHERE EMP_STATUS = 'Y'
 	</select>
 	
 	<select id="selectOrgEmpList" parameterType="_int" resultMap="employeeResultSet">
@@ -183,15 +188,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE DEPT_CODE=#{deptCode}
 	</delete>
 	
-	<select id="selectVactionList">
-	SELECT EMP.EMP_ID, D.EMP_NAME, D.TOTAL, EMP.HIRE_DATE
-	  FROM (SELECT EMP_NAME, SUM(VCTOTAL) TOTAL
-	        FROM(SELECT V.EMP_ID, E.EMP_NAME, V.VC_COUNT VCTOTAL
-	             FROM VACATION V
-	             JOIN EMPLOYEE E ON(V.EMP_ID = E.EMP_ID))
-	             GROUP BY EMP_NAME) D
-	       JOIN EMPLOYEE EMP ON(D.EMP_NAME= EMP.EMP_NAME)
+	<select id="selectVacList" resultMap="empVacationResultSet">
+		SELECT EMP_ID, EMP_NAME, VACATION_COUNT, HIRE_DATE
+		  FROM (SELECT emp.emp_id, D.emp_name, D.vacation_count, emp.hire_date
+	  	  FROM (SELECT emp_name, SUM(vccount) vacation_count
+	                   FROM(SELECT V.emp_id, E.emp_name, V.vc_count vccount
+	                   FROM vacation V
+	                   JOIN employee E ON(V.emp_id = E.emp_id))
+	                   GROUP BY emp_name) D
+	              JOIN employee emp ON(D.emp_name= emp.emp_name))
 	</select>
+	
+	<select id="selectVacCount" resultType="_int">
+		SELECT count(*) FROM(SELECT emp.emp_id, D.emp_name, D.vacation_count, emp.hire_date
+	  	  FROM (SELECT emp_name, SUM(vccount) vacation_count
+	                   FROM(SELECT V.emp_id, E.emp_name, V.vc_count vccount
+	                   FROM vacation V
+	                   JOIN employee E ON(V.emp_id = E.emp_id))
+	                   GROUP BY emp_name) D
+	              JOIN employee emp ON(D.emp_name= emp.emp_name))
+	</select>
+	
+	
 	
 	<update id="updateLogo" parameterType="MgInfo">
 		UPDATE COMPANY_INFO
@@ -200,5 +218,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE HOM_NO=#{homNo}
 	</update>
 	
+	<update id="updateSeal" parameterType="MgBsns">
+		UPDATE COMPANY_BSNS
+		   SET SEAL_CHANGE_NAME = #{sealChange},
+		       SEAL_ORIGIN_NAME = #{sealOrigin}
+		 WHERE COMPANY_NO = #{companyNo}
+	</update>
+	
+	<update id="updateStatus">
+		UPDATE EMPLOYEE
+		   SET EMP_STATUS = 'N'
+		 WHERE EMP_ID = #{empId}
+	</update>
+
+	<update id="updateCompanyBsns" parameterType="MgBsns">
+		UPDATE COMPANY_BSNS 
+		   SET COMPANY_NO=#{companyNo}, COMPANY_EXNO=#{companyExno}, COMPANY_NAME=#{companyName}, COMPANY_HEAD=#{companyHead},
+		   	   COMPANY_CON=#{companyCon}, COMPANY_KIND=#{companyKind}, COMPANY_ADRS=#{companyAdrs}
+		 WHERE HOM_NO=#{homNo}  	
+	</update>
+
 
 </mapper>

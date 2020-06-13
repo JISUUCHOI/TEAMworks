@@ -21,7 +21,7 @@
     #sidebar{
     	position:absolute;
         width:250px;
-        height:140%;
+        height:150%;
         float:left;
        /*  margin-top:100px; */
         padding-top:20px;
@@ -71,7 +71,7 @@
             <div class="subCate"><a href="enrollEmp.mg">인사 정보 등록</a></div>
             <div class="subCate"><a href="empList.mg?currentPage=1">사원 명부</a></div>
             <div class="subCate"><a href="">근태 관리</a></div>
-            <div class="subCate"><a href="vacationList.mg">휴가 관리</a></div>
+            <div class="subCate"><a href="vacationList.mg?currentPage=1">휴가 관리</a></div>
             <div class="subCate"><a href="empDocument.mg">증명서 발급</a></div>
             
             <div class="category">조직도 관리</div>

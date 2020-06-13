@@ -12,6 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class CompanyInfo {
+	
 	private int homNo;
 	private String homName;
 	private String homHead;
@@ -19,5 +20,4 @@ public class CompanyInfo {
 	private String empId;
 	private String logoOrigin;
 	private String logoChange;
-	private String logoPath;
 }

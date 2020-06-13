@@ -17,8 +17,9 @@
 <style>
 .content {
 	margin-left: 20%;
-	width:80%
+	width: 80%
 }
+
 .container td {
 	height: 40px;
 }
@@ -36,7 +37,15 @@
 
 		<div class="container" style="margin-left: 0px;">
 
-			<form id="searchForm" action="empListSearch.mg" method="Get" align="center">
+			<form id="searchForm" action="empVacSearch.mg" method="post"
+				align="center">
+				<div class="select">
+					<select class="custom-select" name="condition">
+						<option value="empId">사원번호</option>
+						<option value="empName">성명</option>
+						<option value="vacationYear">휴가사용년도</option>
+					</select>
+				</div>
 				<div class="text">
 					<input type="text" class="form-control" name="keyword"
 						value="${ eSc.keyword }"> <input type="hidden"
@@ -44,9 +53,19 @@
 				</div>
 				<button type="submit" class="searchBtn btn btn-secondary">검색</button>
 			</form>
-			
-			
-			
+
+			<script type="text/javascript">
+	       		$(function(){
+	       			switch('${eSc.condition}'){
+	       			case "empId": $("#searchArea option").eq(0).attr("selected", true);  break;
+					case "empName":  $("#searchArea option").eq(1).attr("selected", true);  break;
+					case "vacationYear": $("#searchArea option").eq(2).attr("selected", true);  break;
+					 
+	       			}
+	       		});
+	       </script>
+
+
 			<table class="table table-bordered"
 				style="table-layout: fixed; text-align: center;">
 				<thead class="thead-light">
@@ -62,20 +81,22 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>라공주</td>
-						<td>2020-05-11</td>
-						<td>15</td>
-						<td>3</td>
-						<td>1</td>
-						<td>1</td>
-						<td>0</td>
-						<td>10</td>
-					</tr>
+					<c:forEach items="${ vacList }" var="v">
+						<tr>
+							<td>${ v.empName }</td>
+							<td>${ v.hireDate }</td>
+							<td>15</td>
+							<td>${ v.vcCount }</td>
+							<td>1</td>
+							<td>1</td>
+							<td>0</td>
+							<td>${ v.vcTotal - v.vcCount }</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
-			
-			
+
+
 			<div id="pagingArea">
 				<ul class="pagination pagination-sm justify-content-center">
 					<c:if test="${ pi.currentPage ne 1 }">
@@ -86,6 +107,7 @@
 							</c:when>
 							<c:otherwise>
 								<c:url value="vacationList.mg" var="searchUrl">
+									<c:param name="condition" value="${ eSc.condition }" />
 									<c:param name="keyword" value="${ eSc.keyword }" />
 									<c:param name="currentPage" value="${  pi.currentPage -1 }" />
 								</c:url>
@@ -108,6 +130,7 @@
 									</c:when>
 									<c:otherwise>
 										<c:url value="vacationList.mg" var="searchUrl">
+											<c:param name="condition" value="${ eSc.condition }" />
 											<c:param name="keyword" value="${ eSc.keyword }" />
 											<c:param name="currentPage" value="${ p }" />
 										</c:url>
@@ -127,6 +150,7 @@
 							</c:when>
 							<c:otherwise>
 								<c:url value="vacationList.mg" var="searchUrl">
+									<c:param name="condition" value="${ eSc.condition }" />
 									<c:param name="keyword" value="${ eSc.keyword }" />
 									<c:param name="currentPage" value="${  pi.currentPage + 1  }" />
 								</c:url>
@@ -138,6 +162,7 @@
 				</ul>
 			</div>
 		</div>
+	</div>
 
 </body>
 </html>
