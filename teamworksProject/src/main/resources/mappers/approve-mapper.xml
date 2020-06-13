@@ -77,12 +77,12 @@
 		<result column="approve_step" property="approveStep"/>
 	</resultMap>
 	
-	<resultMap id="reqApprovalResultSet" type="DocumentList">
-		<id column="doc_no" property="docNo"/>
-		<result column="emp_id" property="empId"/>
-		<result column="doc_sc" property="docSc"/>
-		<result column="doc_status" property="docStatus"/>
-		<result column="doc_title" property="docTitle"/>	
+	<resultMap id="approvalResultSet" type="DocumentList">
+		<id column="EMP_ID" property="empId"/>
+		<result column="DL_NO" property="dlNo"/>
+		<result column="DL_FORM" property="dlForm"/>
+		<result column="DL_NAME" property="dlName"/>
+		<result column="DL_LIKE" property="dlLike"/>	
 		
 	</resultMap>
 
