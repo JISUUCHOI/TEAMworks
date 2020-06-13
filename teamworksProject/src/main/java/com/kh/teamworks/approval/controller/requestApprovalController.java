@@ -239,7 +239,7 @@ public class requestApprovalController {
 	}
 	
 	
-	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함, 결재회수함 리스트 조회
+	// 5. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함 리스트 조회
 	@RequestMapping("docList.rap")
 	public String documentListView(HttpServletRequest request, int approveStatus, int currentPage, Model model) {
 		
@@ -306,25 +306,28 @@ public class requestApprovalController {
 		String approveEmpid = raService.selectApId(doc);
 		model.addAttribute("approveEmpid", approveEmpid);
 		
-		// 6_2. 결재 코멘트 개수
+		// 6_2. '회수요청' 들어온 상태인 결재자 id 조회 --> 회수승인 버튼 클릭
+		String callbackEmpid = raService.selectCbId(doc);
+		model.addAttribute("callbackEmpid", callbackEmpid);
+		
+		// 6_3. 결재 코멘트 개수
 		int count = raService.selectComment(doc);
 		model.addAttribute("count", count);
 		
-		// 6_3. 해당 아이디 문서별 approveStatus 조회
+		// 6_4. 해당 아이디 문서별 approveStatus 조회
 		String approverEmpid = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
 		doc.setApproverEmpid(approverEmpid);
 		int status = raService.selectApStatus(doc);
 		model.addAttribute("status", status);
 		
 		switch(docSc) {
-		// 6_4. 문서 상세조회 - 경조비신청서
+		// 6_5. 문서 상세조회 - 경조비신청서
 		case "경조비신청서" : d = raService.selectFeDetail(doc); model.addAttribute("d", d); return "approval/familyEventSubmit";
-		// 6_5. 문서 상세조회 - 휴가신청서
+		// 6_6. 문서 상세조회 - 휴가신청서
 		case "휴가신청서" : d = raService.selectVacDetail(doc); model.addAttribute("d", d); return "approval/vacationSubmit";
-		// 6_6. 문서 상세조회 - 기안서
+		// 6_7. 문서 상세조회 - 기안서
 		case "기안서" : d = raService.selectDraftDetail(doc); model.addAttribute("d", d); return "approval/draftSubmit";
-		
-		// 6_7. 문서 상세조회 - 제증명신청서
+		// 6_8. 문서 상세조회 - 제증명신청서
 		default : d = raService.selectProofDetail(doc); model.addAttribute("d", d); return "approval/proofSubmit";
 		}
 		
@@ -565,7 +568,7 @@ public class requestApprovalController {
 		return new Gson().toJson(count);
 	}
 	
-	// 11. 회수요청
+	// 11. 기안자 - 회수요청
 	@RequestMapping("reqCallback.rap")
 	public String requestCallback(Document d, Model model, HttpSession session) {
 		
@@ -586,6 +589,62 @@ public class requestApprovalController {
 		}
 		
 	}
+	
+	// 12. 결재자 - 회수승인/반려
+	@RequestMapping("updateCallback.rap")
+	public String updateCallback(Document d, Model model) {
+		
+		// 승인/반려 구분
+		String cb = d.getApproveReject();
+		int result1 = 0;
+		int result2 = 0;
+		
+		
+		if(cb.equals("회수승인")) {
+			// 12_1. 결재자 - 회수 승인
+			result1 = raService.permitCallback(d);
+			
+			// 12_2. 기안자 - 상태 회수
+			result2 = raService.statusCallback(d);
+		}else {
+			// 12_3. 결재자 - 회수 거절
+			result1 = raService.refuseCallback(d);
+		}
+		
+		if(result1 * result2 > 0) {
+			model.addAttribute("docNo", d.getDocNo());
+			model.addAttribute("docSc", d.getDocSc());
+			return "redirect:detailDoc.rap";
+			//redirect할 경우 
+		}else {
+			model.addAttribute("msg", "결재 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	// 13. 결재회수함 리스트 조회
+	@RequestMapping("callbackList.rap")
+	public String callbackList(HttpServletRequest request, int currentPage, Model model) {
+		
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+		Document d = new Document();
+		d.setEmpId(empId);
+		
+		// 13_1. 문서 총 개수 조회
+		int listCount = raService.selectCallbackCount(d);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		// 13_2. 문서 리스트 조회
+		ArrayList<Document> list = raService.selectCallbackList(d, pi);
+		
+		model.addAttribute("listCount", listCount);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		
+		return "approval/callbackList";
+	}
+	
+	// 13_3. 결재회수함 검색
 	
 	
 }

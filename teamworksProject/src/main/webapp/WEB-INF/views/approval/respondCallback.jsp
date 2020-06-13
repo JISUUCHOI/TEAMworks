@@ -59,12 +59,12 @@
 </head>
 <body>
 
-    <div id="approveOuter">
+    <div class="approveOuter">
         <h3 style="margin-top:10px">회수요청 승인/반려</h3>
         <br>
 
         <form action="">
-            <table id="chooseApprove">
+            <table class="chooseApprove">
                 <tr height="50px">
                     <th width="100px">회수요청<br>승인/반려</th>
                     <td width="480px">
@@ -75,14 +75,14 @@
                 <tr height="80px">
                     <th>회수의견</th>
                     <td>
-                        <textarea id="approveComment" cols="60" rows="3" style="resize:none"></textarea>
+                        <textarea name="approveComment" cols="60" rows="3" style="resize:none"></textarea>
                     </td>
                 </tr>
             </table>
             <br>
             <div id="btns">
-                <button type="submit" id="submitBtn">확인</button>
-                <button type="button" id="cancleBtn">취소</button>
+                <button type="submit" class="submitBtn">확인</button>
+                <button type="button" class="cancleBtn">취소</button>
             </div>
         </form>
     </div>

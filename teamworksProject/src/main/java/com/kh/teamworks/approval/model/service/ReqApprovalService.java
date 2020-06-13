@@ -62,22 +62,25 @@ public interface ReqApprovalService {
 	// 6_1. '진행' 상태인 결재자 id 조회
 	String selectApId(Document doc);
 	
-	// 6_2. 결재 코멘트 개수 조회
+	// 6_2. '회수요청' 들어온 상태인 결재자 id 조회 --> 회수승인 버튼 클릭
+	String selectCbId(Document doc);
+	
+	// 6_3. 결재 코멘트 개수 조회
 	int selectComment(Document doc);
 	
-	// 6_3. 해당 아이디 문서별 approveStatus 조회
+	// 6_4. 해당 아이디 문서별 approveStatus 조회
 	int selectApStatus(Document doc);
 	
-	// 6_4. 문서 상세조회 - 경조비신청서
+	// 6_5. 문서 상세조회 - 경조비신청서
 	ArrayList<Document> selectFeDetail(Document doc);
 	
-	// 6_5. 문서 상세조회 - 휴가신청서
+	// 6_6. 문서 상세조회 - 휴가신청서
 	ArrayList<Document> selectVacDetail(Document doc);
 	
-	// 6_6. 문서 상세조회 - 기안서
+	// 6_7. 문서 상세조회 - 기안서
 	ArrayList<Document> selectDraftDetail(Document doc);
 	
-	// 6_7. 문서 상세조회 - 제증명신청서
+	// 6_8. 문서 상세조회 - 제증명신청서
 	ArrayList<Document> selectProofDetail(Document doc);
 	
 	// 7_1. 미결, 진행 결재선 id 조회
@@ -149,5 +152,20 @@ public interface ReqApprovalService {
 	 
 	// 11_2. 기안자 doc_status 4.회수요청으로 변경
 	 int updateDocSt(Document d);
+	 
+	// 12_1. 결재자 - 회수 승인
+	 int permitCallback(Document d);
+	 
+	// 12_2. 기안자 - 상태 회수
+	 int statusCallback(Document d);
+
+	 // 12_3. 결재자 - 회수 거절
+	 int refuseCallback(Document d);
+	 
+	// 13_1. 문서 총 개수 조회
+	 int selectCallbackCount(Document d);
+	 
+	// 13_2. 문서 리스트 조회
+	 ArrayList<Document> selectCallbackList(Document d, PageInfo pi);
 	 
 }

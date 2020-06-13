@@ -67,7 +67,7 @@
             <div class="category">기안</div>
             <div class="subCate" id="writeDoc"><a href="formList.ap">기안문작성</a></div>
             <div class="subCate" id="requestApprove"><a href="myDocList.rap?currentPage=1">결재요청함</a></div>
-            <div class="subCate" id="callbackDoc"><a href="docList.rap?approveStatus=5&currentPage=1">결재회수함</a></div>
+            <div class="subCate" id="callbackDoc"><a href="callbackList.rap?currentPage=1">결재회수함</a></div>
             <div class="category">결재</div>
             <div class="subCate" id="readyForApprove"><a href="docList.rap?approveStatus=0&currentPage=1">결재대기함</a> <span id="count0" style="font-weight:bold;"></span></div>
             <div class="subCate" id="pendingApprove"><a href="docList.rap?approveStatus=1&currentPage=1">결재진행함</a> <span id="count1" style="font-weight:bold;"></span></div>
@@ -91,7 +91,10 @@
 		    		success:function(count){
 
 						for(var i=0; i<Object.keys(count).length; i++){
-							$("#count" + i).text(count[i]);
+							
+							if(count[i] != 0) {
+								$("#count" + i).text(count[i]);
+							}
 						}
 		    			
 		    		}, error:function(){

@@ -329,6 +329,12 @@
 		where doc_no=#{docNo} and approve_reject='진행'
 	</select>
 	
+	<select id="selectCbId" parameterType="Document" resultType="string">
+		select approver_empid
+		from approve_line
+		where doc_no=#{docNo} and approve_status=4
+	</select>
+	
 	<select id="selectComment" parameterType="Document" resultType="_int">
 		select count(approve_comment)
 		from approve_line
@@ -933,5 +939,86 @@
 			   set doc_status=4
 			 where doc_no=#{docNo}
 	</update>
+	
+	
+	
+	
+	<update id="permitCallback" parameterType="Document">
+		update approve_line
+		   set approve_reject=#{approveReject},
+		       approve_status=5,
+		       approve_comment=#{approveComment},
+    		   approve_date=to_char(sysdate, 'yyyy-mm-dd')
+		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
+	</update>
+	
+	<update id="statusCallback" parameterType="Document">
+		<if test="docSc == '경조비신청서'">
+			update family_event
+		</if>
+		<if test="docSc == '제증명신청서'">
+			update proof
+		</if>
+		<if test="docSc == '휴가신청서'">
+			update vacation
+		</if>
+		<if test="docSc == '기안서'">
+			update draft
+		</if>
+			   set doc_status=5
+			 where doc_no=#{docNo}
+	</update>
+	
+	<update id="refuseCallback" parameterType="Document">
+		update approve_line
+		   set approve_reject=#{approveReject},
+		       approve_status=6,
+		       approve_comment=#{approveComment},
+    		   approve_date=to_char(sysdate, 'yyyy-mm-dd')
+		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
+	</update>
+	
+	
+	
+	
+	<select id="selectCallbackCount" parameterType="Document" resultType="_int">
+		select count(*)
+		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
+				  from draft d
+				  join employee e on(d.emp_id = e.emp_id)
+				 UNION ALL
+				select p.doc_no, p.emp_id, p.doc_sc, p.doc_title, e.emp_name, p.doc_department, p.doc_date, p.doc_status
+				  from proof p
+				  join employee e on(p.emp_id = e.emp_id)
+				 UNION ALL
+				select v.doc_no, v.emp_id, v.doc_sc, v.doc_title, e.emp_name, v.doc_department, v.doc_date, v.doc_status
+				  from vacation v
+				  join employee e on(v.emp_id = e.emp_id)
+				 UNION ALL
+				select f.doc_no, f.emp_id, f.doc_sc, f.doc_title, e.emp_name, f.doc_department, f.doc_date, f.doc_status
+				  from family_event f
+				  join employee e on(f.emp_id = e.emp_id))
+		where emp_id=#{empId} and doc_status=5
+	</select>
+	
+	<select id="selectCallbackList" parameterType="Document" resultMap="reqApprovalResultSet">
+		select *
+		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
+				  from draft d
+				  join employee e on(d.emp_id = e.emp_id)
+				 UNION ALL
+				select p.doc_no, p.emp_id, p.doc_sc, p.doc_title, e.emp_name, p.doc_department, p.doc_date, p.doc_status
+				  from proof p
+				  join employee e on(p.emp_id = e.emp_id)
+				 UNION ALL
+				select v.doc_no, v.emp_id, v.doc_sc, v.doc_title, e.emp_name, v.doc_department, v.doc_date, v.doc_status
+				  from vacation v
+				  join employee e on(v.emp_id = e.emp_id)
+				 UNION ALL
+				select f.doc_no, f.emp_id, f.doc_sc, f.doc_title, e.emp_name, f.doc_department, f.doc_date, f.doc_status
+				  from family_event f
+				  join employee e on(f.emp_id = e.emp_id))
+		where emp_id=#{empId} and doc_status=5
+	</select>
 	
 </mapper>

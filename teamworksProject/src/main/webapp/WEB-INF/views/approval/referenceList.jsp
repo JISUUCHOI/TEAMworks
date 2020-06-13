@@ -301,6 +301,9 @@
 	                       		<c:when test="${ l.docStatus eq '3' }">
 	                       			 <td style="text-align:center;">반려</td>
 	                       		</c:when>
+	                       		<c:when test="${ l.docStatus eq '4' }">
+	                       			 <td style="text-align:center;">회수요청</td>
+	                       		</c:when>
 	                       		<c:otherwise>
 		            				 <td style="text-align:center;">회수</td>
 	        					</c:otherwise>
@@ -488,6 +491,8 @@
 		    $(".disable").css("color", "deepskyblue");
 			$(".disable").css("border", "1.3px solid deepskyblue");
 			$(".disable").css("text-align", "center");
+			
+			$("#refDoc>a").css("color", "deepskyblue");
 	    });
 	    
    </script>

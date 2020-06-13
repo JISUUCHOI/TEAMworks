@@ -81,31 +81,31 @@
     }
     
     /* 결재/반려용 모달 */
-    #approveOuter{
+    .approveOuter{
         width:460px;
         height:150px;
     }
-    #chooseApprove, #chooseApprove tr, #chooseApprove th, #chooseApprove td {
+    .chooseApprove, .chooseApprove tr, .chooseApprove th, .chooseApprove td {
         border: 1px solid lightgrey;
         border-collapse: collapse;
         font-size:13px;
     }
-    #chooseApprove th{
+    .chooseApprove th{
         background:lightsteelblue;
         color:white;
         text-align:center;
     }
-    #chooseApprove td{
+    .chooseApprove td{
         padding:10px 0px 10px 15px;
     }
 
     /* 결재 모달 버튼 */
-    #modalBtns{
+    .modalBtns{
         width:120px;
         height:40px;
         float:right;
     }
-    #submitBtn{
+    .submitBtn{
         width:50px;
         height:28px;
         background: rgb(7, 53, 90);
@@ -114,11 +114,11 @@
         font-size:13px;
         margin-top:2px;
     }
-    #submitBtn:hover{
+    .submitBtn:hover{
         background:deepskyblue;
         cursor:pointer;
     }
-    #cancelBtn{
+    .cancelBtn{
         width:50px;
         height:28px;
         background:white;
@@ -160,6 +160,10 @@
 	              			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
 	           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
 	              		</c:when>
+	              		<c:when test="${ d.get(0).docStatus eq 5 and loginUser.empId eq d.get(0).getEmpId() }">
+	              			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
+	           	    		<button type="button" id="modifyBtn" onclick="postFormSubmit(1);">수정</button>
+	              		</c:when>
 	              		<c:when test="${ d.get(0).docStatus eq 0 and loginUser.empId eq d.get(0).getEmpId() }">
 	              			<form action="reqCallback.rap" method="post">
 		              			<input type="hidden" name="docNo" value="${ d.get(0).getDocNo() }">
@@ -174,6 +178,9 @@
 	                <c:choose>
 		            	<c:when test="${ loginUser.empId eq approveEmpid }">
 		                	<button type="button" id="approveBtn" data-toggle="modal" data-target="#responseApprove">결재</button>
+		                </c:when>
+		                <c:when test="${ loginUser.empId eq callbackEmpid }">
+		                	<button type="button" id="callbackBtn" data-toggle="modal" data-target="#responseCallback">회수승인</button>
 		                </c:when>
 		                <c:otherwise>
 		                </c:otherwise>
@@ -223,10 +230,7 @@
                            	<td>
                            		${ d.approverName }<br>${ d.approveReject } 
 	                           	<c:choose>
-	                           		<c:when test="${ d.approveReject eq '승인' }">
-	                           			<br>(${ d.approveDate })
-	                           		</c:when>
-	                           		<c:when test="${ d.approveReject eq '반려' }">
+	                           		<c:when test="${ d.approveReject eq '승인' or d.approveReject eq '반려' or d.approveReject eq '회수승인' or d.approveReject eq '회수반려'}">
 	                           			<br>(${ d.approveDate })
 	                           		</c:when>
 	                           		<c:otherwise>
@@ -331,13 +335,13 @@
 				<form action="updateApprove.rap" method="post">
 	                <!-- Modal Body -->
 	                <div class="modal-body">
-		                <div id="approveOuter">
+		                <div class="approveOuter">
 					        
 				        	<input type="hidden" name="docNo" value="${ d.get(0).getDocNo() }">
 				        	<input type="hidden" name="empId" value="${ d.get(0).getEmpId() }">s
 				        	<input type="hidden" name="docSc" value="${ d.get(0).getDocSc() }">
 				        	<input type="hidden" name="approverEmpid" value="${ loginUser.empId }">
-				            <table id="chooseApprove">
+				            <table class="chooseApprove">
 				                <tr height="50px">
 				                    <th width="100px">결재처리</th>
 				                    <td width="360px">
@@ -359,9 +363,57 @@
 	                
 	                <!-- Modal footer -->
 	                <div class="modal-footer">
-	                	<div id="modalBtns">
-			                <button type="submit" id="submitBtn">결재</button>
-			                <button type="reset" id="cancelBtn">취소</button>
+	                	<div class="modalBtns">
+			                <button type="submit" class="submitBtn">결재</button>
+			                <button type="reset" id="approveCancel" class="cancelBtn">취소</button>
+			            </div>
+	                </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+	
+	
+	<!-- 회수승인/거절용 모달!!! -->
+	<div class="modal fade" id="responseCallback">
+        <div class="modal-dialog">
+            <div class="modal-content">
+	            <!-- Modal Header -->
+	            <div class="modal-header">
+	                <h6 class="modal-title">회수요청 승인/반려</h6>
+	            </div>
+	
+				<form action="updateCallback.rap" method="post">
+	                <!-- Modal Body -->
+	                <div class="modal-body">
+                		<input type="hidden" name="docNo" value="${ d.get(0).getDocNo() }">
+			        	<input type="hidden" name="empId" value="${ d.get(0).getEmpId() }">
+			        	<input type="hidden" name="docSc" value="${ d.get(0).getDocSc() }">
+			        	<input type="hidden" name="approverEmpid" value="${ loginUser.empId }">
+			            <table class="chooseApprove">
+			                <tr height="50px">
+			                    <th width="100px">회수요청<br>승인/반려</th>
+			                    <td width="360px">
+			                        <input type="radio" name="approveReject" value="회수승인"> 회수승인
+			                        <input type="radio" name="approveReject" value="회수반려" style="margin-left:20px;"> 회수반려
+			                    </td>
+			                </tr>
+			                <tr height="80px">
+			                    <th>회수의견</th>
+			                    <td>
+			                        <textarea name="approveComment" cols="55" rows="3" style="resize:none" required></textarea>
+			                    </td>
+			                </tr>
+			            </table>
+			            <br>
+	                </div>
+	                
+	                <!-- Modal footer -->
+	                <div class="modal-footer">
+	                	<div class="modalBtns">
+			                <button type="submit" class="submitBtn">확인</button>
+			                <button type="reset" id="callbackCancel" class="cancelBtn">취소</button>
 			            </div>
 	                </div>
                 </form>
@@ -375,8 +427,13 @@
 		$(function(){
 			
 			/* 결재 모달 취소버튼 클릭 시  */
-			$("#cancelBtn").click(function(){
+			$("#approveCancel").click(function(){
 				$('#responseApprove').modal("hide");
+			});
+			
+			/* 회수승인 모달 취소버튼 클릭 시  */
+			$("#callbackCancel").click(function(){
+				$('#responseCallback').modal("hide");
 			});
 			
 		});

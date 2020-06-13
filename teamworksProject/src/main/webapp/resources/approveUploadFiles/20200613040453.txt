@@ -1,0 +1,21 @@
+5월 20일 시험
+
+<mybatis 프로젝트>
+
+1. mybatis-config.xml 별칭
+
+2. environment 드라이브 설정
+
+3. selectOne : 결과값 1개 / selectList : 결과값 여러행
+
+4. DML 구문(insert, update, delete) : 처리된 행의 개수 리턴하는 것이 고정되어 있기 때문에 resultMap 이든 resultType이든 안써줌
+
+5. 자동커밋 되는 것을 막겠다
+
+6. 동적 sql
+https://mybatis.org/mybatis-3/ko/dynamic-sql.html
+trim, where, set
+if절이 where절 안에 있도록 그 조건에 맞지 않은 경우
+<where>
+	<if></if>
+</where>
