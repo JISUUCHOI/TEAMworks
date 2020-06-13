@@ -84,11 +84,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return eDao.selectSchEmpAtt(sqlSession,seac,pi);
 	}
 
+	
 	@Override
-	public int selectListCount() {
+	public int selectListCount(SearchEmpAttCondition seac) {
 		
-		return eDao.selectListCount(sqlSession);
+		return eDao.selectListCount(sqlSession,seac);
 	}
 
+	
 	
 }

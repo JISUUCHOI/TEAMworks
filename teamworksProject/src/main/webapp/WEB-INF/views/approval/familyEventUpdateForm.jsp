@@ -82,7 +82,7 @@
 	                    	${ loginUser.empName }
 	                    </td>
 	                    <td class="th">기안부서</td>
-	                    <td style="text-align:center;"><input type="text" class="readInput" name="docDepartment" value="${ emp.deptName }" readonly>${ loginUser.deptName }</td>
+	                    <td style="text-align:center;"><input type="text" class="readInput" name="docDepartment" value="${ loginUser.deptName }" readonly></td>
 	                </tr>
 	                <tr>
 	                    <td class="th">참조자</td>

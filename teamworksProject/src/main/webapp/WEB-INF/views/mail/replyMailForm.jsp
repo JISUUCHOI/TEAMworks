@@ -145,7 +145,7 @@
                     <tr>
                         <th width="150px">받는 사람</th>
                         <td style="position:relative;">
-                            <input type="text" id="to" name="strTo" class="form-control" value="" required onKeyUp="keywordSearch();"  autocomplete="off" >
+                            <input type="text" id="to" name="strTo" class="form-control" value="${ strTo }" required onKeyUp="keywordSearch();"  autocomplete="off" >
                             <div id="suggest" style="position:absolute;z-index:99; background-color:white; width:95%; ">
 						        <div id="suggestList"></div>
 						   </div>
@@ -181,7 +181,7 @@
                     <tr>
                         <th>제목</th>
                         <td colspan="2">
-                            <input type="text" name="mailTitle" class="form-control">
+                            <input type="text" name="mailTitle" value="RE:${ mailTitle }" class="form-control">
                         </td>
                     </tr>
                     <tr>
@@ -210,10 +210,10 @@
                     </tr>
                 </table>
                 <button type="submit" id="sendMail-btn" class="btn btn-primary" style="margin-right:50px">발송</button>
-                <button type="reset" id="reset" onclick="location.href='rlist.ma?currentPage=1'" class="btn btn-danger">취소</button>
+                <button type="reset" id="reset" onclick="history.back();" class="btn btn-danger">취소</button>
             </form>
         </div>
-        <br><br><br><br>
+        <br><br><br>
     </div>
     
     

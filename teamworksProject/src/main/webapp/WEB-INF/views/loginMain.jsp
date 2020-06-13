@@ -75,7 +75,7 @@
         <form class="form-signin" method="POST" action="login.em">
          
           <label for="inputEmail" class="sr-only"></label>
-          <input type="text" id="uid" class="form-control" name="empId" placeholder="사원번호" required autofocus><BR>
+          <input type="text" id="uid" class="form-control" name="empId" placeholder="사원번호" required autofocus autocomplete="off"><BR>
           <label for="inputPassword" class="sr-only"></label>
           <input type="password" id="upw" class="form-control" name="empPwd" placeholder="Password" required><br>
          

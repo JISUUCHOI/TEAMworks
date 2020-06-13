@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="end_time" property="endTime"/>
 		<result column="at_type" property="atType"/>
 		<result column="att_Time" property="attTime"/>
-		
+	
 	</resultMap>
 	
 	<select id="loginEmployee" parameterType="Employee" resultMap="employeeResultSet">
@@ -141,13 +141,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    <if test="empName != ''">
 	    and emp_name=#{empName}
 	    </if>
-	   	<if test="condition !=null and condition.equals('deptAll')">
+	   	<if test="deptAll != null">
 		 AND DEPT_CODE IS NOT NULL
 		</if>
-		<if test="condition !=null and condition=='ManagementSupport'">
+		<if test="ManagementSupport != null">
 		 AND DEPT_CODE='1001'
 		</if>
-		<if test="condition !=null and condition.equals('Development')">
+		<if test="Development != null">
 	 	 AND DEPT_CODE='1002'
 	 	</if>
 	 	<if test="startDate != '' and endDate != ''">
@@ -156,14 +156,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	     order by att_date desc
 	</select>
 	
-	<select id="selectListCount" parameterType="com.kh.teamworks.employee.model.vo.SearchEmpAttCondition" resultMap="empAttResultSet">
+	<select id="selectListCount" parameterType="_int"  resultType="_int">
 	  SELECT count(*)
 		FROM EMPLOYEE 
 		JOIN DEPARTMENT USING (DEPT_CODE)
 		JOIN JOB USING (JOB_CODE)
 		JOIN ATTENDANCE USING (EMP_ID)
 	   WHERE 1=1
-	   
+	    <if test="empName != ''">
+	    and emp_name=#{empName}
+	    </if>
+	   	<if test="deptAll != null">
+		 AND DEPT_CODE IS NOT NULL
+		</if>
+		<if test="ManagementSupport != null">
+		 AND DEPT_CODE='1001'
+		</if>
+		<if test="Development != null">
+	 	 AND DEPT_CODE='1002'
+	 	</if>
+	 	<if test="startDate != '' and endDate != ''">
+		 and att_date between #{startDate} and #{endDate}
+		 </if>
 	     order by att_date desc
 	</select>
 	

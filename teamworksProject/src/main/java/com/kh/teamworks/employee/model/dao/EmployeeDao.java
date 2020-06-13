@@ -77,17 +77,16 @@ public class EmployeeDao {
 	public ArrayList<SearchEmpAttendance> selectSchEmpAtt(SqlSessionTemplate sqlSession,  SearchEmpAttCondition seac,PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		//System.out.println(seac);
+		System.out.println(seac);
 		return (ArrayList)sqlSession.selectList("employeeMapper.selectSchEmpAtt", seac,rowBounds);
 	}
 
 
-	
 
-
-	public int selectListCount(SqlSessionTemplate sqlSession) {
+	public int selectListCount(SqlSessionTemplate sqlSession, SearchEmpAttCondition seac) {
+		System.out.println(seac);
+		return sqlSession.selectOne("employeeMapper.selectListCount",seac);
 		
-		return sqlSession.selectOne("employeeMapper.selectListCount");
 	}
 
 

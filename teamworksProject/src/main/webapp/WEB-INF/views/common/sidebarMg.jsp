@@ -21,7 +21,7 @@
     #sidebar{
     	position:absolute;
         width:250px;
-        height:150%;
+        height:140%;
         float:left;
        /*  margin-top:100px; */
         padding-top:20px;
@@ -50,12 +50,13 @@
         font-size:17px;
     }
     .subCate>a{text-decoration:none; color:white;}
-    .subCate>a:hover, #logout>a:hover, #messenger>a:hover{
+    .subCate>a:hover, #logout>a:hover, #messenger>a:hover, .category a:hover{
         color:deepskyblue;
     }
     .subCate>span{
         color:red;
     }
+    .category a{text-decoration:none; color:white;}
 </style>
 </head>
 <body>
@@ -70,8 +71,8 @@
             <div class="category">사원 정보 관리</div>
             <div class="subCate"><a href="enrollEmp.mg">인사 정보 등록</a></div>
             <div class="subCate"><a href="empList.mg?currentPage=1">사원 명부</a></div>
-            <div class="subCate"><a href="">근태 관리</a></div>
-            <div class="subCate"><a href="vacationList.mg?currentPage=1">휴가 관리</a></div>
+            <div class="subCate"><a href="empAtt.em?currentPage=1">근태 관리</a></div>
+            <div class="subCate"><a href="vacationList.mg">휴가 관리</a></div>
             <div class="subCate"><a href="empDocument.mg">증명서 발급</a></div>
             
             <div class="category">조직도 관리</div>

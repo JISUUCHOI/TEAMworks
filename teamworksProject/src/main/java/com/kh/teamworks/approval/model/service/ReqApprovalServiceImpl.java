@@ -125,36 +125,41 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.selectApId(sqlSession, doc);
 	}
 	
-	// 6_2. 결재 코멘트 개수 조회
+	// 6_2. '회수요청' 들어온 상태인 결재자 id 조회 --> 회수승인 버튼 클릭
+	public String selectCbId(Document doc) {
+		return raDao.selectCbId(sqlSession, doc);
+	}
+	
+	// 6_3. 결재 코멘트 개수 조회
 	@Override
 	public int selectComment(Document doc) {
 		return raDao.selectComment(sqlSession, doc);
 	}
 	
-	// 6_3. 해당 아이디 문서별 approveStatus 조회
+	// 6_4. 해당 아이디 문서별 approveStatus 조회
 	@Override
 	public int selectApStatus(Document doc) {
 		return raDao.selectApStatus(sqlSession, doc);
 	}
 	
-	// 6_4. 문서 상세조회 - 경조비신청서
+	// 6_5. 문서 상세조회 - 경조비신청서
 	@Override
 	public ArrayList<Document> selectFeDetail(Document doc) {
 		return raDao.selectFeDetail(sqlSession, doc);
 	}
 
-	// 6_5. 문서 상세조회 - 휴가신청서
+	// 6_6. 문서 상세조회 - 휴가신청서
 	@Override
 	public ArrayList<Document> selectVacDetail(Document doc) {
 		return raDao.selectVacDetail(sqlSession, doc);
 	}
 	
-	// 6_6. 문서 상세조회 - 기안서
+	// 6_7. 문서 상세조회 - 기안서
 	public ArrayList<Document> selectDraftDetail(Document doc) {
 		return raDao.selectDraftDetail(sqlSession, doc);
 	}
 	
-	// 6_7. 문서 상세조회 - 제증명신청서
+	// 6_8. 문서 상세조회 - 제증명신청서
 	public ArrayList<Document> selectProofDetail(Document doc) {
 		return raDao.selectProofDetail(sqlSession, doc);
 	}
@@ -247,6 +252,97 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.searchRefList(sqlSession, asc, pi);
 	}
 
+	// 9_1. 결재요청함 총 문서개수 조회
+	@Override
+	public int selectMyDocCount(Document d) {
+		return raDao.selectMyDocCount(sqlSession, d);
+	}
+
+	// 9_2. 결재요청함 리스트 조회
+	@Override
+	public ArrayList<Document> selectMyDocList(Document d, PageInfo pi) {
+		return raDao.selectMyDocList(sqlSession, d, pi);
+	}
 	
+	// 9_3. 검색 결과에 해당하는 참조문서 개수 조회
+	@Override
+	public int searchMyDocCount(ApproveSearchCondition asc) {
+		return raDao.searchMyDocCount(sqlSession, asc);
+	}
+
+	// 9_4. 검색 결과에 해당하는 참조문서 리스트 조회 
+	@Override
+	public ArrayList<Document> searchMyDocList(ApproveSearchCondition asc, PageInfo pi) {
+		return raDao.searchMyDocList(sqlSession, asc, pi);
+	}
+	
+	
+	// 10. sidebar 보관함별 문서개수 count
+	@Override
+	public int countStand(Document d) {
+		return raDao.countStand(sqlSession, d);
+	}
+
+	@Override
+	public int countPending(Document d) {
+		return raDao.countPending(sqlSession, d);
+	}
+
+	@Override
+	public int countComplete(Document d) {
+		return raDao.countComplete(sqlSession, d);
+	}
+
+	@Override
+	public int countRefuse(Document d) {
+		return raDao.countRefuse(sqlSession, d);
+	}
+
+	@Override
+	public int countCallback(Document d) {
+		return raDao.countCallback(sqlSession, d);
+	}
+
+	// 11_1. '진행'중인 결재권자에게 회수요청
+	@Override
+	public int requestCallback(Document d) {
+		return raDao.requestCallback(sqlSession, d);
+	}
+
+	// 11_2. 기안자 doc_status 4.회수요청으로 변경
+	@Override
+	public int updateDocSt(Document d) {
+		return raDao.updateDocSt(sqlSession, d);
+	}
+
+	// 12_1. 결재자 - 회수 승인
+	@Override
+	public int permitCallback(Document d) {
+		return raDao.permitCallback(sqlSession, d);
+	}
+
+	// 12_2. 기안자 - 상태 회수
+	public int statusCallback(Document d) {
+		return raDao.statusCallback(sqlSession, d);
+	}
+	
+	// 12_3. 결재자 - 회수 거절
+	@Override
+	public int refuseCallback(Document d) {
+		return raDao.refuseCallback(sqlSession, d);
+	}
+
+	// 13_1. 문서 총 개수 조회
+	@Override
+	public int selectCallbackCount(Document d) {
+		return raDao.selectCallbackCount(sqlSession, d);
+	}
+
+	// 13_2. 문서 리스트 조회
+	@Override
+	public ArrayList<Document> selectCallbackList(Document d, PageInfo pi) {
+		return raDao.selectCallbackList(sqlSession, d, pi);
+	}
+
 	
 }

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>참조문서함</title>
+<title>결재요청함</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <style>
@@ -39,7 +39,7 @@
 	#search th, #docList th, .searchBox th{background:lightsteelblue; color:white;}
 	#searchStartDate, #searchEndDate{margin:10px 0px 10px 15px;}
 	
-	.schCondition{
+	#schCondition, #docCondition{
 	    margin-left:15px;
 	    width:80px;
 	    height:30px;
@@ -157,12 +157,12 @@
 
         <!-- 본문 -->
         <div id="docListArea">
-            <h3>⊙ 참조문서함</h3><br>
+            <h3>⊙ 결재요청함</h3><br>
             <hr>
             <br>
 	            
             <!-- 검색 -->
-            <form action="docSearch.rap" method="post">
+            <form action="myDocSearch.rap" method="post">
             	<input type="hidden" name="empId" value="${ loginUser.empId }">
             	<input type="hidden" name="currentPage" value="1">
                 <table id="search"  class="searchBox">
@@ -205,13 +205,13 @@
 	                        <div class="clearfix">
 	                            <!-- 시작일 -->
 	                            <span class="dset">
-	                                <input type="text" class="datepicker inpType" name="startDate" id="searchStartDate" >
+	                                <input type="text" class="datepicker inpType" name="startDate" id="searchStartDate" value="${ asc.startDate }">
 	                                <a href="#none" class="btncalendar dateclick">달력</a>
 	                            </span>
 	                            <span class="demi">~</span>
 	                            <!-- 종료일 -->
 	                            <span class="dset">
-	                                <input type="text" class="datepicker inpType" name="endDate" id="searchEndDate" >
+	                                <input type="text" class="datepicker inpType" name="endDate" id="searchEndDate" value="${ asc.endDate }">
 	                                <a href="#none" class="btncalendar dateclick">달력</a>
 	                            </span>
 	                        </div>    
@@ -220,24 +220,23 @@
                     <tr height="50">
                         <th>결재상태</th>
                         <td>
-                            <select name="docStatus" class="schCondition">
+                            <select name="docStatus" id="docCondition">
                                 <option value="stand">대기</option>
                                 <option value="pending">진행</option>
                                 <option value="complete">완료</option>
-                                <option value="refuese">반려</option>
+                                <option value="refuse">반려</option>
                             </select>
                         </td>
                     </tr>
                     <tr height="50">
                         <th>문서검색</th>
                         <td>
-                            <select name="condition" class="schCondition">
+                            <select name="condition" id="schCondition">
                                 <option value="writer">기안자</option>
                                 <option value="title">제목</option>
-                                <option value="content">내용</option>
                                 <option value="form">양식</option>
                             </select>
-                            <input id="keywordInp" class="btn form-control form-control" type="text" name="keyword">
+                            <input id="keywordInp" class="btn form-control form-control" type="text" name="keyword" value=${ asc.keyword }>
                         </td>
                     </tr>
                 </table>
@@ -247,10 +246,19 @@
            
            <script>
             	$(function(){
-            		switch('${condition}'){
+            		switch('${asc.condition}'){
             		case "writer" : $("#schCondition option").eq(0).attr("selected", true); break;
             		case "title" : $("#schCondition option").eq(1).attr("selected", true); break;
             		case "form" : $("#schCondition option").eq(2).attr("selected", true); break;
+            		}
+            	});
+            	
+            	$(function(){
+            		switch('${asc.docStatus}'){
+            		case "stand" : $("#docCondition option").eq(0).attr("selected", true); break;
+            		case "pending" : $("#docCondition option").eq(1).attr("selected", true); break;
+            		case "complete" : $("#docCondition option").eq(2).attr("selected", true); break;
+            		case "refuse" : $("#docCondition option").eq(3).attr("selected", true); break;
             		}
             	});
             </script>
@@ -293,6 +301,9 @@
 	                       		<c:when test="${ l.docStatus eq '3' }">
 	                       			 <td style="text-align:center;">반려</td>
 	                       		</c:when>
+	                       		<c:when test="${ l.docStatus eq '4' }">
+	                       			 <td style="text-align:center;">회수요청</td>
+	                       		</c:when>
 	                       		<c:otherwise>
 		            				 <td style="text-align:center;">회수</td>
 	        					</c:otherwise>
@@ -321,7 +332,7 @@
 						<c:when test="${ listCount eq 0 }">
 						</c:when>
 						<c:when test="${ !empty asc }">
-							<c:url value="docSearch.rap" var='searchUrl'>
+							<c:url value="myDocSearch.rap" var='searchUrl'>
 								<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="condition" value="${ asc.condition }" />
@@ -332,7 +343,7 @@
 							<button class="page able" onclick="location.href='${ searchUrl }'">&lt;</button>
 						</c:when>
 						<c:otherwise>
-							<button class="page able" onclick="location.href='referenceList.rap?currentPage=${ pi.currentPage - 1 }'">&lt;</button>
+							<button class="page able" onclick="location.href='myDocList.rap?currentPage=${ pi.currentPage - 1 }'">&lt;</button>
 						</c:otherwise>
 					</c:choose>
 					
@@ -344,10 +355,10 @@
 							<c:otherwise>
 								 <c:choose>
 									<c:when test="${ empty asc }">
-										<button class="page able" onclick="location.href='referenceList.rap?currentPage=${ p }'">${ p }</button>
+										<button class="page able" onclick="location.href='myDocList.rap?currentPage=${ p }'">${ p }</button>
 									</c:when>
 									<c:otherwise>
-										<c:url value="docSearch.rap" var='searchUrl'>
+										<c:url value="myDocSearch.rap" var='searchUrl'>
 											<c:param name="currentPage" value="${ p }" />
 											<c:param name="empId" value="${ loginUser.empId }" />
 											<c:param name="condition" value="${ asc.condition }" />
@@ -368,7 +379,7 @@
 						<c:when test="${ listCount eq 0 }">
 						</c:when>
 						<c:when test="${ !empty asc }">
-							<c:url value="docSearch.rap" var='searchUrl'>
+							<c:url value="myDocSearch.rap" var='searchUrl'>
 								<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="condition" value="${ asc.condition }" />
@@ -379,7 +390,7 @@
 							<button class="page able" onclick="location.href='${ searchUrl }'">&gt;</button>
 						</c:when>
 						<c:otherwise>
-							<button class="page able" onclick="location.href='referenceList.rap?currentPage=${ pi.currentPage + 1 }'">&gt;</button>
+							<button class="page able" onclick="location.href='myDocList.rap?currentPage=${ pi.currentPage + 1 }'">&gt;</button>
 						</c:otherwise>
 					</c:choose>
 	            </div>
@@ -480,6 +491,8 @@
 		    $(".disable").css("color", "deepskyblue");
 			$(".disable").css("border", "1.3px solid deepskyblue");
 			$(".disable").css("text-align", "center");
+			
+			$("#requestApprove>a").css("color", "deepskyblue");
 	    });
 	    
    </script>

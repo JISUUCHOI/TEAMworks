@@ -52,7 +52,6 @@
             cursor:pointer;
             float:left;
         }
-
         @media (max-width:1100px) {
             #center{
                 margin-top:0px;
@@ -71,7 +70,6 @@
                 padding-left:50px;
             }
         }
-
         .menu:hover{
             border-bottom-style:groove;
             color:dimgray;
@@ -79,7 +77,6 @@
         .menu>a:hover{
             color:dimgray;
         }
-
         
         /* 메신저, 로그아웃 */
         #logout{
@@ -96,7 +93,6 @@
             color:white;
             font-size:12px;
         }
-
     </style>
 
 </head>
@@ -119,8 +115,8 @@
             <div id="center">
                 <div class="menu" id="home"><a href="${ pageContext.servletContext.contextPath }">홈</a></div>
                 <div class="menu" id="approveDoc"><a href="formList.ap">전자결재</a></div>
-                <div class="menu" id="email"><a href="rlist.ma?currentPage=1">메일</a></div>
-                <div class="menu" id="board"><a href="list.bo?currentPage=1&cat=1">게시판</a></div>
+                <div class="menu" id="topEmail"><a href="rlist.ma?currentPage=1">메일</a></div>
+                <div class="menu" id="topBoard"><a href="list.bo?currentPage=1&cat=1">게시판</a></div>
                 <div class="menu" id="calender"><a href="selectAllSch.sc?empId=${loginUser.empId }">일정</a></div>
                 <div class="menu" id="book"><a href="showListView.re">예약</a></div>
                 <c:if test="${ loginUser.deptCode eq 1001 }">

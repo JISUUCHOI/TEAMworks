@@ -78,13 +78,22 @@
                 <div class="thumbnail">
                     <br>
                     <div class="profile" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden;">
-                        <a href="">
-                            <img class="" src="${ pageContext.servletContext.contextPath }/resources/images/sampleImg.jpg" alt="" width="100%">
-                        </a>
+                         <c:choose>
+                             	<c:when test="${ empty loginUser.originName }">
+                             		<a id="empImg">
+                             		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
+                             		
+                             	</c:when>
+                             	<c:otherwise>
+                             		<a id="empImg">
+                             		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" width="100%" height="100%" ></a>
+                         	 		
+                         	 	</c:otherwise>
+                          </c:choose>
                     </div>
                     <div class="caption">
-                        <h5><b>${loginUser.empName } </b></h5>
-                        <h6>${loginUser.jobName }</h6>
+                        <h5><b>${loginUser.empName } </b>${loginUser.jobName }</h5>
+                        <h6>${loginUser.deptName }</h6>
                         <a href="myPage.em" class="btn btn-info">개인정보 수정</a>
                     </div>
                 </div>
@@ -104,9 +113,9 @@
                     <div class="caption">
                         <button class="btn btn-info" id="startTime">출근</button> &nbsp; &nbsp;
                         <button class="btn btn-info" id="endTime">퇴근</button>
-                        <a href="QRAtt.em" class="btn btn-info" id="QR" >QRAtt</a>
-                        <a href="QRLogin.em" class="btn btn-info" >QRView</a>
-                        <a href="empAtt.em?currentPage=1">직원근태 조회하기</a>
+                        <a href="QRAtt.em" class="btn btn-info" id="QR"  style="display:none" >QRAtt</a>
+                        <a href="QRLogin.em" class="btn btn-info" style="display:none"  >QRView</a>
+                        <a href="empAtt.em?currentPage=1" style="display:none" >직원근태 조회하기</a>
                     </div>
                 </div>
             </div>

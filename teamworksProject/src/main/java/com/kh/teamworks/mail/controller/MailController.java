@@ -516,9 +516,9 @@ public class MailController {
 //				model.addAttribute("mailAddList", mailAddList);
 				model.addAttribute("attachList", attachList);
 				// System.out.println(attachList);
-				return "mail/receiveDetailView";
 			}
 			
+			return "mail/receiveDetailView";
 			
 		}else {
 			ArrayList<MailDTO> mailList = emService.selectMail(emailNo);
@@ -528,7 +528,63 @@ public class MailController {
 			return "mail/sendDetailView";
 		}
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping("delMail")
+	public String deleteRmail(int emailNo, String empId) {
+		//System.out.println(emailNo);
+		//System.out.println(empId);
 		
-		return "" ;
+		Mail mail = new Mail();
+		mail.setRecipients(empId);
+		mail.setEmailNo(emailNo);
+		
+		int result = emService.deleteMail(mail);
+		
+		if(result>0) {
+			return "success" ;
+		}else {
+			return "fail" ;
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("delSmail")
+	public String deleteSmail(int emailNo, String empId) {
+		System.out.println(emailNo);
+		System.out.println(empId);
+		Mail mail = new Mail();
+		mail.setSender(empId);
+		mail.setEmailNo(emailNo);
+		
+		int result = emService.deleteSendMail(mail);
+		
+		if(result>0) {
+			return "success" ;
+		}else {
+			return "fail" ;
+		}
+	}
+	
+	//답장
+	@RequestMapping("replyMail")
+	public String replyMail(String strTo, String mailTitle, Model model) {
+		model.addAttribute("strTo", strTo);
+		model.addAttribute("mailTitle", mailTitle);
+		return "mail/replyMailForm";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="countMail", produces="text/html; charset=utf-8")
+	public String countMail(String empId) {
+		
+		SearchMailCondition sc = new SearchMailCondition();
+		sc.setEmpId(empId);
+		sc.setReadStatus("N");
+		
+		int count = emService.searchReadListCount(sc);
+		
+		return new Gson().toJson(count);
 	}
 }

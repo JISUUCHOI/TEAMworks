@@ -19,7 +19,7 @@
 			width:1250px;
 			float:left;
 			margin-left:220px;
-			margin-top:50px;
+			margin-top:20px;
 		
 		 }
         .inner{width: 900px;}
@@ -47,10 +47,24 @@
  <div class="outer" align="center">
         <div class="inner">
         <c:if test="${ b.boardCategory eq 1 }">
-            <h4>공지사항</h4>
+            <h4 align="left">공지사항</h4>
+            <script>
+	        	$(function(){
+	        		$("#topBoard").css("border-bottom-style","groove");
+	        		$("#topBoard a").css("color","dimgray");
+	        		$("#noticeMenu>a").css("color", "deepskyblue");
+	        	});
+      	 	 </script>
          </c:if>
          <c:if test="${ b.boardCategory eq 2 }">
-            <h4>자유게시판</h4>
+            <h4 align="left">자유게시판</h4>
+            <script>
+	        	$(function(){
+	        		$("#topBoard").css("border-bottom-style","groove");
+	        		$("#topBoard a").css("color","dimgray");
+	        		$("#boardMenu>a").css("color", "deepskyblue");
+	        	});
+      	 	 </script>
          </c:if>   
             <br>
             <table class="table text-center">
@@ -136,7 +150,7 @@
                 </tbody>
             </table>
         </div>
-              
+        <br><br><br><br><br>       
     </div>
      <form id="postForm" action="" method="post">
        	<input type="hidden" name="bno" value="${ b.boardNo }">

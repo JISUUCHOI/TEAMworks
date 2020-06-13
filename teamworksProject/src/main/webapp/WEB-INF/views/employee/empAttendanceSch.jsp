@@ -10,10 +10,14 @@
     <!-- 나눔 고딕 폰트 -->
       <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800" rel="stylesheet">
       <!-- 아이콘 -->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-     
-     
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">0
       <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
+      <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	 
 	 
    
@@ -119,7 +123,8 @@
             <div class="title">
             <span>사원별 근태 현황</span> 
             </div>
-            <form id="searchForm" action="empAtt.em?currentPage=1" method="post">
+            <form id="searchForm" action="empAttSch.em" method="get">
+            <input type="hidden" name="currentPage" value="1"> 
                 <table class="table-bordered searchBox">
                     <tr>
                         <th width="160"height="40">검색기간</th>
@@ -155,13 +160,13 @@
 										<!-- 시작일 -->
 										<span class="dset"> <input type="text"
 											class="datepicker inpType" name="searchStartDate"
-											id="searchStartDate"> <a href="#none"
+											id="searchStartDate"value="${seca.startDate} "> <a href="#none"
 											class="btncalendar dateclick">달력</a>
 										</span> <span class="demi">~</span>
 										<!-- 종료일 -->
 										<span class="dset"> <input type="text"
 											class="datepicker inpType" name="searchEndDate"
-											id="searchEndDate"> <a href="#none"
+											id="searchEndDate"value="${seca.endDate} "> <a href="#none"
 											class="btncalendar dateclick">달력</a>
 										</span> 
 									
@@ -172,7 +177,7 @@
                         <th>부서</th>
                         <td>
                             <div class="select" >
-                                <select class="form-control" name="condition">
+                                <select class="form-control" name="condition" value="${seca.condition }">
                                     <option value="deptAll">부서</option>
                                     <option value="ManagementSupport">경영지원팀</option>
                                     <option value="Development">개발팀</option>
@@ -195,7 +200,7 @@
                     <tr height="40">
                         <th>사원명</th>
                         <td  style="float: left;border:none"> 
-                            <input type="text" class="form-control" name="empName" style="display: inline;margin-top: 2px;"placeholder="이름을 입력해주세요">
+                            <input type="text" class="form-control" name="empName" value="${seca.empName }" style="display: inline;margin-top: 2px;"placeholder="이름을 입력해주세요">
                             <input type="hidden" name="empId" value="${loginUser.empId }">
                            
                         </td>
@@ -233,8 +238,8 @@
                                 <td>${sea.empName }</td>
                                 <td>${sea.jobName }</td>
                                 <td>${sea.deptName }</td>
-                                <td>${sea.attDate } ${sea.startTime }</td>
-                                <td>${sea.attDate } ${sea.endTime }</td>
+                                <td>${sea.attDate } ${seac.startTime }</td>
+                                <td>${sea.attDate } ${seac.endTime }</td>
                                 <td>${sea.attTime }</td>
                                	<c:if test="${'0' eq  sea.atType}">
                                 <td>정상출근</td>
@@ -258,48 +263,80 @@
                             
                         </tbody>
                     </table>
-     				<div id="pagingArea">
-               		 <ul class="pagination">
-              		 <!-- 이전  -->
-              		 <c:choose>
-              		 	<c:when test="${pi.currentPage eq 1 }">
-		                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-              		 	</c:when>
-              		 	<c:otherwise>
-              		 		<li class="page-item"><a class="page-link" href="empAtt.em?currentPage=${ pi.currentPage - 1 }">Previous</a></li>
-              		 	</c:otherwise>
-              		 </c:choose>
-                    
-                    <!-- [번호들]  -->
-					<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
-						<c:choose>
-							<c:when test="${p eq pi.currentPage }">
-									<li class="page-item disabled">
-										<a class="page-link " href="#">${p }</a>
-									</li>							
-							</c:when>
-							<c:otherwise>
-									<li class="page-item">
-										<a class="page-link" href="empAtt.em?currentPage=${p }">${p }</a>
-									</li>			
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-                    
-                    
-                    <!-- 다음  -->
-                   <c:choose>
-              		 	<c:when test="${pi.currentPage eq pi.maxPage }">
-		                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-              		 	</c:when>
-              		 	<c:otherwise>
-              		 		<li class="page-item"><a class="page-link" href="empAtt.em?currentPage=1${ pi.currentPage + 1 }">Next</a></li>
-              		 	</c:otherwise>
-              		</c:choose>
-                </ul>
-            </div>
+     		 <ul class="pagination">
+            	<c:if test="${ pi.currentPage ne 1 }">
+            		<c:choose>
+            			<c:when test="${ empty seca }">
+            				<li class="previous"><a href="empAttSch.em?currentPage=${ pi.currentPage - 1 }">&lt;</a></li>
+            			</c:when>
+            			<c:otherwise>
+            					<c:url value="empAttSch.em" var="searchUrl">
+										<c:param name="condition" value="${ seca.condition }"/>
+										<c:param name="empName" value="${ seca.empName }"/>
+										<c:param name="searchStartDate" value="${ seca.startDate }"/>
+										<c:param name="searchEndDate" value="${ seca.endDate }"/>
+										<c:param name="currentPage" value="${ p }"/>
+									</c:url>
+            				<li class="previous">
+            				<a href="${ searchUrl }">&lt;</a>
+            				</li>
+            			</c:otherwise>
+            		</c:choose>
+            	
+            	</c:if>
+            	
+            	 <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+            	 	<c:choose>
+            	 		<c:when test="${ p eq pi.currentPage }">
+            	 			<li class="disabled"><a href="">${ p }</a></li>
+            	 		</c:when>
+            	 		<c:otherwise>
+            	 			<c:choose>
+	            	 			<c:when test="${ empty seca }">
+	            					<li class=""><a href="empAttSch.em?currentPage=${ p }">${ p }</a></li>
+	            				</c:when>
+	            				<c:otherwise>
+	            					<c:url value="empAttSch.em" var="searchUrl">
+										<c:param name="condition" value="${ seca.condition }"/>
+										<c:param name="empName" value="${ seca.empName }"/>
+										<c:param name="searchStartDate" value="${ seca.startDate }"/>
+										<c:param name="searchEndDate" value="${ seca.endDate }"/>
+										<c:param name="currentPage" value="${ p }"/>
+									</c:url>
+	            					<li class="">
+	            						<a href="${searchUrl}">${ p }</a>
+	            					</li>
+	            				</c:otherwise>
+            				</c:choose>
+            	 		</c:otherwise>
+            	 	</c:choose>
+            	 </c:forEach>
+            	
+            	<c:if test="${ pi.currentPage ne pi.maxPage }">
+            		<c:choose>
+						<c:when test="${ empty seca }">
+							<li class="next"><a href="empAttSch.em?currentPage=${ pi.currentPage + 1 }">&gt;</a></li>
+						</c:when>
+						<c:otherwise>
+							<c:url value="empAttSch.em" var="searchUrl">
+										<c:param name="condition" value="${ seca.condition }"/>
+										<c:param name="empName" value="${ seca.empName }"/>
+										<c:param name="searchStartDate" value="${ seca.startDate }"/>
+										<c:param name="searchEndDate" value="${ seca.endDate }"/>
+										<c:param name="currentPage" value="${ p }"/>
+									</c:url>
+							<li class="next">
+							<a href="${ searchUrl }">&gt;</a>
+							</li>
+						</c:otherwise>        		
+            		</c:choose>
+            	</c:if>
+            </ul>
+        </div>
+	
+            
            
-                
+	
             </div>
 
        </div>

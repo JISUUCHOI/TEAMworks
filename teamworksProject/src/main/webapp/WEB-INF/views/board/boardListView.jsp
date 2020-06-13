@@ -23,7 +23,7 @@
 			width:1250px;
 			float:left;
 			margin-left:220px;
-			margin-top:50px;
+			margin-top:20px;
 		
 		 }
     .inner{width: 900px;}
@@ -31,13 +31,19 @@
 </style>
 </head>
 <body>
-
+	<script>
+       	$(function(){
+       		$("#topBoard").css("border-bottom-style","groove");
+       		$("#topBoard a").css("color","dimgray");
+       		$("#boardMenu>a").css("color", "deepskyblue");
+       	});
+       </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarBoard.jsp"/>
   <div class="outer" align="center">
         <br>
         <div class="inner">
-        <h4>자유게시판</h4>
+        <h4 align="left"><i class="far fa-list-alt"></i>&nbsp;&nbsp;<b>자유게시판</b></h4>
             <hr>
            <form action="search.bo" class="form-inline" style="float: right;">
          	<input type="hidden" name="cat" value="2"> 
@@ -107,7 +113,7 @@
                         <td>${ b.boardNo }</td>
                         <c:choose>
                         	<c:when test="${ b.rcount ne 0}">
-                        		<td>${ b.boardTitle } (${ b.rcount })</td>
+                        		<td>${ b.boardTitle } <span style="color:rgb(255, 80, 80)">(${ b.rcount })</span></td>
                         	</c:when>
                         	<c:otherwise>
                         		<td>${ b.boardTitle }</td>
@@ -213,6 +219,7 @@
             	</c:if>
             </ul>
         </div>
+         <br><br><br>
     </div>
 
     <script>

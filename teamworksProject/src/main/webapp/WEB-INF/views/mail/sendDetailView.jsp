@@ -30,6 +30,13 @@
     </style>
 </head>
 <body>
+	<script>
+       	$(function(){
+       		$("#topEmail").css("border-bottom-style","groove");
+       		$("#topEmail a").css("color","dimgray");
+       		$("#sm>a").css("color", "deepskyblue");
+       	});
+     </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarMail.jsp"/>
   <div class="outer" align="center">
@@ -49,7 +56,7 @@
                     <td>
                     <c:forEach var="m" items="${ mailList }">
                     	<c:if test="${ m.refType eq 'T' }">
-		                    ${ m.recipientsEmail }
+		                    [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
                     	</c:if>
                     </c:forEach>
                     </td>
@@ -59,7 +66,7 @@
                     <td>
                     <c:forEach var="m" items="${ mailList }">
 	                    	<c:if test="${ m.refType eq 'C' }">
-			                    ${ m.recipientsEmail }
+			                    [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
 	                    	</c:if>
                     </c:forEach>
                     </td>
@@ -69,7 +76,7 @@
                     <td>
                      <c:forEach var="m" items="${ mailList }">
                     	<c:if test="${ m.refType eq 'B' }">
-		                    ${ m.recipientsEmail }
+		                    [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
                     	</c:if>
                     </c:forEach>
                     </td>
@@ -101,13 +108,42 @@
             <div class="row">
                 <div class="col-xs-10"></div>
                 <div class="col-xs-1">
-                    <button class="btn btn-default">목록</button>
+                    <button class="btn btn-default" onclick="location.href='slist.ma?currentPage=1'">목록</button>
                 </div>
                 <div class="col-xs-1">
-                    <button class="btn btn-danger">삭제</button>
+                    <button class="btn btn-danger" onclick="deleteSmail();">삭제</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    	function deleteSmail(){
+    		var emailNo = ${ mailList[0].emailNo}
+    		var empId = '${loginUser.empId}'
+    		if(confirm("삭제하시겠습니까?")){
+    	 		$.ajax({
+        			url:"delSmail",
+        			data:{emailNo:emailNo, empId:empId},
+        			type:"post",
+        			success:function(status){
+        				if(status=="success"){
+        					location.href="slist.ma?currentPage=1"
+        				}else{
+        					alert("아 실패했다.");
+        				}
+        			},
+        			error:function(){
+        				console.log("sendMailDelete ajax fail");
+        			}
+        			
+      
+        		});
+    		}
+    		
+   
+    	}
+    	
+    </script>
+    
 </body>
 </html>

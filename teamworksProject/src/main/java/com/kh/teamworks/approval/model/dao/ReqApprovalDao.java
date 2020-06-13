@@ -105,32 +105,37 @@ public class ReqApprovalDao {
 		return sqlSession.selectOne("approveMapper.selectApId", doc);
 	}
 	
-	// 6_2. 결재 코멘트 개수 조회
+	// 6_2. '회수요청' 들어온 상태인 결재자 id 조회 --> 회수승인 버튼 클릭
+	public String selectCbId(SqlSessionTemplate sqlSession, Document doc) {
+		return sqlSession.selectOne("approveMapper.selectCbId", doc);
+	}
+	
+	// 6_3. 결재 코멘트 개수 조회
 	public int selectComment(SqlSessionTemplate sqlSession, Document doc) {
 		return sqlSession.selectOne("approveMapper.selectComment", doc);
 	}
 	
-	// 6_3. 해당 아이디 문서별 approveStatus 조회
+	// 6_4. 해당 아이디 문서별 approveStatus 조회
 	public int selectApStatus(SqlSessionTemplate sqlSession, Document doc) {
 		return sqlSession.selectOne("approveMapper.selectApStatus", doc);
 	}
 	
-	// 6_4. 문서 상세조회 - 경조비신청서
+	// 6_5. 문서 상세조회 - 경조비신청서
 	public ArrayList<Document> selectFeDetail(SqlSessionTemplate sqlSession, Document doc) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectFeDetail", doc);
 	}
 	
-	// 6_5. 문서 상세조회 - 휴가신청서
+	// 6_6. 문서 상세조회 - 휴가신청서
 	public ArrayList<Document> selectVacDetail(SqlSessionTemplate sqlSession, Document doc) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectVacDetail", doc);
 	}
 	
-	// 6_6. 문서 상세조회 - 기안서
+	// 6_7. 문서 상세조회 - 기안서
 	public ArrayList<Document> selectDraftDetail(SqlSessionTemplate sqlSession, Document doc) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectDraftDetail", doc);
 	}
 	
-	// 6_7. 문서 상세조회 - 제증명신청서
+	// 6_8. 문서 상세조회 - 제증명신청서
 	public ArrayList<Document> selectProofDetail(SqlSessionTemplate sqlSession, Document doc) {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectProofDetail", doc);
 	}
@@ -214,6 +219,82 @@ public class ReqApprovalDao {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("approveMapper.searchRefList", asc, rowBounds);
+	}
+	
+	// 9_1. 결재요청함 총 문서개수 조회
+	public int selectMyDocCount(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.selectMyDocCount", d);
+	}
+	
+	// 9_2. 결재요청함 리스트 조회
+	public ArrayList<Document> selectMyDocList(SqlSessionTemplate sqlSession, Document d, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.selectMyDocList", d, rowBounds);
+	}
+	
+	// 9_3. 검색 결과에 해당하는 참조문서 개수 조회
+	public int searchMyDocCount(SqlSessionTemplate sqlSession, ApproveSearchCondition asc) {
+		return sqlSession.selectOne("approveMapper.searchMyDocCount", asc);
+	}
+	
+	// 9_4. 검색 결과에 해당하는 참조문서 리스트 조회
+	public ArrayList<Document> searchMyDocList(SqlSessionTemplate sqlSession, ApproveSearchCondition asc, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.searchMyDocList", asc, rowBounds);
+	}
+	
+	// 10. sidebar 보관함별 문서개수 count
+	public int countStand(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countStand", d);
+	}
+	public int countPending(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countPending", d);
+	}
+	public int countComplete(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countComplete", d);
+	}
+	public int countRefuse(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countRefuse", d);
+	}
+	public int countCallback(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.countCallback", d);
+	}
+	
+	// 11_1. '진행'중인 결재권자에게 회수요청
+	public int requestCallback(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.requestCallback",d);
+	}
+	
+	// 11_2. 기안자 doc_status 4.회수요청으로 변경
+	public int updateDocSt(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.updateDocSt", d);
+	}
+	
+	// 12_1. 결재자 - 회수 승인
+	public int permitCallback(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.permitCallback", d);
+	}
+	
+	// 12_2. 기안자 - 상태 회수
+	public int statusCallback(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.statusCallback", d);
+	}
+	
+	// 12_3. 결재자 - 회수 거절
+	public int refuseCallback(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.update("approveMapper.refuseCallback", d);
+	}
+	
+	// 13_1. 문서 총 개수 조회
+	public int selectCallbackCount(SqlSessionTemplate sqlSession, Document d) {
+		return sqlSession.selectOne("approveMapper.selectCallbackCount", d);
+	}
+	
+	// 13_2. 문서 리스트 조회
+	public ArrayList<Document> selectCallbackList(SqlSessionTemplate sqlSession, Document d, PageInfo pi) {
+		return (ArrayList)sqlSession.selectList("approveMapper.selectCallbackList", d);
 	}
 	
 }

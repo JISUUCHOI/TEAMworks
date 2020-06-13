@@ -159,32 +159,13 @@
 	
 	        <!-- 본문 -->
 	        <div id="docListArea">
-	            <!-- 조건:대기/진행/완료/반려/회수요청/회수 -->
-	            <c:choose>
-					<c:when test="${ sts eq 0 }">
-			            <h3>⊙ 결재대기함</h3><br>
-		        	</c:when>
-		        	<c:when test="${ sts eq 1 }">
-			            <h3>⊙ 결재진행함</h3><br>
-		        	</c:when>
-		        	<c:when test="${ sts eq 2 }">
-			            <h3>⊙ 결재완료함</h3><br>
-		        	</c:when>
-		        	<c:when test="${ sts eq 3 }">
-			            <h3>⊙ 반려문서함</h3><br>
-		        	</c:when>
-		        	<c:when test="${ sts eq 4 }">
-			            <h3>⊙ 회수요청함</h3><br>
-		        	</c:when>
-		        </c:choose>
+	            <h3>⊙ 결재회수함</h3><br>
 	            <hr>
 	            <br>
-
 	
 	            <!-- 검색 -->
 	            <form action="searchList.rap" method="post">
 	            	<input type="hidden" name="empId" value="${ loginUser.empId }">
-	            	<input type="hidden" name="approveStatus" value="${ sts }">
 	            	<input type="hidden" name="currentPage" value="1">
 	                <table id="search" class="searchBox">
 	                    <tr>
@@ -280,7 +261,6 @@
 	                        <th width="60">상태</th>
 	                    </tr>
 	                </thead>
-	                <!-- 조건절:대기/진행/완료/반려/회수/회수요청, 반복문 -->
 	                <tbody>
 	                	<c:forEach var="l" items="${ list }">
 		                    <tr>
@@ -290,23 +270,7 @@
 		                        <td style="text-align:center;">${ l.empName }</td>
 		                        <td style="text-align:center;">${ l.docDepartment}</td>
 		                        <td style="text-align:center;">${ l.docDate }</td>
-		                        <c:choose>
-		                        	<c:when test="${ l.approveStatus eq 0 }">
-				                        <td style="text-align:center;">대기</td>
-		                        	</c:when>
-		                        	<c:when test="${ l.approveStatus eq 1 }">
-				                        <td style="text-align:center;">진행</td>
-		                        	</c:when>
-		                        	<c:when test="${ l.approveStatus eq 2 }">
-				                        <td style="text-align:center;">완료</td>
-		                        	</c:when>
-		                        	<c:when test="${ l.approveStatus eq 3 }">
-				                        <td style="text-align:center;">반려</td>
-		                        	</c:when>
-		                        	<c:when test="${ l.approveStatus eq 4 }">
-				                        <td style="text-align:center;">회수요청</td>
-		                        	</c:when>
-		                        </c:choose>
+		                        <td style="text-align:center;">${ l.docStatus }</td>
 		                    </tr>
 	                    </c:forEach>
 	                </tbody>
@@ -316,7 +280,7 @@
 	            <script>
 	            	$(function(){
 	            		$(".docTitle").click(function(){
-	            			location.href="detailDoc.rap?docNo=" + $(this).prevAll(".docNo").text() +
+	            			location.href="docDetail.ap?docNo=" + $(this).prevAll(".docNo").text() +
 	            										"&docSc=" + $(this).prevAll(".docSc").text();
 	            		});
 	            	});
@@ -336,7 +300,6 @@
 							<c:url value="searchList.rap" var='searchUrl'>
 								<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
-								<c:param name="approveStatus" value="${ sts }" />
 								<c:param name="condition" value="${ asc.condition }" />
 								<c:param name="keyword" value="${ asc.keyword }" />
 								<c:param name="startDate" value="${ asc.startDate }" />
@@ -345,7 +308,7 @@
 							<button class="page able" onclick="location.href='${ searchUrl }'">&lt;</button>
 						</c:when>
 						<c:otherwise>
-							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage - 1 }'">&lt;</button>
+							<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ pi.currentPage - 1 }'">&lt;</button>
 						</c:otherwise>
 					</c:choose>
 					
@@ -357,13 +320,12 @@
 							<c:otherwise>
 								<c:choose>
 									<c:when test="${ empty asc }">
-										<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ p }'">${ p }</button>
+										<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ p }'">${ p }</button>
 									</c:when>
 									<c:otherwise>
 										<c:url value="searchList.rap" var='searchUrl'>
 											<c:param name="currentPage" value="${ p }" />
 											<c:param name="empId" value="${ loginUser.empId }" />
-											<c:param name="approveStatus" value="${ sts }" />
 											<c:param name="condition" value="${ asc.condition }" />
 											<c:param name="keyword" value="${ asc.keyword }" />
 											<c:param name="startDate" value="${ asc.startDate }" />
@@ -385,7 +347,6 @@
 							<c:url value="searchList.rap" var='searchUrl'>
 								<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
-								<c:param name="approveStatus" value="${ sts }" />
 								<c:param name="condition" value="${ asc.condition }" />
 								<c:param name="keyword" value="${ asc.keyword }" />
 								<c:param name="startDate" value="${ asc.startDate }" />
@@ -394,7 +355,7 @@
 							<button class="page able" onclick="location.href='${ searchUrl }'">&gt;</button>
 						</c:when>
 						<c:otherwise>
-							<button class="page able" onclick="location.href='docList.rap?approveStatus=${ sts }&currentPage=${ pi.currentPage + 1 }'">&gt;</button>
+							<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ pi.currentPage + 1 }'">&gt;</button>
 						</c:otherwise>
 					</c:choose>
 	            </div>
@@ -496,15 +457,8 @@
 			$(".disable").css("border", "1.3px solid deepskyblue");
 			$(".disable").css("text-align", "center");
 			
-			var sts = "${sts}";
+			$("#callbackDoc>a").css("color", "deepskyblue");
 			
-			switch(sts){
-			case '0': $("#readyForApprove>a").css("color", "deepskyblue"); break;
-			case '1': $("#pendingApprove>a").css("color", "deepskyblue"); break;
-			case '2': $("#doneApprove>a").css("color", "deepskyblue"); break;
-			case '3': $("#refuseApprove>a").css("color", "deepskyblue"); break;
-			case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
-			}
 			
 		});	
 	</script>

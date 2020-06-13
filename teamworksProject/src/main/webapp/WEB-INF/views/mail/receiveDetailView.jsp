@@ -30,6 +30,13 @@
     </style>
 </head>
 <body>
+	<script>
+       	$(function(){
+       		$("#topEmail").css("border-bottom-style","groove");
+       		$("#topEmail a").css("color","dimgray");
+       		$("#rm>a").css("color", "deepskyblue");
+       	});
+    </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarMail.jsp"/>
   <div class="outer" align="center">
@@ -38,7 +45,10 @@
                 <div class="col-lg-12 text-left">
                     <h3 class="page-header"><i class="fas fa-envelope"></i>&nbsp; [제목] &nbsp;${mailList[0].mailTitle }</h3>
                 </div>
+                
             </div>
+                   <br>
+            
             <table class="table table-bordered">
                 <tr>
                     <th width="100px">제목</th>
@@ -46,14 +56,14 @@
                 </tr>
                 <tr>
                     <th>보낸사람</th>
-                    <td>${ mailList[0].senderEmail }</td>
+                    <td>[${mailList[0].senderName}]&nbsp;${ mailList[0].senderEmail }</td>
                 </tr>
                 <tr>
                     <th>참조</th>
                     <td>
                     <c:forEach var="m" items="${ mailList }">
 	                    	<c:if test="${ m.refType eq 'C' }">
-			                    ${ m.recipientsEmail }
+			                    [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
 	                    	</c:if>
                     </c:forEach>
                     </td>
@@ -63,7 +73,7 @@
                     <td>
                      <c:forEach var="m" items="${ mailList }">
                     	<c:if test="${ m.refType eq 'B' && loginUser.email eq m.recipientsEmail}">
-		                    ${ m.recipientsEmail }
+		                     [${m.recipientsName}]&nbsp;${ m.recipientsEmail }
                     	</c:if>
                     </c:forEach>
                     </td>
@@ -86,22 +96,52 @@
                 </tr>
                 <tr height="300px">
                     <td colspan="2">
-                        <div class="">
+                        <div class="" style="overflow-y:scroll">
                         ${mailList[0].mailContent }
                         </div>
                     </td>
                 </tr>
             </table>
+            <form id="replyEmail" action="replyMail" method="post">
+            	<input type="hidden" name="strTo" value="${ mailList[0].senderEmail }">
+            	<input type="hidden" name="mailTitle" value="${mailList[0].mailTitle }">
+            </form>
             <div class="row">
-                <div class="col-xs-10"></div>
+                <div class="col-xs-10 text-left"><button type="button" onclick="$('#replyEmail').submit();" class="btn btn-info">답장</button></div>
                 <div class="col-xs-1">
-                    <button class="btn btn-default">목록</button>
+                    <button class="btn btn-default" onclick="location.href='rlist.ma?currentPage=1'">목록</button>
                 </div>
                 <div class="col-xs-1">
-                    <button class="btn btn-danger">삭제</button>
+                    <button class="btn btn-danger" onclick="deleteMail();">삭제</button>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script>
+    	function deleteMail(){
+    		var emailNo = ${mailList[0].emailNo}
+    		var empId = '${loginUser.empId}'
+    		if(confirm("삭제하시겠습니까?")){
+    			$.ajax({
+        			url:"delMail",
+        			data:{emailNo:emailNo, empId:empId},
+        			type:"post",
+        			success:function(status){
+        				if(status=="success"){
+        					location.href="rlist.ma?currentPage=1"
+        				}else{
+        					alert("삭제에 실패했습니다.");
+        				}
+        			},
+        			error:function(){
+        				console.log("삭제 ajax 통신 실패");
+        			}
+        			
+        		});
+    		}
+    	
+    	}
+    </script>
 </body>
 </html>

@@ -388,24 +388,34 @@ public class EmployeeController {
 		
 		@ResponseBody
 		@RequestMapping("empAttSch.em")
-		public ModelAndView selectSchEmpAtt(int currentPage,@RequestParam ("searchStartDate") String startDate,@RequestParam("searchEndDate") String endDate,@RequestParam(name="empName", required=false) String empName, ModelAndView mv,@RequestParam(name="condition", required=false) String condition) {
-			//System.out.println(startDate);
-			//System.out.println(condition);
-			int listCount = eService.selectListCount();
-			int pageLimit = 10;
-			int boardLimit = 10;
-			
-			PageInfo pi = Pagination.getPageInfo(listCount,currentPage , 10, 10);
-			SearchEmpAttCondition seac = new SearchEmpAttCondition();
+		public ModelAndView selectSchEmpAtt(SearchEmpAttCondition seac,int currentPage,@RequestParam ("searchStartDate") String startDate,@RequestParam("searchEndDate") String endDate,@RequestParam(name="empName", required=false) String empName, ModelAndView mv,@RequestParam(name="condition", required=false) String condition) {
+//			System.out.println(startDate);
+//			System.out.println(endDate);
+//			System.out.println(condition);
+//			System.out.println(empName);
+		
 			seac.setStartDate(startDate);
 			seac.setEndDate(endDate);
 			seac.setEmpName(empName);
-			seac.setCondition(condition);
+		
+			switch(condition ) {
+			case "deptAll" : seac.setDeptAll("deptAll"); break;
+			case "ManagementSupport"  : seac.setManagementSupport("ManagementSupport"); break;
+			case "Development" : seac.setDevelopment("Development");break; 
+			}
+			System.out.println(seac);
 			
+			
+			int listCount = eService.selectListCount(seac);
+		    System.out.println(listCount);
+			PageInfo pi = Pagination.getPageInfo(listCount,currentPage , 10, 10);
+			
+		
 			
 			//System.out.println(sma);
 			ArrayList<SearchEmpAttendance> list = eService.selectSchEmpAtt(seac,pi);
-			//System.out.println(list);
+			System.out.println(pi);
+			System.out.println(list);
 			mv.addObject("pi",pi);
 			mv.addObject("list", list);
 			mv.setViewName("employee/empAttendanceSch");

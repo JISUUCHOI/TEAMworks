@@ -23,7 +23,7 @@
 			width:1250px;
 			float:left;
 			margin-left:220px;
-			margin-top:50px;
+			margin-top:20px;
 		
 		 }
     .inner{width: 900px;}
@@ -31,13 +31,19 @@
 </style>
 </head>
 <body>
-
+  		<script>
+        	$(function(){
+        		$("#topBoard").css("border-bottom-style","groove");
+        		$("#topBoard a").css("color","dimgray");
+        		$("#noticeMenu>a").css("color", "deepskyblue");
+        	});
+        </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarBoard.jsp"/>
   <div class="outer" align="center">
         <br>
         <div class="inner">
-        <h4>공지사항</h4>
+        <h4 align="left"><i class="far fa-list-alt"></i>&nbsp;&nbsp;<b>공지사항</b></h4>
             <hr>
            <form action="search.bo" class="form-inline" style="float: right;">
          	<input type="hidden" name="cat" value="1"> 
@@ -107,7 +113,7 @@
                         <td>${ n.boardNo }</td>
                          <c:choose>
                         	<c:when test="${ n.rcount ne 0}">
-                        		<td>${ n.boardTitle } (${ n.rcount })</td>
+                        		<td>${ n.boardTitle } <span style="color:rgb(255, 80, 80)">(${ n.rcount })</span></td>
                         	</c:when>
                         	<c:otherwise>
                         		<td>${ n.boardTitle }</td>
@@ -129,7 +135,7 @@
                   </c:forEach>
                 </tbody>
             </table>
-            
+         
             <script>
             	$(function(){
             		$("#noticeList tbody tr").click(function(){
@@ -214,8 +220,8 @@
             	</c:if>
             </ul>
         </div>
+   <br><br><br>  
     </div>
-
     <script>
         $(function() {	
             $('#startDate').datepicker({

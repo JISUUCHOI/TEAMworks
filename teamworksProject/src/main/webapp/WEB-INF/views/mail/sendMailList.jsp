@@ -30,6 +30,13 @@
     </style>
 </head>
 <body>
+	<script>
+       	$(function(){
+       		$("#topEmail").css("border-bottom-style","groove");
+       		$("#topEmail a").css("color","dimgray");
+       		$("#sm>a").css("color", "deepskyblue");
+       	});
+     </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarMail.jsp"/>
 
@@ -83,7 +90,7 @@
                 	</div>
                 	<div class="col-xs-4"></div>
                     <div class="col-xs-6">
-                        <button class="btn btn-info btn-sm" style="margin-right: 10px;">재발송</button>
+                        <!-- <button class="btn btn-info btn-sm" style="margin-right: 10px;">재발송</button> -->
                         <button class="btn btn-danger btn-sm" id="delete" onclick="sendMailDelete();" style="margin-right: 10px;" disabled>삭제</button>
                     </div>
                 </div>
@@ -205,6 +212,7 @@
             </ul>
             </div>
         </div>
+        <br><br><br>
     </div>
     <script>
 	    function checkAll(){
