@@ -68,9 +68,10 @@
 							<td><b>${j.jobCode % 10}</b></td>
 							<td>${j.jobName}</td>
 							<td>
-								<!-- <button type="button" class="btn btn-info btn-primary btn-sm" data-toggle="modal" data-target="#myModal">수정</button> -->
-								<button type="button" class="btn btn-info btn-primary btn-sm" onclick="updateBtn(${j.jobCode});">수정</button>
-								<button type="button" class="btn btn-secondary btn btn-primary btn-sm">삭제</button>
+								<button type="button" class="btn btn-info btn-primary btn-sm" 
+										onclick="updateBtn(${j.jobCode});">수정</button>
+								<button type="button" class="btn btn-secondary btn btn-primary btn-sm"
+										onclick="deleteBtn(${j.jobCode});">삭제</button>
 							</td>
 							<td>
 								<button class="btn" onclick="moveUp(${j.jobCode});"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
@@ -136,16 +137,7 @@
 	
 	
 	<script>
-/* 		function moveUp(el) {
-			var $tr = $(el).parent().parent(); // 클릭한 버튼이 속한 tr 요소
-			$tr.prev().before($tr); // 현재 tr 의 이전 tr 앞에 선택한 tr 넣기
-		}
-		
-		function moveDown(el) {
-			var $tr = $(el).parent().parent(); // 클릭한 버튼이 속한 tr 요소
-			$tr.next().after($tr); // 현재 tr 의 다음 tr 뒤에 선택한 tr 넣기
-		} */
-		
+		// 위 화살표 클릭 시 tr 위로 옮기기
 		function moveUp(obj) {
 			var idStr = '#' + obj;
 			var prevHtml = $(idStr).prev().html();
@@ -165,6 +157,7 @@
 			$('#TEMP_TR').attr("id", currobj);
 		}
 		
+		// 아래 화살표 클릭 시 tr 아래로 옮기기
 		function moveDown(obj) {
 			var idStr = '#' + obj;
 			var nextHtml = $(idStr).next().html();
@@ -184,7 +177,7 @@
 			$('#TEMP_TR').attr("id", currobj);
 		}
 		
-		// 순서 저장 버튼 클릭 시
+		// 순서 저장 버튼 클릭 시 실행
 		function saveRank() {
 
 			var str = "";
@@ -193,14 +186,11 @@
 				str += $('#rankTable>tbody>tr:nth-child('+i+')>td:nth-child(2)').text() + ",";
 			}
 
-
   			$.ajax({
 				url:"saveRank.mg",
 				type:"post",
 				data:{str:str},
 				success:function(list){
-					
-					alert('직급 순서가 변경되었습니다.');
 					
 					for(var i=0; i<list.length; i++) {
 						var index = i + 1;
@@ -215,10 +205,17 @@
 			});  
 		}
 		
-		// 수정 버튼 클릭 시
+		// 수정 버튼 클릭 시 실행
 		function updateBtn(jobCode) {
 			$('#inputJobCode').val(jobCode);
 			$('#updateModal').modal('show');
+		}
+		
+		// 삭제 버튼 클릭 시 실행
+		function deleteBtn(jobCode) {
+			if(confirm('해당 직급을 삭제하시겠습니까?')) {
+				location.href='deleteJob.mg?jobCode=' + jobCode;
+			}
 		}
 	</script>
 	

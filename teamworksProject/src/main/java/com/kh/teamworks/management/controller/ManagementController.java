@@ -493,5 +493,25 @@ public class ManagementController {
 		}
 	}
 	
+	// 최지수_직급 관리
+	// 직급 삭제용
+	@RequestMapping("deleteJob.mg")
+	public String deleteJobCode(int jobCode, HttpSession session, Model model) {
+		
+		int result = mgService.deleteJobCode(jobCode);
+		
+		if(result > 0) { // 직급 삭제 성공 --> 다시 직급 관리 페이지
+			
+			session.setAttribute("msg", "해당 직급이 삭제되었습니다.");
+			return "redirect:orgJobList.mg";
+			
+		}else { // 직급 삭제 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "직급 삭제에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+		
+	}
+	
 
 }

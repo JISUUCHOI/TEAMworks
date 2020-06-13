@@ -129,6 +129,11 @@ public class ManagementDao {
 	public int updateJobCode(SqlSessionTemplate sqlSession, Job job) {
 		return sqlSession.update("managementMapper.updateJobCode", job);
 	}
+	
+	// 직급관리_직급 삭제
+	public int deleteJobCode(SqlSessionTemplate sqlSession, int jobCode) {
+		return sqlSession.delete("managementMapper.deleteJobCode", jobCode);
+	}
 
 
 }

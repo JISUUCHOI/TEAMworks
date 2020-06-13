@@ -64,7 +64,7 @@ public interface ManagementService {
 	ArrayList<Job> selectJobList();
 	void searchEmpInfo(); //
 	int updateJobCode(Job job); //
-	int deleteJobCode(); //
+	int deleteJobCode(int jobCode); //
 	int insertJobCode(String jobName); // 추가할 직급명 입력받아 직급 추가
 
 	int saveRank(String jobName, int jobCode); // 직급 순서 변경

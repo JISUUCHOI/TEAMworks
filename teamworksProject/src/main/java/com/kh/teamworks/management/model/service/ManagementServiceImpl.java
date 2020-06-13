@@ -176,9 +176,9 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public int deleteJobCode() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteJobCode(int jobCode) {
+
+		return mgDao.deleteJobCode(sqlSession, jobCode);
 	}
 
 	@Override

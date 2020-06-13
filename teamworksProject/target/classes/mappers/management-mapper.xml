@@ -216,5 +216,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   SET JOB_NAME=#{jobName}
 		 WHERE JOB_CODE=#{jobCode}
 	</update>
+	
+	<delete id="deleteJobCode" parameterType="_int">
+		DELETE FROM JOB
+		 WHERE JOB_CODE=#{jobCode}
+	</delete>
 
 </mapper>
