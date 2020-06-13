@@ -91,12 +91,16 @@ public class ManagementDao {
 
 	
 	
+	public int selectVacCount(SqlSessionTemplate sqlSession) {
+		return sqlSession.selectOne("managementMapper.selectVacCount");
+	}
+	
 	
 	public ArrayList<Vacation> selectVacationList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return(ArrayList)sqlSession.selectList("managementMapper.selectVacationList", null, rowBounds);
+		return (ArrayList)sqlSession.selectList("managementMapper.selectVacList", null, rowBounds);
 	}
 	
 	public ArrayList<Vacation> searchVacationList(SqlSessionTemplate sqlSession, String keyword, PageInfo pi) {
@@ -113,6 +117,20 @@ public class ManagementDao {
 	public int updateLogo(SqlSessionTemplate sqlSession, CompanyInfo ci) {
 		return sqlSession.update("managementMapper.updateLogo", ci);
 	}
+
+	public int updateSeal(SqlSessionTemplate sqlSession, CompanyBsns cb) {
+		return sqlSession.update("managementMapper.updateSeal", cb);
+	}
+
+	public int updateStatus(SqlSessionTemplate sqlSession, String empId) {
+		return sqlSession.update("managementMapper.updateStatus", empId);
+	}
+
+	public int updateCompanyBsns(SqlSessionTemplate sqlSession, CompanyBsns cb) {
+		return sqlSession.update("managementMapper.updateCompanyBsns", cb);
+	}
+
+
 	
 
 

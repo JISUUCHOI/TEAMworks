@@ -165,24 +165,34 @@
 				style="width:200px;">
 			</div>
 
-			<div id="t3" style="padding:10; font-size:13px;">
+			<div id="t3" style="padding:10px; font-size:13px;">
 				<div id="t3-1" style="margin-top:50px;">
 					서비스 이용중 표시되는 로고를 등록 할 수 있습니다.<br> 
 					<img src="/teamworks/resources/icons/redMark.png" width="30px">
 					최대 사이즈 : 용량 500KB 미만, 확장자 PNG, JPG <br>
-					<form id="logoChange" action="updateLogo.mg" method="post" enctype="multipart/form-data" style="margin-top:20px;">
-						<input type="file" id="reUplogo" class="form-control-file border" name="reUploadLogo"><br>
-						<button type="submit" class="btn btn-secondary btn-sm"
-							name="logoChangeFile">변경</button>
-						&nbsp;
-						<button type="button" class="btn btn-secondary btn-sm">삭제</button>
+					<form id="logoChange" action="updateLogo.mg" method="post" enctype="multipart/form-data" 
+							style="margin-top:20px; width:300px; height:50px;">
+						<input type="file" id="reUplogo" class="form-control-file border" name="reUploadLogo" 
+									style="width:300px;"><br>
+						<button type="button" class="btn btn-secondary btn-sm"
+							name="logoChangeFile" style="float:right;" onclick="logoChange();">변경</button>
 					</form>
 
 					<!-- <input type="file"> 등록 누르면 팝업창으로 뜨게 설정하기 -->
 				</div>
 			</div>
+			
 		</div>
-
+	
+		<script>
+			function logoChange(){
+				if(confirm("로고를 변경 하시겠습니까?") == true){
+					document.getElementById('logoChange').submit();
+				}else{
+					alert("취소되었습니다.");
+				}
+			}
+		</script> 
 	
 		<div id="d2-info" style="padding-left:200px;">	
 			<h4><b>회사 정보</b></h4>
@@ -208,53 +218,79 @@
 
 		<div id="d3-company" style="padding-left:200px;">
 			<br> <br> <b>사업장 정보</b>
-			<button type="button"
-				class="float-right btn btn-outline-secondary btn-sm">사업장 정보
-				변경</button>
+			<button type="button" class="float-right btn btn-outline-secondary btn-sm" onclick="companyBsnsUpdate();"> 사업장 정보 변경</button>
 
+			
 			<br>
-
-			<table class="tg" style="width: 800px;">
-					<tr>
-						<th class="tg-amwm">사업자 등록번호</th>
-						<th class="tg-baqh">${ companyBsns.companyNo }</th>
-						<th class="tg-amwm">종사업장번호</th>
-						<th class="tg-baqh">???</th>
-					</tr>
-					<tr>
-						<td class="tg-amwm">사업장명</td>
-						<td class="tg-baqh">${ companyBsns.companyName }</td>
-						<td class="tg-amwm">대표자명</td>
-						<td class="tg-baqh">${ companyBsns.companyHead }</td>
-					</tr>
-					<tr>
-						<td class="tg-amwm">업태</td>
-						<td class="tg-baqh">${ companyBsns.companyCon }</td>
-						<td class="tg-amwm">업종</td>
-						<td class="tg-baqh">${ companyBsns.companyKind }</td>
-					</tr>
-					<tr>
-						<td class="tg-amwm">사업장 주소</td>
-						<td class="tg-baqh" colspan="3">${ companyBsns.companyAdrs }</td>
-					</tr>
-					<tr rowspan="3">
-						<td class="tg-amwm" style="vertical-align:middle;">직인</td>
-						<td class="tg-0lax" colspan="3"><div>
-								<img src="/teamworks/resources/images/No-image-available.png"
-									width="70" height="70" style="float: left;">
-							</div>
-							<div style="font-size:13px;">
-								<img src="/teamworks/resources/icons/redMark.png" width="30">최대 사이즈 : 70*70px, 용량 300Kb 미만, 확장자 PNG
-								<br>
-								<button type="button" class="btn btn-secondary btn-sm">등록</button>
-								&nbsp;
-								<button type="button" class="btn btn-secondary btn-sm">삭제</button>
-							</div></td>
-					</tr>
-				</tbody>
-			</table>
+			<form action="updateBsns.mg" method="post" id="bsnsInfo">
+				<table class="tg" style="width: 800px;">
+						<tr>
+							<th class="tg-amwm">사업자 등록번호</th>
+							<th class="tg-baqh"><input type="text" class="form-control" id="companyNo" name="companyNo" value="${ companyBsns.companyNo }"></th>
+							<th class="tg-amwm">종사업장번호</th>
+							<th class="tg-baqh"><input type="text" class="form-control" id="companyExno" name="companyExno" value="${ companyBsns.companyExno }"></th>
+						</tr>
+						<tr>
+							<td class="tg-amwm">사업장명</td>
+							<td class="tg-baqh"><input type="text" class="form-control" id="companyName" name="companyName" value="${ companyBsns.companyName }"></td>
+							<td class="tg-amwm">대표자명</td>
+							<td class="tg-baqh"><input type="text" class="form-control" id="companyHead" name="companyHead" value="${ companyBsns.companyHead }"></td>
+						</tr>
+						<tr>
+							<td class="tg-amwm">업태</td>
+							<td class="tg-baqh"><input type="text" class="form-control" id="companyCon" name="companyCon" value="${ companyBsns.companyCon }"></td>
+							<td class="tg-amwm">업종</td>
+							<td class="tg-baqh"><input type="text" class="form-control" id="companyKind" name="companyKind" value="${ companyBsns.companyKind }"></td>
+						</tr>
+						<tr>
+							<td class="tg-amwm">사업장 주소</td>
+							<td class="tg-baqh" colspan="3"><input type="text" class="form-control" id="companyAdrs" name="companyAdrs" value="${ companyBsns.companyAdrs }"></td>
+						</tr>
+						</form>
+						
+						
+						<tr rowspan="3">
+							<td class="tg-amwm" style="vertical-align: middle;">직인</td>
+							<td class="tg-0lax" colspan="3"><div>
+									<img
+										src="${ pageContext.servletContext.contextPath }/resources/CompanySeal/${ companyBsns.sealChange }"
+										width="70" height="70" style="float: left;">
+								</div>
+								<div style="font-size: 12px; text-align:center;">
+									<img src="/teamworks/resources/icons/redMark.png" width="30">최대
+									사이즈 : 70*70px, 용량 300Kb 미만, 확장자 PNG <br>
+									<form id="sealChange" action="updateSeal.mg" method="post" 
+										enctype="multipart/form-data" style="width: 300px; margin-top:20px; margin-left:20px;">
+										<input type="file" id="reUplogo" class="form-control-file border" name="reUploadSeal"style="width: 300px;">
+										<br>
+										<button type="button" class="btn btn-secondary btn-sm" name="logoChangeFile" 
+													style="float: right;" onclick="sealChange();">변경</button>
+									</form>
+								</div></td>
+						</tr>
+					</tbody>
+				</table>
 		</div>
 	</div>
+	
+		<script>
+			function sealChange(){
+				if(confirm("직인을 변경 하시겠습니까?") == true){
+					document.getElementById('sealChange').submit();
+				}else{
+					alert("취소되었습니다.");
+				}
+			}
+			
+			function companyBsnsUpdate(){
+				if(confirm("사업장 정보를 변경 하시겠습니까?") == true){
+					document.getElementById('bsnsInfo').submit();
+				}else{
+					alert("취소되었습니다.");
+				}
+			}
+		</script> 
+	
 	
 	<br><br><br>
 

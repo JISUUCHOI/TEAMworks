@@ -49,7 +49,7 @@
 		<div class="container" style="margin-left: 10px; margin-top:10px; width:1070px;">
 			
 			<div>
-				<form id="searchForm" action="empListSearch.mg" method="Get" align="center">
+				<form id="searchForm" action="empListSearch.mg" method="post" align="center">
 					<div class="select" >
 						<select class="custom-select" name="condition">
 							<option value="empId">사원번호</option>
@@ -64,8 +64,8 @@
 					<button type="submit" class="searchBtn btn btn-secondary">검색</button>
 				</form>
 				
-				<input type="checkbox" name="status" id="status" style="margin-left:30px; margin-right:10px; margin-top:20px;"><b>퇴직자 포함</b>
-				<button type="" class="btn btn-outline-primary btn-sm"  style="float:right; margin-right:50px; margin-top:20px;" onclick="$('#postForm').submit();">퇴사자 등록</button>
+				<input type="checkbox" name="statusN" id="statusN" style="margin-left:30px; margin-right:10px; margin-top:20px;"><b>퇴직자 보기</b>
+				<button type="" class="btn btn-outline-primary btn-sm"  style="float:right; margin-right:50px; margin-top:20px;" id="updateStatus">퇴사자 등록</button>
 				
 			</div>
 			<br>
@@ -90,7 +90,7 @@
 				style="table-layout: fixed; text-align: center; margin-top: 30px;">
 				<thead class="thead-light">
 					<tr>
-						<th width="40px;"><input type="checkbox"></th>
+						<th width="40px;"><input id="checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
 						<th width="110px;">사원번호</th>
 						<th width="100px;">성명</th>
 						<th width="150px;">주민등록번호</th>
@@ -103,7 +103,7 @@
 				<tbody>
 					<c:forEach items="${ empList }" var="e">
 						<tr>
-							<td><input type="checkbox" name="" id="" value=""></td>
+							<td><input type="checkbox" name="checkRow" value="${ e.empId }"></td>
 							<td>${ e.empId }</td>
 							<td>${ e.empName }</td>
 							<td>${ e.empNo }</td>
@@ -115,9 +115,40 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			
-			
-			
+
+			<script type="text/javascript">
+				function checkAll() {
+					if ($("#checkAll").is(':checked')) {
+						$("input[name=checkRow]").prop("checked", true);
+					} else {
+						$("input[name=checkRow]").prop("checked", false);
+					}
+				}
+				
+		
+				$("#updateStatus").click(function() {
+					var confirm_val = confirm("퇴사 등록하시겠습니까?");
+
+					if (confirm_val) {
+						var checkArr = new Array();
+
+						$("input[name=checkRow]:checked").each(function() {
+							checkArr.push($(this).attr("value"));
+						});
+
+						$.ajax({
+							url : "updateStatus.mg",
+							type : "post",
+							data : { checkRow : empRetire},
+							success : function() {
+								location.href = "empList.mg";
+							}
+						});
+					}
+				});
+			</script>
+
+
 			<div id="pagingArea" style="margin-top:50px;">
                 <ul class="pagination pagination-sm justify-content-center">
 	                <c:if test="${ pi.currentPage ne 1 }">

@@ -18,6 +18,7 @@ public class Vacation {
 	private Date hireDate;
 	private int vcTotal;
 	private int vcCount;
+	private String vcYear;
 	
 
 }

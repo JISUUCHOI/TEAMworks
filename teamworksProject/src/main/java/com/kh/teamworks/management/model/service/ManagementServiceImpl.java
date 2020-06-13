@@ -38,9 +38,19 @@ public class ManagementServiceImpl implements ManagementService{
 		return mgDao.selectCompanyBsns(sqlSession, homNo);
 	}
 	
+	// 사업장 정보 변경
+	public int updateCompanyBsns(CompanyBsns cb) {
+		return mgDao.updateCompanyBsns(sqlSession, cb);
+	}
+
 	// 로고 업데이트
 	public int updateLogo(CompanyInfo ci) {
 		return mgDao.updateLogo(sqlSession, ci);
+	}
+	
+	// 직인 업데이트
+	public int updateSeal(CompanyBsns cb) {
+		return mgDao.updateSeal(sqlSession, cb);
 	}
 
 	// 사원 조회
@@ -85,7 +95,11 @@ public class ManagementServiceImpl implements ManagementService{
 		return mgDao.selectEmpCount(sqlSession, eSc);
 	}
 	
-	
+	// 퇴사자 등록
+	public int updateStatus(String empId) {
+		return mgDao.updateStatus(sqlSession, empId);
+	}
+
 	// 인사 정보 등록
 	@Override
 	public int insertEmployee(Employee e) {
@@ -104,9 +118,15 @@ public class ManagementServiceImpl implements ManagementService{
 		return mgDao.selectVacationList(sqlSession, pi);
 	}
 	
+	// 휴가 카운트
+	public int selectVacCount() {
+		return mgDao.selectVacCount(sqlSession);
+	}
+
+	
 	// 휴가 페이징 처리 
 	@Override
-	public int selectVacationCount(String keyword) {
+	public int selectVacCount(String keyword) {
 		return mgDao.selectVacationCount(sqlSession, keyword);
 	}
 	
@@ -186,6 +206,10 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+
+
 
 
 

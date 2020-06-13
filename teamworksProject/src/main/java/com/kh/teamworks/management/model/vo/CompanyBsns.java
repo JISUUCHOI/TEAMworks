@@ -12,6 +12,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class CompanyBsns {
+	
 	private int companyNo;
 	private int homNo;
 	private String companyName;
@@ -20,4 +21,6 @@ public class CompanyBsns {
 	private String companyKind;
 	private String companyAdrs;
 	private int companyExno;
+	private String sealOrigin;
+	private String sealChange;
 }

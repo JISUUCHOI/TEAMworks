@@ -21,6 +21,9 @@ public interface ManagementService {
 	// 회사 정보 관리 - 로고 정보
 	int updateLogo(CompanyInfo ci);
 	
+	// 회사 정보 관리 - 사업장 정보 변경
+	public int updateCompanyBsns(CompanyBsns cb);
+	
 	// 사원 정보 관리
 	Employee selectEmployeeInfo(Employee e);
 	
@@ -35,6 +38,8 @@ public interface ManagementService {
 	int selectEmpCount(empSearchCondition eSc);
 	ArrayList<Employee> selectEmpListKeyword(empSearchCondition eSc, PageInfo pi);
 	
+	// 퇴사자 등록
+	public int updateStatus(String empId);
 	
 	ArrayList<Employee> selectEmpList(int deptCode); // 해당 부서에 소속된 사원 목록 조회용
 	ArrayList<Employee> selectEmpList(String keyword); // 키워드로 검색된 사원 목록 조회용
@@ -45,10 +50,11 @@ public interface ManagementService {
 	
 	// 휴가 관리 리스트
 	ArrayList<Vacation> selectVacationList(PageInfo pi);
-	int selectVacationCount(String keyword);
+	int selectVacCount();
 	
 	// 휴가 관리 내 검색
 	ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi);
+	int selectVacCount(String keyword);
 	
 	// 증명서 발급
 	Proof selectProofList();

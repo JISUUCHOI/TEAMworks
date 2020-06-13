@@ -1,5 +1,7 @@
 package com.kh.teamworks.management.model.vo;
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ public class empSearchCondition {
 	private String deptName;
 	private String condition;
 	private String keyword;
+	private Date vacationYear;
 		
 	
 }
