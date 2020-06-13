@@ -241,6 +241,7 @@
                     </tr>
                 </table>
                 <br>
+                <input type="submit"
                 <button type="submit" id="schButton">검색</button>
             </form>
            

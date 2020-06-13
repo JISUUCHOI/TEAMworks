@@ -1,7 +1,3 @@
-$(function(){
-    $("#writeDoc>a").css("color", "deepskyblue");
-});
-
 /*참조자 모달용 스크립트*/
 $(function(){
 	

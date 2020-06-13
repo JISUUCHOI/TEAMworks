@@ -22,7 +22,7 @@
         height:100%;
         float:left;
         padding-top:20px;
-    	position:absolute;
+    	/* position:absolute; */
     }
     
     .category{

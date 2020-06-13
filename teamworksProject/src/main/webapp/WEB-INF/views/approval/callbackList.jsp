@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>결재문서보관함</title>
+<title>결재회수함</title>
 <!-- jQuery 라이브러리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
@@ -270,7 +270,9 @@
 		                        <td style="text-align:center;">${ l.empName }</td>
 		                        <td style="text-align:center;">${ l.docDepartment}</td>
 		                        <td style="text-align:center;">${ l.docDate }</td>
-		                        <td style="text-align:center;">${ l.docStatus }</td>
+		                        <c:if test="${ l.docStatus == 5 }">
+		                        	<td style="text-align:center;">회수</td>
+		                        </c:if>
 		                    </tr>
 	                    </c:forEach>
 	                </tbody>
@@ -284,7 +286,6 @@
 	            										"&docSc=" + $(this).prevAll(".docSc").text();
 	            		});
 	            	});
-	            
 	            </script>
 	            
 	
@@ -396,7 +397,7 @@
 			        $("#"+eleId).datepicker( "option", optionName, selectedDate );        
 			        $(".searchDate").find(".chkbox2").removeClass("on"); 
 			    }
-			}); 
+			});
 	
 	        $(".dateclick").dateclick();    // DateClick
 	        $(".searchDate").schDate();        // searchDate
