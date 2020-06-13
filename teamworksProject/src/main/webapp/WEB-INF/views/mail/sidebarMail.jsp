@@ -53,7 +53,9 @@
         color:deepskyblue;
     }
     .subCate>span{
-        color:red;
+    	background-color:white;
+        color:rgb(7, 53, 90);
+        font-weight:bold;
     }
 
 </style>
@@ -66,11 +68,32 @@
             <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category"></div>
-            <div class="subCate"><a href="sendForm.ma">편지쓰기</a></div>
-            <div class="subCate"><a href="rlist.ma?currentPage=1">받은 편지함</a></div>
-            <div class="subCate"><a href="slist.ma?currentPage=1">보낸 편지함</a></div>
-            <div class="subCate"><a href="trash.ma?currentPage=1">휴지통</a></div>
+            <div class="subCate" id="wm"><a href="sendForm.ma">편지쓰기</a></div>
+            <div class="subCate" id="rm"><a href="rlist.ma?currentPage=1">받은 편지함</a></div>
+            <div class="subCate" id="sm"><a href="slist.ma?currentPage=1">보낸 편지함</a></div>
+            <div class="subCate" id="tm"><a href="trash.ma?currentPage=1">휴지통</a></div>
         </div>
     </div>
+    
+    <script>
+    	
+    	$(function(){
+    		$.ajax({
+    			url:"countMail",
+    			data:{empId:'${loginUser.empId}'},
+    			type:"post",
+    			success:function(count){
+    				if(count>0){
+    					var count = "&nbsp;<span id='mailCount' class='badge'>"+count+"</span>";
+    					$("#rm").append(count);
+    				}
+    			},
+    			error:function(){
+    				console.log("count failed")
+    			}
+    			
+    		});
+    	});
+    </script>
 </body>
 </html>

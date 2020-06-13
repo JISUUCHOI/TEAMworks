@@ -574,4 +574,17 @@ public class MailController {
 		model.addAttribute("mailTitle", mailTitle);
 		return "mail/replyMailForm";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="countMail", produces="text/html; charset=utf-8")
+	public String countMail(String empId) {
+		
+		SearchMailCondition sc = new SearchMailCondition();
+		sc.setEmpId(empId);
+		sc.setReadStatus("N");
+		
+		int count = emService.searchReadListCount(sc);
+		
+		return new Gson().toJson(count);
+	}
 }
