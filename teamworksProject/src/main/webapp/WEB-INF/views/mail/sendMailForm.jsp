@@ -657,7 +657,7 @@
 				    var html = '';
 				    for(var i in jsonInfo){
 				    	with(jsonInfo[i]){
-						   html += "<span>"+empName+"</span><a href=\"javascript:select('"+email+"')\">"+email+"</a><br/>";
+						   html += "<span>"+empName+"</span>&nbsp;<a style='color:black;' href=\"javascript:select('"+email+"')\">"+email+"</a><br/>";
 						   //html += "<a onclick=select('"+email+"');>"+empName+email+"</a><br/>";
 				    	}
 				    }
@@ -682,6 +682,9 @@
 				 var element = document.getElementById(elementId);
 				 if(element) {
 				  element.style.display = 'block';
+				  element.style.border='1px solid lightgray';
+				  element.style.borderRadius='5px';
+				  element.style.padding='5px';
 				 }
 				}
 			
@@ -724,7 +727,7 @@
 				    var html = '';
 				    for(var i in jsonInfo){
 				    	with(jsonInfo[i]){
-						   html += "<span>"+empName+"</span><a href=\"javascript:select1('"+email+"')\">"+email+"</a><br/>";
+						   html += "<span>"+empName+"</span>&nbsp;<a style='color:black;' href=\"javascript:select1('"+email+"')\">"+email+"</a><br/>";
 						   //html += "<a onclick=select('"+email+"');>"+empName+email+"</a><br/>";
 				    	}
 				    }
@@ -749,6 +752,9 @@
 				 var element = document.getElementById(elementId);
 				 if(element) {
 				  element.style.display = 'block';
+				  element.style.border='1px solid lightgray';
+				  element.style.borderRadius='5px';
+				  element.style.padding='5px';
 				 }
 				}
 			
@@ -791,7 +797,7 @@
 				    var html = '';
 				    for(var i in jsonInfo){
 				    	with(jsonInfo[i]){
-						   html += "<span>"+empName+"</span><a href=\"javascript:select2('"+email+"')\">"+email+"</a><br/>";
+						   html += "<span>"+empName+"</span>&nbsp;<a style='color:black;' href=\"javascript:select2('"+email+"')\">"+email+"</a><br/>";
 						   //html += "<a onclick=select('"+email+"');>"+empName+email+"</a><br/>";
 				    	}
 				    }
@@ -816,6 +822,9 @@
 				 var element = document.getElementById(elementId);
 				 if(element) {
 				  element.style.display = 'block';
+				  element.style.border='1px solid lightgray';
+				  element.style.borderRadius='5px';
+				  element.style.padding='5px';
 				 }
 				}
 			

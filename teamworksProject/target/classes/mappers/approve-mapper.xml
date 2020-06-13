@@ -44,6 +44,14 @@
 		<result column="vc_count" property="vcCount"/>
 		<result column="vc_content" property="vcContent"/>
 		
+		<result column="doc_content" property="docContent"/>
+		<result column="origin_name" property="originName"/>
+		<result column="change_name" property="changeName"/>
+		
+		<result column="pf_sq" property="pfSq"/>
+		<result column="pf_purpose" property="pfPurpose"/>
+		<result column="pf_status" property="pfStatus"/>
+		
 		<result column="approve_status" property="approveStatus"/>
 		<result column="emp_name" property="empName"/>
 		
@@ -900,5 +908,30 @@
 		where approver_empid=#{empId} and approve_status=4
 	</select>
 	
+
+
+	<update id="requestCallback" parameterType="Document">
+		update approve_line
+		   set approve_status=4,
+		   	   approve_reject='회수요청'
+		 where doc_no=#{docNo} and approve_step=0
+	</update>
+	
+	<update id="updateDocSt" parameterType="Document">
+		<if test="docSc == '경조비신청서'">
+			update family_event
+		</if>
+		<if test="docSc == '제증명신청서'">
+			update proof
+		</if>
+		<if test="docSc == '휴가신청서'">
+			update vacation
+		</if>
+		<if test="docSc == '기안서'">
+			update draft
+		</if>
+			   set doc_status=4
+			 where doc_no=#{docNo}
+	</update>
 	
 </mapper>
