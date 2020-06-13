@@ -121,6 +121,13 @@
     </style>
 </head>
 <body>
+	<script>
+       	$(function(){
+       		$("#topEmail").css("border-bottom-style","groove");
+       		$("#topEmail a").css("color","dimgray");
+       		$("#wm>a").css("color", "deepskyblue");
+       	});
+     </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarMail.jsp"/>
 	<div class="outer" align="center">
@@ -203,9 +210,10 @@
                     </tr>
                 </table>
                 <button type="submit" id="sendMail-btn" class="btn btn-primary" style="margin-right:50px">발송</button>
-                <button type="reset" id="reset" class="btn btn-danger">취소</button>
+                <button type="reset" id="reset" onclick="location.href='rlist.ma?currentPage=1'" class="btn btn-danger">취소</button>
             </form>
         </div>
+        <br><br><br><br>
     </div>
     
     

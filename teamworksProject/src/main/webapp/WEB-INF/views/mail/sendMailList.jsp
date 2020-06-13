@@ -30,6 +30,13 @@
     </style>
 </head>
 <body>
+	<script>
+       	$(function(){
+       		$("#topEmail").css("border-bottom-style","groove");
+       		$("#topEmail a").css("color","dimgray");
+       		$("#sm>a").css("color", "deepskyblue");
+       	});
+     </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarMail.jsp"/>
 
@@ -205,6 +212,7 @@
             </ul>
             </div>
         </div>
+        <br><br><br>
     </div>
     <script>
 	    function checkAll(){
