@@ -354,7 +354,8 @@
 	<select id="writeDocList" parameterType="DocumentList" resultMap="documentListResultSet">
 		select *
 		  from document_list
-		 where emp_id=#{empId} 
+		 where emp_id=#{empId}
+		 order by dl_like desc
 	</select>
 	
 	

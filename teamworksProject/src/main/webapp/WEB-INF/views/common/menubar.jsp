@@ -115,7 +115,7 @@
             </div>
             <div id="center">
                 <div class="menu" id="home"><a href="${ pageContext.servletContext.contextPath }" style="text-decoration:none;">홈</a></div>
-                <div class="menu" id="approveDoc"><a href="formList.ap" style="text-decoration:none;">전자결재</a></div>
+                <div class="menu" id="approveDoc"><a href="writeDocList.ap" style="text-decoration:none;">전자결재</a></div>
                 <div class="menu" id="topEmail"><a href="rlist.ma?currentPage=1" style="text-decoration:none;">메일</a></div>
                 <div class="menu" id="topBoard"><a href="list.bo?currentPage=1&cat=1" style="text-decoration:none;">게시판</a></div>
                 <div class="menu" id="calender"><a href="selectAllSch.sc?empId=${loginUser.empId }" style="text-decoration:none;">일정</a></div>
