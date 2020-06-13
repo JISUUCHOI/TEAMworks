@@ -294,7 +294,22 @@ public class ManagementController {
 		}
 	}
 
- // 사원명부
+	// 사원 명부
+	@RequestMapping("empList.mg")
+	public String empList(int currentPage, Model model) {
+
+		int listCount = mgService.selectEmpCount();
+
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+
+		ArrayList<Employee> empList = mgService.selectEmpList(pi);
+		
+		
+		model.addAttribute("empList", empList);
+		model.addAttribute("pi", pi);
+
+		return "management/companyMemberList";
+	}
 
 	// 퇴사자 등록
 	@ResponseBody
@@ -346,38 +361,28 @@ public class ManagementController {
 		return "management/companyMemberList";
 	}
 	
-	// 사원 명부
-	@RequestMapping("empList.mg")
-	public String empList(int currentPage, Model model) {
-
-		int listCount = mgService.selectEmpCount();
-
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
-
-		ArrayList<Employee> empList = mgService.selectEmpList(pi);
-		
-		System.out.println(empList);
-		
-		model.addAttribute("empList", empList);
-		model.addAttribute("pi", pi);
-
-		return "management/companyMemberList";
-	}
 	
 	// 휴가 관리
 	@RequestMapping("vacationList.mg")
 	public String vacationList(int currentPage, Model model) {
 
-		int listCount = mgService.selectVacCount();
+		int listCount = mgService.selectEmpCount();
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
 
-		ArrayList<Vacation> vacList = mgService.selectVacationList(pi);
+		ArrayList<Vacation> vacList =mgService.selectVacationList(pi);
+
+
 		
 		System.out.println(vacList);
+
 		
 		model.addAttribute("vacList", vacList);
+
 		model.addAttribute("pi", pi);
+		
+		
+		
 
 		return "management/companyVacationList";
 	}

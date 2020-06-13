@@ -117,12 +117,8 @@ public class ManagementServiceImpl implements ManagementService{
 	public ArrayList<Vacation> selectVacationList(PageInfo pi) {
 		return mgDao.selectVacationList(sqlSession, pi);
 	}
-	
-	// 휴가 카운트
-	public int selectVacCount() {
-		return mgDao.selectVacCount(sqlSession);
-	}
 
+	
 	
 	// 휴가 페이징 처리 
 	@Override
@@ -206,6 +202,8 @@ public class ManagementServiceImpl implements ManagementService{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
 
 
 

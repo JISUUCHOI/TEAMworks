@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,24 +37,25 @@
 		<br>
 
 		<div class="container" style="margin-left: 0px;">
-
-			<form id="searchForm" action="empVacSearch.mg" method="post"
-				align="center">
-				<div class="select">
-					<select class="custom-select" name="condition">
-						<option value="empId">사원번호</option>
-						<option value="empName">성명</option>
-						<option value="vacationYear">휴가사용년도</option>
-					</select>
-				</div>
-				<div class="text">
-					<input type="text" class="form-control" name="keyword"
-						value="${ eSc.keyword }"> <input type="hidden"
-						name="currentPage" value="1">
-				</div>
-				<button type="submit" class="searchBtn btn btn-secondary">검색</button>
-			</form>
-
+			<div style="width:200px; display:inline-block;">
+				<form id="searchForm" action="empVacSearch.mg" method="post"
+					align="center">
+					<div class="select">
+						<select class="custom-select" name="condition">
+							<option value="empId">사원번호</option>
+							<option value="empName">성명</option>
+							<option value="vacationYear">휴가사용년도</option>
+						</select>
+					</div>
+					<div class="text">
+						<input type="text" class="form-control" name="keyword"
+							value="${ eSc.keyword }"> <input type="hidden"
+							name="currentPage" value="1">
+					</div>
+					<button type="submit" class="searchBtn btn btn-secondary">검색</button>
+				</form>
+			</div>
+			
 			<script type="text/javascript">
 	       		$(function(){
 	       			switch('${eSc.condition}'){
@@ -67,7 +69,7 @@
 
 
 			<table class="table table-bordered"
-				style="table-layout: fixed; text-align: center;">
+				style="table-layout: fixed; text-align: center; margin-top: 30px;">
 				<thead class="thead-light">
 					<tr>
 						<th>사원명</th>
@@ -85,12 +87,22 @@
 						<tr>
 							<td>${ v.empName }</td>
 							<td>${ v.hireDate }</td>
-							<td>15</td>
-							<td>${ v.vcCount }</td>
-							<td>1</td>
-							<td>1</td>
-							<td>0</td>
-							<td>${ v.vcTotal - v.vcCount }</td>
+							<td>
+								<c:choose>
+									<c:when test="${ v.months >= 12 }">15</c:when>
+									<c:otherwise>${ v.months }</c:otherwise>
+								</c:choose>
+							</td>
+							<td>${ v.typeA }</td>
+							<td>${ v.typeB }</td>
+							<td>${ v.typeC }</td>
+							<td>${ v.typeD }</td>
+							<td>
+								<c:choose>
+									<c:when test="${ v.months >= 12 }">${ 15 - v.vcCount }</c:when>
+									<c:otherwise>${ v.months - v.vcCount }</c:otherwise>
+								</c:choose>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

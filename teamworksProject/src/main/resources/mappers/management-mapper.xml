@@ -21,6 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="hire_date" property="hireDate"/>
 		<result column="vacation_total" property="vcTotal" />
 		<result column="vacation_count" property="vcCount" />
+		<result column="typea" property="typeA"/>
+		<result column="typeb" property="typeB"/>
+		<result column="typec" property="typeC"/>
+		<result column="typed" property="typeD"/>
+		<result column="months" property="months"/>
 	</resultMap>
 
 	<resultMap id="companyBsnsResultSet" type="MgBsns">
@@ -189,26 +194,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="selectVacList" resultMap="empVacationResultSet">
-		SELECT EMP_ID, EMP_NAME, VACATION_COUNT, HIRE_DATE
-		  FROM (SELECT emp.emp_id, D.emp_name, D.vacation_count, emp.hire_date
-	  	  FROM (SELECT emp_name, SUM(vccount) vacation_count
-	                   FROM(SELECT V.emp_id, E.emp_name, V.vc_count vccount
-	                   FROM vacation V
-	                   JOIN employee E ON(V.emp_id = E.emp_id))
-	                   GROUP BY emp_name) D
-	              JOIN employee emp ON(D.emp_name= emp.emp_name))
+		SELECT E.EMP_ID, EMP_NAME, VACATION_COUNT,TYPEA, TYPEB,TYPEC,TYPED, HIRE_DATE, ROUND(MONTHS_BETWEEN(SYSDATE, HIRE_DATE)) MONTHS  
+		       FROM EMPLOYEE E 
+		       LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS VACATION_COUNT FROM VACATION WHERE DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+               LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPEA FROM VACATION WHERE VC_SQ = '경조사' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+               LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPEB FROM VACATION WHERE VC_SQ = '병가' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID) 
+               LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPEC FROM VACATION WHERE VC_SQ = '출산' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+               LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPED FROM VACATION WHERE VC_SQ = '연차' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+		       ORDER BY EMP_ID
 	</select>
-	
-	<select id="selectVacCount" resultType="_int">
-		SELECT count(*) FROM(SELECT emp.emp_id, D.emp_name, D.vacation_count, emp.hire_date
-	  	  FROM (SELECT emp_name, SUM(vccount) vacation_count
-	                   FROM(SELECT V.emp_id, E.emp_name, V.vc_count vccount
-	                   FROM vacation V
-	                   JOIN employee E ON(V.emp_id = E.emp_id))
-	                   GROUP BY emp_name) D
-	              JOIN employee emp ON(D.emp_name= emp.emp_name))
-	</select>
-	
 	
 	
 	<update id="updateLogo" parameterType="MgInfo">

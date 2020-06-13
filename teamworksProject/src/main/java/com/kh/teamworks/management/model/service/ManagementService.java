@@ -48,9 +48,9 @@ public interface ManagementService {
 	// 사원 관리
 	int updateEmpInfo();
 	
-	// 휴가 관리 리스트
+	// 휴가 관리 리스트 A=연차, B=경조사, C=병가, D=출산
 	ArrayList<Vacation> selectVacationList(PageInfo pi);
-	int selectVacCount();
+
 	
 	// 휴가 관리 내 검색
 	ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi);

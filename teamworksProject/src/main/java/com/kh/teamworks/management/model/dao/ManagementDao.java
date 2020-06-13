@@ -90,19 +90,13 @@ public class ManagementDao {
 	}
 
 	
-	
-	public int selectVacCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("managementMapper.selectVacCount");
-	}
-	
-	
 	public ArrayList<Vacation> selectVacationList(SqlSessionTemplate sqlSession, PageInfo pi) {
 		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("managementMapper.selectVacList", null, rowBounds);
 	}
-	
+
 	public ArrayList<Vacation> searchVacationList(SqlSessionTemplate sqlSession, String keyword, PageInfo pi) {
 		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
