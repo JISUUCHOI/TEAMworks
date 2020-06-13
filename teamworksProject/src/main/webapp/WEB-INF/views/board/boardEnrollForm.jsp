@@ -25,7 +25,7 @@
 			width:1250px;
 			float:left;
 			margin-left:220px;
-			margin-top:50px;
+			margin-top:20px;
 		
 		 }
         .inner{width: 900px;}
@@ -71,12 +71,29 @@
     </style>
 </head>
 <body>
-
+<c:if test="${cat eq 1}">
+   <script>
+       	$(function(){
+       		$("#topBoard").css("border-bottom-style","groove");
+       		$("#topBoard a").css("color","dimgray");
+       		$("#noticeMenu>a").css("color", "deepskyblue");
+       	});
+	</script>
+</c:if>
+<c:if test="${cat eq 2}">
+   <script>
+       	$(function(){
+       		$("#topBoard").css("border-bottom-style","groove");
+       		$("#topBoard a").css("color","dimgray");
+       		$("#boardMenu>a").css("color", "deepskyblue");
+       	});
+	</script>
+</c:if>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarBoard.jsp"/>
  <div class="outer" align="center">
         <div class="inner">
-            <h4>작성하기</h4>
+            <h4 align="left">작성하기</h4>
             <hr>
             <form id="boardEnrollForm" method="post" onSubmit="return false" enctype="multipart/form-data">
             	<input type="hidden" name="boardWriter" value=${ loginUser.empId }>
@@ -119,10 +136,10 @@
                 <br>
                 <div style="float: right;">
                     <button type="button"  id="btn-upload-file" class="btn btn-info" style="margin-right: 50px;">등록</button>
-                    <button type="reset" class="btn">취소</button>
+                    <button type="button" onclick="history.back();" class="btn">취소</button>
                 </div>
             </form>
-           
+           <br><br><br><br><br> 
         </div>
            
         <script>

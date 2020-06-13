@@ -31,7 +31,13 @@
 </style>
 </head>
 <body>
-
+	<script>
+       	$(function(){
+       		$("#topBoard").css("border-bottom-style","groove");
+       		$("#topBoard a").css("color","dimgray");
+       		$("#boardMenu>a").css("color", "deepskyblue");
+       	});
+       </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarBoard.jsp"/>
   <div class="outer" align="center">
@@ -213,6 +219,7 @@
             	</c:if>
             </ul>
         </div>
+         <br><br><br>
     </div>
 
     <script>

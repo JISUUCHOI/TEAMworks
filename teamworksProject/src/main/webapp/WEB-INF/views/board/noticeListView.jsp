@@ -31,7 +31,13 @@
 </style>
 </head>
 <body>
-
+  		<script>
+        	$(function(){
+        		$("#topBoard").css("border-bottom-style","groove");
+        		$("#topBoard a").css("color","dimgray");
+        		$("#noticeMenu>a").css("color", "deepskyblue");
+        	});
+        </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="sidebarBoard.jsp"/>
   <div class="outer" align="center">
@@ -129,7 +135,7 @@
                   </c:forEach>
                 </tbody>
             </table>
-            
+         
             <script>
             	$(function(){
             		$("#noticeList tbody tr").click(function(){
@@ -214,8 +220,8 @@
             	</c:if>
             </ul>
         </div>
+   <br><br><br>  
     </div>
-
     <script>
         $(function() {	
             $('#startDate').datepicker({

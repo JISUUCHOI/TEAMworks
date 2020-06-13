@@ -67,11 +67,14 @@
             <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category"></div>
-            <div class="subCate" id="notice"><a href="list.bo?currentPage=1&cat=1">공지사항</a></div>
-            <div class="subCate" id="board"><a href="list.bo?currentPage=1&cat=2">자유게시판</a></div>
+            <div class="subCate" id="noticeMenu"><a href="list.bo?currentPage=1&cat=1">공지사항</a></div>
+            <div class="subCate" id="boardMenu"><a href="list.bo?currentPage=1&cat=2">자유게시판</a></div>
           
         </div>
     </div>
-    
+
+        
+      
+     
 </body>
 </html>

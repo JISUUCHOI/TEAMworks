@@ -83,7 +83,7 @@
                 	</div>
                 	<div class="col-xs-4"></div>
                     <div class="col-xs-6">
-                        <button class="btn btn-info btn-sm" style="margin-right: 10px;">재발송</button>
+                        <!-- <button class="btn btn-info btn-sm" style="margin-right: 10px;">재발송</button> -->
                         <button class="btn btn-danger btn-sm" id="delete" onclick="sendMailDelete();" style="margin-right: 10px;" disabled>삭제</button>
                     </div>
                 </div>
