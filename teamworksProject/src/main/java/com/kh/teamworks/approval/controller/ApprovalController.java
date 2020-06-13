@@ -419,15 +419,18 @@ public class ApprovalController {
 	@RequestMapping("writeDocList.ap")
 	public String writeDocList(Model model, HttpServletRequest request) {
 		
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
 		Document d = new Document();
 		
+		d.setEmpId(empId); 
 		
-		ArrayList<Document> list = aService.docList(d);		 
+		ArrayList<Document> list = aService.writeDocList(d);		 
 		model.addAttribute("list", list);
 
 		System.out.println(list);
 		 
 		return "approval/selectApprovalForm";
+		
 	}
 	
 

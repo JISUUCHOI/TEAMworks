@@ -81,6 +81,9 @@ public interface ApprovalService {
 	// 휴가 수정폼
 	Document updateVacationForm(String dno);
 
+	// 기안문작성 리스트
+	ArrayList<Document> writeDocList(Document d);
+
 	
 	
 }

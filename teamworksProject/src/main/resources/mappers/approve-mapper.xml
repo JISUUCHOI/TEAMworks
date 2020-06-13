@@ -77,14 +77,7 @@
 		<result column="approve_step" property="approveStep"/>
 	</resultMap>
 	
-	<resultMap id="approvalResultSet" type="DocumentList">
-		<id column="EMP_ID" property="empId"/>
-		<result column="DL_NO" property="dlNo"/>
-		<result column="DL_FORM" property="dlForm"/>
-		<result column="DL_NAME" property="dlName"/>
-		<result column="DL_LIKE" property="dlLike"/>	
-		
-	</resultMap>
+
 
 
 	<select id="selectEmpInfo" parameterType="string" resultMap="empInfoResultSet">
@@ -329,7 +322,6 @@
 			</if>
 		order by doc_date desc
 	</select>
-	
 	
 		
 	<select id="selectApId" parameterType="Document" resultType="string">
@@ -1094,5 +1086,7 @@
 			</if>
 		order by doc_date desc
 	</select>
+	
+
 	
 </mapper>

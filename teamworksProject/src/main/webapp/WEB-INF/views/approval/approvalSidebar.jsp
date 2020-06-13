@@ -65,7 +65,7 @@
             <div id="logout"><a href="">logout</a></div>
             
             <div class="category">기안</div>
-            <div class="subCate" id="writeDoc"><a href="formList.ap">기안문작성</a></div>
+            <div class="subCate" id="writeDoc"><a href="writeDocList.ap">기안문작성</a></div>
             <div class="subCate" id="requestApprove"><a href="myDocList.rap?currentPage=1">결재요청함</a></div>
             <div class="subCate" id="callbackDoc"><a href="callbackList.rap?currentPage=1">결재회수함</a></div>
             <div class="category">결재</div>
