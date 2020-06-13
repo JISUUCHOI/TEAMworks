@@ -416,7 +416,7 @@ public class ManagementController {
 		new Gson().toJson(searchList, response.getWriter());
 	}
 	
-	//직급 관리
+	// 최지수_직급 관리
 	@RequestMapping("orgJobList.mg")
 	public String selectJobList(Model model) {
 		
@@ -426,7 +426,8 @@ public class ManagementController {
 		return "management/companyOrganizationOrder";
 	}
 	
-	//직급 관리
+	// 최지수_직급 관리
+	// 순서 저장 버튼 클릭 시 직급 순서 변경한 후 직급 list를 다시 조회하여 리턴
 	@ResponseBody
 	@RequestMapping(value="saveRank.mg", method=RequestMethod.POST)
 	public void saveRank(String str, Model model, HttpServletResponse response) throws JsonIOException, IOException {
@@ -452,6 +453,13 @@ public class ManagementController {
 		}else {
 			
 		}
+	}
+	
+	// 최지수_직급 관리
+	// 직급 추가용
+	@RequestMapping("insertJob.mg")
+	public void insertJobCode(String jobName) {
+		System.out.println(jobName);
 	}
 	
 

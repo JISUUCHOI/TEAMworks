@@ -38,7 +38,10 @@
 		<h1>직급 관리</h1>
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 
-		<div class="container" style="padding-left: 60px; padding-top: 100px;">
+		<div class="container" style="padding-left: 60px; padding-top: 50px;">
+
+			<button onclick="saveRank();">순서 저장</button> 
+
 			<table id="rankTable" class="table border" style="width: 80%;">
 				<thead class="thead-light">
 					<tr>
@@ -54,7 +57,7 @@
 							<td><b>${j.jobCode % 10}</b></td>
 							<td>${j.jobName}</td>
 							<td>
-								<button type="button" class="btn btn-info btn-primary btn-sm" data-toggle="modal"  data-target="#myModal" >수정</button>
+								<button type="button" class="btn btn-info btn-primary btn-sm" data-toggle="modal" data-target="#myModal">수정</button>
 								<button type="button" class="btn btn-secondary btn btn-primary btn-sm">삭제</button>
 							</td>
 							<td>
@@ -68,13 +71,13 @@
 				<tfoot>
 					<tr>
 						<th scope="row"></th>
-						<td><input type="text" placeholder="내용을 입력해주세요"></td>
+						<td><input type="text" id="inputJobName" placeholder="추가할 직급명 입력"></td>
 						<td>
 							<button type="button"
 								class="btn btn-warning btn btn-primary btn-sm">추가</button>
 						</td>
 						<td>
-							<button class="btn btn-primary" onclick="saveRank();">순서 저장</button> 
+							
 						</td>
 					</tr>
 				</tfoot>
@@ -187,6 +190,8 @@
 				}
 			});  
 		}
+		
+
 	</script>
 	
 	
