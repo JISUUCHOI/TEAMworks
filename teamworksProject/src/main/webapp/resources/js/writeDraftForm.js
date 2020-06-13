@@ -1,3 +1,9 @@
+$(function(){
+	$(document).ready(function() {
+        $("#sidebarOuter").css('min-height', "1300px");
+    });
+});
+
 /*참조자 모달용 스크립트*/
 $(function(){
 	

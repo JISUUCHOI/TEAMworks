@@ -93,6 +93,7 @@
             color:white;
             font-size:12px;
         }
+        
     </style>
 
 </head>
@@ -113,14 +114,14 @@
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/logo_white.png" height="35px">               
             </div>
             <div id="center">
-                <div class="menu" id="home"><a href="${ pageContext.servletContext.contextPath }">홈</a></div>
-                <div class="menu" id="approveDoc"><a href="formList.ap">전자결재</a></div>
-                <div class="menu" id="topEmail"><a href="rlist.ma?currentPage=1">메일</a></div>
-                <div class="menu" id="topBoard"><a href="list.bo?currentPage=1&cat=1">게시판</a></div>
-                <div class="menu" id="calender"><a href="selectAllSch.sc?empId=${loginUser.empId }">일정</a></div>
-                <div class="menu" id="book"><a href="showListView.re">예약</a></div>
+                <div class="menu" id="home"><a href="${ pageContext.servletContext.contextPath }" style="text-decoration:none;">홈</a></div>
+                <div class="menu" id="approveDoc"><a href="formList.ap" style="text-decoration:none;">전자결재</a></div>
+                <div class="menu" id="topEmail"><a href="rlist.ma?currentPage=1" style="text-decoration:none;">메일</a></div>
+                <div class="menu" id="topBoard"><a href="list.bo?currentPage=1&cat=1" style="text-decoration:none;">게시판</a></div>
+                <div class="menu" id="calender"><a href="selectAllSch.sc?empId=${loginUser.empId }" style="text-decoration:none;">일정</a></div>
+                <div class="menu" id="book"><a href="showListView.re" style="text-decoration:none;">예약</a></div>
                 <c:if test="${ loginUser.deptCode eq 1001 }">
-                	<div class="menu" id="orgManage"><a href="main.mg">조직관리</a></div>
+                	<div class="menu" id="orgManage"><a href="main.mg" style="text-decoration:none;">조직관리</a></div>
                 </c:if>
             </div>
         </div>

@@ -559,6 +559,10 @@
 				case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
 			}
 			
+	       $(document).ready(function() {
+	           $("#sidebarOuter").css('min-height', "1200px");
+	       });
+			
 			/* 결재 모달 취소버튼 클릭 시  */
 			$("#approveCancel").click(function(){
 				$('#responseApprove').modal("hide");

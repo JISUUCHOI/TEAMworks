@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	html, body{height:100%;}
+	html, body{height:100%; min-height: 100%;}
 	div{box-sizing:border-box;}
 	
 	#sidebarOuter{
 		width:250px;
-		height:100%;
+		height: auto !important;
 		float:left;
         background:rgb(7, 53, 90);
 	}

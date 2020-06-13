@@ -1,5 +1,10 @@
 $(function(){
 	    $("#writeDoc>a").css("color", "deepskyblue");
+	    
+	    $(document).ready(function() {
+           $("#sidebarOuter").css('min-height', "900px");
+       });
+	    
 });
 
 /*function numberOnly(){

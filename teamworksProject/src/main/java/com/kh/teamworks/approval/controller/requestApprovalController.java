@@ -252,7 +252,6 @@ public class requestApprovalController {
 		// 5_1. 문서 총 개수 조회
 		int listCount = raService.selectListCount(d);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		System.out.println("대기함검색 전" + pi);
 		
 		// 5_2. 문서 리스트 조회
 		ArrayList<Document> list = raService.selectDocList(d, pi);
@@ -629,7 +628,6 @@ public class requestApprovalController {
 		// 13_1. 문서 총 개수 조회
 		int listCount = raService.selectCallbackCount(d);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		System.out.println("회수함검색 전" + pi);
 		
 		// 13_2. 문서 리스트 조회
 		ArrayList<Document> list = raService.selectCallbackList(d, pi);
@@ -660,7 +658,6 @@ public class requestApprovalController {
 		int listCount = raService.searchCallbackCount(asc);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		System.out.println(pi);
 		
 		
 		// 13_4. 검색 결과에 해당하는 회수문서 리스트 조회
