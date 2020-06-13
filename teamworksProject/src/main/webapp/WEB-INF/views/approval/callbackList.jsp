@@ -164,7 +164,7 @@
 	            <br>
 	
 	            <!-- 검색 -->
-	            <form action="searchList.rap" method="post">
+	            <form action="searchCallback.rap" method="post">
 	            	<input type="hidden" name="empId" value="${ loginUser.empId }">
 	            	<input type="hidden" name="currentPage" value="1">
 	                <table id="search" class="searchBox">
@@ -298,7 +298,7 @@
 						<c:when test="${ listCount eq 0 }">
 						</c:when>
 						<c:when test="${ !empty asc }">
-							<c:url value="searchList.rap" var='searchUrl'>
+							<c:url value="searchCallback.rap" var='searchUrl'>
 								<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="condition" value="${ asc.condition }" />
@@ -324,7 +324,7 @@
 										<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ p }'">${ p }</button>
 									</c:when>
 									<c:otherwise>
-										<c:url value="searchList.rap" var='searchUrl'>
+										<c:url value="searchCallback.rap" var='searchUrl'>
 											<c:param name="currentPage" value="${ p }" />
 											<c:param name="empId" value="${ loginUser.empId }" />
 											<c:param name="condition" value="${ asc.condition }" />
@@ -345,7 +345,7 @@
 						<c:when test="${ listCount eq 0 }">
 						</c:when>
 						<c:when test="${ !empty asc }">
-							<c:url value="searchList.rap" var='searchUrl'>
+							<c:url value="searchCallback.rap" var='searchUrl'>
 								<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="condition" value="${ asc.condition }" />

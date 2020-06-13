@@ -294,7 +294,21 @@ public class ReqApprovalDao {
 	
 	// 13_2. 문서 리스트 조회
 	public ArrayList<Document> selectCallbackList(SqlSessionTemplate sqlSession, Document d, PageInfo pi) {
-		return (ArrayList)sqlSession.selectList("approveMapper.selectCallbackList", d);
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.selectCallbackList", d, rowBounds);
+	}
+	
+	// 13_3. 검색 결과에 해당하는 회수문서 개수 조회
+	public int searchCallbackCount(SqlSessionTemplate sqlSession, ApproveSearchCondition asc) {
+		return sqlSession.selectOne("approveMapper.searchCallbackCount", asc);
+	}
+	
+	// 13_4. 검색 결과에 해당하는 회수문서 리스트 조회
+	public ArrayList<Document> searchCallbackList(SqlSessionTemplate sqlSession, ApproveSearchCondition asc, PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("approveMapper.searchCallbackList", asc, rowBounds);
 	}
 	
 }

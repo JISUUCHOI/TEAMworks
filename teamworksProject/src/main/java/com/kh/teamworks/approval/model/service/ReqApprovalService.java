@@ -134,10 +134,10 @@ public interface ReqApprovalService {
 	// 9_2. 결재요청함 리스트 조회
 	 ArrayList<Document> selectMyDocList(Document d, PageInfo pi);
 	 
-	// 9_3. 검색 결과에 해당하는 참조문서 개수 조회
+	// 9_3. 검색 결과에 해당하는 결재요청함 문서 개수 조회
 	 int searchMyDocCount(ApproveSearchCondition asc);
 	 
-	// 9_4. 검색 결과에 해당하는 참조문서 리스트 조회 
+	// 9_4. 검색 결과에 해당하는 결재요청함 리스트 조회 
 	 ArrayList<Document> searchMyDocList(ApproveSearchCondition asc, PageInfo pi);
 	 
 	// 10. sidebar 보관함별 문서개수 count
@@ -167,5 +167,11 @@ public interface ReqApprovalService {
 	 
 	// 13_2. 문서 리스트 조회
 	 ArrayList<Document> selectCallbackList(Document d, PageInfo pi);
+	 
+	// 13_3. 검색 결과에 해당하는 회수문서 개수 조회
+	 int searchCallbackCount(ApproveSearchCondition asc);
+	 
+	// 13_4. 검색 결과에 해당하는 회수문서 리스트 조회
+	 ArrayList<Document> searchCallbackList(ApproveSearchCondition asc, PageInfo pi);
 	 
 }
