@@ -474,5 +474,24 @@ public class ManagementController {
 		}
 	}
 	
+	// 최지수_직급 관리
+	// 직급 수정용
+	@RequestMapping("updateJob.mg")
+	public String updateJobCode(Job job, HttpSession session, Model model) {
+		
+		int result = mgService.updateJobCode(job);
+		
+		if(result > 0) { // 직급 수정 성공 --> 다시 직급 관리 페이지
+			
+			session.setAttribute("msg", "직급명이 성공적으로 수정되었습니다.");
+			return "redirect:orgJobList.mg";
+			
+		}else { // 직급 수정 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "직급명 수정에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
 
 }

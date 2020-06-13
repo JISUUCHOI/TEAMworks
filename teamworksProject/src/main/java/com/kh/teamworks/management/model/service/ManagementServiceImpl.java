@@ -170,9 +170,9 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public int updateJobCode() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateJobCode(Job job) {
+
+		return mgDao.updateJobCode(sqlSession, job);
 	}
 
 	@Override

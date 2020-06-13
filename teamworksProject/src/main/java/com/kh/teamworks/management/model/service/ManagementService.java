@@ -63,7 +63,7 @@ public interface ManagementService {
 	
 	ArrayList<Job> selectJobList();
 	void searchEmpInfo(); //
-	int updateJobCode(); //
+	int updateJobCode(Job job); //
 	int deleteJobCode(); //
 	int insertJobCode(String jobName); // 추가할 직급명 입력받아 직급 추가
 

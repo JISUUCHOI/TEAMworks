@@ -27,6 +27,17 @@
 .table {
 	text-align: center;
 }
+
+.modal-content {width:350px;}
+.modalTable {
+	width:300px;
+	border: 1px solid #ddd;
+}
+.modalTable tr {height:35px;}
+.modalTable th {
+	text-align:center;
+	background-color:#f2f2f2;
+}
 </style>
 </head>
 <body>
@@ -57,7 +68,8 @@
 							<td><b>${j.jobCode % 10}</b></td>
 							<td>${j.jobName}</td>
 							<td>
-								<button type="button" class="btn btn-info btn-primary btn-sm" data-toggle="modal" data-target="#myModal">수정</button>
+								<!-- <button type="button" class="btn btn-info btn-primary btn-sm" data-toggle="modal" data-target="#myModal">수정</button> -->
+								<button type="button" class="btn btn-info btn-primary btn-sm" onclick="updateBtn(${j.jobCode});">수정</button>
 								<button type="button" class="btn btn-secondary btn btn-primary btn-sm">삭제</button>
 							</td>
 							<td>
@@ -79,9 +91,7 @@
 									class="btn btn-warning btn btn-primary btn-sm">추가</button>
 							</form>
 						</td>
-						<td>
-							
-						</td>
+						<td></td>
 					</tr>
 				</tfoot>
 			</table>
@@ -90,7 +100,7 @@
 	</div>
 
 	<!-- The Modal -->
-	<div class="modal" id="myModal">
+	<div class="modal" id="updateModal">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	
@@ -98,18 +108,28 @@
 	      <div class="modal-header">
 	        <h4 class="modal-title">직급명 수정</h4>
 	      </div>
-	
+	      
 	      <!-- Modal body -->
-	      <div class="modal-body">
-	      	<input style="width:100%;" type="text" placeholder="수정할 직급 명 입력 ">
-	      </div>
+			<form action="updateJob.mg" id="updateForm" method="post">
+		      <div class="modal-body">
+	          	<table class="modalTable" border="1">
+	          		<tr>
+	          			<th width="40%"></th>
+	          			<td width="60%">
+					      	<input style="width:100%;" name="jobName" type="text" placeholder="수정 직급명 입력 ">
+	          			</td>
+	          		</tr>
+	          	</table>
+		      </div>
+		      
+		      <input type="hidden" id="inputJobCode" name="jobCode" value="">
 	
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="submit" class="btn btn-primary" data-dismiss="modal">확인</button>
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-	      </div>
-	
+		      <!-- Modal footer -->
+		      <div class="modal-footer">
+		        <button type="submit" class="btn btn-primary">수정</button>
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+		      </div>
+			</form>
 	    </div>
 	  </div>
 	</div>
@@ -195,7 +215,11 @@
 			});  
 		}
 		
-
+		// 수정 버튼 클릭 시
+		function updateBtn(jobCode) {
+			$('#inputJobCode').val(jobCode);
+			$('#updateModal').modal('show');
+		}
 	</script>
 	
 	

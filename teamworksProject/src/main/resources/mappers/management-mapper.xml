@@ -210,5 +210,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO JOB
 		VALUES(SEQ_JOBNO.NEXTVAL, #{jobName})
 	</insert>
+	
+	<update id="updateJobCode" parameterType="MgJob">
+		UPDATE JOB
+		   SET JOB_NAME=#{jobName}
+		 WHERE JOB_CODE=#{jobCode}
+	</update>
 
 </mapper>

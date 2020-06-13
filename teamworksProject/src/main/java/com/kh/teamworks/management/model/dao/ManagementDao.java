@@ -124,6 +124,11 @@ public class ManagementDao {
 	public int insertJobCode(SqlSessionTemplate sqlSession, String jobName) {
 		return sqlSession.insert("managementMapper.insertJobCode", jobName);
 	}
+	
+	// 직급관리_직급 수정
+	public int updateJobCode(SqlSessionTemplate sqlSession, Job job) {
+		return sqlSession.update("managementMapper.updateJobCode", job);
+	}
 
 
 }
