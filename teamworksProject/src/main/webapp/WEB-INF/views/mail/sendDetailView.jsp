@@ -113,24 +113,27 @@
     	function deleteSmail(){
     		var emailNo = ${ mailList[0].emailNo}
     		var empId = '${loginUser.empId}'
+    		if(confirm("삭제하시겠습니까?")){
+    	 		$.ajax({
+        			url:"delSmail",
+        			data:{emailNo:emailNo, empId:empId},
+        			type:"post",
+        			success:function(status){
+        				if(status=="success"){
+        					location.href="slist.ma?currentPage=1"
+        				}else{
+        					alert("아 실패했다.");
+        				}
+        			},
+        			error:function(){
+        				console.log("sendMailDelete ajax fail");
+        			}
+        			
+      
+        		});
+    		}
     		
-    		$.ajax({
-    			url:"delSmail",
-    			data:{emailNo:emailNo, empId:empId},
-    			type:"post",
-    			success:function(status){
-    				if(status=="success"){
-    					location.href="slist.ma?currentPage=1"
-    				}else{
-    					alert("아 실패했다.");
-    				}
-    			},
-    			error:function(){
-    				console.log("sendMailDelete ajax fail");
-    			}
-    			
-  
-    		});
+   
     	}
     	
     </script>

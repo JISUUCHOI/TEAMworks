@@ -566,4 +566,12 @@ public class MailController {
 			return "fail" ;
 		}
 	}
+	
+	//답장
+	@RequestMapping("replyMail")
+	public String replyMail(String strTo, String mailTitle, Model model) {
+		model.addAttribute("strTo", strTo);
+		model.addAttribute("mailTitle", mailTitle);
+		return "mail/replyMailForm";
+	}
 }
