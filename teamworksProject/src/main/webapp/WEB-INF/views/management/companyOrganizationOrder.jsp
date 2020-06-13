@@ -39,8 +39,6 @@
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 
 		<div class="container" style="padding-left: 60px; padding-top: 100px;">
-			<button onclick="saveRank();">순서 저장</button> 
-			<br>
 			<table id="rankTable" class="table border" style="width: 80%;">
 				<thead class="thead-light">
 					<tr>
@@ -71,9 +69,13 @@
 					<tr>
 						<th scope="row"></th>
 						<td><input type="text" placeholder="내용을 입력해주세요"></td>
-						<td><button type="button"
-								class="btn btn-warning btn btn-primary btn-sm">추가</button></td>
-						<td></td>
+						<td>
+							<button type="button"
+								class="btn btn-warning btn btn-primary btn-sm">추가</button>
+						</td>
+						<td>
+							<button class="btn btn-primary" onclick="saveRank();">순서 저장</button> 
+						</td>
 					</tr>
 				</tfoot>
 			</table>
@@ -157,22 +159,13 @@
 		
 		// 순서 저장 버튼 클릭 시
 		function saveRank() {
-			//var newList = [];
-			//var min = ${min} + 10;
+
 			var str = "";
 			for(var i=1; i<=${fn:length(jobList)}; i++) {
 				
 				str += $('#rankTable>tbody>tr:nth-child('+i+')>td:nth-child(2)').text() + ",";
-				//$('#rankTable>tbody>tr:nth-child('+i+')').attr("id", min);
-				//min += 1;
-				
-				/* newList.push({
-					jobCode:$('#rankTable>tbody>tr:nth-child('+i+')').attr("id"),
-					jobName:$('#rankTable>tbody>tr:nth-child('+i+')>td:nth-child(2)').text()
-				}); */
-				//console.log($('#rankTable>tbody>tr:nth-child('+i+')').attr("id"));
 			}
-			//console.log(str);
+
 
   			$.ajax({
 				url:"saveRank.mg",
@@ -180,7 +173,14 @@
 				data:{str:str},
 				success:function(list){
 					
-					console.log(list);
+					alert('직급 순서가 변경되었습니다.');
+					
+					for(var i=0; i<list.length; i++) {
+						var index = i + 1;
+						$('#rankTable>tbody>tr:nth-child('+index+')').attr("id", list[i].jobCode);
+						$('#rankTable>tbody>tr:nth-child('+index+')>td:nth-child(1)>b').text(list[i].jobCode%10);
+						$('#rankTable>tbody>tr:nth-child('+index+')>td:nth-child(2)').text(list[i].jobName);
+					}
 					
 				},error:function(){
 					console.log('순서 저장용 ajax 통신 실패!');

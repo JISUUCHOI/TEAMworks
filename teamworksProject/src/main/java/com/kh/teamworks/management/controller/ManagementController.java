@@ -429,7 +429,7 @@ public class ManagementController {
 	//직급 관리
 	@ResponseBody
 	@RequestMapping(value="saveRank.mg", method=RequestMethod.POST)
-	public void saveRank(String str, HttpServletResponse response) throws JsonIOException, IOException {
+	public void saveRank(String str, Model model, HttpServletResponse response) throws JsonIOException, IOException {
 		
 		String[] arr = str.split(",");
 		
@@ -445,9 +445,12 @@ public class ManagementController {
 		if(result == arr.length) {	// 모든 행 업데이트 성공
 			
 			ArrayList<Job> jobList = mgService.selectJobList();
-			
+
 			response.setContentType("application/json; charset=utf-8");
 			new Gson().toJson(jobList, response.getWriter());
+			
+		}else {
+			
 		}
 	}
 	
