@@ -45,10 +45,10 @@
 			<table id="rankTable" class="table border" style="width: 80%;">
 				<thead class="thead-light">
 					<tr>
-						<th scope="col">No.</th>
-						<th scope="col">직급명</th>
-						<th scope="col">수정/삭제</th>
-						<th scope="col">순서 설정</th>
+						<th width="20%">No.</th>
+						<th width="30%">직급명</th>
+						<th width="25%">수정/삭제</th>
+						<th width="25%">순서 설정</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -68,13 +68,16 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-				<tfoot>
+ 				<tfoot>
 					<tr>
 						<th scope="row"></th>
-						<td><input type="text" id="inputJobName" placeholder="추가할 직급명 입력"></td>
-						<td>
-							<button type="button"
-								class="btn btn-warning btn btn-primary btn-sm">추가</button>
+						<td colspan="2">
+							<form action="insertJob.mg" id="insertForm" method="post">
+								<input type="text" name="jobName" placeholder="추가할 직급명 입력">
+								&nbsp;&nbsp;&nbsp;
+								<button type="submit"
+									class="btn btn-warning btn btn-primary btn-sm">추가</button>
+							</form>
 						</td>
 						<td>
 							
@@ -82,6 +85,7 @@
 					</tr>
 				</tfoot>
 			</table>
+
 		</div>
 	</div>
 

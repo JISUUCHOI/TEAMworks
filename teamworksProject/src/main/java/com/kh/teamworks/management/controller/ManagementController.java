@@ -458,8 +458,20 @@ public class ManagementController {
 	// 최지수_직급 관리
 	// 직급 추가용
 	@RequestMapping("insertJob.mg")
-	public void insertJobCode(String jobName) {
-		System.out.println(jobName);
+	public String insertJobCode(String jobName, HttpSession session, Model model) {
+		
+		int result = mgService.insertJobCode(jobName);
+		
+		if(result > 0) { // 직급 추가 성공 --> 다시 직급 관리 페이지
+			
+			session.setAttribute("msg", "직급이 성공적으로 추가되었습니다.");
+			return "redirect:orgJobList.mg";
+			
+		}else { // 직급 추가 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "직급 추가에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
 	}
 	
 

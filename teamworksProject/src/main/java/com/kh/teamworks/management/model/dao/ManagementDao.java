@@ -115,9 +115,14 @@ public class ManagementDao {
 	}
 	
 
-	// 직급관리_순서저장
+	// 직급관리_직급 순서 저장
 	public int saveRank(SqlSessionTemplate sqlSession, Job job) {
 		return sqlSession.update("managementMapper.saveRank", job);
+	}
+	
+	// 직급관리_직급 추가
+	public int insertJobCode(SqlSessionTemplate sqlSession, String jobName) {
+		return sqlSession.insert("managementMapper.insertJobCode", jobName);
 	}
 
 
