@@ -36,15 +36,19 @@ public interface EmployeeService {
 	int attUpdate(Attendance att);
 
 
-
+	//직원근태조회
 	Attendance selectAtt(String empId);
 
 	int QRattInsert(String empId);
 
 	ArrayList<Attendance> selectSchMyAtt(SearchMyAttendance sma);
 	
-	int selectListCount();
+	
+	// 전직원근태조회
+	int selectListCount(SearchEmpAttCondition seac);
 	ArrayList<SearchEmpAttendance> selectSchEmpAtt(SearchEmpAttCondition seac,PageInfo pi);
+
+	
 
 	
 
