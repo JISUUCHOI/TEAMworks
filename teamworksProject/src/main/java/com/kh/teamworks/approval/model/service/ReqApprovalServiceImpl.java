@@ -264,13 +264,13 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 		return raDao.selectMyDocList(sqlSession, d, pi);
 	}
 	
-	// 9_3. 검색 결과에 해당하는 참조문서 개수 조회
+	// 9_3. 검색 결과에 해당하는 결재요청함 문서 개수 조회
 	@Override
 	public int searchMyDocCount(ApproveSearchCondition asc) {
 		return raDao.searchMyDocCount(sqlSession, asc);
 	}
 
-	// 9_4. 검색 결과에 해당하는 참조문서 리스트 조회 
+	// 9_4. 검색 결과에 해당하는 결재요청함 리스트 조회  
 	@Override
 	public ArrayList<Document> searchMyDocList(ApproveSearchCondition asc, PageInfo pi) {
 		return raDao.searchMyDocList(sqlSession, asc, pi);
@@ -342,6 +342,18 @@ public class ReqApprovalServiceImpl implements ReqApprovalService {
 	@Override
 	public ArrayList<Document> selectCallbackList(Document d, PageInfo pi) {
 		return raDao.selectCallbackList(sqlSession, d, pi);
+	}
+
+	// 13_3. 검색 결과에 해당하는 회수문서 개수 조회
+	@Override
+	public int searchCallbackCount(ApproveSearchCondition asc) {
+		return raDao.searchCallbackCount(sqlSession, asc);
+	}
+
+	// 13_4. 검색 결과에 해당하는 회수문서 리스트 조회
+	@Override
+	public ArrayList<Document> searchCallbackList(ApproveSearchCondition asc, PageInfo pi) {
+		return raDao.searchCallbackList(sqlSession, asc, pi);
 	}
 
 	

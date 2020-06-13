@@ -60,7 +60,7 @@
         font-size:12px;
         float:right;
     }
-    #modifyBtn:hover, #deleteBtn:hover, #approveBtn:hover, #refBtn:hover{
+    #modifyBtn:hover, #deleteBtn:hover, #approveBtn:hover, #refBtn:hover, #callbackBtn:hover{
         background:deepskyblue;
         cursor:pointer;
     }
@@ -133,7 +133,6 @@
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="approvalSidebar.jsp"/>
-	
 	
 	<c:if test="${ !empty msg }">
 		<script>
@@ -338,7 +337,7 @@
 		                <div class="approveOuter">
 					        
 				        	<input type="hidden" name="docNo" value="${ d.get(0).getDocNo() }">
-				        	<input type="hidden" name="empId" value="${ d.get(0).getEmpId() }">s
+				        	<input type="hidden" name="empId" value="${ d.get(0).getEmpId() }">
 				        	<input type="hidden" name="docSc" value="${ d.get(0).getDocSc() }">
 				        	<input type="hidden" name="approverEmpid" value="${ loginUser.empId }">
 				            <table class="chooseApprove">
@@ -425,6 +424,15 @@
 	
 	<script>
 		$(function(){
+			var approveStatus = "${ status }";
+			
+			switch(approveStatus){
+				case '0': $("#readyForApprove>a").css("color", "deepskyblue"); break;
+				case '1': $("#pendingApprove>a").css("color", "deepskyblue"); break;
+				case '2': $("#doneApprove>a").css("color", "deepskyblue"); break;
+				case '3': $("#refuseApprove>a").css("color", "deepskyblue"); break;
+				case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
+			}
 			
 			/* 결재 모달 취소버튼 클릭 시  */
 			$("#approveCancel").click(function(){

@@ -252,6 +252,7 @@ public class requestApprovalController {
 		// 5_1. 문서 총 개수 조회
 		int listCount = raService.selectListCount(d);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		System.out.println("대기함검색 전" + pi);
 		
 		// 5_2. 문서 리스트 조회
 		ArrayList<Document> list = raService.selectDocList(d, pi);
@@ -264,7 +265,7 @@ public class requestApprovalController {
 		return "approval/documentList";
 	}
 	
-	// 5. 검색 결과 리스트 조회
+	// 5. 결재대기함,진행함,완료함,반려문서함,회수요청함 검색 결과 리스트 조회
 	@RequestMapping("searchList.rap")
 	public String searchDocList(HttpServletRequest request, ApproveSearchCondition asc, Model model) {
 		
@@ -362,8 +363,6 @@ public class requestApprovalController {
 				// 7_3. 기안자 상태 doc_status '진행'로 update
 				result2 = raService.updateDocStatus(doc);
 				
-				System.out.println(result2);
-				
 				// 7_4. 다음 승인권자 상태 update
 				doc.setApproverEmpid(list.get(1).getApproverEmpid());
 				result3 = raService.updateLine(doc);
@@ -379,7 +378,6 @@ public class requestApprovalController {
 				
 				// 7_8. 기안자 상태 doc_status '완료'로 update
 				result2 = raService.updateDs(doc);
-				System.out.println(result2);
 			}
 		}else {	// 반려할 경우
 			// 7_9. 현재 진행중인 승인권자가 반려할 경우
@@ -439,7 +437,6 @@ public class requestApprovalController {
 		String keyword = asc.getKeyword();
 		String docStatus = asc.getDocStatus();
 		
-		
 		if(condition != null) {
 			switch(condition) {
 			case "writer" : asc.setWriter(keyword); break;
@@ -497,7 +494,7 @@ public class requestApprovalController {
 		
 	}
 	
-	// 9_3. 참조문서함 검색
+	// 9_3. 결재요청함 검색
 		@RequestMapping("myDocSearch.rap")
 		public String searchMyDocList(HttpServletRequest request, ApproveSearchCondition asc, Model model) {
 			
@@ -522,13 +519,12 @@ public class requestApprovalController {
 				}
 			}
 
-			// 9_3. 검색 결과에 해당하는 참조문서 개수 조회
+			// 9_3. 검색 결과에 해당하는 결재요청문서 개수 조회
 			int listCount = raService.searchMyDocCount(asc);
-			System.out.println(listCount);
 			int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 			
-			// 9_4. 검색 결과에 해당하는 참조문서 리스트 조회
+			// 9_4. 검색 결과에 해당하는 결재요청문서 리스트 조회
 			ArrayList<Document> list = raService.searchMyDocList(asc, pi);
 			
 			model.addAttribute("listCount", listCount);
@@ -633,6 +629,7 @@ public class requestApprovalController {
 		// 13_1. 문서 총 개수 조회
 		int listCount = raService.selectCallbackCount(d);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		System.out.println("회수함검색 전" + pi);
 		
 		// 13_2. 문서 리스트 조회
 		ArrayList<Document> list = raService.selectCallbackList(d, pi);
@@ -645,6 +642,37 @@ public class requestApprovalController {
 	}
 	
 	// 13_3. 결재회수함 검색
-	
+	@RequestMapping("searchCallback.rap")
+	public String searchCallbackList(HttpServletRequest request, ApproveSearchCondition asc, Model model) {
+		
+		String condition = asc.getCondition();
+		String keyword = asc.getKeyword();
+		
+		if(condition != null) {
+			switch(condition) {
+			case "writer" : asc.setWriter(keyword); break;
+			case "title" : asc.setTitle(keyword); break;
+			case "form" : asc.setForm(keyword); break;
+			}
+		}
+		
+		// 13_3. 검색 결과에 해당하는 회수문서 개수 조회
+		int listCount = raService.searchCallbackCount(asc);
+		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		System.out.println(pi);
+		
+		
+		// 13_4. 검색 결과에 해당하는 회수문서 리스트 조회
+		ArrayList<Document> list = raService.searchCallbackList(asc, pi);
+		
+		model.addAttribute("listCount", listCount);
+		model.addAttribute("list", list);
+		model.addAttribute("pi", pi);
+		model.addAttribute("asc", asc);
+		
+		return "approval/callbackList";
+		
+	}
 	
 }

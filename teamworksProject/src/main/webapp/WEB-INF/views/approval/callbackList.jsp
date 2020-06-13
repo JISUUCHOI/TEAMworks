@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>결재문서보관함</title>
+<title>결재회수함</title>
 <!-- jQuery 라이브러리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
@@ -164,7 +164,7 @@
 	            <br>
 	
 	            <!-- 검색 -->
-	            <form action="searchList.rap" method="post">
+	            <form action="searchCallback.rap" method="post">
 	            	<input type="hidden" name="empId" value="${ loginUser.empId }">
 	            	<input type="hidden" name="currentPage" value="1">
 	                <table id="search" class="searchBox">
@@ -270,7 +270,9 @@
 		                        <td style="text-align:center;">${ l.empName }</td>
 		                        <td style="text-align:center;">${ l.docDepartment}</td>
 		                        <td style="text-align:center;">${ l.docDate }</td>
-		                        <td style="text-align:center;">${ l.docStatus }</td>
+		                        <c:if test="${ l.docStatus == 5 }">
+		                        	<td style="text-align:center;">회수</td>
+		                        </c:if>
 		                    </tr>
 	                    </c:forEach>
 	                </tbody>
@@ -284,7 +286,6 @@
 	            										"&docSc=" + $(this).prevAll(".docSc").text();
 	            		});
 	            	});
-	            
 	            </script>
 	            
 	
@@ -297,7 +298,7 @@
 						<c:when test="${ listCount eq 0 }">
 						</c:when>
 						<c:when test="${ !empty asc }">
-							<c:url value="searchList.rap" var='searchUrl'>
+							<c:url value="searchCallback.rap" var='searchUrl'>
 								<c:param name="currentPage" value="${ pi.currentPage - 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="condition" value="${ asc.condition }" />
@@ -323,7 +324,7 @@
 										<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ p }'">${ p }</button>
 									</c:when>
 									<c:otherwise>
-										<c:url value="searchList.rap" var='searchUrl'>
+										<c:url value="searchCallback.rap" var='searchUrl'>
 											<c:param name="currentPage" value="${ p }" />
 											<c:param name="empId" value="${ loginUser.empId }" />
 											<c:param name="condition" value="${ asc.condition }" />
@@ -344,7 +345,7 @@
 						<c:when test="${ listCount eq 0 }">
 						</c:when>
 						<c:when test="${ !empty asc }">
-							<c:url value="searchList.rap" var='searchUrl'>
+							<c:url value="searchCallback.rap" var='searchUrl'>
 								<c:param name="currentPage" value="${ pi.currentPage + 1 }" />
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="condition" value="${ asc.condition }" />
@@ -396,7 +397,7 @@
 			        $("#"+eleId).datepicker( "option", optionName, selectedDate );        
 			        $(".searchDate").find(".chkbox2").removeClass("on"); 
 			    }
-			}); 
+			});
 	
 	        $(".dateclick").dateclick();    // DateClick
 	        $(".searchDate").schDate();        // searchDate
