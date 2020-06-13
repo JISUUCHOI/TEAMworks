@@ -417,8 +417,23 @@ public class ManagementController {
 	//직급 관리
 	@RequestMapping("orgJobList.mg")
 	public String selectJobList(Model model) {
+		
 		ArrayList<Job> jobList = mgService.selectJobList();
+		
+		int min = jobList.get(0).getJobCode();
+		int max = jobList.get(0).getJobCode();
+		for(int i=0; i<jobList.size(); i++) {
+			if(min >= jobList.get(i).getJobCode()) {
+				min = jobList.get(i).getJobCode();
+			}
+			if(max <= jobList.get(i).getJobCode()) {
+				max = jobList.get(i).getJobCode();
+			}
+		}
+		
 		model.addAttribute("jobList", jobList);
+		model.addAttribute("min", min);
+		model.addAttribute("max", max);
 
 		return "management/companyOrganizationOrder";
 	}
