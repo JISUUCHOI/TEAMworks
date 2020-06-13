@@ -50,9 +50,6 @@
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 
 		<div class="container" style="padding-left: 60px; padding-top: 50px;">
-
-			<button onclick="saveRank();">순서 저장</button> 
-
 			<table id="rankTable" class="table border" style="width: 80%;">
 				<thead class="thead-light">
 					<tr>
@@ -87,12 +84,15 @@
 						<td colspan="2">
 							<form action="insertJob.mg" id="insertForm" method="post">
 								<input type="text" name="jobName" placeholder="추가할 직급명 입력">
-								&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;
 								<button type="submit"
-									class="btn btn-warning btn btn-primary btn-sm">추가</button>
+									class="btn btn-warning btn-sm">추가</button>
 							</form>
 						</td>
-						<td></td>
+						<td>
+							<button onclick="saveRank();"
+									class="btn btn-secondary btn-sm">순서 저장</button> 
+						</td>
 					</tr>
 				</tfoot>
 			</table>
