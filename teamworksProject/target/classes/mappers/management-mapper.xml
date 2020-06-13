@@ -56,6 +56,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="pf_sq" property="pfSq" />
 		<result column="pf_purpose" property="pfPurpose" />
 		<result column="doc_status" property="docStatus" />
+		<result column="emp_id" property="empId"/>
+		<result column="emp_name" property="empName"/>
+		<result column="doc_date" property="docDate"/>
+		<result column="pf_status" property="pfStatus"/>
+		<result column="doc_department" property="empDept"/>
 	</resultMap>
 
 	<resultMap id="employeeResultSet" type="Employee">
@@ -231,6 +236,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   	   COMPANY_CON=#{companyCon}, COMPANY_KIND=#{companyKind}, COMPANY_ADRS=#{companyAdrs}
 		 WHERE HOM_NO=#{homNo}  	
 	</update>
-
+	<select id="selectProofListCount" resultType="_int">
+		select count(*)
+ 		  from proof p  
+		  join employee e on(p.emp_id=e.emp_id)
+		 where doc_status=2
+	</select>
+	
+	<select id="selectProofList" resultMap="empProofResultSet">
+		select doc_no, p.emp_id, e.emp_name, doc_status, doc_date, doc_department, pf_status, pf_sq, pf_purpose 
+ 		  from proof p  
+		  join employee e on(p.emp_id=e.emp_id)
+		 where doc_status=2
+	</select>
+	
+	<select id="selectProof"  parameterType="string" resultMap="empProofResultSet">
+		select doc_no, p.emp_id, e.emp_name, doc_status, doc_date, doc_department, pf_status, pf_sq, pf_purpose 
+ 		  from proof p  
+		  join employee e on(p.emp_id=e.emp_id)
+		 where doc_status=2 and doc_no = #{docNo}
+	</select>
+	<update id="updatePfStatus" parameterType="string">
+		update proof
+		   set pf_status='Y'
+		 where doc_no=#{docNo}
+	</update>
 
 </mapper>

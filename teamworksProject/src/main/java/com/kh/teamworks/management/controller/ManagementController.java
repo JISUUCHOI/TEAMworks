@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +25,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
+import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.service.ManagementServiceImpl;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
+import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
 import com.kh.teamworks.management.model.vo.empSearchCondition;
 
@@ -40,7 +41,8 @@ public class ManagementController {
 
 	@Autowired
 	private ManagementServiceImpl mgService;
-
+	@Autowired
+	private EmployeeService eService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -399,11 +401,69 @@ public class ManagementController {
 		return "management/companyVacationList";
 	}
 
-	// 증명서 발급
-	@RequestMapping("empDocument.mg")
-	public String empDocument() {
-		return "management/companyMemberDocument";
-	}
+	// 라공주 
+		// 증명서 발급
+		@RequestMapping("empDocument.mg")
+		public String empDocument(int currentPage, Model model) {
+			
+			int listCount = mgService.selectProofListCount();
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			ArrayList<Proof> list = mgService.selectProofList(pi);
+			model.addAttribute("pi", pi);
+			model.addAttribute("list", list);
+			// System.out.println(list);
+			return "management/companyMemberDocument";
+		}
+		// 라공주 
+		// 재직증명서
+		@RequestMapping("proofOfemp.mg")
+		public String proofOfEmployee(Employee e, String docNo, Model model) {
+			
+			int result = mgService.updatePfStatus(docNo); // 발급상태값 Y로 변경
+			if(result>0) {
+				Employee emp = eService.loginEmployee(e);
+				//System.out.println(emp);
+				//System.out.println(docNo);
+				Proof p = mgService.selectProof(docNo);
+				model.addAttribute("emp", emp);
+				model.addAttribute("p", p);
+				return "management/proofOfEmp";
+			}else {
+				model.addAttribute("msg", "발급에 실패했습니다.");
+				return "common/errorPage";
+			}
+			
+		}
+		// 경력증명서
+		@RequestMapping("careerPf.mg")
+		public String careerProof(Employee e, String docNo, Model model) {
+			int result = mgService.updatePfStatus(docNo);
+			if(result>0) {
+				Employee emp = eService.loginEmployee(e);
+				Proof p = mgService.selectProof(docNo);
+				model.addAttribute("emp", emp);
+				model.addAttribute("p", p);
+				return "management/careerProof";
+			}else {
+				model.addAttribute("msg", "발급에 실패했습니다.");
+				return "common/errorPage";
+			}
+		}
+		// 퇴직증명서
+		@RequestMapping("retirementPf.mg")
+		public String retirementProof(Employee e, String docNo, Model model) {
+			int result = mgService.updatePfStatus(docNo);
+			if(result>0) {
+				Employee emp = eService.loginEmployee(e);
+				Proof p = mgService.selectProof(docNo);
+				model.addAttribute("emp", emp);
+				model.addAttribute("p", p);
+				return "management/retireProof";
+			}else {
+				model.addAttribute("msg", "발급에 실패했습니다.");
+				return "common/errorPage";
+			}
+		}
 
 	// 최지수_조직도
 	@RequestMapping("org.mg")

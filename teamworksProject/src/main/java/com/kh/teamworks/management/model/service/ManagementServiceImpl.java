@@ -131,12 +131,28 @@ public class ManagementServiceImpl implements ManagementService{
 		return mgDao.searchVacationList(sqlSession, keyword, pi);
 	}
 
+	/**
+	 * 증명서 발급
+	 */
 	@Override
-	public Proof selectProofList() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Proof> selectProofList(PageInfo pi) {
+		return mgDao.selectProofList(sqlSession, pi);
 	}
-
+	/**
+	 * 증명서 발급 listcount
+	 */
+	@Override
+	public int selectProofListCount() {
+		return mgDao.selectProofListCount(sqlSession);
+	}
+	@Override
+	public Proof selectProof(String docNo) {
+		return mgDao.selectProof(sqlSession, docNo);
+	}
+	@Override
+	public int updatePfStatus(String docNo) {
+		return mgDao.updatePfStatus(sqlSession, docNo);
+	}
 	@Override
 	public ArrayList<Department> selectDeptList() {
 
