@@ -200,5 +200,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE HOM_NO=#{homNo}
 	</update>
 	
+	<update id="saveRank" parameterType="MgJob">
+		UPDATE JOB
+		   SET JOB_NAME=#{jobName}
+		 WHERE JOB_CODE=#{jobCode}
+	</update>
 
 </mapper>

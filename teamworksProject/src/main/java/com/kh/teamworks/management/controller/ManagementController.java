@@ -421,32 +421,34 @@ public class ManagementController {
 	public String selectJobList(Model model) {
 		
 		ArrayList<Job> jobList = mgService.selectJobList();
-		
-		int min = jobList.get(0).getJobCode();
-		int max = jobList.get(0).getJobCode();
-		for(int i=0; i<jobList.size(); i++) {
-			if(min >= jobList.get(i).getJobCode()) {
-				min = jobList.get(i).getJobCode();
-			}
-			if(max <= jobList.get(i).getJobCode()) {
-				max = jobList.get(i).getJobCode();
-			}
-		}
-		
-		model.addAttribute("jobList", jobList);
-		model.addAttribute("min", min);
-		model.addAttribute("max", max);
 
+		model.addAttribute("jobList", jobList);
 		return "management/companyOrganizationOrder";
 	}
 	
 	//직급 관리
 	@ResponseBody
 	@RequestMapping(value="saveRank.mg", method=RequestMethod.POST)
-	public void saveRank(@RequestParam(value="newList[]") ArrayList<Job> newList, HttpServletResponse response) {
+	public void saveRank(String str, HttpServletResponse response) throws JsonIOException, IOException {
 		
-		System.out.println(newList);
-		//int result = mgService.saveRank(newList);
+		String[] arr = str.split(",");
+		
+		int jobCode = 11;
+		int result = 0;
+		for(int i=0; i<arr.length; i++) {
+			//System.out.println(arr[i]);
+			
+			result += mgService.saveRank(arr[i], jobCode);
+			jobCode++;
+		}
+		
+		if(result == arr.length) {	// 모든 행 업데이트 성공
+			
+			ArrayList<Job> jobList = mgService.selectJobList();
+			
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(jobList, response.getWriter());
+		}
 	}
 	
 

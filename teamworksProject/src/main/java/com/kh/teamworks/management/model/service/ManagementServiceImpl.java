@@ -187,6 +187,13 @@ public class ManagementServiceImpl implements ManagementService{
 		return 0;
 	}
 
+	@Override
+	public int saveRank(String jobName, int jobCode) {
+		// TODO Auto-generated method stub
+		Job job = new Job(jobCode, jobName);
+		return mgDao.saveRank(sqlSession, job);
+	}
+
 
 
 

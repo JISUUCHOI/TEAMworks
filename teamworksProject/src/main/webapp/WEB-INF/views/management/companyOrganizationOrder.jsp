@@ -157,31 +157,35 @@
 		
 		// 순서 저장 버튼 클릭 시
 		function saveRank() {
-			var newList = [];
-			var min = ${min} + 10;
+			//var newList = [];
+			//var min = ${min} + 10;
+			var str = "";
 			for(var i=1; i<=${fn:length(jobList)}; i++) {
 				
-				$('#rankTable>tbody>tr:nth-child('+i+')').attr("id", min);
-				min += 1;
+				str += $('#rankTable>tbody>tr:nth-child('+i+')>td:nth-child(2)').text() + ",";
+				//$('#rankTable>tbody>tr:nth-child('+i+')').attr("id", min);
+				//min += 1;
 				
-				newList.push({
+				/* newList.push({
 					jobCode:$('#rankTable>tbody>tr:nth-child('+i+')').attr("id"),
 					jobName:$('#rankTable>tbody>tr:nth-child('+i+')>td:nth-child(2)').text()
-				});
+				}); */
 				//console.log($('#rankTable>tbody>tr:nth-child('+i+')').attr("id"));
 			}
+			//console.log(str);
 
-
-			$.ajax({
+  			$.ajax({
 				url:"saveRank.mg",
 				type:"post",
-				data:{newList:newList},
-				success:function(){
+				data:{str:str},
+				success:function(list){
+					
+					console.log(list);
 					
 				},error:function(){
 					console.log('순서 저장용 ajax 통신 실패!');
 				}
-			});
+			});  
 		}
 	</script>
 	

@@ -1,5 +1,7 @@
 package com.kh.teamworks.management.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

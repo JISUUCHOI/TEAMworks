@@ -67,5 +67,6 @@ public interface ManagementService {
 	int deleteJobCode(); //
 	int insertJobCode(); //
 
+	int saveRank(String jobName, int jobCode);
 	
 }

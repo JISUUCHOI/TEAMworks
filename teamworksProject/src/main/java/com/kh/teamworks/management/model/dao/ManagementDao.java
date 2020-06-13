@@ -115,8 +115,10 @@ public class ManagementDao {
 	}
 	
 
-
-
+	// 직급관리_순서저장
+	public int saveRank(SqlSessionTemplate sqlSession, Job job) {
+		return sqlSession.update("managementMapper.saveRank", job);
+	}
 
 
 }
