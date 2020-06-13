@@ -12,6 +12,7 @@
 		<typeAlias type="com.kh.teamworks.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.teamworks.employee.model.vo.Employee" alias="Employee"/>
 		<typeAlias type="com.kh.teamworks.approval.model.vo.Document" alias="Document"/>
+		<typeAlias type="com.kh.teamworks.approval.model.vo.DocumentList" alias="DocumentList"/>
 		<typeAlias type="com.kh.teamworks.reservation.model.vo.Reservation" alias="Reservation"/>
 		<typeAlias type="com.kh.teamworks.schedule.model.vo.Schedule" alias="Schedule"/>
 		<typeAlias type="com.kh.teamworks.board.model.vo.BoardAttachment" alias="BoardAttachment"/>
@@ -34,6 +35,7 @@
 		<typeAlias type="com.kh.teamworks.mail.model.vo.Mail" alias="Mail"/>
 		<typeAlias type="com.kh.teamworks.mail.model.vo.MailDTO" alias="MailDTO"/>
 		<typeAlias type="com.kh.teamworks.mail.model.vo.MailAddress" alias="MailAddress"/>
+		
 	</typeAliases>
 	
 	<mappers>
