@@ -94,6 +94,9 @@
     body{font-size:12px;color:#555;background:transparent;-webkit-user-select:none;-moz-user-select:none;-webkit-text-size-adjust:none;-moz-text-size-adjust:none;-ms-text-size-adjust:none}
     ol,ul{list-style:none} 
     img{border:0 none;vertical-align:middle}
+    
+    .dlName{cursor:pointer;}
+    .dlLike{cursor:pointer;}
 
 
 
