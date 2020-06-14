@@ -314,14 +314,18 @@ public class ManagementController {
 	// 퇴사자 등록
 	@ResponseBody
 	@RequestMapping(value = "updateStatus.mg", method = RequestMethod.POST)
-	public String updateStatus(@RequestParam("checkRow") String[] empRetire, ModelMap modelMap)
-			throws Exception {
-
+	public String updateStatus(HttpServletRequest request, HttpSession session){
+		
+		String checkRow =  request.getParameter("checkRow");
+		
+		for(int i=0; i < checkRow.length(); i++) {
+			//String empId = checkRow[i];
+		}
 		// 삭제할 사용자 ID마다 반복해서 사용자 삭제
-		for (String empId : empRetire) {
+	/*	for (for i=0; i<checkArr.. ; empId : checkArr) {
 			System.out.println("사용자 삭제 = " + empId);
-			int count = mgService.updateStatus(empId);
-		} 
+			int count = mgService.updateStatus(empId);*/
+		
 	return"redirect:empList.mg";
 	}
 
@@ -369,32 +373,44 @@ public class ManagementController {
 		int listCount = mgService.selectEmpCount();
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
-
+		
 		ArrayList<Vacation> vacList =mgService.selectVacationList(pi);
 
-		
-		model.addAttribute("vacList", vacList);
-
 		model.addAttribute("pi", pi);
-		
-		
-		
+		model.addAttribute("vacList", vacList);
 
 		return "management/companyVacationList";
 	}
 
 	// 휴가 검색 관리
-	@RequestMapping("vacationSearch.mg")
-	public String vacationSearch(int currentPage, String keyword, Model model) {
+	@RequestMapping("empVacSearch.mg")
+	public String vacationSearch(int currentPage, empSearchCondition eSc, Model model) {
 
-		int listCount = mgService.selectVacCount(keyword);
+		if (eSc.getKeyword() != null) {
+			switch (eSc.getCondition()) {
+			case "empName":
+				eSc.setEmpName(eSc.getKeyword());
+				break;
+			case "vacationYear":
+				eSc.setVacationYear(eSc.getKeyword());
+				break;
+			}
 
+		} else {
+			eSc.setEmpName(null);
+			eSc.setVacationYear(null);
+		}
+		
+		int listCount = mgService.selectVacCount(eSc);
+		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		
+		ArrayList<Vacation> vacList =mgService.selectVacationKeyword(eSc, pi);
 
-		ArrayList<Vacation> vacList = mgService.searchVacationList(keyword, pi);
-
-		model.addAttribute("vacList", vacList);
 		model.addAttribute("pi", pi);
+		model.addAttribute("vacList", vacList);
+		model.addAttribute("eSc", eSc);
+		
 
 		return "management/companyVacationList";
 	}

@@ -122,13 +122,13 @@ public class ManagementServiceImpl implements ManagementService{
 	
 	// 휴가 페이징 처리 
 	@Override
-	public int selectVacCount(String keyword) {
-		return mgDao.selectVacationCount(sqlSession, keyword);
+	public int selectVacCount(empSearchCondition eSc) {
+		return mgDao.selectVacationCount(sqlSession, eSc);
 	}
 	
 	@Override
-	public ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi) {
-		return mgDao.searchVacationList(sqlSession, keyword, pi);
+	public ArrayList<Vacation> selectVacationKeyword(empSearchCondition eSc, PageInfo pi) {
+		return mgDao.selectVacationKeyword(sqlSession, eSc, pi);
 	}
 
 	@Override

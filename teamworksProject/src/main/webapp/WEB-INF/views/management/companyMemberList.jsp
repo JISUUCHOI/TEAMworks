@@ -64,7 +64,7 @@
 					<button type="submit" class="searchBtn btn btn-secondary">검색</button>
 				</form>
 				
-				<input type="checkbox" name="statusN" id="statusN" style="margin-left:30px; margin-right:10px; margin-top:20px;"><b>퇴직자 보기</b>
+				<input type="checkbox" name="statusN" id="statusN" style="margin-left:30px; margin-right:10px; margin-top:20px;" value='N'><b>퇴직자 보기</b>
 				<button type="" class="btn btn-outline-primary btn-sm"  style="float:right; margin-right:50px; margin-top:20px;" id="updateStatus">퇴사자 등록</button>
 				
 			</div>
@@ -128,22 +128,17 @@
 		
 				$("#updateStatus").click(function() {
 					var confirm_val = confirm("퇴사 등록하시겠습니까?");
-
+					
 					if (confirm_val) {
-						var checkArr = new Array();
-
+						
+						var checkRow = [];
+						
 						$("input[name=checkRow]:checked").each(function() {
-							checkArr.push($(this).attr("value"));
+							checkRow.push($(this).val());
 						});
-
-						$.ajax({
-							url : "updateStatus.mg",
-							type : "post",
-							data : { checkRow : empRetire},
-							success : function() {
-								location.href = "empList.mg";
-							}
-						});
+					
+						alert(checkRow);
+						
 					}
 				});
 			</script>

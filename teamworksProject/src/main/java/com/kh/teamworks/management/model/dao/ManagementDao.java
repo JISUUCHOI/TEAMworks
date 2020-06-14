@@ -97,15 +97,15 @@ public class ManagementDao {
 		return (ArrayList)sqlSession.selectList("managementMapper.selectVacList", null, rowBounds);
 	}
 
-	public ArrayList<Vacation> searchVacationList(SqlSessionTemplate sqlSession, String keyword, PageInfo pi) {
+	public ArrayList<Vacation> selectVacationKeyword(SqlSessionTemplate sqlSession, empSearchCondition eSc, PageInfo pi) {
 		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("managementMapper.searchEmpVacation", keyword, rowBounds);
+		return (ArrayList)sqlSession.selectList("managementMapper.selectVacListKeyword", eSc, rowBounds);
 	}
 	
-	public int selectVacationCount(SqlSessionTemplate sqlSession, String keyword) {
-		return sqlSession.selectOne("managementMapper.selectVacationCount", keyword);
+	public int selectVacationCount(SqlSessionTemplate sqlSession, empSearchCondition eSc) {
+		return sqlSession.selectOne("managementMapper.selectVacCount", eSc);
 	}
 
 	public int updateLogo(SqlSessionTemplate sqlSession, CompanyInfo ci) {

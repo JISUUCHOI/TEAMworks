@@ -53,8 +53,8 @@ public interface ManagementService {
 
 	
 	// 휴가 관리 내 검색
-	ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi);
-	int selectVacCount(String keyword);
+	ArrayList<Vacation> selectVacationKeyword(empSearchCondition eSc, PageInfo pi);
+	int selectVacCount(empSearchCondition eSc);
 	
 	// 증명서 발급
 	Proof selectProofList();
