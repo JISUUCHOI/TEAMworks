@@ -207,7 +207,7 @@
 			                           		"<div class='calendarDay' >";
 												 for(var j in list.mvs ){
 						                      	  		if(list.weeks[i].weeks == list.mvs[j].week){
-						                      	  			value +="<p style='background:pink;color:white'>"+ list.mvs[j].schTitle + "</p>";
+						                      	  			value +="<p style='background:#5bc0de;color:white;text-align: center'>"+ list.mvs[j].schTitle + "</p>";
 						                      	  		}
 						                         }                         
 			                         value +="</div>"+             

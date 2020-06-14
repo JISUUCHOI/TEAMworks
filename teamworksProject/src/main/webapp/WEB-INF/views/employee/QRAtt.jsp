@@ -24,7 +24,7 @@
     <form action="QRattinsert.em" method="post">
         <div class="form-group">
             <label for="empId">ID</label>
-            <input type="text" class="form-control" name="empId" id="empId" placeholder="ID" required>
+            <input type="text" class="form-control" name="empId" id="empId" placeholder="ID" required style="height: 200px;width: 1000px;">
         </div>
         <!--  <div class="form-group">
             <label for="inputPassword">Password</label>
