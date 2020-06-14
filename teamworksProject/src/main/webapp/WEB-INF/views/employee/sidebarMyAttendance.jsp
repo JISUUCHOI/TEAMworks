@@ -35,7 +35,7 @@
             background:rgb(7, 53, 90);
         }
         
-        .category{
+        .category a{
             width:300px;
             height:40px;
             line-height:2;
@@ -45,6 +45,7 @@
             font-family: 'JSDongkang-Regular';
             color:white;
             font-size:20px;
+             text-decoration:none ;
         }
         .subCate{
             width:250px;
@@ -63,7 +64,18 @@
         .subCate>span{
             color:red;
         }
-    
+         .category{
+	        width:300px;
+	        height:40px;
+	        line-height:2;
+	        margin-top:20px;
+	        padding-left:60px;
+	        /* font-family: 'Handon3gyeopsal300g'; */
+	        font-family: 'JSDongkang-Regular';
+	        color:white;
+	        font-size:20px;
+	    }
+	
     </style>
 </head>
 <body>
@@ -73,9 +85,10 @@
             <div id="messenger" style="display:none;"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
             <div id="logout" style="display:none;"><a href="">logout</a></div>
             
-            <div class="category">근태 현황</div>
+            <div class="category"><a href="myAtt.em">근태 현황</a></div>
            
-            <div class="category">휴가 내역</div>
+          
+            <div class="category"><a href="myvac.em">휴가현황</a></div>
             
         </div>
     </div>
