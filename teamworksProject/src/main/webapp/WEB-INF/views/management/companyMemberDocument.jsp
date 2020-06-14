@@ -37,7 +37,7 @@
 		<br>
 
 		<div class="container" style="margin-left:0px;">
-			<table class="table table-bordered">
+			<table class="table table-bordered table-sm">
 				<thead class="thead-light">
 					<tr>
 						<th>신청번호</th>
@@ -51,126 +51,81 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
-					<tr>
-						<td>1234</td>
-						<td>경력증명서</td>
-						<td>2020-05-11</td>
-						<td>3</td>
-						<td>김정은</td>
-						<td>발행전</td>
-						<td>금융기관 제출</td>
-						<td><button type="button"
-								class="btn btn-primary btn-primary btn-sm">발급하기</button></td>
-					</tr>
+					<c:forEach var="d" items="${ list }">
+						<tr>
+							<td>${ d.docNo }</td>
+							<td>${ d.pfSq }</td>
+							<td>${ d.docDate }</td>
+							<td>${ d.empId }</td>
+							<td>${ d.empName }</td>
+							<c:choose>
+								<c:when test="${d.pfStatus eq 'Y' }">
+									<td>발행 완료</td>
+								</c:when>
+								<c:otherwise>
+									<td>발행 전</td>
+								</c:otherwise>
+							</c:choose>
+							<td>${ d.pfPurpose }</td>
+							<c:choose>
+								<c:when test="${d.pfStatus eq 'Y' }">
+									<td> <button class="btn btn-outline-secondary btn-sm" type="button" disabled>발급하기</button></td>
+								</c:when>
+								<c:otherwise>
+									<td> <button class="btn btn-primary btn-sm" onclick="issueDoc('${d.pfSq}', '${d.empId }', '${d.docNo }');" type="button">발급하기</button></td>
+								</c:otherwise>
+							</c:choose>
+							
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
-
+			<script>
+				function issueDoc(pfSq, empId, docNo){
+					var pfSq = pfSq
+					var empId = empId
+					var docNo = docNo
+					if(pfSq=='재직증명서'){
+						 window.open("proofOfemp.mg?empId="+empId+"&docNo="+docNo,"재직증명서","width=1000px,height=600px"); 
+						 //alert(empId);
+					}else if(pfSq=='경력증명서'){
+						window.open("careerPf.mg?empId="+empId+"&docNo="+docNo,"재직증명서","width=1000px,height=600px"); 
+					}else{
+						window.open("retirementPf.mg?empId="+empId+"&docNo="+docNo,"재직증명서","width=1000px,height=600px"); 
+					}
+				}
+			</script>
 
 			<ul class="pagination pagination-sm justify-content-center" style="margin:20px 0">
-				<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-				<li class="page-item"><a class="page-link" href="#">1</a></li>
-				<li class="page-item active"><a class="page-link" href="#">2</a></li>
-				<li class="page-item"><a class="page-link" href="#">3</a></li>
-				<li class="page-item"><a class="page-link" href="#">Next</a></li>
+				<c:choose>
+					<c:when test="${ pi.currentPage eq 1 }">
+						<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" href="empDocument.mg?currentPage=${ pi.currentPage-1 }">Previous</a></li>
+					</c:otherwise>
+				</c:choose>
+				 <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+                    	<c:choose>
+                    		<c:when test="${ p eq pi.currentPage }">
+	                    		<li class="page-item disabled"><a class="page-link" href="#">${ p }</a></li>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<li class="page-item"><a class="page-link" href="empDocument.mg?currentPage=${ p }">${ p }</a></li>
+	                    	</c:otherwise>
+	                    </c:choose>
+                    </c:forEach>
+                    
+                    <c:choose>
+                    	<c:when test="${ pi.currentPage eq pi.maxPage }"> <!-- 현재 페이지가 마지막 페이지와 일치할 경우 클릭 불가 -->
+                    		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<li class="page-item"><a class="page-link" href="empDocument.mg?currentPage=${ pi.currentPage+1 }">Next</a></li>
+                   		</c:otherwise>
+                    </c:choose>
+				
+			
 			</ul>
 		</div>
 

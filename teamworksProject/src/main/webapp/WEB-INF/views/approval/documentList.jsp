@@ -506,6 +506,10 @@
 			case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
 			}
 			
+			$(document).ready(function() {
+	           $("#sidebarOuter").css('min-height', "730px");
+	       });
+			
 		});	
 	</script>
     

@@ -69,8 +69,7 @@
         }
         #refSch{
             width:120px;
-            height:20px;
-            margin-left:10px;
+            height:30px;
         }
         #refBtn:hover{
         	background:lightsteelblue;
@@ -78,7 +77,7 @@
         }
         #titleInput{
             width:600px;
-            height:20px;
+            height:30px;
             margin-left:10px;
         }
         #titleIput{
@@ -116,7 +115,7 @@
         	width:1250px;
         	float:left;
         }
-        
+
 /* 참조 모달용 스타일!!!! */
    /* 전체윤곽 */
    #approveLineOuter{
@@ -441,6 +440,7 @@
     border:1px solid rgb(7, 53, 90);
     margin:10px 10px 5px 13px;
     padding:10px 0px 0px 10px;
+    font-size:13px;
 }
 .refedEmpName, .refedEmpDept{
 	cursor:pointer

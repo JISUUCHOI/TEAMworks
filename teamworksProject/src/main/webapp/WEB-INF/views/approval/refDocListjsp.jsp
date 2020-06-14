@@ -493,6 +493,10 @@
 			$(".disable").css("text-align", "center");
 			
 			$("#requestApprove>a").css("color", "deepskyblue");
+			
+			$(document).ready(function() {
+	           $("#sidebarOuter").css('min-height', "730px");
+	       });
 	    });
 	    
    </script>

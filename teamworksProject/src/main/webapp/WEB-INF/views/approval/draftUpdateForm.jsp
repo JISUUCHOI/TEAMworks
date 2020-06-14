@@ -32,7 +32,7 @@
 	<div id="bodyWrapper">
 	    <div id="draftOuter">
 	
-	        <h4>⊙ 기안문 작성</h4>
+	        <h6>⊙ 기안문 작성</h6>
 	        <hr>
 	        <br>
 	
@@ -43,7 +43,7 @@
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#approveLineModal">결재선</button>
 	                <button type="submit" id="approveBtn" disabled>결재요청</button>
-	                <button type="button" id="cancelBtn">취소</button>
+	                <button type="button" id="cancelBtn" onclick="history.back();">취소</button>
 	            </div>
 	            <br><br><br>
 	

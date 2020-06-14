@@ -73,7 +73,7 @@
             <div class="subCate"><a href="empList.mg?currentPage=1">사원 명부</a></div>
             <div class="subCate"><a href="empAtt.em?currentPage=1">근태 관리</a></div>
             <div class="subCate"><a href="vacationList.mg?currentPage=1">휴가 관리</a></div>
-            <div class="subCate"><a href="empDocument.mg">증명서 발급</a></div>
+            <div class="subCate"><a href="empDocument.mg?currentPage=1">증명서 발급</a></div>
             
             <div class="category">조직도 관리</div>
             <div class="subCate"><a href="org.mg">조직도</a></div>

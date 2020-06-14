@@ -44,7 +44,7 @@
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#approveLineModal">결재선</button>
 	                <button type="submit" id="approveBtn" disabled>결재요청</button>
-	                <button type="button" id="cancelBtn">취소</button>
+	                <button type="reset" id="cancelBtn" onclick="history.back();">취소</button>
 	            </div>
 	            <br><br><br>
 	
@@ -89,7 +89,7 @@
 	                    <td class="th">참조자</td>
 	                    <td>
 	                    	<input type="hidden" id="refedId" name="docReference">
-	                        <input type="text" id="refSch" name="docRefName" readonly>
+	                        <input type="text" class="inp" id="refSch" name="docRefName" readonly>
 	                        <button type="button" id="refBtn" data-toggle="modal" data-target="#refEmp">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
@@ -101,7 +101,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" placeholder="내용을 입력해주세요" required></td>
+	                    <td colspan="3"><input type="text" class="inp" id="titleInput" name="docTitle" placeholder="내용을 입력해주세요" required></td>
 	                </tr>
 	            </table>
 				
@@ -112,11 +112,13 @@
                         <td width="200" class="th">신청번호</td>
                         <td width="200">자동생성</td>
 	                    <td width="200" class="th">증명서구분</td>
-                        <td width="200"><select name="pfSq" id="pfSq">
+                        <td width="200">
+                        <select name="pfSq" id="pfSq" style="height:30px;">
                             <option value="재직증명서">재직증명서</option>
                             <option value="경력증명서">경력증명서</option>
                             <option value="퇴직증명서">퇴직증명서</option>
                        </select>
+                       </td>
 	                </tr>
 	                <tr>
 	                    <td width="200" class="th">사원번호</td>
@@ -138,7 +140,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">용도</td>
-	                    <td colspan="3"><input type="text" id="titleInput"  name="pfPurpose" placeholder="내용을 입력해주세요" required></td>
+	                    <td colspan="3"><input type="text" class="inp" id="titleInput"  name="pfPurpose" placeholder="내용을 입력해주세요" required></td>
 	                </tr>
                 </table>
 	        </form>

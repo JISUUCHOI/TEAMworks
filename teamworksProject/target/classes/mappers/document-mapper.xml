@@ -70,6 +70,15 @@
 		
 	</resultMap>
 	
+	<resultMap id="documentListResultSet" type="DocumentList">
+		<result column="EMP_ID" property="empId"/>
+		<result column="DL_NO" property="dlNo"/>
+		<result column="DL_FORM" property="dlForm"/>
+		<result column="DL_NAME" property="dlName"/>
+		<result column="DL_LIKE" property="dlLike"/>	
+		
+	</resultMap>
+	
 		<select id="selectEmpInfo" parameterType="string" resultMap="empInfoResultSet">
 		select emp_id, emp_name, dept_name
 		  from employee
@@ -339,6 +348,14 @@
 		select *
 		  from vacation
 		 where doc_no=#{docNo}
+	</select>
+	
+	<!-- 기안서작성 list -->
+	<select id="writeDocList" parameterType="DocumentList" resultMap="documentListResultSet">
+		select *
+		  from document_list
+		 where emp_id=#{empId}
+		 order by dl_like desc
 	</select>
 	
 	

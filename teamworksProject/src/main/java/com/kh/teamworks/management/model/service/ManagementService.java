@@ -57,8 +57,10 @@ public interface ManagementService {
 	int selectVacCount(empSearchCondition eSc);
 	
 	// 증명서 발급
-	Proof selectProofList();
-	
+	ArrayList<Proof> selectProofList(PageInfo pi);
+	int selectProofListCount();
+	Proof selectProof(String docNo);
+	int updatePfStatus(String docNo);
 	
 	
 	// 조직도 관리

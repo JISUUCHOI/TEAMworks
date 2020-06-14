@@ -162,8 +162,15 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public Document updateVacationForm(String dno) {
 		return aDao.updateVacationForm(sqlSession, dno);
 
-
 	}
+
+	// 기안문작성 list
+	@Override
+	public ArrayList<Document> writeDocList(Document d) {
+		return aDao.writeDocList(sqlSession, d);		
+	}
+	
+
 
 }
 

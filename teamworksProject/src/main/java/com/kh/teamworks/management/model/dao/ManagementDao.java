@@ -3,6 +3,7 @@ package com.kh.teamworks.management.model.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,7 @@ import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
+import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
 import com.kh.teamworks.management.model.vo.empSearchCondition;
 
@@ -125,7 +127,24 @@ public class ManagementDao {
 	}
 
 
+
+	// 증명서 발급
+	public int selectProofListCount(SqlSession sqlSession) {
+		return sqlSession.selectOne("managementMapper.selectProofListCount");
+	}
+	public ArrayList<Proof> selectProofList(SqlSession sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("managementMapper.selectProofList", null, rowBounds);
+	}
 	
+	public Proof selectProof(SqlSession sqlSession,String docNo) {
+		return sqlSession.selectOne("managementMapper.selectProof", docNo);
+	}
+	public int updatePfStatus(SqlSession sqlSession, String docNo) {
+		return sqlSession.update("managementMapper.updatePfStatus", docNo);
+	}
+
 
 
 

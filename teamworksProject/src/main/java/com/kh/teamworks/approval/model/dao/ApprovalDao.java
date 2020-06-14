@@ -130,6 +130,10 @@ public class ApprovalDao {
 
 	}
 
+	// 기안서작성 list
+	public ArrayList<Document> writeDocList(SqlSessionTemplate sqlSession, Document d) {
+		return (ArrayList)sqlSession.selectList("documentMapper.writeDocList", d);
+	}
 
 
 }

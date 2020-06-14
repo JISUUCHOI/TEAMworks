@@ -8,6 +8,7 @@
 <title>기안문작성양식</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <style>
 	html, body{height:100%;}	
 	#formOuter{
@@ -114,7 +115,7 @@
 	        <hr>
 	        <br>
 	
-	        <form id="schArea" action="">
+	        <form id="schArea" action="searchDoc.ap">
 	            <input type="search" id="schInput" name="formSch">
 	            <button type="submit" id="schButton">검색</button>
 	            
@@ -131,66 +132,21 @@
 	                </tr>
 	            </thead>
 	            <tbody>
-	                <tr>
-	                    <td style="text-align:center;">1</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form">기안서</td>
-	                </tr>
-	                <tr >
-	                    <td style="text-align:center;">2</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">경영지원</td>
-	                    <td style="padding-left:40px;" class="form">경조비신청서</td>
-	                </tr>
-	                <tr>
-	                    <td style="text-align:center;">3</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">경영지원</td>
-	                    <td style="padding-left:40px;" class="form">휴가신청서</td>
-	                </tr>
-	                <tr>
-	                    <td style="text-align:center;">4</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">경영지원</td>
-	                    <td style="padding-left:40px;" class="form">제증명신청서</td>
-	                </tr>
-	                <tr>
-	                    <td style="text-align:center;">5</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form">양식1</td>
-	                </tr>
-	                <tr>
-	                    <td style="text-align:center;">6</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form">양식2</td>
-	                </tr>
-	                <tr>
-	                    <td style="text-align:center;">7</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form">양식3</td>
-	                </tr>
-	                <tr>
-	                    <td style="text-align:center;">8</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form">양식4</td>
-	                </tr>
-	                <tr>
-	                    <td style="text-align:center;">9</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form">양식5</td>
-	                </tr>
-	                <tr>
-	                    <td style="text-align:center;">10</td>
-	                    <td style="text-align:center;" class="frequency">☆</td>
-	                    <td style="text-align:center;">문서결재</td>
-	                    <td style="padding-left:40px;" class="form">양식6</td>
-	                </tr>
+                	<c:forEach var="d" items="${ list }">
+	                    <tr>
+	                        <td style="text-align:center;">${ d.dlNo }</td>
+	                        <c:choose>
+	                        	<c:when test="${ d.dlLike  eq '0'}">
+	                        		<td style="text-align:center;"><i class="far fa-star"></i></td>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                        		<td style="text-align:center;"><i class="fas fa-star"></i></td>
+	                        	</c:otherwise>	
+	                        </c:choose>	
+	                        <td style="padding-left:30px;">${ d.dlForm }</td>
+	                        <td style="text-align:center;">${ d.dlName }</td> 
+	                    </tr>
+                   </c:forEach>
 	            </tbody>
 	        </table>
 	        <br><br><br>

@@ -28,7 +28,6 @@
     	width:1250px;
     	height:1100px;
     	float:left;
-    	border:1px solid red;
     }
     
     #draftOuter{
@@ -573,6 +572,12 @@
 				case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
 				case '5': $("#callbackDoc>a").css("color", "deepskyblue"); break;
 			}
+			
+			$(function(){
+		    	$(document).ready(function() {
+		            $("#sidebarOuter").css('min-height', "1200px");
+		        });
+		    });
 			
 			/* 결재 모달 취소버튼 클릭 시  */
 			$("#approveCancel").click(function(){

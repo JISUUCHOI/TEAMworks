@@ -45,11 +45,11 @@
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#approveLineModal">결재선</button>
 	                <button type="submit" id="approveBtn" disabled>결재요청</button>
-	                <button type="button" id="cancelBtn">취소</button>
+	                <button type="button" id="cancelBtn" onclick="history.back();">취소</button>
 	            </div>
 	            <br><br><br>
 	
-	            <h2 style="text-align:center;">경조비신청서</h2>
+	            <h1 style="text-align:center;">경조비신청서</h1>
 	            <input type="hidden" name="docSc" value="경조비신청서">
 	            <br>
 	

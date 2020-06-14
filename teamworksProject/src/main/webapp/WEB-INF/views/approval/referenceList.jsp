@@ -494,6 +494,11 @@
 			$(".disable").css("text-align", "center");
 			
 			$("#refDoc>a").css("color", "deepskyblue");
+			
+			$(document).ready(function() {
+	           $("#sidebarOuter").css('min-height', "730px");
+	       });
+			
 	    });
 	    
    </script>
