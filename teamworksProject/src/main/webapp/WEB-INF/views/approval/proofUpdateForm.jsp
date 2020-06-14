@@ -335,6 +335,9 @@
 	
 	<script>
 		$(function(){
+			
+			$("#writeDoc>a").css("color", "deepskyblue");
+			
 		    switch('${d.pfSq}'){
    			case "재직증명서" : $("#pfSq option").eq(0).attr("selected", true); break;
   			case "경력증명서" : $("#pfSq option").eq(1).attr("selected", true); break;

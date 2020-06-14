@@ -312,7 +312,8 @@
 	            <form action="" id="postForm" method="post">
 	            	<input type="hidden" name="dno" value="${ d.get(0).getDocNo() }">
 	            	<input type="hidden" name="dsc" value="${ d.get(0).getDocSc() }">
-	            </form><script>
+	            </form>
+	            <script>
    				    function postFormSubmit(num){
  					   if(num == 1){ 
 		    			   $("#postForm").attr("action","updateForm.ap");
@@ -572,6 +573,13 @@
 				case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
 				case '5': $("#callbackDoc>a").css("color", "deepskyblue"); break;
 			}
+			
+			switch("${s}"){
+				case "참조문서함" : $("#refDoc>a").css("color", "deepskyblue"); break;
+				case "결재회수함" : $("#callbackDoc>a").css("color", "deepskyblue"); break;
+				case "결재요청함" : $("#requestApprove>a").css("color", "deepskyblue"); break;
+			}
+			
 			
 			$(function(){
 		    	$(document).ready(function() {

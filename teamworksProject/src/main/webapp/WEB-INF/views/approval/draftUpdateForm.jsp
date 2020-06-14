@@ -432,7 +432,14 @@
 	            </div>
 	        </div>
 	    </div>
-	    
+	
+	<script>
+		
+		$(function(){
+			$("#writeDoc>a").css("color", "deepskyblue");
+		});
+	
+	</script>    
 
 	
 </body>

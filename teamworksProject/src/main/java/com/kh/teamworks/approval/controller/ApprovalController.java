@@ -254,7 +254,9 @@ public class ApprovalController {
 	
 	// 상세조회
 	@RequestMapping("docDetail.ap")
-	public String detailDoc(Document d, Model model, HttpServletRequest request) {
+	public String detailDoc(Document d, Model model, HttpServletRequest request, String storage) {
+		
+		model.addAttribute("s", storage);
 		
 		ArrayList<Document> doc = new ArrayList<Document>();
 		

@@ -562,6 +562,12 @@
 				case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
 			}
 			
+			switch("${s}"){
+				case "참조문서함" : $("#refDoc>a").css("color", "deepskyblue"); break;
+				case "결재회수함" : $("#callbackDoc>a").css("color", "deepskyblue"); break;
+				case "결재요청함" : $("#requestApprove>a").css("color", "deepskyblue"); break;
+			}
+			
 			$(document).ready(function() {
 	           $("#sidebarOuter").css('min-height', "1200px");
 	       });

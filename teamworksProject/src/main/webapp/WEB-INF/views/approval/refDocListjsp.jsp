@@ -316,7 +316,7 @@
             <script>
         	$(function(){
         		$(".docList tbody tr").click(function(){
-        			location.href="docDetail.ap?docNo="+$(this).children().eq(0).text()+"&docSc="+$(this).children().eq(1).text();
+        			location.href="docDetail.ap?docNo="+$(this).children().eq(0).text()+"&docSc="+$(this).children().eq(1).text() + "&storage=결재요청함";
         		});
         	});
   			</script>
@@ -339,11 +339,12 @@
 								<c:param name="keyword" value="${ asc.keyword }" />
 								<c:param name="startDate" value="${ asc.startDate }" />
 								<c:param name="endDate" value="${ asc.endDate }" />
+								<c:param name="storage" value="결재요청함" />
 							</c:url>
 							<button class="page able" onclick="location.href='${ searchUrl }'">&lt;</button>
 						</c:when>
 						<c:otherwise>
-							<button class="page able" onclick="location.href='myDocList.rap?currentPage=${ pi.currentPage - 1 }'">&lt;</button>
+							<button class="page able" onclick="location.href='myDocList.rap?currentPage=${ pi.currentPage - 1 }&storage=결재요청함'">&lt;</button>
 						</c:otherwise>
 					</c:choose>
 					
@@ -355,7 +356,7 @@
 							<c:otherwise>
 								 <c:choose>
 									<c:when test="${ empty asc }">
-										<button class="page able" onclick="location.href='myDocList.rap?currentPage=${ p }'">${ p }</button>
+										<button class="page able" onclick="location.href='myDocList.rap?currentPage=${ p }&storage=결재요청함'">${ p }</button>
 									</c:when>
 									<c:otherwise>
 										<c:url value="myDocSearch.rap" var='searchUrl'>
@@ -365,6 +366,7 @@
 											<c:param name="keyword" value="${ asc.keyword }" />
 											<c:param name="startDate" value="${ asc.startDate }" />
 											<c:param name="endDate" value="${ asc.endDate }" />
+											<c:param name="storage" value="결재요청함" />
 										</c:url>
 										<button class="page able" onclick="location.href='${ searchUrl }'">${ p }</button>
 									</c:otherwise> 
@@ -386,11 +388,12 @@
 								<c:param name="keyword" value="${ asc.keyword }" />
 								<c:param name="startDate" value="${ asc.startDate }" />
 								<c:param name="endDate" value="${ asc.endDate }" />
+								<c:param name="storage" value="결재요청함" />
 							</c:url>
 							<button class="page able" onclick="location.href='${ searchUrl }'">&gt;</button>
 						</c:when>
 						<c:otherwise>
-							<button class="page able" onclick="location.href='myDocList.rap?currentPage=${ pi.currentPage + 1 }'">&gt;</button>
+							<button class="page able" onclick="location.href='myDocList.rap?currentPage=${ pi.currentPage + 1 }&storage=결재요청함'">&gt;</button>
 						</c:otherwise>
 					</c:choose>
 	            </div>

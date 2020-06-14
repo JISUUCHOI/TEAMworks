@@ -329,6 +329,9 @@
 	
 	<script>
 		$(function(){
+			
+			$("#writeDoc>a").css("color", "deepskyblue");
+			
    		    switch('${d.vcDay}'){
        		case "전일" : $("#vcDay option").eq(0).attr("selected", true); break;
       		case "반일" : $("#vcDay option").eq(1).attr("selected", true); break;

@@ -434,6 +434,12 @@
 				case '4': $("#requestCallback>a").css("color", "deepskyblue"); break;
 			}
 			
+			switch("${s}"){
+				case "참조문서함" : $("#refDoc>a").css("color", "deepskyblue"); break;
+				case "결재회수함" : $("#callbackDoc>a").css("color", "deepskyblue"); break;
+				case "결재요청함" : $("#requestApprove>a").css("color", "deepskyblue"); break;
+			}
+			
 			/* 결재 모달 취소버튼 클릭 시  */
 			$("#approveCancel").click(function(){
 				$('#responseApprove').modal("hide");
