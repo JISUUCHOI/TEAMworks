@@ -125,20 +125,32 @@
 					}
 				}
 				
-		
+	
 				$("#updateStatus").click(function() {
 					var confirm_val = confirm("퇴사 등록하시겠습니까?");
-					
+
 					if (confirm_val) {
-						
+
 						var checkRow = [];
-						
+
 						$("input[name=checkRow]:checked").each(function() {
 							checkRow.push($(this).val());
 						});
-					
-						alert(checkRow);
-						
+
+						$.ajax({
+							url : 'updateStatus.mg',
+							type : 'post',
+							dataType : 'text',
+							data : {empList : checkRow},
+							success: function(){
+								alert('퇴직자 등록 성공!');
+								location.reload();
+							},
+							error: function(){
+								alert('퇴직자 등록 실패!');
+							}
+						});
+
 					}
 				});
 			</script>

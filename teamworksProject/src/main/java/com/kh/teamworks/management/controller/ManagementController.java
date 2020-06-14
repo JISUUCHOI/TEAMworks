@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -316,19 +317,14 @@ public class ManagementController {
 	// 퇴사자 등록
 	@ResponseBody
 	@RequestMapping(value = "updateStatus.mg", method = RequestMethod.POST)
-	public String updateStatus(HttpServletRequest request, HttpSession session){
-		
-		String checkRow =  request.getParameter("checkRow");
-		
-		for(int i=0; i < checkRow.length(); i++) {
-			//String empId = checkRow[i];
+	public String updateStatus(@RequestParam(value = "empList[]") List<String> empList) {
+
+		for (int i = 0; i < empList.size(); i++) {
+			String empId = empList.get(i);
+			mgService.updateStatus(empId);
 		}
-		// 삭제할 사용자 ID마다 반복해서 사용자 삭제
-	/*	for (for i=0; i<checkArr.. ; empId : checkArr) {
-			System.out.println("사용자 삭제 = " + empId);
-			int count = mgService.updateStatus(empId);*/
-		
-	return"redirect:empList.mg";
+
+		return "redirect:empList.mg";
 	}
 
 	// 사원 명부 검색
