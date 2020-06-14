@@ -69,9 +69,9 @@
 							<td><b>${j.jobCode % 10}</b></td>
 							<td>${j.jobName}</td>
 							<td>
-								<button type="button" class="btn btn-info btn-primary btn-sm" 
+								<button type="button" class="btn btn-primary btn-sm" 
 										onclick="updateBtn(${j.jobCode});">수정</button>
-								<button type="button" class="btn btn-secondary btn btn-primary btn-sm"
+								<button type="button" class="btn btn-danger btn-sm"
 										onclick="deleteBtn(${j.jobCode});">삭제</button>
 							</td>
 							<td>
@@ -90,7 +90,7 @@
 								<input type="text" name="jobName" placeholder="추가할 직급명 입력">
 								&nbsp;&nbsp;
 								<button type="submit"
-									class="btn btn-warning btn-sm">추가</button>
+									class="btn btn-secondary btn-sm">추가</button>
 							</form>
 						</td>
 						<td>
@@ -119,9 +119,9 @@
 		      <div class="modal-body">
 	          	<table class="modalTable" border="1">
 	          		<tr>
-	          			<th width="40%"></th>
+	          			<th width="40%">수정 직급명</th>
 	          			<td width="60%">
-					      	<input style="width:100%;" name="jobName" type="text" placeholder="수정 직급명 입력 ">
+					      	<input style="width:100%;" name="jobName" type="text" placeholder="내용을 입력하세요">
 	          			</td>
 	          		</tr>
 	          	</table>

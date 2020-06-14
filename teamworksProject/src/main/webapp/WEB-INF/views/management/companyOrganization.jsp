@@ -46,7 +46,7 @@
 		border: 2px solid #07355A;
 	}
 	
-	#searchBtn, #insertBtn, #updateBtn, #deleteBtn {background-color: #ddd;} 
+	#searchBtn, #insertBtn, #updateBtn, #deleteBtn {background-color: #e9ecef;} 
 	
 	/* 조직도 css */
 	.tree1, .tree2, .tree3 {
@@ -88,7 +88,7 @@
 	.modalTable tr {height:35px;}
 	.modalTable th {
 		text-align:center;
-		background-color:#f2f2f2;
+		background-color:#e9ecef;
 	}
 	
 	#pagingArea{width:fit-content; margin:auto; color:rgb(7, 53, 90);}
@@ -143,7 +143,7 @@
 			<span id="category"></span>&nbsp;<span id="empCount"></span>
 			<table id="empListTable" border="1">
 				<thead>
-					<tr style="background-color: #f2f2f2;">
+					<tr style="background-color: #e9ecef;">
 						<th width="15%">사원명</th>
 						<th width="15%">직급</th>
 						<th width="15%">부서</th>
@@ -168,9 +168,9 @@
 			<!-- 페이징바 -->
 			<div id="pagingArea">
 		    	<ul class="pagination">
-	   				<li class="page-item"><a class="page-link" href="">&lt;</a></li>
-	   				<li class="page-item"><a class="page-link" href="#">1</a></li>
-		    		<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+	   				<li class="page-item disabled"><a class="page-link" href="">&lt;</a></li>
+	   				<li class="page-item disabled"><a class="page-link" href="#">1</a></li>
+		    		<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
 		    	</ul>
 	    	</div>
 		</div>
@@ -229,7 +229,7 @@
                         <tr>
                     		<th width="40%">변경할 부서</th>
                     		<td width="60%">
-                    			<select name="deptCode" style="width:150px;">
+                    			<select name="deptCode" style="width:150px; height:30px;">
                     				<c:forEach var="d" items="${ deptList }">
                     					<option value="${d.deptCode}">${ d.deptName }</option>
                     				</c:forEach>
@@ -270,7 +270,7 @@
                         <tr>
                     		<th width="40%">삭제할 부서</th>
                     		<td width="60%">
-                    			<select name="deptCode" style="width:150px;">
+                    			<select name="deptCode" style="width:150px; height:30px;">
                     				<c:forEach var="d" items="${ deptList }">
                     					<option value="${d.deptCode}">${ d.deptName }</option>
                     				</c:forEach>
