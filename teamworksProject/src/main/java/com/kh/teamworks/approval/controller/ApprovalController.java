@@ -312,25 +312,25 @@ public class ApprovalController {
 		
 		if(dsc.equals("기안서")) {
 			Document d = aService.updateDraftForm(dno);
-			 System.out.println(d);
+			 //System.out.println(d);
 			mv.addObject("d", d);
 			mv.setViewName("approval/draftUpdateForm");		
 		
 		}else if(dsc.equals("제증명신청서")) {
 			Document d = aService.updateProofForm(dno);
-			 System.out.println(d);
+			 //System.out.println(d);
 			mv.addObject("d", d);
 			mv.setViewName("approval/proofUpdateForm");	
 			
 		}else if(dsc.equals("경조비신청서")) {
 			Document d = aService.updateFamilyEventForm(dno);
-			 System.out.println(d);
+			 //System.out.println(d);
 			mv.addObject("d", d);
 			mv.setViewName("approval/familyEventUpdateForm");	
 			
 		}else {
 			Document d = aService.updateVacationForm(dno);
-			 System.out.println(d);
+			 //System.out.println(d);
 			mv.addObject("d", d);
 			mv.setViewName("approval/vacationUpdateForm");	
 		}
@@ -427,7 +427,7 @@ public class ApprovalController {
 		ArrayList<Document> list = aService.writeDocList(d);		 
 		model.addAttribute("list", list);
 
-		// System.out.println(list);
+		//System.out.println(list);
 		 
 		return "approval/selectApprovalForm";
 		
