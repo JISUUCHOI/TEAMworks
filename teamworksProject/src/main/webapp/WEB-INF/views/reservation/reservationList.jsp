@@ -19,9 +19,7 @@
 @font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
 	
 	body {font-family: Handon3gyeopsal300g;}
-	p {
-		margin-bottom:0px;
-	}
+	p {margin-bottom:0px;}
 	
    #dateArea b {font-size: 27px;}
 
@@ -221,6 +219,10 @@
 			$("#book>a").css("color", "dimgray");
 			$("#book").css("border-bottom-style", "groove");
 			$("#reservationList>a").css("color", "deepskyblue");
+			
+			$(document).ready(function(){
+				$("#sidebarOuter").css("min-height", "1200px");
+			});
 		});	
 	
 		// 페이지 로딩 시 오늘 날짜와 그에 해당하는 예약 리스트 가져옴

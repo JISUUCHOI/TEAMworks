@@ -292,6 +292,14 @@
 
 
 	<script>
+		// 메뉴바 & 사이드바 css
+		$(function(){
+			$("#orgManage>a").css("color", "dimgray");
+			$("#orgManage").css("border-bottom-style", "groove");
+			$("#org>a").css("color", "deepskyblue");
+		});	
+	
+	
 		// 조직도 스크립트
 		$(function(){
 			

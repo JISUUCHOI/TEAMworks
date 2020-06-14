@@ -89,13 +89,13 @@
 							<form action="insertJob.mg" id="insertForm" method="post">
 								<input type="text" name="jobName" placeholder="추가할 직급명 입력">
 								&nbsp;&nbsp;
-								<button type="submit"
-									class="btn btn-secondary btn-sm">추가</button>
+								<button type="submit" style="background-color:#e9ecef"
+									class="btn btn-sm">추가</button>
 							</form>
 						</td>
 						<td>
-							<button onclick="saveRank();"
-									class="btn btn-secondary btn-sm">순서 저장</button> 
+							<button onclick="saveRank();" style="background-color:#e9ecef"
+									class="btn btn-sm">순서 저장</button> 
 						</td>
 					</tr>
 				</tfoot>
@@ -141,6 +141,13 @@
 	
 	
 	<script>
+		// 메뉴바 & 사이드바 css
+		$(function(){
+			$("#orgManage>a").css("color", "dimgray");
+			$("#orgManage").css("border-bottom-style", "groove");
+			$("#orgJobList>a").css("color", "deepskyblue");
+		});	
+	
 		// 위 화살표 클릭 시 tr 위로 옮기기
 		function moveUp(obj) {
 			var idStr = '#' + obj;
