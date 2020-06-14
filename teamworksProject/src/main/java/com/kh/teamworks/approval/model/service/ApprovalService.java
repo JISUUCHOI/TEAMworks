@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.approval.model.vo.DocumentList;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.approval.model.vo.Document;
 import com.kh.teamworks.employee.model.vo.Employee;
@@ -83,6 +84,16 @@ public interface ApprovalService {
 
 	// 기안문작성 리스트
 	ArrayList<Document> writeDocList(Document d);
+
+	int updateHate(DocumentList d);
+
+	int updateLike(DocumentList d);
+
+
+
+
+
+
 
 	
 	

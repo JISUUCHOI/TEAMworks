@@ -128,7 +128,7 @@
 	        <table class="formList">
 	            <thead>
 	                <tr height="30">
-	                    <th width="100">No.</th>
+	                    <th width="100">양식번호</th>
 	                    <th width="100">즐겨찾기</th>
 	                    <th width="100">구분</th>
 	                    <th width="700">양식명</th>
@@ -140,10 +140,10 @@
 	                        <td style="text-align:center;">${ d.dlNo }</td>
 	                        <c:choose>
 	                        	<c:when test="${ d.dlLike  eq '0'}">
-	                        		<td style="text-align:center;" class="dlLike"><i class="far fa-star"></i></td>
+	                        		<td style="text-align:center;" class="dlLike"><i class="far fa-star">0</i></td>
 	                        	</c:when>
 	                        	<c:otherwise>
-	                        		<td style="text-align:center;" class="dlLike"><i class="fas fa-star"></i></td>
+	                        		<td style="text-align:center;" class="dlLike"><i class="fas fa-star">1</i></td>
 	                        	</c:otherwise>	
 	                        </c:choose>	
 	                        <td style="padding-left:30px;">${ d.dlForm }</td>
@@ -156,7 +156,6 @@
 	        
 
 	        <script>
-
         	$(function(){
         		$(".dlName").click(function(){
         			location.href="insertDoc.ap?doc=" + $(this).text();
@@ -165,10 +164,11 @@
         	
         	$(function(){
         		$(".dlLike").click(function(){
-        			location.href="insertDoc.ap?doc=" + $(this).text();
+        			location.href="docLikeInsert.ap?dlLike=" + $(this).text() + "&dlName="+$(this).next().next().text();
         		});
-        	});	
-
+        	});	  
+        	
+        	
   			</script>
 
 	

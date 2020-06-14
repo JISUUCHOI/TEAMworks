@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.approval.model.vo.DocumentList;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 
@@ -133,6 +134,18 @@ public class ApprovalDao {
 	// 기안서작성 list
 	public ArrayList<Document> writeDocList(SqlSessionTemplate sqlSession, Document d) {
 		return (ArrayList)sqlSession.selectList("documentMapper.writeDocList", d);
+	}
+
+	public int docLikeInsert(SqlSessionTemplate sqlSession) {
+		return sqlSession.update("documentMapper.docLikeInsert");
+	}
+
+	public int updateHate(SqlSessionTemplate sqlSession, DocumentList d) {
+		return sqlSession.update("documentMapper.updateHate");
+	}
+
+	public int updateLike(SqlSessionTemplate sqlSession, DocumentList d) {
+		return sqlSession.update("documentMapper.updateLike");
 	}
 
 
