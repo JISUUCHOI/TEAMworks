@@ -19,6 +19,7 @@ public class empSearchCondition {
 	private String condition;
 	private String keyword;
 	private String vacationYear;
+	private String empStatus;
 		
 	
 }

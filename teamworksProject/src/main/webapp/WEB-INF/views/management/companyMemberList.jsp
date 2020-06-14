@@ -64,7 +64,7 @@
 					<button type="submit" class="searchBtn btn btn-secondary">검색</button>
 				</form>
 				
-				<input type="checkbox" name="statusN" id="statusN" style="margin-left:30px; margin-right:10px; margin-top:20px;"><b>퇴직자 보기</b>
+				<!-- <input type="checkbox" name="statusN" id="statusN" style="margin-left:30px; margin-right:10px; margin-top:20px;"><b>퇴직자 보기</b> -->
 				<button type="" class="btn btn-outline-primary btn-sm"  style="float:right; margin-right:50px; margin-top:20px;" id="updateStatus">퇴사자 등록</button>
 				
 			</div>

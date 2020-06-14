@@ -55,7 +55,7 @@
 				</form>
 				<div style="font-size:25px; float:right; margin-right:30px;">
 					<c:choose>
-						<c:when test="${ eSc.vacationYear eq null }">
+						<c:when test="${ eSc.vacationYear eq null }">	
 							<input type="text" class="form-control" size="25" value = "2020년 휴가 조회 결과 입니다.">
 						</c:when>
 						<c:otherwise>

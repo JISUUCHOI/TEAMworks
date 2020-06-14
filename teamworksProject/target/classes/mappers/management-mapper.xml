@@ -132,18 +132,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 WHERE EMP_STATUS = 'Y'
 	</select>
 	
-	<select id="selectOrgEmpList" parameterType="_int" resultMap="employeeResultSet">
-	    SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL, EMP_PHONE 
-		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
-		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE
-		   AND E.DEPT_CODE = #{deptCode}
-	</select>
-	
 	<select id="selectSearchEmpList" parameterType="string" resultMap="employeeResultSet">
 		SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL, EMP_PHONE
 		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
 		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE
                AND EMP_NAME LIKE #{keyword}
+	</select>
+	
+	
+	<select id="selectOrgEmpList" parameterType="_int" resultMap="employeeResultSet">
+	    SELECT EMP_ID, EMP_NAME, EMP_NO, DEPT_NAME, JOB_NAME, HIRE_DATE, EMP_EMAIL, EMP_PHONE 
+		  FROM EMPLOYEE E, JOB J, DEPARTMENT D
+		 WHERE J.JOB_CODE = E.JOB_CODE AND D.DEPT_CODE = E.DEPT_CODE
+		   AND E.DEPT_CODE = #{deptCode}
 	</select>
 	
 	<select id="selectEmpKeywordCount" resultType="_int">
