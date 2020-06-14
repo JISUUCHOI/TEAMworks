@@ -147,6 +147,10 @@
 			$("#book>a").css("color", "dimgray");
 			$("#book").css("border-bottom-style", "groove");
 			$("#myReservation>a").css("color", "deepskyblue");
+			
+			$(document).ready(function(){
+				$("#sidebarOuter").css("min-height", "700px");
+			});
 		});	
 
 		

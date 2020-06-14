@@ -76,8 +76,8 @@
             <div class="subCate"><a href="empDocument.mg?currentPage=1">증명서 발급</a></div>
             
             <div class="category">조직도 관리</div>
-            <div class="subCate"><a href="org.mg">조직도</a></div>
-            <div class="subCate"><a href="orgJobList.mg">직급 관리</a></div>
+            <div class="subCate" id="org"><a href="org.mg">조직도</a></div>
+            <div class="subCate" id="orgJobList"><a href="orgJobList.mg">직급 관리</a></div>
         </div>
     </div>
 </body>

@@ -19,11 +19,9 @@
 @font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
 	
 	body {font-family: Handon3gyeopsal300g;}
-	p {
-		margin-bottom:0px;
-	}
+	p {margin-bottom:0px;}
 	
-   #dateArea b {font-size: 30px;}
+   #dateArea b {font-size: 27px;}
 
   .pointBtn{
     background-color: #07355A;
@@ -32,7 +30,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 27px;
+    font-size: 23px;
     cursor: pointer;
     border-radius: 50%;
     padding-left:10px;
@@ -42,7 +40,7 @@
   }
 
   #reservationTable{
-    width:800px;
+    width:700px;
     border-collapse: collapse;
   }
 
@@ -86,7 +84,7 @@
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="reservationSidebar.jsp"/>
 	
-	<br>
+	<br><br>
 
 	<div style="width:1250px; float:left;">
 	
@@ -221,6 +219,10 @@
 			$("#book>a").css("color", "dimgray");
 			$("#book").css("border-bottom-style", "groove");
 			$("#reservationList>a").css("color", "deepskyblue");
+			
+			$(document).ready(function(){
+				$("#sidebarOuter").css("min-height", "1200px");
+			});
 		});	
 	
 		// 페이지 로딩 시 오늘 날짜와 그에 해당하는 예약 리스트 가져옴

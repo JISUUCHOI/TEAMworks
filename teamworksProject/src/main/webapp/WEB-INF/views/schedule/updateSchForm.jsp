@@ -133,6 +133,10 @@
 		$(function(){
 			$("#calender>a").css("color", "dimgray");
 			$("#calender").css("border-bottom-style", "groove");
+			
+			$(document).ready(function(){
+				$("#sidebarOuter").css("min-height", "800px");
+			});
 		});	
 	</script>
 

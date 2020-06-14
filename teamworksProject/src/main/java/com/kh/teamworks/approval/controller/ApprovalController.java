@@ -429,7 +429,7 @@ public class ApprovalController {
 		ArrayList<Document> list = aService.writeDocList(d);		 
 		model.addAttribute("list", list);
 
-		//System.out.println(list);
+		System.out.println(list);
 		 
 		return "approval/selectApprovalForm";
 		

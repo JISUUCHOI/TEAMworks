@@ -135,6 +135,10 @@
 			$("#calender>a").css("color", "dimgray");
 			$("#calender").css("border-bottom-style", "groove");
 			$("#insertSchCate>a").css("color", "deepskyblue");
+			
+			$(document).ready(function(){
+				$("#sidebarOuter").css("min-height", "800px");
+			});
 		});	
 	</script>
 

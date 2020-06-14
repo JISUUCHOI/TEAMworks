@@ -10,7 +10,7 @@
     <!-- 나눔 고딕 폰트 -->
       <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic:400,700,800" rel="stylesheet">
       <!-- 아이콘 -->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">0
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
       <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
       <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -238,8 +238,8 @@
                                 <td>${sea.empName }</td>
                                 <td>${sea.jobName }</td>
                                 <td>${sea.deptName }</td>
-                                <td>${sea.attDate } ${seac.startTime }</td>
-                                <td>${sea.attDate } ${seac.endTime }</td>
+                                <td>${sea.attDate } ${sea.startTime }</td>
+                                <td>${sea.attDate } ${sea.endTime }</td>
                                 <td>${sea.attTime }</td>
                                	<c:if test="${'0' eq  sea.atType}">
                                 <td>정상출근</td>
@@ -249,6 +249,9 @@
                                 </c:if>
                                  <c:if test="${'2' eq sea.atType}" >
                                 <td>조퇴</td>
+                                </c:if>
+                                <c:if test="${null eq sea.atType }">
+                                <td>대기</td>
                                 </c:if>
                             </tr> 
                             	</c:forEach>
@@ -266,16 +269,16 @@
      		 <ul class="pagination">
             	<c:if test="${ pi.currentPage ne 1 }">
             		<c:choose>
-            			<c:when test="${ empty seca }">
+            			<c:when test="${ empty seac }">
             				<li class="previous"><a href="empAttSch.em?currentPage=${ pi.currentPage - 1 }">&lt;</a></li>
             			</c:when>
             			<c:otherwise>
             					<c:url value="empAttSch.em" var="searchUrl">
-										<c:param name="condition" value="${ seca.condition }"/>
-										<c:param name="empName" value="${ seca.empName }"/>
-										<c:param name="searchStartDate" value="${ seca.startDate }"/>
-										<c:param name="searchEndDate" value="${ seca.endDate }"/>
-										<c:param name="currentPage" value="${ p }"/>
+										<c:param name="condition" value="${ seac.condition }"/>
+										<c:param name="empName" value="${ seac.empName }"/>
+										<c:param name="searchStartDate" value="${ seac.startDate }"/>
+										<c:param name="searchEndDate" value="${ seac.endDate }"/>
+										<c:param name="currentPage" value="${ pi.currentPage -1  }"/>
 									</c:url>
             				<li class="previous">
             				<a href="${ searchUrl }">&lt;</a>
@@ -292,15 +295,15 @@
             	 		</c:when>
             	 		<c:otherwise>
             	 			<c:choose>
-	            	 			<c:when test="${ empty seca }">
+	            	 			<c:when test="${ empty seac }">
 	            					<li class=""><a href="empAttSch.em?currentPage=${ p }">${ p }</a></li>
 	            				</c:when>
 	            				<c:otherwise>
 	            					<c:url value="empAttSch.em" var="searchUrl">
-										<c:param name="condition" value="${ seca.condition }"/>
-										<c:param name="empName" value="${ seca.empName }"/>
-										<c:param name="searchStartDate" value="${ seca.startDate }"/>
-										<c:param name="searchEndDate" value="${ seca.endDate }"/>
+										<c:param name="condition" value="${ seac.condition }"/>
+										<c:param name="empName" value="${ seac.empName }"/>
+										<c:param name="searchStartDate" value="${ seac.startDate }"/>
+										<c:param name="searchEndDate" value="${ seac.endDate }"/>
 										<c:param name="currentPage" value="${ p }"/>
 									</c:url>
 	            					<li class="">
@@ -314,16 +317,16 @@
             	
             	<c:if test="${ pi.currentPage ne pi.maxPage }">
             		<c:choose>
-						<c:when test="${ empty seca }">
+						<c:when test="${ empty seac }">
 							<li class="next"><a href="empAttSch.em?currentPage=${ pi.currentPage + 1 }">&gt;</a></li>
 						</c:when>
 						<c:otherwise>
 							<c:url value="empAttSch.em" var="searchUrl">
-										<c:param name="condition" value="${ seca.condition }"/>
-										<c:param name="empName" value="${ seca.empName }"/>
-										<c:param name="searchStartDate" value="${ seca.startDate }"/>
-										<c:param name="searchEndDate" value="${ seca.endDate }"/>
-										<c:param name="currentPage" value="${ p }"/>
+										<c:param name="condition" value="${ seac.condition }"/>
+										<c:param name="empName" value="${ seac.empName }"/>
+										<c:param name="searchStartDate" value="${ seac.startDate }"/>
+										<c:param name="searchEndDate" value="${ seac.endDate }"/>
+										<c:param name="currentPage" value="${ pi.currentPage + 1 }"/>
 									</c:url>
 							<li class="next">
 							<a href="${ searchUrl }">&gt;</a>

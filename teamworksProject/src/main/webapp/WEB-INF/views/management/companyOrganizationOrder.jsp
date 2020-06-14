@@ -19,25 +19,29 @@
 <!-- 아이콘 스크립트 -->
 <script src="https://use.fontawesome.com/8f77921a99.js"></script>
 <style>
-.content {
-	margin-left: 20%;
-	width: 80%;
-}
-
-.table {
-	text-align: center;
-}
-
-.modal-content {width:350px;}
-.modalTable {
-	width:300px;
-	border: 1px solid #ddd;
-}
-.modalTable tr {height:35px;}
-.modalTable th {
-	text-align:center;
-	background-color:#f2f2f2;
-}
+	@font-face { font-family: 'JSDongkang-Regular'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSDongkang-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
+	@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
+	body {font-family:Handon3gyeopsal300g;}
+	
+	.content {
+		margin-left: 20%;
+		width: 80%;
+	}
+	
+	.table {
+		text-align: center;
+	}
+	
+	.modal-content {width:350px;}
+	.modalTable {
+		width:300px;
+		border: 1px solid #ddd;
+	}
+	.modalTable tr {height:35px;}
+	.modalTable th {
+		text-align:center;
+		background-color:#f2f2f2;
+	}
 </style>
 </head>
 <body>
@@ -65,9 +69,9 @@
 							<td><b>${j.jobCode % 10}</b></td>
 							<td>${j.jobName}</td>
 							<td>
-								<button type="button" class="btn btn-info btn-primary btn-sm" 
+								<button type="button" class="btn btn-primary btn-sm" 
 										onclick="updateBtn(${j.jobCode});">수정</button>
-								<button type="button" class="btn btn-secondary btn btn-primary btn-sm"
+								<button type="button" class="btn btn-danger btn-sm"
 										onclick="deleteBtn(${j.jobCode});">삭제</button>
 							</td>
 							<td>
@@ -85,13 +89,13 @@
 							<form action="insertJob.mg" id="insertForm" method="post">
 								<input type="text" name="jobName" placeholder="추가할 직급명 입력">
 								&nbsp;&nbsp;
-								<button type="submit"
-									class="btn btn-warning btn-sm">추가</button>
+								<button type="submit" style="background-color:#e9ecef"
+									class="btn btn-sm">추가</button>
 							</form>
 						</td>
 						<td>
-							<button onclick="saveRank();"
-									class="btn btn-secondary btn-sm">순서 저장</button> 
+							<button onclick="saveRank();" style="background-color:#e9ecef"
+									class="btn btn-sm">순서 저장</button> 
 						</td>
 					</tr>
 				</tfoot>
@@ -115,9 +119,9 @@
 		      <div class="modal-body">
 	          	<table class="modalTable" border="1">
 	          		<tr>
-	          			<th width="40%"></th>
+	          			<th width="40%">수정 직급명</th>
 	          			<td width="60%">
-					      	<input style="width:100%;" name="jobName" type="text" placeholder="수정 직급명 입력 ">
+					      	<input style="width:100%;" name="jobName" type="text" placeholder="내용을 입력하세요">
 	          			</td>
 	          		</tr>
 	          	</table>
@@ -137,6 +141,13 @@
 	
 	
 	<script>
+		// 메뉴바 & 사이드바 css
+		$(function(){
+			$("#orgManage>a").css("color", "dimgray");
+			$("#orgManage").css("border-bottom-style", "groove");
+			$("#orgJobList>a").css("color", "deepskyblue");
+		});	
+	
 		// 위 화살표 클릭 시 tr 위로 옮기기
 		function moveUp(obj) {
 			var idStr = '#' + obj;

@@ -70,9 +70,13 @@
  <!-- 사이드바 -->
  <div id="sidebarOuter">
     <div id="sidebar" align="center">
-        <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png" alt="" width="20px"> messenger</a></div>
+        <div id="messenger"><a href="#"onclick="openMessenger();"><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png" alt="" width="20px"> messenger</a></div>
         <div id="logout"><a href="logout.em">logout</a></div>
-        
+        <script>
+        	function openMessenger(){
+        		window.open("message.em","방제","width=540, height=650");
+        	}
+        </script>
         <div class="row">
             <div class="col" style="width: 200px;">
                 <div class="thumbnail">
@@ -86,7 +90,7 @@
                              	</c:when>
                              	<c:otherwise>
                              		<a id="empImg">
-                             		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" width="100%" height="100%" ></a>
+                             		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" style="width:100%;height:100%" ></a>
                          	 		
                          	 	</c:otherwise>
                           </c:choose>
@@ -113,8 +117,8 @@
                     <div class="caption">
                         <button class="btn btn-info" id="startTime">출근</button> &nbsp; &nbsp;
                         <button class="btn btn-info" id="endTime">퇴근</button>
-                        <a href="QRAtt.em" class="btn btn-info" id="QR"  style="display:none" >QRAtt</a>
-                        <a href="QRLogin.em" class="btn btn-info" style="display:none"  >QRView</a>
+                        <a href="QRAtt.em" class="btn btn-info" id="QR"  style="display:" >QRAtt</a>
+                        <a href="QRLogin.em" class="btn btn-info" style="display:"  >QRView</a>
                         <a href="empAtt.em?currentPage=1" style="display:none" >직원근태 조회하기</a>
                     </div>
                 </div>

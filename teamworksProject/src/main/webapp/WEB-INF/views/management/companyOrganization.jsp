@@ -16,6 +16,10 @@
 	<!-- 아이콘 스크립트 -->
 	<script src="https://use.fontawesome.com/8f77921a99.js"></script>
 <style>
+	@font-face { font-family: 'JSDongkang-Regular'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSDongkang-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
+	@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
+	body {font-family:Handon3gyeopsal300g;}
+	
 	.content {
 		margin-left:20%;
 		width:1250px;
@@ -42,7 +46,7 @@
 		border: 2px solid #07355A;
 	}
 	
-	#searchBtn, #insertBtn, #updateBtn, #deleteBtn {background-color: #ddd;} 
+	#searchBtn, #insertBtn, #updateBtn, #deleteBtn {background-color: #e9ecef;} 
 	
 	/* 조직도 css */
 	.tree1, .tree2, .tree3 {
@@ -84,7 +88,7 @@
 	.modalTable tr {height:35px;}
 	.modalTable th {
 		text-align:center;
-		background-color:#f2f2f2;
+		background-color:#e9ecef;
 	}
 	
 	#pagingArea{width:fit-content; margin:auto; color:rgb(7, 53, 90);}
@@ -139,7 +143,7 @@
 			<span id="category"></span>&nbsp;<span id="empCount"></span>
 			<table id="empListTable" border="1">
 				<thead>
-					<tr style="background-color: #f2f2f2;">
+					<tr style="background-color: #e9ecef;">
 						<th width="15%">사원명</th>
 						<th width="15%">직급</th>
 						<th width="15%">부서</th>
@@ -164,9 +168,9 @@
 			<!-- 페이징바 -->
 			<div id="pagingArea">
 		    	<ul class="pagination">
-	   				<li class="page-item"><a class="page-link" href="">&lt;</a></li>
-	   				<li class="page-item"><a class="page-link" href="#">1</a></li>
-		    		<li class="page-item"><a class="page-link" href="#">&gt;</a></li>
+	   				<li class="page-item disabled"><a class="page-link" href="">&lt;</a></li>
+	   				<li class="page-item disabled"><a class="page-link" href="#">1</a></li>
+		    		<li class="page-item disabled"><a class="page-link" href="#">&gt;</a></li>
 		    	</ul>
 	    	</div>
 		</div>
@@ -225,7 +229,7 @@
                         <tr>
                     		<th width="40%">변경할 부서</th>
                     		<td width="60%">
-                    			<select name="deptCode" style="width:150px;">
+                    			<select name="deptCode" style="width:150px; height:30px;">
                     				<c:forEach var="d" items="${ deptList }">
                     					<option value="${d.deptCode}">${ d.deptName }</option>
                     				</c:forEach>
@@ -266,7 +270,7 @@
                         <tr>
                     		<th width="40%">삭제할 부서</th>
                     		<td width="60%">
-                    			<select name="deptCode" style="width:150px;">
+                    			<select name="deptCode" style="width:150px; height:30px;">
                     				<c:forEach var="d" items="${ deptList }">
                     					<option value="${d.deptCode}">${ d.deptName }</option>
                     				</c:forEach>
@@ -288,6 +292,14 @@
 
 
 	<script>
+		// 메뉴바 & 사이드바 css
+		$(function(){
+			$("#orgManage>a").css("color", "dimgray");
+			$("#orgManage").css("border-bottom-style", "groove");
+			$("#org>a").css("color", "deepskyblue");
+		});	
+	
+	
 		// 조직도 스크립트
 		$(function(){
 			

@@ -180,6 +180,10 @@
 			$("#calender>a").css("color", "dimgray");
 			$("#calender").css("border-bottom-style", "groove");
 			$("#manageSchCate>a").css("color", "deepskyblue");
+			
+			$(document).ready(function(){
+				$("#sidebarOuter").css("min-height", "900px");
+			});
 		});	
 	</script>
 

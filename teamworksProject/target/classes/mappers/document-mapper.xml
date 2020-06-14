@@ -128,7 +128,7 @@
 	<insert id="insertProof" parameterType="Document">
 		insert into proof
 		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docRefName}, #{docDate}, #{docEnd}, #{docDepartment}, 
-				#{pfSq}, #{pfPurpose}, 'Y' )
+				#{pfSq}, #{pfPurpose}, 'N' )
 	</insert>
 	
 	<!-- 기안서 insert -->
@@ -351,7 +351,7 @@
 	</select>
 	
 	<!-- 기안서작성 list -->
-	<select id="writeDocList" parameterType="DocumentList" resultMap="documentListResultSet">
+	<select id="writeDocList" parameterType="Document" resultMap="documentListResultSet">
 		select *
 		  from document_list
 		 where emp_id=#{empId}
