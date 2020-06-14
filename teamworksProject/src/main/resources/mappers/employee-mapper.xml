@@ -136,7 +136,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectSchMyAtt" parameterType="com.kh.teamworks.employee.model.vo.SearchMyAttendance" resultMap="attendanceResultSet">
-		select ATT_DATE,EMP_ID,START_TIME,END_TIME,AT_TYPE,TO_CHAR(TO_DATE(((TO_DATE(END_TIME,'HH24:MI')-TO_DATE(START_TIME,'HH24:MI'))*(24*60*60)),'SSSSS'),'HH24:MI') AS ATT_TIME
+		 select ATT_DATE,EMP_ID,START_TIME,END_TIME,AT_TYPE,
+           case when at_type =1  then  (TO_CHAR(TO_DATE(((TO_DATE(END_TIME,'HH24:MI')- TO_DATE(START_TIME,'HH24:MI'))*(24*60*60)-3600),'SSSSS'),'HH24:MI'))
+		   when at_type =0  then (TO_CHAR(TO_DATE(((TO_DATE(END_TIME,'HH24:MI')- TO_DATE(START_TIME,'HH24:MI'))*(24*60*60)-3600),'SSSSS'),'HH24:MI'))
+		   when at_type =2  then (TO_CHAR(TO_DATE(((TO_DATE(END_TIME,'HH24:MI')- TO_DATE(START_TIME,'HH24:MI'))*(24*60*60)),'SSSSS'),'HH24:MI') )
+		    end AS ATT_TIME
 		  FROM ATTENDANCE
 	     WHERE EMP_ID=#{empId}
 	       and att_date between #{startDate} and #{endDate}
@@ -145,7 +149,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectSchEmpAtt" parameterType="com.kh.teamworks.employee.model.vo.SearchEmpAttCondition" resultMap="empAttResultSet">
-	  SELECT EMP_ID ,EMP_NAME ,JOB_NAME,DEPT_NAME,ATT_DATE,START_TIME,END_TIME,AT_TYPE,TO_CHAR(TO_DATE(((TO_DATE(END_TIME,'HH24:MI')-TO_DATE(START_TIME,'HH24:MI'))*(24*60*60)),'SSSSS'),'HH24:MI') AS ATT_TIME
+	  SELECT EMP_ID ,EMP_NAME ,JOB_NAME,DEPT_NAME,ATT_DATE,START_TIME,END_TIME,AT_TYPE,
+	    case when at_type =1  then  (TO_CHAR(TO_DATE(((TO_DATE(END_TIME,'HH24:MI')- TO_DATE(START_TIME,'HH24:MI'))*(24*60*60)-3600),'SSSSS'),'HH24:MI'))
+		     when at_type =0  then (TO_CHAR(TO_DATE(((TO_DATE(END_TIME,'HH24:MI')- TO_DATE(START_TIME,'HH24:MI'))*(24*60*60)-3600),'SSSSS'),'HH24:MI'))
+		     when at_type =2  then (TO_CHAR(TO_DATE(((TO_DATE(END_TIME,'HH24:MI')- TO_DATE(START_TIME,'HH24:MI'))*(24*60*60)),'SSSSS'),'HH24:MI') )
+		     end AS ATT_TIME
 		FROM EMPLOYEE 
 		JOIN DEPARTMENT USING (DEPT_CODE)
 		JOIN JOB USING (JOB_CODE)
