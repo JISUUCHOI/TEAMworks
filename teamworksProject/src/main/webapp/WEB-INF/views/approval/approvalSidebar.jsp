@@ -61,9 +61,6 @@
 	<div id="sidebarOuter">
 		<!-- 사이드바 -->
         <div id="sidebar">
-            <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
-            <div id="logout"><a href="">logout</a></div>
-            
             <div class="category">기안</div>
             <div class="subCate" id="writeDoc"><a href="writeDocList.ap">기안문작성</a></div>
             <div class="subCate" id="requestApprove"><a href="myDocList.rap?currentPage=1">결재요청함</a></div>

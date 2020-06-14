@@ -70,8 +70,6 @@
  <!-- 사이드바 -->
  <div id="sidebarOuter">
     <div id="sidebar" align="center">
-        <div id="messenger"><a href="#"onclick="openMessenger();"><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png" alt="" width="20px"> messenger</a></div>
-        <div id="logout"><a href="logout.em">logout</a></div>
         <script>
         	function openMessenger(){
         		window.open("message.em","방제","width=540, height=650");

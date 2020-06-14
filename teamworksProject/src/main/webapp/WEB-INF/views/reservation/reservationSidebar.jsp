@@ -70,8 +70,6 @@
 	<div id="sidebarOuter">
 		<!-- 사이드바 -->
         <div id="sidebar">
-            <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
-            <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category">예약</div>
             <div class="subCate" id="reservationList"><a href="showListView.re">예약 현황</a></div>

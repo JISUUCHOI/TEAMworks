@@ -64,8 +64,6 @@
  	<!-- 사이드바 -->
     <div class="sidebarOuter">
         <div id="sidebar">
-            <div id="messenger"><a href=""><img src="resources/icons/messenger.png"width="20px"> messenger</a></div>
-            <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category"></div>
             <div class="subCate" id="wm"><a href="sendForm.ma">편지쓰기</a></div>

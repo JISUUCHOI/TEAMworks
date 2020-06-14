@@ -16,7 +16,7 @@
         /* 메뉴바 */
         #menubar{
             width:100%;
-            height:100px;
+            height:120px;
             margin:auto;
             display:block;
         }
@@ -80,19 +80,18 @@
         
         /* 메신저, 로그아웃 */
         #logout{
-            margin-left:10px;
+        	float:right;
+            margin-top:20px;
+            margin-right:20px;
             display:inline-block;
         }
-        #messenger{
-            margin-left:100px;
-            height:40px;
-            display:inline-block;
-        }
-        #logout>a, #messenger>a{
+        #logout>a{
             text-decoration:none;
             color:white;
             font-size:12px;
         }
+        #logout>a:hover{ color:deepskyblue; }
+        .logoutIcon{ color:deepskyblue; }
         
     </style>
 
@@ -111,7 +110,8 @@
         <!-- 메뉴바 -->
         <div id="menubar">
             <div id="logo">
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/logo_white.png" height="35px">               
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/logo_white.png" height="35px">
+                <div id="logout"><i class="fas fa-sign-in-alt logoutIcon"></i> <a href="logout.em">logout</a></div>     
             </div>
             <div id="center">
                 <div class="menu" id="home"><a href="${ pageContext.servletContext.contextPath }" style="text-decoration:none;">홈</a></div>

@@ -63,8 +63,6 @@
  <!-- 사이드바 -->
     <div class="sidebarOuter">
         <div id="sidebar">
-            <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
-            <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category"><a href="main.mg">회사 정보 관리</a></div>
             

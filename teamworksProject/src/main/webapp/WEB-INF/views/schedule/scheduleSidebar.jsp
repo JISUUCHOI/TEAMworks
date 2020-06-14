@@ -67,8 +67,6 @@
 	<div id="sidebarOuter">
 		<!-- 사이드바 -->
         <div id="sidebar">
-            <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
-            <div id="logout"><a href="logout.em">logout</a></div>
             
             <div class="category">일정</div>
             <div class="subCate" id="allSchCate"><a href="selectAllSch.sc?empId=${loginUser.empId}">전체 일정</a></div>
