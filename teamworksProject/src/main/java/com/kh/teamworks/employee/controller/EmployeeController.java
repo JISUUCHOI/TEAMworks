@@ -359,7 +359,7 @@ public class EmployeeController {
 			int result = eService.QRattInsert(empId);
 			
 			if(result >0) {
-				return "success";
+				return "<span style='font-size: 200px;'>success</span>";
 			}else {
 				return "fail";
 			}
