@@ -388,7 +388,7 @@ public class EmployeeController {
 		
 		@ResponseBody
 		@RequestMapping("empAttSch.em")
-		public ModelAndView selectSchEmpAtt(SearchEmpAttCondition seac,int currentPage,@RequestParam ("searchStartDate") String startDate,@RequestParam("searchEndDate") String endDate,@RequestParam(name="empName", required=false) String empName, ModelAndView mv,@RequestParam(name="condition", required=false) String condition) {
+		public ModelAndView selectSchEmpAtt(SearchEmpAttCondition seac,int currentPage,@RequestParam (value="searchStartDate",required = false) String startDate,@RequestParam(value="searchEndDate",required = false) String endDate,@RequestParam(name="empName", required=false) String empName, ModelAndView mv,@RequestParam(name="condition", required=false) String condition) {
 //			System.out.println(startDate);
 //			System.out.println(endDate);
 //			System.out.println(condition);
@@ -398,7 +398,7 @@ public class EmployeeController {
 			seac.setEndDate(endDate);
 			seac.setEmpName(empName);
 		
-			switch(condition ) {
+			switch(condition) {
 			case "deptAll" : seac.setDeptAll("deptAll"); break;
 			case "ManagementSupport"  : seac.setManagementSupport("ManagementSupport"); break;
 			case "Development" : seac.setDevelopment("Development");break; 
@@ -418,6 +418,7 @@ public class EmployeeController {
 			System.out.println(list);
 			mv.addObject("pi",pi);
 			mv.addObject("list", list);
+			mv.addObject("seac", seac);
 			mv.setViewName("employee/empAttendanceSch");
 			return mv;
 		}
