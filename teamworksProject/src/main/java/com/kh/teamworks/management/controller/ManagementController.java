@@ -383,21 +383,7 @@ public class ManagementController {
 	// 휴가 검색 관리
 	@RequestMapping("empVacSearch.mg")
 	public String vacationSearch(int currentPage, empSearchCondition eSc, Model model) {
-
-		if (eSc.getKeyword() != null) {
-			switch (eSc.getCondition()) {
-			case "empName":
-				eSc.setEmpName(eSc.getKeyword());
-				break;
-			case "vacationYear":
-				eSc.setVacationYear(eSc.getKeyword());
-				break;
-			}
-
-		} else {
-			eSc.setEmpName(null);
-			eSc.setVacationYear(null);
-		}
+		
 		
 		int listCount = mgService.selectVacCount(eSc);
 		

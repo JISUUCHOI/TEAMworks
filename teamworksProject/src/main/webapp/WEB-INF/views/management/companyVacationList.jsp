@@ -40,34 +40,37 @@
 			<div id="search123">
 				<form id="searchForm" action="empVacSearch.mg" method="post"
 					align="center">
-					<div class="select" style="float:left;">
-						<select class="custom-select" name="condition">
-							<option value="empName">성명</option>
-							<option value="vacationYear">휴가사용년도</option>
+					<div class="select" style="float:left; margin-left:30px;">
+						<select class="custom-select" name="vacationYear">
+							<option value="2019">2019</option>
+							<option value="2020" selected>2020</option>
 						</select>
 					</div>
 					<div class="text" style="float:left;">
-						<input type="text" class="form-control" name="keyword"
-							value="${ eSc.keyword }"> <input type="hidden"
-							name="currentPage" value="1">
+						<input type="text" class="form-control" placeholder="검색할 사원 이름 입력" name="empName" value="${ eSc.empName }">
+						<input type="hidden" name="currentPage" value="1">
 					</div>
 					<button type="submit" class="searchBtn btn btn-secondary" style="float:left;">검색</button>
 				</form>
+				<div style="font-size:25px; float:right; margin-right:30px;">
+					<c:choose>
+						<c:when test="${ eSc.vacationYear eq null }">
+							<input type="text" class="form-control" size="25" value = "2020년 휴가 조회 결과 입니다.">
+						</c:when>
+						<c:otherwise>
+							<input type="text" class="form-control" size="25" value = "${ eSc.vacationYear }년 휴가 조회 결과 입니다.">
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 			<br>
 			
-			<script type="text/javascript">
-	       		$(function(){
-	       			switch('${eSc.condition}'){
-					case "empName":  $("#searchArea option").eq(0).attr("selected", true);  break;
-					case "vacationYear": $("#searchArea option").eq(1).attr("selected", true);  break;
-	       			}
-	       		});
-	       </script>
+
 
 
 			<table class="table table-bordered"
 				style="table-layout: fixed; text-align: center; margin-top: 30px;">
+				
 				<thead class="thead-light">
 					<tr>
 						<th>사원명</th>
