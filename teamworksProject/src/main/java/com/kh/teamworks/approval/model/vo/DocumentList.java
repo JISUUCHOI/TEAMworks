@@ -14,7 +14,7 @@ import lombok.ToString;
 public class DocumentList {
 	
 	private String empId;
-	private int dlNo;
+	private String dlNo;
 	private String dlForm;
 	private String dlName;
 	private int dlLike;
