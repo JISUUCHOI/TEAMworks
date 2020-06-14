@@ -78,7 +78,7 @@ public class ApprovalController {
 		}else if(doc.equals("제증명신청서")){
 			return "approval/proofForm";
 		}else {
-			return "";
+			return "redirect:writeDocList.ap";
 		}
 	}
 	

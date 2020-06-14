@@ -137,14 +137,14 @@
 	                        <td style="text-align:center;">${ d.dlNo }</td>
 	                        <c:choose>
 	                        	<c:when test="${ d.dlLike  eq '0'}">
-	                        		<td style="text-align:center;"><i class="far fa-star"></i></td>
+	                        		<td style="text-align:center;" class="dlLike"><i class="far fa-star"></i></td>
 	                        	</c:when>
 	                        	<c:otherwise>
-	                        		<td style="text-align:center;"><i class="fas fa-star"></i></td>
+	                        		<td style="text-align:center;" class="dlLike"><i class="fas fa-star"></i></td>
 	                        	</c:otherwise>	
 	                        </c:choose>	
 	                        <td style="padding-left:30px;">${ d.dlForm }</td>
-	                        <td style="text-align:center;">${ d.dlName }</td> 
+	                        <td style="text-align:center;" class="dlName">${ d.dlName }</td> 
 	                    </tr>
                    </c:forEach>
 	            </tbody>
@@ -153,11 +153,19 @@
 	        
 
 	        <script>
+
         	$(function(){
-        		$(".formList tbody tr").click(function(){
-        			location.href="insertDoc.ap?doc="+$(this).children().eq(3).text();
+        		$(".dlName").click(function(){
+        			location.href="insertDoc.ap?doc=" + $(this).text();
         		});
-        	});
+        	});	
+        	
+        	$(function(){
+        		$(".dlLike").click(function(){
+        			location.href="insertDoc.ap?doc=" + $(this).text();
+        		});
+        	});	
+
   			</script>
 
 	
