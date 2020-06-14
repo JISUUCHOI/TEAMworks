@@ -23,7 +23,7 @@
 		margin-bottom:0px;
 	}
 	
-   #dateArea b {font-size: 30px;}
+   #dateArea b {font-size: 27px;}
 
   .pointBtn{
     background-color: #07355A;
@@ -32,7 +32,7 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 27px;
+    font-size: 23px;
     cursor: pointer;
     border-radius: 50%;
     padding-left:10px;
@@ -42,7 +42,7 @@
   }
 
   #reservationTable{
-    width:800px;
+    width:700px;
     border-collapse: collapse;
   }
 
@@ -86,7 +86,7 @@
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="reservationSidebar.jsp"/>
 	
-	<br>
+	<br><br>
 
 	<div style="width:1250px; float:left;">
 	

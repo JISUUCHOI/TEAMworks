@@ -16,6 +16,10 @@
 	<!-- 아이콘 스크립트 -->
 	<script src="https://use.fontawesome.com/8f77921a99.js"></script>
 <style>
+	@font-face { font-family: 'JSDongkang-Regular'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSDongkang-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
+	@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
+	body {font-family:Handon3gyeopsal300g;}
+	
 	.content {
 		margin-left:20%;
 		width:1250px;
