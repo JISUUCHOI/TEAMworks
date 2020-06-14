@@ -90,7 +90,7 @@
                              	</c:when>
                              	<c:otherwise>
                              		<a id="empImg">
-                             		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" width="100%" height="100%" ></a>
+                             		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt="" style="width:100%;height:100%" ></a>
                          	 		
                          	 	</c:otherwise>
                           </c:choose>
