@@ -23,6 +23,14 @@
    
     <style>
         	html, body{height:100%; position:relative;}
+@font-face { font-family: 'JSDongkang-Regular'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSDongkang-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+	body {
+	
+	    font-family: Handon3gyeopsal300g;
+	  
+	}
 	
 	div{box-sizing:border-box;}
 	#sidebarOuter{

@@ -21,6 +21,15 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha256-tz3ebpf1UY2wJOfYAEYo/iIElWlm+JNP7cOGtloSAWM=" crossorigin="anonymous"></script>
 <Style>
+@font-face { font-family: 'JSDongkang-Regular'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/JSDongkang-RegularA1.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'Handon3gyeopsal300g'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/Handon3gyeopsal300g.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+	body {
+	
+	    font-family: Handon3gyeopsal300g;
+	  
+	}
+
 	#mainOuter{
 		width:1250px;
 		float:left;
@@ -124,7 +133,7 @@
                <div class="col-lg-12">
                    <h1 class="page-header">
                  	 <c:set var="today" value="<%=new java.util.Date()%>" />
-					 <fmt:formatDate value="${today}" type="both" pattern="yyyy-MM-dd(E)" />		
+					 <fmt:formatDate value="${today}" type="both" pattern="yyyy년MM월dd일(E)" />		
                    </h1>
                </div>
                <div  id="weekDiv">
