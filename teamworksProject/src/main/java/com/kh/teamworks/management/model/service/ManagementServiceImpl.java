@@ -202,35 +202,29 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public int updateJobCode() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateJobCode(Job job) {
+
+		return mgDao.updateJobCode(sqlSession, job);
 	}
 
 	@Override
-	public int deleteJobCode() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteJobCode(int jobCode) {
+
+		return mgDao.deleteJobCode(sqlSession, jobCode);
 	}
 
 	@Override
-	public int insertJobCode() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertJobCode(String jobName) {
+
+		return mgDao.insertJobCode(sqlSession, jobName);
 	}
 
+	@Override
+	public int saveRank(String jobName, int jobCode) {
 
-
-
-
-
-
-
-
-
-
-
-
+		Job job = new Job(jobCode, jobName);
+		return mgDao.saveRank(sqlSession, job);
+	}
 
 	
 

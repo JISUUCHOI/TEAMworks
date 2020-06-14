@@ -297,5 +297,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   set pf_status='Y'
 		 where doc_no=#{docNo}
 	</update>
+	
+	<update id="saveRank" parameterType="MgJob">
+		UPDATE JOB
+		   SET JOB_NAME=#{jobName}
+		 WHERE JOB_CODE=#{jobCode}
+	</update>
+	
+	<insert id="insertJobCode" parameterType="string">
+		INSERT INTO JOB
+		VALUES(SEQ_JOBNO.NEXTVAL, #{jobName})
+	</insert>
+	
+	<update id="updateJobCode" parameterType="MgJob">
+		UPDATE JOB
+		   SET JOB_NAME=#{jobName}
+		 WHERE JOB_CODE=#{jobCode}
+	</update>
+	
+	<delete id="deleteJobCode" parameterType="_int">
+		DELETE FROM JOB
+		 WHERE JOB_CODE=#{jobCode}
+	</delete>
 
 </mapper>

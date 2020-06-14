@@ -588,13 +588,101 @@ public class ManagementController {
 		new Gson().toJson(searchList, response.getWriter());
 	}
 
-	// 직급 관리
+	// 최지수_직급 관리
 	@RequestMapping("orgJobList.mg")
 	public String selectJobList(Model model) {
+		
 		ArrayList<Job> jobList = mgService.selectJobList();
-		model.addAttribute("jobList", jobList);
 
+		model.addAttribute("jobList", jobList);
 		return "management/companyOrganizationOrder";
+	}
+	
+	// 최지수_직급 관리
+	// 순서 저장 버튼 클릭 시 직급 순서 변경한 후 직급 list를 다시 조회하여 리턴
+	@ResponseBody
+	@RequestMapping(value="saveRank.mg", method=RequestMethod.POST)
+	public void saveRank(String str, Model model, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		String[] arr = str.split(",");
+		
+		int jobCode = 11;
+		int result = 0;
+		for(int i=0; i<arr.length; i++) {
+			//System.out.println(arr[i]);
+			
+			result += mgService.saveRank(arr[i], jobCode);
+			jobCode++;
+		}
+		
+		if(result == arr.length) {	// 모든 행 업데이트 성공
+			
+			ArrayList<Job> jobList = mgService.selectJobList();
+
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(jobList, response.getWriter());
+			
+		}else {
+			
+		}
+	}
+	
+	// 최지수_직급 관리
+	// 직급 추가용
+	@RequestMapping("insertJob.mg")
+	public String insertJobCode(String jobName, HttpSession session, Model model) {
+		
+		int result = mgService.insertJobCode(jobName);
+		
+		if(result > 0) { // 직급 추가 성공 --> 다시 직급 관리 페이지
+			
+			session.setAttribute("msg", "직급이 성공적으로 추가되었습니다.");
+			return "redirect:orgJobList.mg";
+			
+		}else { // 직급 추가 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "직급 추가에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 최지수_직급 관리
+	// 직급 수정용
+	@RequestMapping("updateJob.mg")
+	public String updateJobCode(Job job, HttpSession session, Model model) {
+		
+		int result = mgService.updateJobCode(job);
+		
+		if(result > 0) { // 직급 수정 성공 --> 다시 직급 관리 페이지
+			
+			session.setAttribute("msg", "직급명이 성공적으로 수정되었습니다.");
+			return "redirect:orgJobList.mg";
+			
+		}else { // 직급 수정 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "직급명 수정에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 최지수_직급 관리
+	// 직급 삭제용
+	@RequestMapping("deleteJob.mg")
+	public String deleteJobCode(int jobCode, HttpSession session, Model model) {
+		
+		int result = mgService.deleteJobCode(jobCode);
+		
+		if(result > 0) { // 직급 삭제 성공 --> 다시 직급 관리 페이지
+			
+			session.setAttribute("msg", "해당 직급이 삭제되었습니다.");
+			return "redirect:orgJobList.mg";
+			
+		}else { // 직급 삭제 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "직급 삭제에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+		
 	}
 
 }

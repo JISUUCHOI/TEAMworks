@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +16,8 @@
 <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- 아이콘 스크립트 -->
+<script src="https://use.fontawesome.com/8f77921a99.js"></script>
 <style>
 .content {
 	margin-left: 20%;
@@ -24,6 +26,17 @@
 
 .table {
 	text-align: center;
+}
+
+.modal-content {width:350px;}
+.modalTable {
+	width:300px;
+	border: 1px solid #ddd;
+}
+.modalTable tr {height:35px;}
+.modalTable th {
+	text-align:center;
+	background-color:#f2f2f2;
 }
 </style>
 </head>
@@ -36,85 +49,59 @@
 		<h1>직급 관리</h1>
 		<hr align="left" style="border: solid 1px grey; width: 90%;">
 
-		<div class="container" style="padding-left: 60px; padding-top: 100px;">
-			<table class="table border" style="width: 80%;">
+		<div class="container" style="padding-left: 60px; padding-top: 50px;">
+			<table id="rankTable" class="table border" style="width: 80%;">
 				<thead class="thead-light">
 					<tr>
-						<th scope="col">No.</th>
-						<th scope="col">직급명</th>
-						<th scope="col">수정/삭제</th>
-						<th scope="col">순서 설정</th>
+						<th width="20%">No.</th>
+						<th width="30%">직급명</th>
+						<th width="25%">수정/삭제</th>
+						<th width="25%">순서 설정</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${jobList}" var="j">
-						<tr>
+ 					<c:forEach items="${jobList}" var="j">
+						<tr id="${j.jobCode}">
 							<td><b>${j.jobCode % 10}</b></td>
 							<td>${j.jobName}</td>
 							<td>
-								<button type="button" class="btn btn-info btn-primary btn-sm" data-toggle="modal"  data-target="#myModal" >수정</button>
-								<button type="button" class="btn btn-secondary btn btn-primary btn-sm">삭제</button>
+								<button type="button" class="btn btn-info btn-primary btn-sm" 
+										onclick="updateBtn(${j.jobCode});">수정</button>
+								<button type="button" class="btn btn-secondary btn btn-primary btn-sm"
+										onclick="deleteBtn(${j.jobCode});">삭제</button>
 							</td>
-
-							<c:choose>
-								<c:when test="${ j.jobCode % 10 eq 1}"><!-- 제일 위 직급 / 위로 변경 X -->
-									<td>
-										<svg class="bi bi-arrow-up-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-										<path fill-rule="evenodd" d="M4.646 8.354a.5.5 0 0 0 .708 0L8 5.707l2.646 2.647a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 0 .708z" />
-										<path fill-rule="evenodd" d="M8 11.5a.5.5 0 0 0 .5-.5V6a.5.5 0 0 0-1 0v5a.5.5 0 0 0 .5.5z" /></svg>
-										&nbsp; 
-										<svg class="bi bi-arrow-down-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  										<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z" />
-										</svg>
-									</td>
-								</c:when>
-								
-								<c:when test="${ j.jobCode % 10 eq list.size() }"><!-- 제일 밑 직급 / 아래로 변경 X -->
-									<td>
-										<svg class="bi bi-arrow-up-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-				  						<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-10.646.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z" />
-										</svg> 
-										&nbsp; 
-										<svg class="bi bi-arrow-down-circle" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-										<path fill-rule="evenodd" d="M4.646 7.646a.5.5 0 0 1 .708 0L8 10.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z" />
-										<path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5z" />
-										</svg>
-									</td>
-								</c:when>
-								
-								
-								<c:otherwise><!-- 순서 변경 가능한 버튼 -->
-									<td>
-										<svg class="bi bi-arrow-up-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  										<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-10.646.354a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 6.207V11a.5.5 0 0 1-1 0V6.207L5.354 8.354z" />
-										</svg>
-										&nbsp; 
-										<svg class="bi bi-arrow-down-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  										<path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 5a.5.5 0 0 0-1 0v4.793L5.354 7.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 9.793V5z" />
-										</svg>
-									</td>
-								</c:otherwise>
-							</c:choose>
-
+							<td>
+								<button class="btn" onclick="moveUp(${j.jobCode});"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+								&nbsp;
+								<button class="btn" onclick="moveDown(${j.jobCode});"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+							</td>
 						</tr>
 					</c:forEach>
-		
+				</tbody>
+ 				<tfoot>
 					<tr>
 						<th scope="row"></th>
-						<td><input type="text" placeholder="내용을 입력해주세요"></td>
-						<td><button type="button"
-								class="btn btn-warning btn btn-primary btn-sm"">추가</button></td>
-						<td></td>
+						<td colspan="2">
+							<form action="insertJob.mg" id="insertForm" method="post">
+								<input type="text" name="jobName" placeholder="추가할 직급명 입력">
+								&nbsp;&nbsp;
+								<button type="submit"
+									class="btn btn-warning btn-sm">추가</button>
+							</form>
+						</td>
+						<td>
+							<button onclick="saveRank();"
+									class="btn btn-secondary btn-sm">순서 저장</button> 
+						</td>
 					</tr>
-				</tbody>
+				</tfoot>
 			</table>
+
 		</div>
 	</div>
 
 	<!-- The Modal -->
-	<div class="modal" id="myModal">
+	<div class="modal" id="updateModal">
 	  <div class="modal-dialog">
 	    <div class="modal-content">
 	
@@ -122,20 +109,116 @@
 	      <div class="modal-header">
 	        <h4 class="modal-title">직급명 수정</h4>
 	      </div>
-	
+	      
 	      <!-- Modal body -->
-	      <div class="modal-body">
-	      	<input style="width:100%;" type="text" placeholder="수정할 직급 명 입력 ">
-	      </div>
+			<form action="updateJob.mg" id="updateForm" method="post">
+		      <div class="modal-body">
+	          	<table class="modalTable" border="1">
+	          		<tr>
+	          			<th width="40%"></th>
+	          			<td width="60%">
+					      	<input style="width:100%;" name="jobName" type="text" placeholder="수정 직급명 입력 ">
+	          			</td>
+	          		</tr>
+	          	</table>
+		      </div>
+		      
+		      <input type="hidden" id="inputJobCode" name="jobCode" value="">
 	
-	      <!-- Modal footer -->
-	      <div class="modal-footer">
-	        <button type="submit" class="btn btn-primary" data-dismiss="modal">확인</button>
-	        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-	      </div>
-	
+		      <!-- Modal footer -->
+		      <div class="modal-footer">
+		        <button type="submit" class="btn btn-primary">수정</button>
+		        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+		      </div>
+			</form>
 	    </div>
 	  </div>
 	</div>
+	
+	
+	<script>
+		// 위 화살표 클릭 시 tr 위로 옮기기
+		function moveUp(obj) {
+			var idStr = '#' + obj;
+			var prevHtml = $(idStr).prev().html();
+			if(prevHtml == null) {
+				alert('최상위 리스트입니다!');
+				return;
+			}
+			
+			var prevobj = $(idStr).prev().attr("id");
+			var currobj = $(idStr).attr("id");
+			var currHtml = $(idStr).html();
+			
+			$(idStr).html(prevHtml); //값 변경
+			$(idStr).prev().html(currHtml);
+			$(idStr).prev().attr("id", 'TEMP_TR'); //id값 변경
+			$(idStr).attr("id", prevobj);
+			$('#TEMP_TR').attr("id", currobj);
+		}
+		
+		// 아래 화살표 클릭 시 tr 아래로 옮기기
+		function moveDown(obj) {
+			var idStr = '#' + obj;
+			var nextHtml = $(idStr).next().html();
+			if(nextHtml == null) {
+				alert('최하위 리스트입니다!');
+				return;
+			}
+			
+			var nextobj = $(idStr).next().attr("id");
+			var currobj = $(idStr).attr("id");
+			var currHtml = $(idStr).html();
+			
+			$(idStr).html(nextHtml); //값 변경
+			$(idStr).next().html(currHtml);
+			$(idStr).next().attr("id", 'TEMP_TR'); //id값 변경
+			$(idStr).attr("id", nextobj);
+			$('#TEMP_TR').attr("id", currobj);
+		}
+		
+		// 순서 저장 버튼 클릭 시 실행
+		function saveRank() {
+
+			var str = "";
+			for(var i=1; i<=${fn:length(jobList)}; i++) {
+				
+				str += $('#rankTable>tbody>tr:nth-child('+i+')>td:nth-child(2)').text() + ",";
+			}
+
+  			$.ajax({
+				url:"saveRank.mg",
+				type:"post",
+				data:{str:str},
+				success:function(list){
+					
+					for(var i=0; i<list.length; i++) {
+						var index = i + 1;
+						$('#rankTable>tbody>tr:nth-child('+index+')').attr("id", list[i].jobCode);
+						$('#rankTable>tbody>tr:nth-child('+index+')>td:nth-child(1)>b').text(list[i].jobCode%10);
+						$('#rankTable>tbody>tr:nth-child('+index+')>td:nth-child(2)').text(list[i].jobName);
+					}
+					
+				},error:function(){
+					console.log('순서 저장용 ajax 통신 실패!');
+				}
+			});  
+		}
+		
+		// 수정 버튼 클릭 시 실행
+		function updateBtn(jobCode) {
+			$('#inputJobCode').val(jobCode);
+			$('#updateModal').modal('show');
+		}
+		
+		// 삭제 버튼 클릭 시 실행
+		function deleteBtn(jobCode) {
+			if(confirm('해당 직급을 삭제하시겠습니까?')) {
+				location.href='deleteJob.mg?jobCode=' + jobCode;
+			}
+		}
+	</script>
+	
+	
 </body>
 </html>

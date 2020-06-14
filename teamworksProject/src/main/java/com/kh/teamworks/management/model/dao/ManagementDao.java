@@ -145,7 +145,27 @@ public class ManagementDao {
 		return sqlSession.update("managementMapper.updatePfStatus", docNo);
 	}
 
-
+	
+	// 직급 관리
+	// 직급관리_직급 순서 저장
+	public int saveRank(SqlSessionTemplate sqlSession, Job job) {
+		return sqlSession.update("managementMapper.saveRank", job);
+	}
+	
+	// 직급관리_직급 추가
+	public int insertJobCode(SqlSessionTemplate sqlSession, String jobName) {
+		return sqlSession.insert("managementMapper.insertJobCode", jobName);
+	}
+	
+	// 직급관리_직급 수정
+	public int updateJobCode(SqlSessionTemplate sqlSession, Job job) {
+		return sqlSession.update("managementMapper.updateJobCode", job);
+	}
+	
+	// 직급관리_직급 삭제
+	public int deleteJobCode(SqlSessionTemplate sqlSession, int jobCode) {
+		return sqlSession.delete("managementMapper.deleteJobCode", jobCode);
+	}
 
 
 
