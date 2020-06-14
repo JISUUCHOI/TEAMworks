@@ -128,7 +128,7 @@
 	<insert id="insertProof" parameterType="Document">
 		insert into proof
 		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docRefName}, #{docDate}, #{docEnd}, #{docDepartment}, 
-				#{pfSq}, #{pfPurpose}, 'Y' )
+				#{pfSq}, #{pfPurpose}, 'N' )
 	</insert>
 	
 	<!-- 기안서 insert -->
