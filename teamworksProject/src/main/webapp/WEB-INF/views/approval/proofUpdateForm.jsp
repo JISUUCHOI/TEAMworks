@@ -26,14 +26,13 @@
 <link rel="stylesheet" type="text/css" href="${ pageContext.servletContext.contextPath }/resources/css/proofForm.css">
 <!-- js 연결 -->
 <script src="${ pageContext.servletContext.contextPath }/resources/js/proofForm.js" rel="javascript" type="text/javascript"></script>
-
 </head>
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	<jsp:include page="approvalSidebar.jsp"/>
 	<div id="bodyWrapper">
 	    <div id="draftOuter">
-	        <h4>⊙ 기안문 작성</h4>
+	        <h6>⊙ 기안문 작성</h6>
 	        <hr>
 	        <br>
 	
@@ -44,7 +43,7 @@
 	            <div id="btns">
 	                <button type="button" id="approveLineBtn" data-toggle="modal" data-target="#approveLineModal">결재선</button>
 	                <button type="submit" id="approveBtn" disabled>결재요청</button>
-	                <button type="button" id="cancelBtn">취소</button>
+	                <button type="button" id="cancelBtn" onclick="history.back();">취소</button>
 	            </div>
 	            <br><br><br>
 	
@@ -89,7 +88,7 @@
 	                    <td class="th">참조자</td>
 	                    <td>
 	                    	<input type="hidden" id="refedId" name="docReference">
-	                        <input type="text" id="refSch" name="docRefName" value="${ d.docRefName }" readonly>
+	                        <input type="text" class="inputBox" id="refSch" name="docRefName" value="${ d.docRefName }" readonly>
 	                        <button type="button" id="refBtn" data-toggle="modal" data-target="#refEmp">참조</button>
 	                    </td>
 	                    <td class="th">마감일자</td>
@@ -101,7 +100,7 @@
 	                </tr>
 	                <tr>
 	                    <td class="th">제목</td>
-	                    <td colspan="3"><input type="text" id="titleInput" name="docTitle" value="${ d.docTitle }" required></td>
+	                    <td colspan="3"><input type="text" class="inp" id="titleInput" name="docTitle" value="${ d.docTitle }" required></td>
 	                </tr>
 	            </table>
 				
@@ -112,11 +111,13 @@
                         <td width="200" class="th">신청번호</td>
                         <td width="200">자동생성</td>
 	                    <td width="200" class="th">증명서구분</td>
-                        <td width="200"><select name="pfSq" id="pfSq">
-                            <option value="재직증명서">재직증명서</option>
-                            <option value="경력증명서">경력증명서</option>
-                            <option value="퇴직증명서">퇴직증명서</option>
-                       </select>
+                        <td width="200">
+	                        <select name="pfSq" id="pfSq" style="height:30px;">
+	                            <option value="재직증명서">재직증명서</option>
+	                            <option value="경력증명서">경력증명서</option>
+	                            <option value="퇴직증명서">퇴직증명서</option>
+	                       </select>
+	                     </td>
 	                </tr>
 	                <tr>
 	                    <td width="200" class="th">사원번호</td>
@@ -143,6 +144,7 @@
                 </table>
 	        </form>
 	    </div>
+	    <br><br>
 	    <!-- 참조 클릭 시 뜨는 모달 -->
 	    <div class="modal fade" id="refEmp">
 	        <div class="modal-dialog modal-lg">

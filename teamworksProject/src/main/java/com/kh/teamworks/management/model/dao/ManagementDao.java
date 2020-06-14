@@ -3,6 +3,7 @@ package com.kh.teamworks.management.model.dao;
 import java.util.ArrayList;
 
 import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,7 @@ import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
+import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
 import com.kh.teamworks.management.model.vo.empSearchCondition;
 
@@ -97,15 +99,15 @@ public class ManagementDao {
 		return (ArrayList)sqlSession.selectList("managementMapper.selectVacList", null, rowBounds);
 	}
 
-	public ArrayList<Vacation> searchVacationList(SqlSessionTemplate sqlSession, String keyword, PageInfo pi) {
+	public ArrayList<Vacation> selectVacationKeyword(SqlSessionTemplate sqlSession, empSearchCondition eSc, PageInfo pi) {
 		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
-		return (ArrayList)sqlSession.selectList("managementMapper.searchEmpVacation", keyword, rowBounds);
+		return (ArrayList)sqlSession.selectList("managementMapper.selectVacListKeyword", eSc, rowBounds);
 	}
 	
-	public int selectVacationCount(SqlSessionTemplate sqlSession, String keyword) {
-		return sqlSession.selectOne("managementMapper.selectVacationCount", keyword);
+	public int selectVacationCount(SqlSessionTemplate sqlSession, empSearchCondition eSc) {
+		return sqlSession.selectOne("managementMapper.selectVacCount", eSc);
 	}
 
 	public int updateLogo(SqlSessionTemplate sqlSession, CompanyInfo ci) {
@@ -125,8 +127,45 @@ public class ManagementDao {
 	}
 
 
-	
 
+	// 증명서 발급
+	public int selectProofListCount(SqlSession sqlSession) {
+		return sqlSession.selectOne("managementMapper.selectProofListCount");
+	}
+	public ArrayList<Proof> selectProofList(SqlSession sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() -1 ) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("managementMapper.selectProofList", null, rowBounds);
+	}
+	
+	public Proof selectProof(SqlSession sqlSession,String docNo) {
+		return sqlSession.selectOne("managementMapper.selectProof", docNo);
+	}
+	public int updatePfStatus(SqlSession sqlSession, String docNo) {
+		return sqlSession.update("managementMapper.updatePfStatus", docNo);
+	}
+
+	
+	// 직급 관리
+	// 직급관리_직급 순서 저장
+	public int saveRank(SqlSessionTemplate sqlSession, Job job) {
+		return sqlSession.update("managementMapper.saveRank", job);
+	}
+	
+	// 직급관리_직급 추가
+	public int insertJobCode(SqlSessionTemplate sqlSession, String jobName) {
+		return sqlSession.insert("managementMapper.insertJobCode", jobName);
+	}
+	
+	// 직급관리_직급 수정
+	public int updateJobCode(SqlSessionTemplate sqlSession, Job job) {
+		return sqlSession.update("managementMapper.updateJobCode", job);
+	}
+	
+	// 직급관리_직급 삭제
+	public int deleteJobCode(SqlSessionTemplate sqlSession, int jobCode) {
+		return sqlSession.delete("managementMapper.deleteJobCode", jobCode);
+	}
 
 
 

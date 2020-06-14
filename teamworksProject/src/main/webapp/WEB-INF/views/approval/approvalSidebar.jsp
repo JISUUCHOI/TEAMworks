@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	html, body{height:100%;}
+	html, body{height:100%; min-height: 100%;}
 	div{box-sizing:border-box;}
 	
 	#sidebarOuter{
 		width:250px;
-		height:100%;
+		height: auto !important;
 		float:left;
         background:rgb(7, 53, 90);
 	}
@@ -65,7 +65,7 @@
             <div id="logout"><a href="">logout</a></div>
             
             <div class="category">기안</div>
-            <div class="subCate" id="writeDoc"><a href="formList.ap">기안문작성</a></div>
+            <div class="subCate" id="writeDoc"><a href="writeDocList.ap">기안문작성</a></div>
             <div class="subCate" id="requestApprove"><a href="myDocList.rap?currentPage=1">결재요청함</a></div>
             <div class="subCate" id="callbackDoc"><a href="callbackList.rap?currentPage=1">결재회수함</a></div>
             <div class="category">결재</div>

@@ -53,25 +53,29 @@ public interface ManagementService {
 
 	
 	// 휴가 관리 내 검색
-	ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi);
-	int selectVacCount(String keyword);
+	ArrayList<Vacation> selectVacationKeyword(empSearchCondition eSc, PageInfo pi);
+	int selectVacCount(empSearchCondition eSc);
 	
 	// 증명서 발급
-	Proof selectProofList();
-	
+	ArrayList<Proof> selectProofList(PageInfo pi);
+	int selectProofListCount();
+	Proof selectProof(String docNo);
+	int updatePfStatus(String docNo);
 	
 	
 	// 조직도 관리
 	ArrayList<Department> selectDeptList();
-	int insertDept(String deptName); //
-	int updateDept(Department dept); //
-	int deleteDept(int deptCode); //
+	int insertDept(String deptName); // 추가할 부서명 입력받아 부서 추가
+	int updateDept(Department dept); // 부서명 수정
+	int deleteDept(int deptCode); // 부서 삭제
 	
 	ArrayList<Job> selectJobList();
 	void searchEmpInfo(); //
-	int updateJobCode(); //
-	int deleteJobCode(); //
-	int insertJobCode(); //
+	int updateJobCode(Job job); //
+	int deleteJobCode(int jobCode); //
+	int insertJobCode(String jobName); // 추가할 직급명 입력받아 직급 추가
+
+	int saveRank(String jobName, int jobCode); // 직급 순서 변경
 
 	
 }

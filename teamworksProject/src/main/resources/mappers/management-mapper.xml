@@ -56,6 +56,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result column="pf_sq" property="pfSq" />
 		<result column="pf_purpose" property="pfPurpose" />
 		<result column="doc_status" property="docStatus" />
+		<result column="emp_id" property="empId"/>
+		<result column="emp_name" property="empName"/>
+		<result column="doc_date" property="docDate"/>
+		<result column="pf_status" property="pfStatus"/>
+		<result column="doc_department" property="empDept"/>
 	</resultMap>
 
 	<resultMap id="employeeResultSet" type="Employee">
@@ -205,6 +210,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
+	<select id="selectVacListKeyword" resultMap="empVacationResultSet">
+		SELECT E.EMP_ID, EMP_NAME, VACATION_COUNT,TYPEA, TYPEB,TYPEC,TYPED, HIRE_DATE, ROUND(MONTHS_BETWEEN(SYSDATE, HIRE_DATE)) MONTHS  
+		       FROM EMPLOYEE E 
+		       LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS VACATION_COUNT FROM VACATION WHERE DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+               LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPEA FROM VACATION WHERE VC_SQ = '경조사' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+               LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPEB FROM VACATION WHERE VC_SQ = '병가' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID) 
+               LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPEC FROM VACATION WHERE VC_SQ = '출산' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+               LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPED FROM VACATION WHERE VC_SQ = '연차' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+				<if test="empName != null">
+					WHERE EMP_NAME LIKE '%'||#{empName}||'%'
+				</if>
+				<if test="vacationYear != null">
+					WHERE vacationYear LIKE '%'||#{vacationYear}||'%'
+				</if>
+				ORDER BY EMP_ID
+	</select>
+	
+	<select id="selectVacCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM (SELECT E.EMP_ID, EMP_NAME, VACATION_COUNT,TYPEA, TYPEB,TYPEC,TYPED, HIRE_DATE , ROUND(MONTHS_BETWEEN(SYSDATE, HIRE_DATE)) MONTHS 
+    			FROM EMPLOYEE E 
+			    LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS VACATION_COUNT FROM VACATION WHERE DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+			    LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPEA FROM VACATION WHERE VC_SQ = '경조사' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+			    LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPEB FROM VACATION WHERE VC_SQ = '병가' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID) 
+			    LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPEC FROM VACATION WHERE VC_SQ = '출산' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+			    LEFT JOIN (SELECT EMP_ID, SUM(VC_COUNT) AS TYPED FROM VACATION WHERE VC_SQ = '연차' and DOC_STATUS=2 GROUP BY EMP_ID) L ON (E.EMP_ID= L.EMP_ID)
+			    <if test="empName != null">
+					WHERE EMP_NAME LIKE '%'||#{empName}||'%'
+				</if>
+				<if test="vacationYear != null">
+					WHERE vacationYear LIKE '%'||#{vacationYear}||'%'
+				</if>
+			    ORDER BY EMP_ID)
+	</select>
+	
+	
 	<update id="updateLogo" parameterType="MgInfo">
 		UPDATE COMPANY_INFO
 		   SET LOGO_CHANGE_NAME = #{logoChange},
@@ -231,6 +272,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   	   COMPANY_CON=#{companyCon}, COMPANY_KIND=#{companyKind}, COMPANY_ADRS=#{companyAdrs}
 		 WHERE HOM_NO=#{homNo}  	
 	</update>
-
+	<select id="selectProofListCount" resultType="_int">
+		select count(*)
+ 		  from proof p  
+		  join employee e on(p.emp_id=e.emp_id)
+		 where doc_status=2
+	</select>
+	
+	<select id="selectProofList" resultMap="empProofResultSet">
+		select doc_no, p.emp_id, e.emp_name, doc_status, doc_date, doc_department, pf_status, pf_sq, pf_purpose 
+ 		  from proof p  
+		  join employee e on(p.emp_id=e.emp_id)
+		 where doc_status=2
+	</select>
+	
+	<select id="selectProof"  parameterType="string" resultMap="empProofResultSet">
+		select doc_no, p.emp_id, e.emp_name, doc_status, doc_date, doc_department, pf_status, pf_sq, pf_purpose 
+ 		  from proof p  
+		  join employee e on(p.emp_id=e.emp_id)
+		 where doc_status=2 and doc_no = #{docNo}
+	</select>
+	<update id="updatePfStatus" parameterType="string">
+		update proof
+		   set pf_status='Y'
+		 where doc_no=#{docNo}
+	</update>
+	
+	<update id="saveRank" parameterType="MgJob">
+		UPDATE JOB
+		   SET JOB_NAME=#{jobName}
+		 WHERE JOB_CODE=#{jobCode}
+	</update>
+	
+	<insert id="insertJobCode" parameterType="string">
+		INSERT INTO JOB
+		VALUES(SEQ_JOBNO.NEXTVAL, #{jobName})
+	</insert>
+	
+	<update id="updateJobCode" parameterType="MgJob">
+		UPDATE JOB
+		   SET JOB_NAME=#{jobName}
+		 WHERE JOB_CODE=#{jobCode}
+	</update>
+	
+	<delete id="deleteJobCode" parameterType="_int">
+		DELETE FROM JOB
+		 WHERE JOB_CODE=#{jobCode}
+	</delete>
 
 </mapper>

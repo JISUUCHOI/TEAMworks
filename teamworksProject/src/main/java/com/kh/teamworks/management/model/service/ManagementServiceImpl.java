@@ -122,21 +122,37 @@ public class ManagementServiceImpl implements ManagementService{
 	
 	// 휴가 페이징 처리 
 	@Override
-	public int selectVacCount(String keyword) {
-		return mgDao.selectVacationCount(sqlSession, keyword);
+	public int selectVacCount(empSearchCondition eSc) {
+		return mgDao.selectVacationCount(sqlSession, eSc);
 	}
 	
 	@Override
-	public ArrayList<Vacation> searchVacationList(String keyword, PageInfo pi) {
-		return mgDao.searchVacationList(sqlSession, keyword, pi);
+	public ArrayList<Vacation> selectVacationKeyword(empSearchCondition eSc, PageInfo pi) {
+		return mgDao.selectVacationKeyword(sqlSession, eSc, pi);
 	}
 
+	/**
+	 * 증명서 발급
+	 */
 	@Override
-	public Proof selectProofList() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Proof> selectProofList(PageInfo pi) {
+		return mgDao.selectProofList(sqlSession, pi);
 	}
-
+	/**
+	 * 증명서 발급 listcount
+	 */
+	@Override
+	public int selectProofListCount() {
+		return mgDao.selectProofListCount(sqlSession);
+	}
+	@Override
+	public Proof selectProof(String docNo) {
+		return mgDao.selectProof(sqlSession, docNo);
+	}
+	@Override
+	public int updatePfStatus(String docNo) {
+		return mgDao.updatePfStatus(sqlSession, docNo);
+	}
 	@Override
 	public ArrayList<Department> selectDeptList() {
 
@@ -186,35 +202,29 @@ public class ManagementServiceImpl implements ManagementService{
 	}
 
 	@Override
-	public int updateJobCode() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateJobCode(Job job) {
+
+		return mgDao.updateJobCode(sqlSession, job);
 	}
 
 	@Override
-	public int deleteJobCode() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteJobCode(int jobCode) {
+
+		return mgDao.deleteJobCode(sqlSession, jobCode);
 	}
 
 	@Override
-	public int insertJobCode() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int insertJobCode(String jobName) {
+
+		return mgDao.insertJobCode(sqlSession, jobName);
 	}
 
+	@Override
+	public int saveRank(String jobName, int jobCode) {
 
-
-
-
-
-
-
-
-
-
-
-
+		Job job = new Job(jobCode, jobName);
+		return mgDao.saveRank(sqlSession, job);
+	}
 
 	
 

@@ -76,6 +76,8 @@
 		<result column="dept_name" property="deptName"/>
 		<result column="approve_step" property="approveStep"/>
 	</resultMap>
+	
+
 
 
 	<select id="selectEmpInfo" parameterType="string" resultMap="empInfoResultSet">
@@ -320,7 +322,6 @@
 			</if>
 		order by doc_date desc
 	</select>
-	
 	
 		
 	<select id="selectApId" parameterType="Document" resultType="string">
@@ -1085,5 +1086,7 @@
 			</if>
 		order by doc_date desc
 	</select>
+	
+
 	
 </mapper>

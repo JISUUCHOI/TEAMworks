@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,12 +25,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
+import com.kh.teamworks.employee.model.service.EmployeeService;
 import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.management.model.service.ManagementServiceImpl;
 import com.kh.teamworks.management.model.vo.CompanyBsns;
 import com.kh.teamworks.management.model.vo.CompanyInfo;
 import com.kh.teamworks.management.model.vo.Department;
 import com.kh.teamworks.management.model.vo.Job;
+import com.kh.teamworks.management.model.vo.Proof;
 import com.kh.teamworks.management.model.vo.Vacation;
 import com.kh.teamworks.management.model.vo.empSearchCondition;
 
@@ -40,7 +41,8 @@ public class ManagementController {
 
 	@Autowired
 	private ManagementServiceImpl mgService;
-
+	@Autowired
+	private EmployeeService eService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -314,14 +316,18 @@ public class ManagementController {
 	// 퇴사자 등록
 	@ResponseBody
 	@RequestMapping(value = "updateStatus.mg", method = RequestMethod.POST)
-	public String updateStatus(@RequestParam("checkRow") String[] empRetire, ModelMap modelMap)
-			throws Exception {
-
+	public String updateStatus(HttpServletRequest request, HttpSession session){
+		
+		String checkRow =  request.getParameter("checkRow");
+		
+		for(int i=0; i < checkRow.length(); i++) {
+			//String empId = checkRow[i];
+		}
 		// 삭제할 사용자 ID마다 반복해서 사용자 삭제
-		for (String empId : empRetire) {
+	/*	for (for i=0; i<checkArr.. ; empId : checkArr) {
 			System.out.println("사용자 삭제 = " + empId);
-			int count = mgService.updateStatus(empId);
-		} 
+			int count = mgService.updateStatus(empId);*/
+		
 	return"redirect:empList.mg";
 	}
 
@@ -369,45 +375,111 @@ public class ManagementController {
 		int listCount = mgService.selectEmpCount();
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
-
+		
 		ArrayList<Vacation> vacList =mgService.selectVacationList(pi);
 
-
-		
-		System.out.println(vacList);
-
-		
-		model.addAttribute("vacList", vacList);
-
 		model.addAttribute("pi", pi);
-		
-		
-		
+		model.addAttribute("vacList", vacList);
 
 		return "management/companyVacationList";
 	}
 
 	// 휴가 검색 관리
-	@RequestMapping("vacationSearch.mg")
-	public String vacationSearch(int currentPage, String keyword, Model model) {
+	@RequestMapping("empVacSearch.mg")
+	public String vacationSearch(int currentPage, empSearchCondition eSc, Model model) {
 
-		int listCount = mgService.selectVacCount(keyword);
+		if (eSc.getKeyword() != null) {
+			switch (eSc.getCondition()) {
+			case "empName":
+				eSc.setEmpName(eSc.getKeyword());
+				break;
+			case "vacationYear":
+				eSc.setVacationYear(eSc.getKeyword());
+				break;
+			}
 
+		} else {
+			eSc.setEmpName(null);
+			eSc.setVacationYear(null);
+		}
+		
+		int listCount = mgService.selectVacCount(eSc);
+		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
+		
+		ArrayList<Vacation> vacList =mgService.selectVacationKeyword(eSc, pi);
 
-		ArrayList<Vacation> vacList = mgService.searchVacationList(keyword, pi);
-
-		model.addAttribute("vacList", vacList);
 		model.addAttribute("pi", pi);
+		model.addAttribute("vacList", vacList);
+		model.addAttribute("eSc", eSc);
+		
 
 		return "management/companyVacationList";
 	}
 
-	// 증명서 발급
-	@RequestMapping("empDocument.mg")
-	public String empDocument() {
-		return "management/companyMemberDocument";
-	}
+	// 라공주 
+		// 증명서 발급
+		@RequestMapping("empDocument.mg")
+		public String empDocument(int currentPage, Model model) {
+			
+			int listCount = mgService.selectProofListCount();
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+			ArrayList<Proof> list = mgService.selectProofList(pi);
+			model.addAttribute("pi", pi);
+			model.addAttribute("list", list);
+			// System.out.println(list);
+			return "management/companyMemberDocument";
+		}
+		// 라공주 
+		// 재직증명서
+		@RequestMapping("proofOfemp.mg")
+		public String proofOfEmployee(Employee e, String docNo, Model model) {
+			
+			int result = mgService.updatePfStatus(docNo); // 발급상태값 Y로 변경
+			if(result>0) {
+				Employee emp = eService.loginEmployee(e);
+				//System.out.println(emp);
+				//System.out.println(docNo);
+				Proof p = mgService.selectProof(docNo);
+				model.addAttribute("emp", emp);
+				model.addAttribute("p", p);
+				return "management/proofOfEmp";
+			}else {
+				model.addAttribute("msg", "발급에 실패했습니다.");
+				return "common/errorPage";
+			}
+			
+		}
+		// 경력증명서
+		@RequestMapping("careerPf.mg")
+		public String careerProof(Employee e, String docNo, Model model) {
+			int result = mgService.updatePfStatus(docNo);
+			if(result>0) {
+				Employee emp = eService.loginEmployee(e);
+				Proof p = mgService.selectProof(docNo);
+				model.addAttribute("emp", emp);
+				model.addAttribute("p", p);
+				return "management/careerProof";
+			}else {
+				model.addAttribute("msg", "발급에 실패했습니다.");
+				return "common/errorPage";
+			}
+		}
+		// 퇴직증명서
+		@RequestMapping("retirementPf.mg")
+		public String retirementProof(Employee e, String docNo, Model model) {
+			int result = mgService.updatePfStatus(docNo);
+			if(result>0) {
+				Employee emp = eService.loginEmployee(e);
+				Proof p = mgService.selectProof(docNo);
+				model.addAttribute("emp", emp);
+				model.addAttribute("p", p);
+				return "management/retireProof";
+			}else {
+				model.addAttribute("msg", "발급에 실패했습니다.");
+				return "common/errorPage";
+			}
+		}
 
 	// 최지수_조직도
 	@RequestMapping("org.mg")
@@ -516,13 +588,101 @@ public class ManagementController {
 		new Gson().toJson(searchList, response.getWriter());
 	}
 
-	// 직급 관리
+	// 최지수_직급 관리
 	@RequestMapping("orgJobList.mg")
 	public String selectJobList(Model model) {
+		
 		ArrayList<Job> jobList = mgService.selectJobList();
-		model.addAttribute("jobList", jobList);
 
+		model.addAttribute("jobList", jobList);
 		return "management/companyOrganizationOrder";
+	}
+	
+	// 최지수_직급 관리
+	// 순서 저장 버튼 클릭 시 직급 순서 변경한 후 직급 list를 다시 조회하여 리턴
+	@ResponseBody
+	@RequestMapping(value="saveRank.mg", method=RequestMethod.POST)
+	public void saveRank(String str, Model model, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		String[] arr = str.split(",");
+		
+		int jobCode = 11;
+		int result = 0;
+		for(int i=0; i<arr.length; i++) {
+			//System.out.println(arr[i]);
+			
+			result += mgService.saveRank(arr[i], jobCode);
+			jobCode++;
+		}
+		
+		if(result == arr.length) {	// 모든 행 업데이트 성공
+			
+			ArrayList<Job> jobList = mgService.selectJobList();
+
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(jobList, response.getWriter());
+			
+		}else {
+			
+		}
+	}
+	
+	// 최지수_직급 관리
+	// 직급 추가용
+	@RequestMapping("insertJob.mg")
+	public String insertJobCode(String jobName, HttpSession session, Model model) {
+		
+		int result = mgService.insertJobCode(jobName);
+		
+		if(result > 0) { // 직급 추가 성공 --> 다시 직급 관리 페이지
+			
+			session.setAttribute("msg", "직급이 성공적으로 추가되었습니다.");
+			return "redirect:orgJobList.mg";
+			
+		}else { // 직급 추가 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "직급 추가에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 최지수_직급 관리
+	// 직급 수정용
+	@RequestMapping("updateJob.mg")
+	public String updateJobCode(Job job, HttpSession session, Model model) {
+		
+		int result = mgService.updateJobCode(job);
+		
+		if(result > 0) { // 직급 수정 성공 --> 다시 직급 관리 페이지
+			
+			session.setAttribute("msg", "직급명이 성공적으로 수정되었습니다.");
+			return "redirect:orgJobList.mg";
+			
+		}else { // 직급 수정 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "직급명 수정에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+	}
+	
+	// 최지수_직급 관리
+	// 직급 삭제용
+	@RequestMapping("deleteJob.mg")
+	public String deleteJobCode(int jobCode, HttpSession session, Model model) {
+		
+		int result = mgService.deleteJobCode(jobCode);
+		
+		if(result > 0) { // 직급 삭제 성공 --> 다시 직급 관리 페이지
+			
+			session.setAttribute("msg", "해당 직급이 삭제되었습니다.");
+			return "redirect:orgJobList.mg";
+			
+		}else { // 직급 삭제 실패 --> 에러페이지
+			
+			model.addAttribute("msg", "직급 삭제에 실패했습니다. 다시 시도해주세요.");
+			return "common/errorPage";
+		}
+		
 	}
 
 }

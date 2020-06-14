@@ -234,6 +234,7 @@ public class ApprovalController {
 		// System.out.println(list);
 		 
 		return "approval/refDocListjsp";
+		
 	}
 	
 	// 참조문서함 연결
@@ -311,25 +312,25 @@ public class ApprovalController {
 		
 		if(dsc.equals("기안서")) {
 			Document d = aService.updateDraftForm(dno);
-			 System.out.println(d);
+			 //System.out.println(d);
 			mv.addObject("d", d);
 			mv.setViewName("approval/draftUpdateForm");		
 		
 		}else if(dsc.equals("제증명신청서")) {
 			Document d = aService.updateProofForm(dno);
-			 System.out.println(d);
+			 //System.out.println(d);
 			mv.addObject("d", d);
 			mv.setViewName("approval/proofUpdateForm");	
 			
 		}else if(dsc.equals("경조비신청서")) {
 			Document d = aService.updateFamilyEventForm(dno);
-			 System.out.println(d);
+			 //System.out.println(d);
 			mv.addObject("d", d);
 			mv.setViewName("approval/familyEventUpdateForm");	
 			
 		}else {
 			Document d = aService.updateVacationForm(dno);
-			 System.out.println(d);
+			 //System.out.println(d);
 			mv.addObject("d", d);
 			mv.setViewName("approval/vacationUpdateForm");	
 		}
@@ -406,6 +407,33 @@ public class ApprovalController {
 		}
 		return changeName;
 	}
+	
+	// 기안문 검색
+	@RequestMapping("searchDoc.ap")
+	public String searchDoc(HttpServletRequest request, String d, Model model) {
+		return d;
+		
+	}
+	
+	// 기안문작성 연결
+	@RequestMapping("writeDocList.ap")
+	public String writeDocList(Model model, HttpServletRequest request) {
+		
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+		Document d = new Document();
+		
+		d.setEmpId(empId); 
+		
+		ArrayList<Document> list = aService.writeDocList(d);		 
+		model.addAttribute("list", list);
+
+		//System.out.println(list);
+		 
+		return "approval/selectApprovalForm";
+		
+	}
+	
+
 	
 	// 파일삭제
 	public void deleteFile(String fileName, HttpServletRequest request) {

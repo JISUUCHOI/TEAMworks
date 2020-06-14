@@ -37,32 +37,30 @@
 		<br>
 
 		<div class="container" style="margin-left: 0px;">
-			<div style="width:200px; display:inline-block;">
+			<div id="search123">
 				<form id="searchForm" action="empVacSearch.mg" method="post"
 					align="center">
-					<div class="select">
+					<div class="select" style="float:left;">
 						<select class="custom-select" name="condition">
-							<option value="empId">사원번호</option>
 							<option value="empName">성명</option>
 							<option value="vacationYear">휴가사용년도</option>
 						</select>
 					</div>
-					<div class="text">
+					<div class="text" style="float:left;">
 						<input type="text" class="form-control" name="keyword"
 							value="${ eSc.keyword }"> <input type="hidden"
 							name="currentPage" value="1">
 					</div>
-					<button type="submit" class="searchBtn btn btn-secondary">검색</button>
+					<button type="submit" class="searchBtn btn btn-secondary" style="float:left;">검색</button>
 				</form>
 			</div>
+			<br>
 			
 			<script type="text/javascript">
 	       		$(function(){
 	       			switch('${eSc.condition}'){
-	       			case "empId": $("#searchArea option").eq(0).attr("selected", true);  break;
-					case "empName":  $("#searchArea option").eq(1).attr("selected", true);  break;
-					case "vacationYear": $("#searchArea option").eq(2).attr("selected", true);  break;
-					 
+					case "empName":  $("#searchArea option").eq(0).attr("selected", true);  break;
+					case "vacationYear": $("#searchArea option").eq(1).attr("selected", true);  break;
 	       			}
 	       		});
 	       </script>
@@ -89,6 +87,7 @@
 							<td>${ v.hireDate }</td>
 							<td>
 								<c:choose>
+									<c:when test="${ v.months >= 36 }">16</c:when>
 									<c:when test="${ v.months >= 12 }">15</c:when>
 									<c:otherwise>${ v.months }</c:otherwise>
 								</c:choose>
@@ -99,6 +98,7 @@
 							<td>${ v.typeD }</td>
 							<td>
 								<c:choose>
+									<c:when test="${ v.months >= 36 }">${ 16- v.vcCount }</c:when>
 									<c:when test="${ v.months >= 12 }">${ 15 - v.vcCount }</c:when>
 									<c:otherwise>${ v.months - v.vcCount }</c:otherwise>
 								</c:choose>

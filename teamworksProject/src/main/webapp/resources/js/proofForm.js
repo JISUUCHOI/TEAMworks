@@ -1,5 +1,11 @@
 $(function(){
-    $("#writeDoc>a").css("color", "deepskyblue");
+    
+    $(function(){
+    	$(document).ready(function() {
+            $("#sidebarOuter").css('min-height', "950px");
+        });
+    });
+    
 });
 
 /*참조자 모달용 스크립트*/
