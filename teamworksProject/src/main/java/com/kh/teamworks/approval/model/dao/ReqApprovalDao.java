@@ -233,12 +233,12 @@ public class ReqApprovalDao {
 		return (ArrayList)sqlSession.selectList("approveMapper.selectMyDocList", d, rowBounds);
 	}
 	
-	// 9_3. 검색 결과에 해당하는 참조문서 개수 조회
+	// 9_3. 검색 결과에 해당하는 결재요청 개수 조회
 	public int searchMyDocCount(SqlSessionTemplate sqlSession, ApproveSearchCondition asc) {
 		return sqlSession.selectOne("approveMapper.searchMyDocCount", asc);
 	}
 	
-	// 9_4. 검색 결과에 해당하는 참조문서 리스트 조회
+	// 9_4. 검색 결과에 해당하는 결재요청 리스트 조회
 	public ArrayList<Document> searchMyDocList(SqlSessionTemplate sqlSession, ApproveSearchCondition asc, PageInfo pi) {
 		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());

@@ -304,14 +304,14 @@
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="condition" value="${ asc.condition }" />
 								<c:param name="keyword" value="${ asc.keyword }" />
+								<c:param name="docStatus" value="${ asc.docStatus }" />
 								<c:param name="startDate" value="${ asc.startDate }" />
 								<c:param name="endDate" value="${ asc.endDate }" />
-								<c:param name="storage" value="결재회수함" />
 							</c:url>
 							<button class="page able" onclick="location.href='${ searchUrl }'">&lt;</button>
 						</c:when>
 						<c:otherwise>
-							<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ pi.currentPage - 1 }&storage=결재회수함'">&lt;</button>
+							<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ pi.currentPage - 1 }'">&lt;</button>
 						</c:otherwise>
 					</c:choose>
 					
@@ -323,7 +323,7 @@
 							<c:otherwise>
 								<c:choose>
 									<c:when test="${ empty asc }">
-										<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ p }&storage=결재회수함'">${ p }</button>
+										<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ p }'">${ p }</button>
 									</c:when>
 									<c:otherwise>
 										<c:url value="searchCallback.rap" var='searchUrl'>
@@ -331,9 +331,9 @@
 											<c:param name="empId" value="${ loginUser.empId }" />
 											<c:param name="condition" value="${ asc.condition }" />
 											<c:param name="keyword" value="${ asc.keyword }" />
+											<c:param name="docStatus" value="${ asc.docStatus }" />
 											<c:param name="startDate" value="${ asc.startDate }" />
 											<c:param name="endDate" value="${ asc.endDate }" />
-											<c:param name="storage" value="결재회수함" />
 										</c:url>
 										<button class="page able" onclick="location.href='${ searchUrl }'">${ p }</button>
 									</c:otherwise>
@@ -353,14 +353,14 @@
 								<c:param name="empId" value="${ loginUser.empId }" />
 								<c:param name="condition" value="${ asc.condition }" />
 								<c:param name="keyword" value="${ asc.keyword }" />
+								<c:param name="docStatus" value="${ asc.docStatus }" />
 								<c:param name="startDate" value="${ asc.startDate }" />
 								<c:param name="endDate" value="${ asc.endDate }" />
-								<c:param name="storage" value="결재회수함" />
 							</c:url>
 							<button class="page able" onclick="location.href='${ searchUrl }'">&gt;</button>
 						</c:when>
 						<c:otherwise>
-							<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ pi.currentPage + 1 }&storage=결재회수함'">&gt;</button>
+							<button class="page able" onclick="location.href='callbackList.rap?currentPage=${ pi.currentPage + 1 }'">&gt;</button>
 						</c:otherwise>
 					</c:choose>
 	            </div>

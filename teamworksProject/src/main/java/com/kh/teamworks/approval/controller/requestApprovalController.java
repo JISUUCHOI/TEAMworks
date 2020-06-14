@@ -436,22 +436,19 @@ public class requestApprovalController {
 		String keyword = asc.getKeyword();
 		String docStatus = asc.getDocStatus();
 		
-		if(condition != null) {
-			switch(condition) {
-			case "writer" : asc.setWriter(keyword); break;
-			case "title" : asc.setTitle(keyword); break;
-			case "form" : asc.setForm(keyword); break;
-			}
+		switch(condition) {
+		case "writer" : asc.setWriter(keyword); break;
+		case "title" : asc.setTitle(keyword); break;
+		case "form" : asc.setForm(keyword); break;
+		}
+	
+		switch(docStatus) {
+		case "stand" : asc.setStand("stand"); break;
+		case "pending" : asc.setPending("pending"); break;
+		case "complete" : asc.setComplete("complete"); break;
+		case "refuse" : asc.setRefuse("refuse"); break;
 		}
 		
-		if(docStatus != null) {
-			switch(docStatus) {
-			case "stand" : asc.setStand("stand"); break;
-			case "pending" : asc.setPending("pending"); break;
-			case "complete" : asc.setComplete("complete"); break;
-			case "refuse" : asc.setRefuse("refuse"); break;
-			}
-		}
 		// 8_3. 검색 결과에 해당하는 참조문서 개수 조회
 		int listCount = raService.searchRefCount(asc);
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -459,6 +456,10 @@ public class requestApprovalController {
 		
 		// 8_4. 검색 결과에 해당하는 참조문서 리스트 조회
 		ArrayList<Document> list = raService.searchRefList(asc, pi);
+		
+		System.out.println(asc);
+		System.out.println(list);
+		
 		
 		model.addAttribute("listCount", listCount);
 		model.addAttribute("list", list);
@@ -501,21 +502,17 @@ public class requestApprovalController {
 			String keyword = asc.getKeyword();
 			String docStatus = asc.getDocStatus();
 			
-			if(condition != null) {
-				switch(condition) {
-				case "writer" : asc.setWriter(keyword); break;
-				case "title" : asc.setTitle(keyword); break;
-				case "form" : asc.setForm(keyword); break;
-				}
+			switch(condition) {
+			case "writer" : asc.setWriter(keyword); break;
+			case "title" : asc.setTitle(keyword); break;
+			case "form" : asc.setForm(keyword); break;
 			}
-			
-			if(docStatus != null) {
-				switch(docStatus) {
-				case "stand" : asc.setStand("stand"); break;
-				case "pending" : asc.setPending("pending"); break;
-				case "complete" : asc.setComplete("complete"); break;
-				case "refuse" : asc.setRefuse("refuse"); break;
-				}
+		
+			switch(docStatus) {
+			case "stand" : asc.setStand("stand"); break;
+			case "pending" : asc.setPending("pending"); break;
+			case "complete" : asc.setComplete("complete"); break;
+			case "refuse" : asc.setRefuse("refuse"); break;
 			}
 
 			// 9_3. 검색 결과에 해당하는 결재요청문서 개수 조회
@@ -646,12 +643,10 @@ public class requestApprovalController {
 		String condition = asc.getCondition();
 		String keyword = asc.getKeyword();
 		
-		if(condition != null) {
-			switch(condition) {
-			case "writer" : asc.setWriter(keyword); break;
-			case "title" : asc.setTitle(keyword); break;
-			case "form" : asc.setForm(keyword); break;
-			}
+		switch(condition) {
+		case "writer" : asc.setWriter(keyword); break;
+		case "title" : asc.setTitle(keyword); break;
+		case "form" : asc.setForm(keyword); break;
 		}
 		
 		// 13_3. 검색 결과에 해당하는 회수문서 개수 조회
