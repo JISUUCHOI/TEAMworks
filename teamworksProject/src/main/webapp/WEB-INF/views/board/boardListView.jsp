@@ -19,6 +19,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js" integrity="sha256-tz3ebpf1UY2wJOfYAEYo/iIElWlm+JNP7cOGtloSAWM=" crossorigin="anonymous"></script>
 <style>
+body {font-family: Handon3gyeopsal300g;}
      .outer{
 			width:1250px;
 			float:left;
@@ -101,7 +102,7 @@
                         <td width="60px"><b>NO</b></td>
                         <td><b>제목</b></td>
                         <td width="100px"><b>작성자</b></td>
-                        <td width="100px"><b>등록일</b></td>
+                        <td width="130px"><b>등록일</b></td>
                         <td width="80px"><b>조회</b></td>
                         <td width="80px"><b>추천</b></td>
                         <td width="80px"><b><i class="fas fa-paperclip"></i></b></td>
