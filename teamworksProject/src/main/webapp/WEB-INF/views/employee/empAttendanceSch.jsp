@@ -160,13 +160,13 @@
 										<!-- 시작일 -->
 										<span class="dset"> <input type="text"
 											class="datepicker inpType" name="searchStartDate"
-											id="searchStartDate"value="${seca.startDate} "> <a href="#none"
+											id="searchStartDate"value="${seac.startDate}"> <a href="#none"
 											class="btncalendar dateclick">달력</a>
 										</span> <span class="demi">~</span>
 										<!-- 종료일 -->
 										<span class="dset"> <input type="text"
 											class="datepicker inpType" name="searchEndDate"
-											id="searchEndDate"value="${seca.endDate} "> <a href="#none"
+											id="searchEndDate" value="${seac.endDate}"> <a href="#none"
 											class="btncalendar dateclick">달력</a>
 										</span> 
 									
@@ -177,7 +177,7 @@
                         <th>부서</th>
                         <td>
                             <div class="select" >
-                                <select class="form-control" name="condition" value="${seca.condition }">
+                                <select class="form-control" name="condition">
                                     <option value="deptAll">부서</option>
                                     <option value="ManagementSupport">경영지원팀</option>
                                     <option value="Development">개발팀</option>
@@ -200,7 +200,7 @@
                     <tr height="40">
                         <th>사원명</th>
                         <td  style="float: left;border:none"> 
-                            <input type="text" class="form-control" name="empName" value="${seca.empName }" style="display: inline;margin-top: 2px;"placeholder="이름을 입력해주세요">
+                            <input type="text" class="form-control" name="empName" value="${seac.empName }" style="display: inline;margin-top: 2px;"placeholder="이름을 입력해주세요">
                             <input type="hidden" name="empId" value="${loginUser.empId }">
                            
                         </td>

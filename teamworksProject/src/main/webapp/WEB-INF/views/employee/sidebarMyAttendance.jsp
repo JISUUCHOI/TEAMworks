@@ -62,12 +62,12 @@
 	<div id="sidebarOuter">
 		<!-- 사이드바 -->
         <div id="sidebar">
-            <div id="messenger"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
-            <div id="logout"><a href="">logout</a></div>
+            <div id="messenger" style="display:none;"><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/icons/messenger.png"width="20px"> messenger</a></div>
+            <div id="logout" style="display:none;"><a href="">logout</a></div>
             
             <div class="category">근태 현황</div>
            
-            <div class="category">휴가 신청 내역</div>
+            <div class="category">휴가 내역</div>
             
         </div>
     </div>

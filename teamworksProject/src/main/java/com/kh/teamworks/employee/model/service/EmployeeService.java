@@ -9,6 +9,7 @@ import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttendance;
 import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
+import com.kh.teamworks.management.model.vo.Vacation;
 
 
 public interface EmployeeService {
@@ -47,6 +48,8 @@ public interface EmployeeService {
 	// 전직원근태조회
 	int selectListCount(SearchEmpAttCondition seac);
 	ArrayList<SearchEmpAttendance> selectSchEmpAtt(SearchEmpAttCondition seac,PageInfo pi);
+
+	Vacation selectVacation(String empId);
 
 	
 

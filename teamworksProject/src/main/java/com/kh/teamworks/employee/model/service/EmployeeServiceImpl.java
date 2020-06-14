@@ -13,6 +13,7 @@ import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttendance;
 import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
+import com.kh.teamworks.management.model.vo.Vacation;
 
 @Service("eService")
 public class EmployeeServiceImpl implements EmployeeService{
@@ -89,6 +90,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int selectListCount(SearchEmpAttCondition seac) {
 		
 		return eDao.selectListCount(sqlSession,seac);
+	}
+
+	@Override
+	public Vacation selectVacation(String empId) {
+		
+		return  eDao.selectVacation(sqlSession,empId);
 	}
 
 	

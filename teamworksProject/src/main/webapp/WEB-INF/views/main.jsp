@@ -124,7 +124,7 @@
                <div class="col-lg-12">
                    <h1 class="page-header">
                  	 <c:set var="today" value="<%=new java.util.Date()%>" />
-					 <fmt:formatDate value="${today}" pattern="yyyy-MM-dd" />		
+					 <fmt:formatDate value="${today}" type="both" pattern="yyyy-MM-dd(E)" />		
                    </h1>
                </div>
                <div  id="weekDiv">
