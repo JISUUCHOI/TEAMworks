@@ -58,9 +58,9 @@
 				<form id="searchForm" action="empListSearch.mg" method="post" align="center">
 					<div class="select" >
 						<select class="custom-select" name="condition">
-							<option value="empId">사원번호</option>
-							<option value="empName">성명</option>
-							<option value="deptName">부서명</option>
+							<option value="empId" <c:if test="${ eSc.condition eq 'empId' }">selected</c:if>>사원번호</option>
+							<option value="empName"<c:if test="${ eSc.condition eq 'empName'}">selected</c:if>>성명</option>
+							<option value="deptName"<c:if test="${ eSc.condition eq 'deptName'}">selected</c:if>>부서명</option>
 						</select>
 					</div>
 					<div class="text">
