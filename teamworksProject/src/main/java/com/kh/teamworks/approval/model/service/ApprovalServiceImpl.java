@@ -173,13 +173,15 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 	@Override
 	public int updateHate(DocumentList d) {
-		return aDao.updateHate(sqlSession, d);
+		return aDao.updateHate(sqlSession, d);		
 	}
 
 	@Override
 	public int updateLike(DocumentList d) {
-		return aDao.updateLike(sqlSession, d);
+		return aDao.updateLike(sqlSession, d);		
 	}
+
+
 
 
 

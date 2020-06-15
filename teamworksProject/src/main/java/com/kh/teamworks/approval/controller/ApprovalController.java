@@ -440,7 +440,7 @@ public class ApprovalController {
 	
 	// 기안서 즐겨찾기 insert
 	@RequestMapping("docLikeInsert.ap")
-	public String docLikeInsert(HttpServletRequest request, DocumentList d) {
+	public String docLikeInsert(HttpServletRequest request, DocumentList d, String dlLike) {
 		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
 		d.setEmpId(empId);
 
@@ -454,26 +454,17 @@ public class ApprovalController {
 		
 
 		
-		//if(dlLike.equals("like")) {
-			int result=aService.updateHate(d);
-			System.out.println(result);
+		if(dlLike.equals("0")) {
+			aService.updateHate(d);
+
 			// System.out.println(d);
-			if(result>0) {
 			return "redirect:docLikeInsert.ap";
-			
-			}
-			else {
+
+			}else {
+				aService.updateLike(d);
 				return "approval/selectApprovalForm";
 			}
-		//}else {
-			//aService.updateHate(l);
-			//return "redirect:docLikeInsert.ap";
-		//}
-	
-			
 
-
-			
 		
 		/*}else {
 			int result = aService.updateLike(l);
@@ -490,9 +481,7 @@ public class ApprovalController {
 
 		
 	}
-	
 
-	
 	// 파일삭제
 	public void deleteFile(String fileName, HttpServletRequest request) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
