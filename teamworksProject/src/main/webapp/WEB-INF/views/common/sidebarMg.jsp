@@ -64,14 +64,14 @@
     <div class="sidebarOuter">
         <div id="sidebar">
             
-            <div class="category"><a href="main.mg">회사 정보 관리</a></div>
+            <div class="category" id="comInfo"><a href="main.mg">회사 정보 관리</a></div>
             
             <div class="category">사원 정보 관리</div>
-            <div class="subCate"><a href="enrollEmp.mg">인사 정보 등록</a></div>
-            <div class="subCate"><a href="empList.mg?currentPage=1">사원 명부</a></div>
-            <div class="subCate"><a href="empAtt.em?currentPage=1">근태 관리</a></div>
-            <div class="subCate"><a href="vacationList.mg?currentPage=1">휴가 관리</a></div>
-            <div class="subCate"><a href="empDocument.mg?currentPage=1">증명서 발급</a></div>
+            <div class="subCate" id="empEnroll"><a href="enrollEmp.mg">인사 정보 등록</a></div>
+            <div class="subCate" id="emp"><a href="empList.mg?currentPage=1">사원 명부</a></div>
+            <div class="subCate" id="att"><a href="empAtt.em?currentPage=1">근태 관리</a></div>
+            <div class="subCate" id="vc"><a href="vacationList.mg?currentPage=1">휴가 관리</a></div>
+            <div class="subCate" id="empProof"><a href="empDocument.mg?currentPage=1">증명서 발급</a></div>
             
             <div class="category">조직도 관리</div>
             <div class="subCate" id="org"><a href="org.mg">조직도</a></div>

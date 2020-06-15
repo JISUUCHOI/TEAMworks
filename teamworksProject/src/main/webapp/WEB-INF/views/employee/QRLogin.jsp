@@ -12,7 +12,7 @@
 	
 	<!--       <input id="content" type="text" name="content"/>
 	        <input type="button" id="execute" value="QR코드생성"/> -->
-	        <img id="img" src="qr.em?content=http://192.168.0.52:9191/teamworks/QRAtt.em" style="display:none" onload="this.style.display='block'"/>
+	        <img id="img" src="qr.em?content=http://192.168.30.197:9191/teamworks/QRAtt.em" style="display:none" onload="this.style.display='block'"/>
 	 
 	    
 	</div>

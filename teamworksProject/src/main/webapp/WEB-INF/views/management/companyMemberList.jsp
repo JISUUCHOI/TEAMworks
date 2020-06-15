@@ -37,7 +37,13 @@
 </style>
 </head>
 <body>
-
+	<script>
+       	$(function(){
+       		$("#orgManage").css("border-bottom-style","groove");
+       		$("#orgManage a").css("color","dimgray");
+       		$("#emp>a").css("color", "deepskyblue");
+       	});
+     </script>
 	<jsp:include page="../common/menubar.jsp" />
 	<jsp:include page="../common/sidebarMg.jsp" />
 
