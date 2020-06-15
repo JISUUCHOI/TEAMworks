@@ -472,6 +472,22 @@ public class ApprovalController {
 		 
 		return "approval/selectApprovalForm";
 	}
+	
+	// 기안문 list 검색
+	@RequestMapping("searchDocList.ap")
+	public String searchDocList(HttpServletRequest request, DocumentList l, String formSch, Model model) {
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+		l.setEmpId(empId);
+		l.setDlName(formSch);
+
+		
+		ArrayList<Document> list = aService.selectDocList(l);
+
+	 
+		model.addAttribute("list", list);
+		
+		return "approval/selectApprovalForm";
+	}
 
 	// 파일삭제
 	public void deleteFile(String fileName, HttpServletRequest request) {

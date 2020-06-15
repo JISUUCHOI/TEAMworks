@@ -371,6 +371,13 @@
 		 where emp_id=#{empId} and dl_name=#{dlName}
 	</update>
 	
+	<!-- 기안문list 검색 -->
+	<select id="selectDocList" parameterType="DocumentList" resultMap="documentListResultSet">
+		select *
+		  from document_list
+		 where emp_id=#{empId} and dl_name like '%' || #{dlName} || '%'
+	</select>
+	
 	
 
 

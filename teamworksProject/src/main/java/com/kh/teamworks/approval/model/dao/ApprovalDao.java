@@ -148,6 +148,10 @@ public class ApprovalDao {
 		return sqlSession.update("documentMapper.updateLike", l);
 	}
 
+	public ArrayList<Document> selectDocList(SqlSessionTemplate sqlSession, DocumentList l) {
+		return (ArrayList)sqlSession.selectList("documentMapper.selectDocList", l);
+	}
+
 
 
 

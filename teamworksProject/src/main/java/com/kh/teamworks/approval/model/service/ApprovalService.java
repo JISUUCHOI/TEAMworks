@@ -89,6 +89,8 @@ public interface ApprovalService {
 
 	int updateLike(DocumentList l);
 
+	ArrayList<Document> selectDocList(DocumentList l);
+
 
 
 

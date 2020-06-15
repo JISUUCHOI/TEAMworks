@@ -181,6 +181,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return aDao.updateLike(sqlSession, l);		
 	}
 
+	@Override
+	public ArrayList<Document> selectDocList(DocumentList l) {
+		return aDao.selectDocList(sqlSession, l);		
+
+	}
+
 
 
 
