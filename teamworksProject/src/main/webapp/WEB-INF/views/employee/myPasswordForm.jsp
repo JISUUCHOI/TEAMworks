@@ -38,6 +38,11 @@
     </style>
 </head>
 <body>
+	<script>
+       	$(function(){
+       		$("#pwd>a").css("color", "deepskyblue");
+       	});
+     </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="../common/sidebarMypage.jsp"/>
 	<div class="outer" align="center">

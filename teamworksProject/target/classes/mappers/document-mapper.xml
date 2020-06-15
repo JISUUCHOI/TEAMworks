@@ -355,7 +355,7 @@
 		select *
 		  from document_list
 		 where emp_id=#{empId}
-		 order by dl_like desc
+		 order by dl_like desc, dl_name asc
 	</select>
 	
 

@@ -115,8 +115,8 @@
                     <div class="caption">
                         <button class="btn btn-info" id="startTime">출근</button> &nbsp; &nbsp;
                         <button class="btn btn-info" id="endTime">퇴근</button>
-                        <a href="QRAtt.em" class="btn btn-info" id="QR"  style="display:" >QRAtt</a>
-                        <a href="QRLogin.em" class="btn btn-info" style="display:"  >QRView</a>
+                        <a href="QRAtt.em" class="btn btn-info" id="QR"  style="display:none" >QRAtt</a>
+                        <a href="QRLogin.em" class="btn btn-info" style="display:none"  >QRView</a>
                         <a href="empAtt.em?currentPage=1" style="display:none" >직원근태 조회하기</a>
                     </div>
                 </div>

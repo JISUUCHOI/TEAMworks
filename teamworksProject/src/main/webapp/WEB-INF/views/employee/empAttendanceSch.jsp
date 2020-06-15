@@ -118,7 +118,13 @@
     </style>
     
 </head>
-<body>
+<body>	<script>
+       	$(function(){
+       		$("#orgManage").css("border-bottom-style","groove");
+       		$("#orgManage a").css("color","dimgray");
+       		$("#att>a").css("color", "deepskyblue");
+       	});
+     </script>
    <!-- 이쪽에 메뉴바 포함 할꺼임 -->
   <jsp:include page="../common/menubar.jsp" />
   <jsp:include page="../common/sidebarMg.jsp" />

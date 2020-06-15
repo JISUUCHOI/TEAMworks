@@ -40,7 +40,11 @@
 	</style>
 </head>
 <body>
-
+	<script>
+       	$(function(){
+       		$("#info>a").css("color", "deepskyblue");
+       	});
+     </script>
 <jsp:include page="../common/menubar.jsp"/>
 <jsp:include page="../common/sidebarMypage.jsp"/>
 

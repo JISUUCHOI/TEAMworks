@@ -64,8 +64,8 @@
         <div id="sidebar">
             
             <div class="category">Mypage</div>
-            <div class="subCate"><a href="myPage.em">기본정보</a></div>
-            <div class="subCate"><a href="myPwdForm.em">비밀번호변경</a></div>
+            <div class="subCate" id="info"><a href="myPage.em">기본정보</a></div>
+            <div class="subCate" id="pwd"><a href="myPwdForm.em">비밀번호변경</a></div>
         </div>
     </div>
   
