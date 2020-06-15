@@ -15,7 +15,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    
 	<style>
+     body {font-family: Handon3gyeopsal300g;}
 		 .outer{
 			width:1250px;
 			float:left;
@@ -24,7 +26,7 @@
 		 }
 	     .wrap{
 	         width: 900px; 
-	         font-family: 'Nanum Gothic';
+	        /*  font-family: 'Nanum Gothic'; */
 	         border: 1px solid lightgray;
 	         border-radius: 20px;
 	         padding: 20px;
@@ -58,13 +60,11 @@
                                  <c:choose>
                                  	<c:when test="${ empty loginUser.originName }">
                                  		<a id="empImg" href="" data-toggle="modal" data-target="#insertProfile">
-                                 		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
-                                 		
+                                 		<img  data-toggle="tooltip" data-placement="right" title="클릭 시 수정 가능" class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/images/No-image-available.png" alt="" width="100%" height="100%" ></a>
                                  	</c:when>
                                  	<c:otherwise>
                                  		<a id="empImg" href=""  data-toggle="modal" data-target="#updateProfile">
-                                 		<img class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt=""style="width:100%;height:100%"  ></a>
-                             	 		
+                                 		<img data-toggle="tooltip" data-placement="right" title="클릭 시 수정 가능" class="card-imtg-top" src="${ pageContext.servletContext.contextPath }/resources/empUploadFiles/${loginUser.changeName}" alt=""style="width:100%;height:100%"  ></a>
                              	 	</c:otherwise>
                              	 </c:choose>
                              </div>
@@ -194,8 +194,14 @@
     		}); */
     		
     	});
+    	
+    	
     </script> 
-
+	<script>
+	$(document).ready(function(){
+	  $('[data-toggle="tooltip"]').tooltip();
+	});
+	</script>
   
 <script>
     

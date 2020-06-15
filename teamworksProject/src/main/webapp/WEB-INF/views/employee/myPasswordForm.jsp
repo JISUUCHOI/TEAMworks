@@ -15,6 +15,7 @@
 
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <style>
+    body {font-family: Handon3gyeopsal300g;}
 	     .outer{
 				width:1250px;
 				float:left;
@@ -23,7 +24,7 @@
 			 }
         .wrap{
             width: 600px; 
-            font-family: 'Nanum Gothic';
+            /* font-family: 'Nanum Gothic'; */
             border: 1px solid lightgray;
             border-radius: 20px;
             padding: 20px;
