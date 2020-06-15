@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	html, body{height:100%; position:relative;}
+	html, body{height:100%; min-height:1200px; position:relative;}
 	
 	div{box-sizing:border-box;}
 	#sidebarOuter{

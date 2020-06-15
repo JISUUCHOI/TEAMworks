@@ -7,12 +7,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	html, body{height:100%; position:relative;}
+	html, body{height:100%; min-height:1200px; position:relative;}
 	
 	div{box-sizing:border-box;}
 	#sidebarOuter{
 		width:250px;
-		height:700px;
+		height:1200px;
 		float:left;
 	}
 	
@@ -60,7 +60,7 @@
 </head>
 <body>
 <!-- 사이드바 -->
-    <div class="sidebarOuter">
+    <div class="sidebarOuter" id="so">
         <div id="sidebar">
             
             <div class="category">Mypage</div>
