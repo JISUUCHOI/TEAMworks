@@ -335,7 +335,7 @@ public class requestApprovalController {
 	
 	// 7. 승인/반려, 결재의견 insert
 	@RequestMapping("updateApprove.rap")
-	public String updateApprove(Document doc, Model model) {
+	public String updateApprove(Document doc, Model model, HttpSession session) {
 		
 		int result1 = 0;
 		int result2 = 0;
@@ -358,6 +358,7 @@ public class requestApprovalController {
 			if(list.size() > 1) {
 				// 7_2. 첫번째 승인권자 승인, 결재의견 insert
 				result1 = raService.updateApprove(doc);
+				session.setAttribute("msg", "승인 완료");
 				
 				// 7_3. 기안자 상태 doc_status '진행'로 update
 				result2 = raService.updateDocStatus(doc);
@@ -368,6 +369,7 @@ public class requestApprovalController {
 			}else {
 				// 7_5. 마지막 승인권자 상태 update -> 완료함
 				result1 = raService.updateComplete(doc);
+				session.setAttribute("msg", "승인 완료");
 				
 				// 7_7. 이전 승인권자들 상태 '완료'로 update
 				for(int i=0; i<all.size()-1; i++) {
@@ -381,6 +383,7 @@ public class requestApprovalController {
 		}else {	// 반려할 경우
 			// 7_9. 현재 진행중인 승인권자가 반려할 경우
 			result1 = raService.updateReject(doc);
+			session.setAttribute("msg", "반려 완료");
 			
 			// 7_10. 나머지 승인권자들 상태 '반려'로 update
 			for(int i=0; i<all.size(); i++) {
@@ -584,7 +587,7 @@ public class requestApprovalController {
 	
 	// 12. 결재자 - 회수승인/반려
 	@RequestMapping("updateCallback.rap")
-	public String updateCallback(Document d, Model model) {
+	public String updateCallback(Document d, Model model, HttpSession session) {
 		
 		// 승인/반려 구분
 		String cb = d.getApproveReject();
@@ -595,12 +598,16 @@ public class requestApprovalController {
 		if(cb.equals("회수승인")) {
 			// 12_1. 결재자 - 회수 승인
 			result1 = raService.permitCallback(d);
+			session.setAttribute("msg", "회수승인 완료");
 			
 			// 12_2. 기안자 - 상태 회수
 			result2 = raService.statusCallback(d);
 		}else {
 			// 12_3. 결재자 - 회수 거절
 			result1 = raService.refuseCallback(d);
+			
+			result2=1;
+			session.setAttribute("msg", "회수반려 완료");
 		}
 		
 		if(result1 * result2 > 0) {
