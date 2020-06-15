@@ -450,6 +450,8 @@ public class requestApprovalController {
 		case "pending" : asc.setPending("pending"); break;
 		case "complete" : asc.setComplete("complete"); break;
 		case "refuse" : asc.setRefuse("refuse"); break;
+		case "reqBack" : asc.setReqBack("reqBack"); break;
+		case "callback" : asc.setCallback("callback");break;
 		}
 		
 		// 8_3. 검색 결과에 해당하는 참조문서 개수 조회
@@ -516,6 +518,8 @@ public class requestApprovalController {
 			case "pending" : asc.setPending("pending"); break;
 			case "complete" : asc.setComplete("complete"); break;
 			case "refuse" : asc.setRefuse("refuse"); break;
+			case "reqBack" : asc.setReqBack("reqBack"); break;
+			case "callback" : asc.setCallback("callback");break;
 			}
 
 			// 9_3. 검색 결과에 해당하는 결재요청문서 개수 조회

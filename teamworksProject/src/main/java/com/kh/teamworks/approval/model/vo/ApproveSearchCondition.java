@@ -34,5 +34,7 @@ public class ApproveSearchCondition {
 	private String pending;
 	private String complete;
 	private String refuse;
+	private String reqBack;
+	private String callback;
 	
 }

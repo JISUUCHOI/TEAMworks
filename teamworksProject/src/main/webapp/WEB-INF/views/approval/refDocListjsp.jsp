@@ -225,6 +225,8 @@
                                 <option value="pending">진행</option>
                                 <option value="complete">완료</option>
                                 <option value="refuse">반려</option>
+                                <option value="reqBack">회수요청</option>
+                                <option value="callback">회수</option>
                             </select>
                         </td>
                     </tr>
