@@ -175,7 +175,7 @@
 
 	
 	        <!-- 페이징바 -->
-	        <div id="pagingArea" align="center">
+	        <!-- <div id="pagingArea" align="center">
 	            <a class="page">&lt;</a>
 	            <a class="page">1</a>
 	            <a class="page">2</a>
@@ -183,7 +183,7 @@
 	            <a class="page">4</a>
 	            <a class="page">&gt;</a>
 	        </div>
-	
+			-->
 		</div>
     </div>
     
