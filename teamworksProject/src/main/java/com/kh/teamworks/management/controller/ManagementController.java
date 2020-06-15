@@ -300,7 +300,8 @@ public class ManagementController {
 	// 사원 명부
 	@RequestMapping("empList.mg")
 	public String empList(int currentPage, Model model) {
-
+		
+		
 		int listCount = mgService.selectEmpCount();
 
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 5, 10);
