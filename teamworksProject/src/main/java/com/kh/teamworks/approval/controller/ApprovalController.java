@@ -440,46 +440,33 @@ public class ApprovalController {
 	
 	// 기안서 즐겨찾기 insert
 	@RequestMapping("docLikeInsert.ap")
-	public String docLikeInsert(HttpServletRequest request, DocumentList d, String dlLike) {
+	public String docLikeInsert(HttpServletRequest request, Model model, DocumentList l, String dlLike, Document d) {
 		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+		l.setEmpId(empId);
 		d.setEmpId(empId);
-
-		System.out.println(d);
+		
+		// System.out.println(l);
 		// d.setDlLike(dlLike);
 		// System.out.println(d);
 		// System.out.println(l);
 		// System.out.println(dlName);
 		// System.out.println(empId);
-		// System.out.println(dlLike);
-		
-
-		
+		// System.out.println(dlLike);		
 		if(dlLike.equals("0")) {
-			aService.updateHate(d);
+			aService.updateHate(l);
 
 			// System.out.println(d);
-			return "redirect:docLikeInsert.ap";
 
 			}else {
-				aService.updateLike(d);
-				return "approval/selectApprovalForm";
+				aService.updateLike(l);
 			}
-
 		
-		/*}else {
-			int result = aService.updateLike(l);
-			if(result>0) {
-			return "redirect:writeDocList.ap";
-			}*/
-			
-		 // ArrayList<Document> list = aService.writeDocList(d);		 
-		  // model.addAttribute("list", list);
+		ArrayList<Document> list = aService.writeDocList(d);		 
+		model.addAttribute("list", list);
 
-		 //  System.out.println(list);
+		// System.out.println(list);
 		 
-		// return "approval/selectApprovalForm";
-
-		
+		return "approval/selectApprovalForm";
 	}
 
 	// 파일삭제

@@ -140,12 +140,12 @@ public class ApprovalDao {
 		return sqlSession.update("documentMapper.docLikeInsert");
 	}
 
-	public int updateHate(SqlSessionTemplate sqlSession, DocumentList d) {
-		return sqlSession.update("documentMapper.updateHate", d);
+	public int updateHate(SqlSessionTemplate sqlSession, DocumentList l) {
+		return sqlSession.update("documentMapper.updateHate", l);
 	}
 
-	public int updateLike(SqlSessionTemplate sqlSession, DocumentList d) {
-		return sqlSession.update("documentMapper.updateLike", d);
+	public int updateLike(SqlSessionTemplate sqlSession, DocumentList l) {
+		return sqlSession.update("documentMapper.updateLike", l);
 	}
 
 

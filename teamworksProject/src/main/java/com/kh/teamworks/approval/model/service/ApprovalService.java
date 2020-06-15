@@ -85,9 +85,9 @@ public interface ApprovalService {
 	// 기안문작성 리스트
 	ArrayList<Document> writeDocList(Document d);
 
-	int updateHate(DocumentList d);
+	int updateHate(DocumentList l);
 
-	int updateLike(DocumentList d);
+	int updateLike(DocumentList l);
 
 
 

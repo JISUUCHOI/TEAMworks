@@ -140,10 +140,10 @@
 	                        <td style="text-align:center;">${ d.dlNo }</td>
 	                        <c:choose>
 	                        	<c:when test="${ d.dlLike  eq '0'}">
-	                        		<td style="text-align:center;" class="dlLike"><i class="far fa-star">0</i></td>
+	                        		<td style="text-align:center;"><input type="hidden" value="0"><i class="far fa-star dlLike"></i><input type="hidden" value="${ d.dlName }"></td>
 	                        	</c:when>
 	                        	<c:otherwise>
-	                        		<td style="text-align:center;" class="dlLike"><i class="fas fa-star">1</i></td>
+	                        		<td style="text-align:center;"><input type="hidden" value="1"><i class="fas fa-star dlLike" style="color:#FFCC00;"></i><input type="hidden" value="${ d.dlName }"></td>
 	                        	</c:otherwise>	
 	                        </c:choose>	
 	                        <td style="padding-left:30px;">${ d.dlForm }</td>
@@ -164,7 +164,7 @@
         	
         	$(function(){
         		$(".dlLike").click(function(){
-        			location.href="docLikeInsert.ap?dlLike=" + $(this).text() + "&dlName="+$(this).next().next().text();
+        			location.href="docLikeInsert.ap?dlLike=" + $(this).prev().val() + "&dlName="+$(this).next().val();
         		});
         	});
         	
