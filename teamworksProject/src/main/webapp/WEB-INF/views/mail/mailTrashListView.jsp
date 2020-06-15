@@ -22,6 +22,7 @@
 	<!-- Default theme -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
     <style>
+    body {font-family: Handon3gyeopsal300g;}
         .outer{
 			width:1250px;
 			float:left;
@@ -109,7 +110,7 @@
                                 <input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();" value="">
                             </th>
                             <th width="50px">읽음</th>
-                            <th width="180px">보낸사람</th>
+                            <th width="130px">메일</th>
                             <th>제목</th>
                             <th width="200px">날짜</th>
                         </tr>

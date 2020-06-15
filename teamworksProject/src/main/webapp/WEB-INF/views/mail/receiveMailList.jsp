@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <style>
+    body {font-family: Handon3gyeopsal300g;}
         .outer{
 			width:1250px;
 			float:left;
@@ -115,7 +116,7 @@
                                 <input type="checkbox" name="checkAll" id="th_checkAll" onclick="checkAll();" value="">
                             </th>
                             <th width="50px">읽음</th>
-                            <th width="180px">보낸사람</th>
+                            <th width="130px">보낸사람</th>
                             <th>제목</th>
                             <th width="200px">날짜</th>
                         </tr>
