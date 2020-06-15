@@ -302,7 +302,7 @@
             </div>
         </div>
         <div class="modal-footer">
-                       하나씩 선택해주세요.
+                      한명씩 선택해주세요.
           <button type="button" id="emailList" class="btn btn-default" data-dismiss="modal">적용</button>
         </div>
       </div>
