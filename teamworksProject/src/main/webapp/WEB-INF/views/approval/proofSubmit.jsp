@@ -349,12 +349,15 @@
                         <td>${ d.get(0).getEmpName() }</td>
                         <c:forEach var="d" items="${ d }">
                            	<td>
-                           		${ d.approverName }<br>${ d.approveReject } 
-	                           	<c:choose>
-	                           		<c:when test="${ d.approveReject eq '승인' or d.approveReject eq '반려' or d.approveReject eq '회수승인' or d.approveReject eq '회수반려'}">
-	                           			<br>(${ d.approveDate })
+                           		<c:choose>
+	                           		<c:when test="${ d.approveReject eq '승인' }">
+                         				<img src="${ pageContext.servletContext.contextPath }/resources/images/${d.approverEmpid}.png" height="65px">
+	                           		</c:when>
+	                           		<c:when test="${ d.approveReject eq '반려' or d.approveReject eq '회수요청' or d.approveReject eq '회수승인'}">
+	                           			${ d.approverName }<br><span style="color:red; font-weight:bold">${ d.approveReject }</span>
 	                           		</c:when>
 	                           		<c:otherwise>
+	                           			${ d.approverName }<br>${ d.approveReject }
 	                           		</c:otherwise>
 	                           	</c:choose>
                            	</td>
