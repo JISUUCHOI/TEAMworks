@@ -14,24 +14,29 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     
     <style>
-        html, body{height:100%; position:relative;}
+        html, body{
+        	height:100%; 
+        	/* position:relative; */
+        	min-height:100%;
+        }
 	
 		div{box-sizing:border-box;}
 		#sidebarOuter{
 			width:250px;
-			height:700px;
+			height:auto !important;
 			float:left;
+			background:rgb(7, 53, 90);
 		}
 		
 		/* 사이드바 */
 	    #sidebar{
-	    	position:absolute;
+	    	/* position:absolute; */
 	        width:250px;
 	        height:100%;
 	        float:left;
 	       /*  margin-top:100px; */
 	        padding-top:20px;
-	        background:rgb(7, 53, 90);
+	        /* background:rgb(7, 53, 90); */
 	    }
 	    
 	    .category{
