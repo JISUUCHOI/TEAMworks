@@ -110,7 +110,7 @@
                 <br>
                 <br><br><br>
                 <h4 align="right">주식회사 TEAMWorks</h4>
-                <h4 align="right">대표이사 강보람</h4>
+                <h4 align="right">대표이사 강보람  <img src="${ pageContext.servletContext.contextPath }/resources/CompanySeal/20200614212017.png" style="width:45px"></h4>
             </div>
         </div>
     </div> 
