@@ -158,10 +158,10 @@
 					<tr>
 						<td class="tg-uzvj">핸드폰</td>
 						<td class="tg-9wq8"><input type="text" id="phone"
-							name="phone" placeholder="사원 핸드폰 번호 입력"></td>
+							name="phone" placeholder="사원 핸드폰 번호 입력" required></td>
 						<td class="tg-uzvj">E-Mail</td>
 						<td class="tg-9wq8"><input type="text" id="email"
-							name="email" placeholder="사원 이메일 입력"></td>
+							name="email" placeholder="사원 이메일 입력" required></td>
 					</tr>
 					<tr>
 						<th class="tg-0lax" rowspan="2"><b>자택주소</b></th>
@@ -169,13 +169,13 @@
 							style="text-align: left; vertical-align: 10px;"><b>우편번호 :</b>
 							<input name="postcode" id="postcode" readonly size="10"> 
 							<!-- daumZipCode()는 다음 사이트에서 가져온 API -->
-							<input type="button" onclick="addressSearch()" value="우편번호 찾기"><br>
+							<input type="button" onclick="addressSearch()" value="우편번호 찾기" required><br>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="3">
-							<b>주소 : </b><input name="empAdd" id="empAdd"	size="60"><br>
-							<b>상세주소 : </b><input name="empAddDetail"	id="empAddDetail" size="56">
+							<b>주소 : </b><input name="empAdd" id="empAdd"	size="60" required><br>
+							<b>상세주소 : </b><input name="empAddDetail"	id="empAddDetail" size="56" required>
 						</td>
 					</tr>
 				</table>
@@ -265,7 +265,7 @@
 						</tr>
 						<tr>
 							<th>입사일자</th>
-							<td><input type="text" id="hireDate" name="hireDate" class="form-control"></td>
+							<td><input type="text" id="hireDate" name="hireDate" class="form-control" required></td>
 						</tr>
 						<tr>
 							<th>퇴직일자</th>
