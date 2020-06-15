@@ -34,7 +34,7 @@
 		width:1250px;
 		float:left;
 	}
-	.content{width: 1440px;height: 1500px;}
+	.content{width: 1440px;}
         .content_1{
             border: 4px solid rgb(7, 53, 90);
             float: left;
@@ -326,6 +326,9 @@
 	
 		});
 		
+		$(document).ready(function(){
+			$("#sidebarOuter").css("min-height", "850px");
+		});
 			
 	</script>
 
