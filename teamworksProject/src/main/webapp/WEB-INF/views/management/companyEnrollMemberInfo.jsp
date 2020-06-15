@@ -182,54 +182,7 @@
 			</div>
 
 
-			<script>
-		       function idCheckValidate(num){
-		           if(num == 1){ // 1. 아이디 중복체크를 아직 안하는 경우 : 메세지 보여지지 않음, 회원가입 버튼 비활성화
-		              
-		              $("#checkResult").hide();
-		              $("#enrollEmpBtn").attr("disabled", true);
-		              
-		           }else if(num == 2){ //2. 아이디 중복체크 후 사용불가능한 아이디일 경우 : "중복아이디 존재 사용불가능" 메세지 보여짐, 회원가입 버튼 비활성화
-		              
-		              $("#checkResult").css("color", "red").text("중복된 사원 번호가 존재합니다.");
-		              $("#checkResult").show();
-		              $("#enrollEmpBtn").attr("disabled", true);
-		              
-		           }else{ // 3 .아이디 중복체크 후 사용 가능한 아이디일 경우 : "사용 가능한 아이디" 메세지 보여짐, 회원가입 버튼 활성화
-		              
-		              $("#checkResult").css("color", "green").text("사용 가능한 사원 번호입니다.");
-		              $("#checkResult").show();
-		              $("#enrollEmpBtn").removeAttr("disabled");
-		              
-		           }
-		        }
-		     
-		        $(function(){
-		           
-		           var $idInput = $("#enrollEmpForm input[name=empId]");
-		           
-		           $idInput.keyup(function(){
-		              if($idInput.val().length >= 5) { // 적어도 아이디가 5글자 이상되었을 때 중복검사
-		                 $.ajax({
-		                    url:"empIdCheck.mg",
-		                    data:{empId:$idInput.val()},
-		                    success:function(status){
-		                       if(status == "fail"){ // 중복된 아이디 존재 == 사용불가
-		                          idCheckValidate(2);
-		                       }else{ // 중복된 아이디 없음 == 사용가능
-		                          idCheckValidate(3);
-		                       }
-		                    }, error:function(){
-		                       console.log("아이디 중복체크용 ajax 통신실패");
-		                    }
-		                 });
-		              }else{ // 중복검사x
-		                 idCheckValidate(1);
-		              }
-		           });
-		        });
-		    </script>
-		       
+			
 			<!-- 주소 검색 API -->
 			<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 			<script>
@@ -377,11 +330,66 @@
 			<br><br>
 			
 			<div class="btns" align="center" style="padding-right:130px;">
-				<button type="submit" class="btn btn-primary" id="enrollEmpbtn">인사 정보 등록</button>
+				<button type="submit" class="btn btn-primary" id="enrollEmpBtn" disabled>인사 정보 등록</button>
 				<button type="reset" class="btn btn-danger">초기화</button>
 			</div>
 			
 		</form>
+
+		<script>
+			function idCheckValidate(num) {
+				if (num == 1) { // 1. 아이디 중복체크를 아직 안하는 경우 : 메세지 보여지지 않음, 회원가입 버튼 비활성화
+
+					$("#checkResult").hide();
+					$("#enrollEmpBtn").attr("disabled", true);
+
+				} else if (num == 2) { //2. 아이디 중복체크 후 사용불가능한 아이디일 경우 : "중복아이디 존재 사용불가능" 메세지 보여짐, 회원가입 버튼 비활성화
+
+					$("#checkResult").css("color", "red").text(
+							"중복된 사원 번호가 존재합니다.");
+					$("#checkResult").show();
+					$("#enrollEmpBtn").attr("disabled", true);
+
+				} else { // 3 .아이디 중복체크 후 사용 가능한 아이디일 경우 : "사용 가능한 아이디" 메세지 보여짐, 회원가입 버튼 활성화
+
+					$("#checkResult").css("color", "green").text(
+							"사용 가능한 사원 번호입니다.");
+					$("#checkResult").show();
+					$("#enrollEmpBtn").removeAttr("disabled");
+
+				}
+			}
+
+			$(function() {
+
+				var $idInput = $("#enrollEmpForm input[name=empId]");
+
+				$idInput.keyup(function() {
+					if ($idInput.val().length >= 4) { // 4글자 이상되었을 때 중복검사
+						$.ajax({
+							url : "empIdCheck.mg",
+							data : {
+								empId : $idInput.val()
+							},
+							success : function(status) {
+								if (status == "fail") { // 중복  == 사용불가
+									idCheckValidate(2);
+								} else { // 중복 XX == 사용가능
+									idCheckValidate(3);
+								}
+							},
+							error : function() {
+								console.log("아이디 중복체크용 ajax 통신실패");
+							}
+						});
+					} else { // 중복검사x
+						idCheckValidate(1);
+					}
+				});
+			});
+		</script>
+
+
 
 	</div>
 	<br><br><br>

@@ -118,7 +118,7 @@ public class ManagementController {
 			return "redirect:enrollEmp.mg";
 		} else {
 			session.setAttribute("msg", "인사 정보 등록 실패!!");
-			return "common/errorPage";
+			return "redirect:enrollEmp.mg";
 		}
 
 	}
