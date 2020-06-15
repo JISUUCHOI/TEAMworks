@@ -311,7 +311,7 @@
 					        <div id="refEmpList">
 					            <div style="margin:10px 0px 0px 20px; font-size:13px;">참조자</div>
 					            <div id="selectedEmp">
-					            	<table id="refEmpArea"></table>
+					            	<table id="refEmpArea" style="font-size:13px;"></table>
 					            </div>
 					        </div>
 					    </div>
