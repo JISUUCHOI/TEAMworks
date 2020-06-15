@@ -33,6 +33,7 @@ import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttendance;
 import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
+import com.kh.teamworks.management.model.vo.Vacation;
 
 @Controller
 public class EmployeeController {
@@ -421,5 +422,21 @@ public class EmployeeController {
 			mv.addObject("seac", seac);
 			mv.setViewName("employee/empAttendanceSch");
 			return mv;
+		}
+		
+		
+		@RequestMapping("myvac.em")
+		public String MyVacation() {
+			return "employee/MyVacation";
+		}
+		
+		//
+		@ResponseBody
+		@RequestMapping(value="MyVacation.em", produces="application/json; charset=utf-8")
+		public String selectVacation(String empId, ModelAndView mv) {
+			
+			Vacation v =  eService.selectVacation(empId);
+			
+			return new GsonBuilder().setDateFormat("yyyy년MM월dd일").create().toJson(v);
 		}
 }

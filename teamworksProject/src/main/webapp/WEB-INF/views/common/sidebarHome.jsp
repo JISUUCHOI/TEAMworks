@@ -207,7 +207,7 @@
         </script>
         <div align="left">
             <div class="subCate"><a href="myAtt.em">내근태관리</a></div>
-            <div class="subCate"><a href="">휴가현황</a></div>
+            <div class="subCate"><a href="myvac.em">휴가현황</a></div>
         </div>
         
     </div>

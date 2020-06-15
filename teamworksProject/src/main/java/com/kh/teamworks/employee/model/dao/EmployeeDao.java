@@ -13,6 +13,7 @@ import com.kh.teamworks.employee.model.vo.Employee;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttCondition;
 import com.kh.teamworks.employee.model.vo.SearchEmpAttendance;
 import com.kh.teamworks.employee.model.vo.SearchMyAttendance;
+import com.kh.teamworks.management.model.vo.Vacation;
 
 @Repository("eDao")
 public class EmployeeDao {
@@ -77,16 +78,22 @@ public class EmployeeDao {
 	public ArrayList<SearchEmpAttendance> selectSchEmpAtt(SqlSessionTemplate sqlSession,  SearchEmpAttCondition seac,PageInfo pi) {
 		int offset = (pi.getCurrentPage()-1)*pi.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		System.out.println(seac);
+		//System.out.println(seac);
 		return (ArrayList)sqlSession.selectList("employeeMapper.selectSchEmpAtt", seac,rowBounds);
 	}
 
 
 
 	public int selectListCount(SqlSessionTemplate sqlSession, SearchEmpAttCondition seac) {
-		System.out.println(seac);
+		//System.out.println(seac);
 		return sqlSession.selectOne("employeeMapper.selectListCount",seac);
 		
+	}
+
+
+	public Vacation selectVacation(SqlSessionTemplate sqlSession, String empId) {
+		
+		return sqlSession.selectOne("employeeMapper.selectVacation",empId);
 	}
 
 

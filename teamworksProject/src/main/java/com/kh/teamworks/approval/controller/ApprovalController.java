@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,9 +34,11 @@ import com.kh.teamworks.approval.model.service.ApprovalService;
 import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.approval.model.vo.DocumentList;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.common.template.Pagination;
 import com.kh.teamworks.employee.model.vo.Employee;
+import com.google.gson.Gson;
 
 @Controller
 public class ApprovalController {
@@ -432,6 +435,59 @@ public class ApprovalController {
 		// System.out.println(list);
 		 
 		return "approval/selectApprovalForm";
+		
+	}
+	
+	// 기안서 즐겨찾기 insert
+	@RequestMapping("docLikeInsert.ap")
+	public String docLikeInsert(HttpServletRequest request, DocumentList d) {
+		String empId = ((Employee)request.getSession().getAttribute("loginUser")).getEmpId();
+		d.setEmpId(empId);
+
+		System.out.println(d);
+		// d.setDlLike(dlLike);
+		// System.out.println(d);
+		// System.out.println(l);
+		// System.out.println(dlName);
+		// System.out.println(empId);
+		// System.out.println(dlLike);
+		
+
+		
+		//if(dlLike.equals("like")) {
+			int result=aService.updateHate(d);
+			System.out.println(result);
+			// System.out.println(d);
+			if(result>0) {
+			return "redirect:docLikeInsert.ap";
+			
+			}
+			else {
+				return "approval/selectApprovalForm";
+			}
+		//}else {
+			//aService.updateHate(l);
+			//return "redirect:docLikeInsert.ap";
+		//}
+	
+			
+
+
+			
+		
+		/*}else {
+			int result = aService.updateLike(l);
+			if(result>0) {
+			return "redirect:writeDocList.ap";
+			}*/
+			
+		 // ArrayList<Document> list = aService.writeDocList(d);		 
+		  // model.addAttribute("list", list);
+
+		 //  System.out.println(list);
+		 
+		// return "approval/selectApprovalForm";
+
 		
 	}
 	

@@ -10,6 +10,7 @@ import com.kh.teamworks.approval.model.dao.ApprovalDao;
 import com.kh.teamworks.approval.model.vo.ApproveLine;
 import com.kh.teamworks.approval.model.vo.ApproveSearchCondition;
 import com.kh.teamworks.approval.model.vo.Document;
+import com.kh.teamworks.approval.model.vo.DocumentList;
 import com.kh.teamworks.common.model.vo.PageInfo;
 import com.kh.teamworks.employee.model.vo.Employee;
 
@@ -169,7 +170,20 @@ public class ApprovalServiceImpl implements ApprovalService {
 	public ArrayList<Document> writeDocList(Document d) {
 		return aDao.writeDocList(sqlSession, d);		
 	}
-	
+
+	@Override
+	public int updateHate(DocumentList d) {
+		return aDao.updateHate(sqlSession, d);
+	}
+
+	@Override
+	public int updateLike(DocumentList d) {
+		return aDao.updateLike(sqlSession, d);
+	}
+
+
+
+
 
 
 }

@@ -358,6 +358,13 @@
 		 order by dl_like desc
 	</select>
 	
+
+	<update id="updateHate" parameterType="DocumentList">
+		update document_list
+		   set dl_like=0
+		 where emp_id=#{empId} and dl_name=#{dlName}
+	</update>
+	
 	
 
 
