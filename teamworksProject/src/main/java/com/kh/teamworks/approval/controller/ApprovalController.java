@@ -303,7 +303,8 @@ public class ApprovalController {
 		
 		if(result>0) {
 			model.addAttribute("msg", "삭제완료");
-			return "redirect:docList.ap?approveStatus=11";
+			return "redirect:myDocList.rap?currentPage=1";
+			//return "redirect:docList.ap?approveStatus=11";
 		}else {
 			model.addAttribute("msg", "삭제 실패");
 			return "common/errorPage";
@@ -352,7 +353,8 @@ public class ApprovalController {
 				deleteFile(fileName, request);				
 			}
 			model.addAttribute("msg", "삭제완료");
-			return "redirect:docList.ap?approveStatus=11";
+			return "redirect:myDocList.rap?currentPage=1";
+			//return "redirect:docList.ap?approveStatus=11";
 		}else {
 			model.addAttribute("msg", "삭제 실패");
 			return "common/errorPage";
@@ -368,7 +370,8 @@ public class ApprovalController {
 		
 		if(result>0) {
 			model.addAttribute("msg", "삭제완료");
-			return "redirect:docList.ap?approveStatus=11";
+			return "redirect:myDocList.rap?currentPage=1";
+			//return "redirect:docList.ap?approveStatus=11";
 
 		}else {
 			model.addAttribute("msg", "삭제 실패");
@@ -383,7 +386,8 @@ public class ApprovalController {
 		
 		if(result>0) {
 			model.addAttribute("msg", "삭제완료");
-			return "redirect:docList.ap?approveStatus=11";
+			return "redirect:myDocList.rap?currentPage=1";
+			//return "redirect:docList.ap?approveStatus=11";
 		}else {
 			model.addAttribute("msg", "삭제 실패");
 			return "common/errorPage";

@@ -28,7 +28,7 @@
         background:rgb(7, 53, 90);
         /* border:1px solid red; */
     }
-    #logo>img{
+    #logo>a>img{
         margin-top:30px;
         margin-left:10px;
     }
@@ -110,7 +110,7 @@
         <!-- 메뉴바 -->
         <div id="menubar">
             <div id="logo">
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/logo_white.png" height="35px">
+                <a href="${ pageContext.servletContext.contextPath }"><img src="${ pageContext.servletContext.contextPath }/resources/images/logo_white.png" height="35px"></a>
                 <div id="logout"><img class="logoutIcon" src="${ pageContext.servletContext.contextPath }/resources/icons/logout.png" height="20px" style="color:deepskyblue;"> <a href="logout.em">logout</a></div>     
             </div>
             <div id="center">

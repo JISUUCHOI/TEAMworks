@@ -322,8 +322,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  	<select id="searchUserMail" resultMap="employeeResultSet">
  		select *
  		  from employee
- 		 where emp_name like '%'||#{keyword}||'%' 
- 		       or emp_email like '%'||#{keyword}||'%'
+ 		 where emp_status='Y' and emp_name like '%'||#{keyword}||'%' 
+ 		       or emp_email like '%'||#{keyword}||'%'  
  	</select>
  	
  	<insert id="insertMail" parameterType="Mail">
