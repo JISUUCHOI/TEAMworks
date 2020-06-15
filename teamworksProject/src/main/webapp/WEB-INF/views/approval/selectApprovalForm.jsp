@@ -166,7 +166,9 @@
         		$(".dlLike").click(function(){
         			location.href="docLikeInsert.ap?dlLike=" + $(this).text() + "&dlName="+$(this).next().next().text();
         		});
-        	});	  
+        	});
+        	
+        	
         	
         	
   			</script>
@@ -201,6 +203,11 @@
 			$("#approveDoc>a").css("color", "dimgray");
 			$("#approveDoc").css("border-bottom-style", "groove");
 			$("#writeDoc>a").css("color", "deepskyblue");
+			
+			$(document).ready(function() {
+	           $("#sidebarOuter").css('min-height', "730px");
+	       });
+			
 		});	
 	</script>
 	
