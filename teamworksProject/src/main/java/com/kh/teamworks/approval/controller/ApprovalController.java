@@ -148,7 +148,7 @@ public class ApprovalController {
 	     
 	   if(result1 * result2 > 0) {	    	
 	    	model.addAttribute("msg", "제출완료");
-		   return "approval/selectApprovalForm";
+		   return "redirect:writeDocList.ap";
 	    }else {
 	    	return "common/errorPage";
 	    }	
@@ -214,7 +214,7 @@ public class ApprovalController {
 	  
 	   if(result1 * result2 > 0) {	    	
 	    	model.addAttribute("msg", "제출완료");
-		   return "approval/selectApprovalForm";
+		   return "redirect:writeDocList.ap";
 	    }else {
 	    	return "common/errorPage";
 	    }
