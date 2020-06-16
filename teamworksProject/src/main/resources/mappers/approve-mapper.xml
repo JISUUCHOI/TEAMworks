@@ -629,6 +629,12 @@
 			<if test="refuse != null">
 				and doc_status = 3
 			</if>
+			<if test="reqBack != null">
+				and doc_status = 4
+			</if>
+			<if test="callback != null">
+				and doc_status = 5
+			</if>
 	</select>
 	
 	<select id="searchRefList" parameterType="asc" resultMap="reqApprovalResultSet">
@@ -673,6 +679,12 @@
 			</if>
 			<if test="refuse != null">
 				and doc_status = 3
+			</if>
+			<if test="reqBack != null">
+				and doc_status = 4
+			</if>
+			<if test="callback != null">
+				and doc_status = 5
 			</if>
  		 order by doc_date desc
 	</select>
@@ -766,6 +778,12 @@
 			<if test="refuse != null">
 				and doc_status = 3
 			</if>
+			<if test="reqBack != null">
+				and doc_status = 4
+			</if>
+			<if test="callback != null">
+				and doc_status = 5
+			</if>
 	</select>
 	
 	<select id="searchMyDocList" parameterType="asc" resultMap="reqApprovalResultSet">
@@ -809,6 +827,12 @@
 			</if>
 			<if test="refuse != null">
 				and doc_status = 3
+			</if>
+			<if test="reqBack != null">
+				and doc_status = 4
+			</if>
+			<if test="callback != null">
+				and doc_status = 5
 			</if>
 		order by doc_date desc
 	</select>
