@@ -8,12 +8,12 @@
 <title>Insert title here</title>
 
 <style>
-	html, body{height:100%; min-height:1200px; position:relative;}
+	html, body{height:100%; min-height:900px; position:relative;}
 	
 	div{box-sizing:border-box;}
 	#sidebarOuter{
 		width:250px;
-		height:700px;
+		/* height:700px; */
 		float:left;
 	}
 	
