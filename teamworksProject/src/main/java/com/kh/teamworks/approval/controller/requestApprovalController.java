@@ -130,13 +130,16 @@ public class requestApprovalController {
 	public String insertVacation(Document d, Model model) {
 
 		/* 문서번호 발생 */
+		/*
 		Date now = new Date();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 		String today = sf.format(now);
+		*/
 		
+		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		int ran = (int)(Math.random()*899999 + 100000);
-		
 		String docNo = today + "-" + ran;
+		
 		d.setDocNo(docNo);
 		
 		
@@ -400,7 +403,6 @@ public class requestApprovalController {
 			model.addAttribute("docNo", doc.getDocNo());
 			model.addAttribute("docSc", doc.getDocSc());
 			return "redirect:detailDoc.rap";
-			//redirect할 경우 
 			
 		}else {
 			model.addAttribute("msg", "결재 실패");
@@ -618,7 +620,6 @@ public class requestApprovalController {
 			model.addAttribute("docNo", d.getDocNo());
 			model.addAttribute("docSc", d.getDocSc());
 			return "redirect:detailDoc.rap";
-			//redirect할 경우 
 		}else {
 			model.addAttribute("msg", "결재 실패");
 			return "common/errorPage";

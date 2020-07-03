@@ -123,14 +123,10 @@ $(function(){
             type:"post",
             success:function(schEmp){
                 if(schEmp.length > 0) {
-                    
                     var value ="";
                     var userId = $("#empId").val();
-                    
                     for(var i in schEmp){
-                    	
                     	 if(userId == schEmp[i].empId){
-                    	
 	                        value += "<tr>" + 
 	                                        "<td>" + 
 	                                        	"<input type='hidden' class='refedJob' value='" + schEmp[i].jobName + "'>" +
@@ -141,7 +137,6 @@ $(function(){
 	                                        "<td>" + schEmp[i].jobName + "</td>" +
 	                                        "<td>" + schEmp[i].empName + "</td>" +
 	                                 "</tr>"
-                                        
                     	 }else{
                     		 value += "<tr>" + 
 				                             "<td>" + 
@@ -155,15 +150,11 @@ $(function(){
 				                             "<td>" + schEmp[i].empName + "</td>" +
 				                      "</tr>"
                     	 }
-                                        
                     }
-                    
                     $("#empList tbody").html(value);
-                    
                 }else {
                     alert("올바른 검색어를 입력하세요.");
                 }
-                
             }, error:function(){
                 alert("참조자 검색 실패");
             }
@@ -663,16 +654,12 @@ $(function(){
 				if(count > 0){
 					alert("같은 결재선 즐겨찾기명이 있습니다. 다른 즐겨찾기명을 입력하세요.");
 				}else{
-					
 					/* 결재선 즐겨찾기 추가 */
 					 $("input:checkbox[name=checkBox]").prop("checked", true);
-			    	 
 			    	 var line = [];
-			    	 
 			    	 $("input:checkbox[name=checkBox]:checked").each(function(){
 			    		 line.push($(this).prev().text());
 				     });
-
 			    	 $("#line").val(line);
 					
 					 $.ajax({
@@ -682,19 +669,15 @@ $(function(){
 							 approver:$("#line").val()},
 						type:"post",
 			 			success:function(status){
-			 				
 			 				if(status == "success"){
 			 					selectFreLineList();
 			 				}else{
 			 					
 			 				}
-			 				
 			 			}, error:function(){
 			 				console.log("결재선 즐겨찾기 저장 ajax 통신 실패!");
 			 			}
-			 			
 					 });
-					 
 					 $("#lineName").val("");
 				}
 				
@@ -703,32 +686,25 @@ $(function(){
 			}
 			 
 		 });
-		 
 	 });
     	 
      
      /* 결재선 즐겨찾기 리스트 조회 */
      function selectFreLineList(){
-    	 
     	 $.ajax({
     		url:"flist.rap",
     		data:{empId:$("#empId").val()},
     		type:"post",
     		success:function(count){
-    			
     			var value = "";
-    			
     			for(var i=0; i<count.length; i++){
     				value += "<option value='" + count[i].lineName + "'>"  + count[i].lineName + "</option>";
     			}
-    			
     			$("#chooseApproveLine").html(value);
-    			
     		}, error:function(){
     			console.log("결재선 즐겨찾기 리스트 조회용 ajax 통신실패!!");
     		}
     	 });
-    	 
      }
      
      /* 결재선 즐겨찾기 리스트 선택시 결재라인 조회 */
@@ -741,11 +717,7 @@ $(function(){
 				  lineName:lineName},
 		    type:"post",
 			success:function(f){
-				
-				console.log(f);
-				
 				var value = "";
-				
 				for(var i=0; i<f.length; i++){
                   	value += "<tr>" +
 		             			"<td>" + 
@@ -757,9 +729,7 @@ $(function(){
 			                     "</td>" +
 		                     "</tr>";
                   }
-				
 				$("#apRefEmpArea").html(value);
-			
 			}, error:function(){
 				console.log("결재선 즐겨찾기 조회용 ajax 통신실패!!");
 			}
@@ -777,15 +747,11 @@ $(function(){
 				  lineName:lineName},
 			type:"post",
 			success:function(status){
-			
-				console.log(status);
-				
 				if(status == "success"){
  					selectFreLineList();
  				}else{
  					
  				}
-				
 			}, error:function(){
 				console.log("결재선 즐겨찾기 조회용 ajax 통신실패!!");
 			}

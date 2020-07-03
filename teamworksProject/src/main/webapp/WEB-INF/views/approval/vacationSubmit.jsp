@@ -274,7 +274,6 @@
             	
             	<button type="button" id="listBtn" onclick="prePage();">목록</button>
 
-				<!-- 나중에 status값 반려값으로 바꾸기 반려문서아니면 버튼안보이게 -->
            	    <c:choose>
            	    	<c:when test="${ d.get(0).docStatus eq 3 and loginUser.empId eq d.get(0).getEmpId() }">
               			<button type="submit" id="deleteBtn" onclick="postFormSubmit(2);">삭제</button>
@@ -300,8 +299,6 @@
 	                <c:when test="${ loginUser.empId eq callbackEmpid }">
 	                	<button type="button" id="callbackBtn" data-toggle="modal" data-target="#responseCallback">회수승인</button>
 	                </c:when>
-	                <c:otherwise>
-	                </c:otherwise>
                 </c:choose>
                 
             </div>

@@ -3,9 +3,11 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-	Date today = new Date();
+	/* Date today = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
-	String now = sf.format(today);
+	String now = sf.format(today); */
+	
+	String now = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 	
 	Calendar week = Calendar.getInstance();
 	week.add(Calendar.DATE, +7);
