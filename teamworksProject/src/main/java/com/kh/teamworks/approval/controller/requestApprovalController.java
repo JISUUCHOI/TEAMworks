@@ -81,13 +81,10 @@ public class requestApprovalController {
 	public String insertFamilyEvent(Document d, Model model) {
 		
 		/* 문서번호 발생 */
-		Date now = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
-		String today = sf.format(now);
-		
+		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		int ran = (int)(Math.random()*899999 + 100000);
-		
 		String docNo = today + "-" + ran;
+		
 		d.setDocNo(docNo);
 		
 		/* 경조비 신청서 insert */
@@ -130,22 +127,14 @@ public class requestApprovalController {
 	public String insertVacation(Document d, Model model) {
 
 		/* 문서번호 발생 */
-		/*
-		Date now = new Date();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
-		String today = sf.format(now);
-		*/
-		
 		String today = new SimpleDateFormat("yyyyMMdd").format(new Date());
 		int ran = (int)(Math.random()*899999 + 100000);
 		String docNo = today + "-" + ran;
 		
 		d.setDocNo(docNo);
 		
-		
 		/* 휴가신청서 insert */
 		int result1 = raService.insertVacation(d);
-		
 		
 		/* 결재선 insert */
 		String approver = d.getApprover();
@@ -488,7 +477,6 @@ public class requestApprovalController {
 	    // 9_1. 결재요청함 총 문서개수 조회
 	    int listCount = raService.selectMyDocCount(d);
 	    PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-	    
 	    
 		// 9_2. 결재요청함 리스트 조회
 		ArrayList<Document> list = raService.selectMyDocList(d, pi);
