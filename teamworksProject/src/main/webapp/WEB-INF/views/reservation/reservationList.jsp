@@ -241,7 +241,8 @@
 					for(var r=0; r<rdto.list.length; r++) {
 						
 						var selector = '#' + rdto.list[r].startTime + ' .00' + rdto.list[r].roomNo;
-						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' + rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
+						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' 
+									+ rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
 						
 						$(selector).html(rInfo);
 						$(selector).css('background', '#d4f4fa');
@@ -275,18 +276,17 @@
 					for(var r=0; r<rdto.list.length; r++) {
 						
 						var selector = '#' + rdto.list[r].startTime + ' .00' + rdto.list[r].roomNo;
-						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' + rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
+						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' 
+									+ rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
 						
 						$(selector).html(rInfo);
 						$(selector).css('background', '#d4f4fa');
-
 					}
 					
 				},error:function(){
 					console.log("이전 날짜 조회용 ajax 통신 실패");
 				}
 			});
-			
 		}
 		
 		// 다음 버튼 클릭 시 하루 뒤 날짜로 예약 리스트 재 조회 후 리스트와 날짜 가져오는 function
@@ -309,11 +309,11 @@
 					for(var r=0; r<rdto.list.length; r++) {
 						
 						var selector = '#' + rdto.list[r].startTime + ' .00' + rdto.list[r].roomNo;
-						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' + rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
+						var rInfo = rdto.list[r].empName + ' | ' + rdto.list[r].deptName + '<br>' 
+									+ rdto.list[r].startTime + ':00 - ' + rdto.list[r].endTime + ":00";
 						
 						$(selector).html(rInfo);
 						$(selector).css('background', '#d4f4fa');
-						
 					}
 					
 				},error:function(){
@@ -323,60 +323,54 @@
 			
 		}
 		
-		// 테이블의 td가 비어있을 시 --> 예약 추가 모달 / 채워져있을 시 --> 예약 상세 모달 띄움
-		$(function(){
-			$('#reservationTable>tbody td').click(function(){
+		// 테이블의 td가 비어있을 시 --> 예약 추가 모달, 채워져있을 시 --> 예약 상세 모달 띄움
+		$('#reservationTable>tbody td').click(function(){
+			
+			if($(this).text() == '') {	// 예약 없음 --> 추가 모달
 				
-				if($(this).text() == '') {	// 예약 없음 --> 추가 모달
-					
-					var startTime = $(this).siblings('th').text().substring(0,2);
-					var numEndTime = (startTime*1) + 1;
-					var endTime = '';
-					if(numEndTime == 8 || numEndTime == 9) {
-						endTime = '0' + numEndTime;
-					}else {
-						endTime += numEndTime;
-					}
-					var meetingRoom = '회의실' + $(this).attr('class').substring(2);
-
-					$('#insertModal #meetingRoom').text(meetingRoom);
-					$('#insertModal #reservationDateTd').text($('#todayDate').text());
-					$('#insertModal #roomNo').attr('value', $(this).attr('class').substring(2));
-					$('#insertModal #reservationDate').attr('value', $('#todayDate').text());
-					$('#insertModal #startTime').attr('value', startTime);
-					$('#insertModal #endTime').attr('value', endTime);
-					
-					
-					$('#insertModal').modal('show');
-					
-				}else {	// 예약 있음 --> 상세 모달
-					var startTime = $(this).siblings('th').text().substring(0,2);
-					
-					$.ajax({
-						url:"selectDetail.re",
-						data:{roomNo:$(this).attr('class').substring(2),
-							  reservationDate:$('#todayDate').text(),
-							  startTime:startTime},
-						type:"post",
-						success:function(detail){
-							
-							$('#detailModal #meetingRoom').text('회의실' + detail.roomNo);
-							$('#detailModal #empName').text(detail.empName);
-							$('#detailModal #reservationDateTd').text(detail.reservationDate);
-							$('#detailModal #reservationTime').text(detail.startTime + ':00 ~ ' + detail.endTime + ':00');
-							$('#detailModal #purpose').text(detail.purpose);
-							
-							$('#detailModal').modal('show');
-							
-						},error:function(){
-							console.log('예약 상세 조회용 ajax 통신 실패');
-						}
-					});
-					
-					$('#detailModal').modal('show');
-					
+				var startTime = $(this).siblings('th').text().substring(0,2);
+				var numEndTime = (startTime*1) + 1;
+				var endTime = '';
+				if(numEndTime == 8 || numEndTime == 9) {
+					endTime = '0' + numEndTime;
+				}else {
+					endTime += numEndTime;
 				}
-			});
+				var meetingRoom = '회의실' + $(this).attr('class').substring(2);
+
+				$('#insertModal #meetingRoom').text(meetingRoom);
+				$('#insertModal #reservationDateTd').text($('#todayDate').text());
+				$('#insertModal #roomNo').attr('value', $(this).attr('class').substring(2));
+				$('#insertModal #reservationDate').attr('value', $('#todayDate').text());
+				$('#insertModal #startTime').attr('value', startTime);
+				$('#insertModal #endTime').attr('value', endTime);
+				
+				$('#insertModal').modal('show');
+				
+			}else {	// 예약 있음 --> 상세 모달
+				var startTime = $(this).siblings('th').text().substring(0,2);
+				
+				$.ajax({
+					url:"selectDetail.re",
+					data:{roomNo:$(this).attr('class').substring(2),
+						  reservationDate:$('#todayDate').text(),
+						  startTime:startTime},
+					type:"post",
+					success:function(detail){
+						
+						$('#detailModal #meetingRoom').text('회의실' + detail.roomNo);
+						$('#detailModal #empName').text(detail.empName);
+						$('#detailModal #reservationDateTd').text(detail.reservationDate);
+						$('#detailModal #reservationTime').text(detail.startTime + ':00 ~ ' + detail.endTime + ':00');
+						$('#detailModal #purpose').text(detail.purpose);
+						
+						$('#detailModal').modal('show');
+						
+					},error:function(){
+						console.log('예약 상세 조회용 ajax 통신 실패');
+					}
+				});
+			}
 		});
 	</script>
 

@@ -79,7 +79,7 @@
 	
 
 
-
+	<!-- 1_1. 문서 작성 전, 화면에 보여 줄 기본 사원정보(사원명, 소속부서명) select -->
 	<select id="selectEmpInfo" parameterType="string" resultMap="empInfoResultSet">
 		select emp_id, emp_name, dept_name
 		  from employee
@@ -87,13 +87,14 @@
 		 where emp_id = #{empId} and emp_status = 'Y'
 	</select>
 
+	<!-- 1_2. 결재선/참조자 조직도 부서 select용 -->
 	<select id="selectDeptName" resultMap="empInfoResultSet">
 		select dept_code, dept_name
 		  from department
 		 order by dept_code
 	</select>
 
-
+	<!-- 1_3. 결재선/참조자 조직도 select용 -->
 	<select id="selectOrgChart" resultMap="empInfoResultSet">
 		select emp_id, emp_name, e.dept_code, dept_name, e.job_code, job_name
 		  from employee e
@@ -103,6 +104,9 @@
          order by e.dept_code, e.job_code
 	</select>
 
+
+
+	<!-- 2. 결재선/참조자 사원 검색 select -->
 	<select id="selectEmpSch" parameterType="asc" resultMap="empInfoResultSet">
 		select emp_id, emp_name, e.dept_code, dept_name, e.job_code, job_name
 		  from employee e
@@ -127,16 +131,19 @@
 
 
 
+	<!-- 3_1. 경조비신청서 insert -->
 	<insert id="insertFamilyEvent" parameterType="Document">
 		insert into FAMILY_EVENT
 		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docRefName}, #{docDate}, #{docEnd}, #{docDepartment}, #{feSq}, #{feRelation}, #{feName}, #{feStart}, #{feEnd}, #{fePlace}, #{fePrice}, #{feBank}, #{feAccount}, #{feAccountName})
 	</insert>
 	
+	<!-- 3_2. 휴가신청서 insert -->
 	<insert id="insertVacation" parameterType="Document">
 		insert into vacation
 		values(#{docNo}, #{empId}, #{docSc}, 0, #{docTitle}, #{docReference}, #{docRefName}, #{docDate}, #{docEnd}, #{docDepartment}, #{vcSq}, #{vcDay}, #{vcStart}, #{vcEnd}, #{vcCount}, #{vcContent})
 	</insert>
 	
+	<!-- 3_3. 결재선 insert -->
 	<insert id="insertApproveLine" parameterType="al">
 		insert into approve_line
 		values(#{approverEmpid}, #{docNo}, #{approveStep}, #{approveReject}, #{approveStatus}, null, null)
@@ -144,18 +151,20 @@
 	
 	
 	
-	
+	<!-- 4_1. 결재선 즐겨찾기 추가 전, 같은 이름 있는지 확인 -->
 	<select id="selectLineName" parameterType="fal" resultType="_int">
 		select count(*)
 		  from frequent_approval_line
 		 where emp_id = #{empId} and line_name = #{lineName}
 	</select>
 	
+	<!-- 4_2. 결재선 즐겨찾기 추가 -->
 	<insert id="insertFreLine" parameterType="fal">
 		insert into frequent_approval_line
 		values(#{lineName}, #{empId}, #{authorizedEmpid}, #{approveStep})
 	</insert>
 	
+	<!-- 4_3. 결재선 즐겨찾기 리스트 조회 -->
 	<select id="selectFreLine" parameterType="String" resultMap="freLineResultSet">
 		select line_name
 		  from frequent_approval_line
@@ -164,6 +173,7 @@
 		 order by line_name
 	</select>
 
+	<!-- 4_4. 결재선 즐겨찾기 리스트 선택시 결재라인 조회 -->
 	<select id="selectLineDetail" parameterType="fal" resultMap="freLineResultSet">
 		select f.line_name, f.emp_id, f.authorized_empid, e.emp_name, j.job_name, d.dept_name, f.approve_step
 		  from frequent_approval_line f
@@ -174,6 +184,7 @@
 		 order by f.approve_step
 	</select>
 
+	<!-- 4_5. 결재선 즐겨찾기 삭제 -->
 	<delete id="deleteLine" parameterType="fal">
 		delete from frequent_approval_line
 		 where emp_id = #{empId} and line_name = #{lineName}
@@ -181,6 +192,7 @@
 
 
 
+	<!-- 5_1. 결재대기함, 결재진행함, 결재완료함, 반려문서함, 회수요청함 리스트 문서 총개수 조회 -->
 	<select id="selectListCount" parameterType="Document" resultType="_int">
 		select count(*)
 		  from (select v.doc_no
@@ -204,6 +216,7 @@
 		         where a.approver_empid=#{empId} and a.approve_status=#{approveStatus})
 	</select>
 	
+	<!-- 5_2. 문서 리스트 조회 -->
 	<select id="selectDocList" parameterType="Document" resultMap="reqApprovalResultSet">
 		select *
 		  from (select *
@@ -241,6 +254,7 @@
 		order by doc_date desc
 	</select>
 	
+	<!-- 5_3. 결재대기함,진행함,완료함,반려문서함,회수요청함 검색 결과에 해당하는 게시글 개수 조회 -->
 	<select id="searchListCount" parameterType="asc" resultType="_int">
 		select count(*)
 		  from (select v.doc_no, e.emp_name, v.doc_title, v.doc_sc, v.doc_date, a.approver_empid, a.approve_status
@@ -277,6 +291,7 @@
 			</if>
 	</select>
 	
+	<!-- 5_4. 결재대기함,진행함,완료함,반려문서함,회수요청함 검색 결과에 해당하는 게시글 리스트 조회 -->
 	<select id="searchDocList" parameterType="asc" resultMap="reqApprovalResultSet">
 		select *
 		  from (select *
@@ -323,31 +338,37 @@
 		order by doc_date desc
 	</select>
 	
-		
+
+
+	<!-- 6_1. 문서상세조회_결재선 '진행' 상태인 결재자 id 조회 (결재버튼) -->
 	<select id="selectApId" parameterType="Document" resultType="string">
 		select approver_empid
 		from approve_line
 		where doc_no=#{docNo} and approve_reject='진행'
 	</select>
 	
+	<!-- 6_2. 문서상세조회_'회수요청' 들어온 상태인 결재자 id 조회 (회수승인 버튼) -->
 	<select id="selectCbId" parameterType="Document" resultType="string">
 		select approver_empid
 		from approve_line
 		where doc_no=#{docNo} and approve_status=4
 	</select>
 	
+	<!-- 6_3. 문서상세조회_결재 코멘트 개수 -->
 	<select id="selectComment" parameterType="Document" resultType="_int">
 		select count(approve_comment)
 		from approve_line
 		where doc_no=#{docNo}
 	</select>
 	
+	<!-- 6_4. 문서상세조회_해당 아이디 문서별 결재상태 조회 -->
 	<select id="selectApStatus" parameterType="string" resultType="_int">
 		select approve_status
 		from approve_line
 		where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</select>
 
+	<!-- 6_5. 문서 상세조회 _경조비신청서 -->
 	<select id="selectFeDetail" parameterType="Document" resultMap="reqApprovalResultSet">
 		select f.doc_no, f.emp_id, e.emp_name, f.doc_sc, f.doc_status, f.doc_title, f.doc_refname, f.doc_date, f.doc_end, f.doc_department,
 			   f.fe_sq, f.fe_relation, f.fe_name, f.fe_start, f.fe_end, f.fe_place, f.fe_price, f.fe_bank, f.fe_account, f.fe_account_name,
@@ -368,6 +389,7 @@
 	    order by a.approve_step
 	</select>
 	
+	<!-- 6_6. 문서 상세조회 - 휴가신청서 -->
 	<select id="selectVacDetail" parameterType="Document" resultMap="reqApprovalResultSet">
 		select v.doc_no, v.emp_id, e.emp_name, v.doc_sc, v.doc_status, v.doc_title, v.doc_reference, v.doc_refname, v.doc_date, v.doc_end, v.doc_department,
 				v.vc_sq, vc_day, vc_start, vc_end, vc_count, vc_content,
@@ -388,6 +410,7 @@
 		order by a.approve_step
 	</select>
 	
+	<!-- 6_7. 문서 상세조회 - 기안서 -->
 	<select id="selectDraftDetail" parameterType="Document" resultMap="reqApprovalResultSet">
 		select dr.doc_no, dr.emp_id, e.emp_name, dr.doc_sc, dr.doc_status, dr.doc_title, dr.doc_reference, dr.doc_refname, dr.doc_date, dr.doc_end, dr.doc_department,
 				dr.doc_content, dr.origin_name, dr.change_name,
@@ -408,6 +431,7 @@
 		order by a.approve_step
 	</select>
 	
+	<!-- 6_8. 문서 상세조회 - 제증명신청서 -->
 	<select id="selectProofDetail" parameterType="Document" resultMap="reqApprovalResultSet">
 		select p.doc_no, p.emp_id, e.emp_name, p.doc_sc, p.doc_status, p.doc_title, p.doc_reference, p.doc_refname, p.doc_date, p.doc_end, p.doc_department,
 				p.pf_sq, p.pf_purpose, p.pf_status,
@@ -429,7 +453,7 @@
 	</select>
 	
 	
-	
+	<!-- 7_1. 결재_미결, 진행 결재선 id 조회 -->
 	<select id="selectApList" parameterType="Document" resultMap="reqApprovalResultSet">
 		select approver_empid, approve_step, approve_reject, approve_status
 		  from approve_line
@@ -437,6 +461,7 @@
 		 order by approve_step
 	</select>
 	
+	<!-- 7_2. 결재 승인시_첫번째 승인권자 승인, 결재의견 insert -->
 	<update id="updateApprove" parameterType="Document">
 		update approve_line
 		   set approve_reject=#{approveReject},
@@ -446,6 +471,7 @@
 		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</update>
 	
+	<!-- 7_3. 결재 승인시_기안자 상태  doc_status '진행'로 update -->
 	<update id="updateDocStatus" parameterType="Document">
 		<if test="docSc == '경조비신청서'">
 			update family_event
@@ -463,12 +489,14 @@
 			 where emp_id=#{empId} and doc_no=#{docNo}
 	</update>
 	
+	<!-- 7_4. 결재 승인시_다음 승인권자 상태 update -->
 	<update id="updateLine" parameterType="Document">
 		update approve_line
 		   set approve_reject='진행'
 		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</update>
 	
+	<!-- 7_5. 결재 승인시_마지막 승인권자 상태 update -> 완료함 -->
 	<update id="updateComplete" parameterType="Document">
 		update approve_line
 		   set approve_reject=#{approveReject},
@@ -478,6 +506,7 @@
 		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</update>
 	
+	<!-- 7_6. 결재_이전 승인권자들 id 조회 -->
 	<select id="selectAllList" parameterType="Document" resultMap="reqApprovalResultSet">
 		select doc_no, approver_empid, approve_step, approve_reject, approve_status
 		  from approve_line
@@ -485,12 +514,14 @@
 		 order by approve_step
 	</select>
 	
+	<!-- 7_7. 이전 승인권자들 상태 '완료'로 update -->
 	<update id="updateAllComplete" parameterType="Document">
 		update approve_line
 		   set approve_status=2
 		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</update>
 	
+	<!-- 7_8. 기안자 상태 doc_status '완료'로 update -->
 	<update id="updateDs" parameterType="Document">
 		<if test="docSc == '경조비신청서'">
 			update family_event
@@ -508,6 +539,7 @@
 			 where emp_id=#{empId} and doc_no=#{docNo}
 	</update>
 	
+	<!-- 7_9. 현재 진행중인 승인권자가 반려할 경우 -->
 	<update id="updateReject"  parameterType="Document">
 		update approve_line
 		   set approve_reject=#{approveReject},
@@ -517,12 +549,14 @@
 		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</update>
 	
+	<!-- 7_10. 나머지 승인권자들 상태 '반려'로 update -->
 	<update id="updateAllReject" parameterType="Document">
 		update approve_line
 		   set approve_status=3
 		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</update>
 	
+	<!-- 7_11. 기안자 상태 doc_status '반려'로 update -->
 	<update id="updateDsReject" parameterType="Document">
 		<if test="docSc == '경조비신청서'">
 			update family_event
@@ -541,7 +575,7 @@
 	</update>
 	
 	
-	
+	<!-- 8_1. 참조문서 총 개수 조회 -->
 	<select id="selectRefCount" parameterType="Document" resultType="_int">
 		select count(*)
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_reference, d.doc_date, d.doc_status
@@ -563,6 +597,7 @@
  		 where DOC_REFERENCE like '%'||#{empId}||'%'
 	</select>
 	
+	<!-- 8_2. 참조문서 리스트 조회 -->
 	<select id="selectRefList" parameterType="Document" resultMap="reqApprovalResultSet">
 		select *
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_reference, d.doc_date, d.doc_status
@@ -585,7 +620,7 @@
  		 order by doc_date desc
 	</select>
 	
-	
+	<!-- 8_3. 검색 결과에 해당하는 참조문서 개수 조회 -->
 	<select id="searchRefCount" parameterType="asc" resultType="_int">
 		select count(*)
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_reference, d.doc_date, d.doc_status
@@ -629,8 +664,15 @@
 			<if test="refuse != null">
 				and doc_status = 3
 			</if>
+			<if test="reqBack != null">
+				and doc_status = 4
+			</if>
+			<if test="callback != null">
+				and doc_status = 5
+			</if>
 	</select>
 	
+	<!-- 8_4. 검색 결과에 해당하는 참조문서 리스트 조회 -->
 	<select id="searchRefList" parameterType="asc" resultMap="reqApprovalResultSet">
 		select *
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_reference, d.doc_date, d.doc_status
@@ -674,12 +716,18 @@
 			<if test="refuse != null">
 				and doc_status = 3
 			</if>
+			<if test="reqBack != null">
+				and doc_status = 4
+			</if>
+			<if test="callback != null">
+				and doc_status = 5
+			</if>
  		 order by doc_date desc
 	</select>
 	
 	
 	
-	
+	<!-- 9_1. 결재요청함 총 문서개수 조회 -->
 	<select id="selectMyDocCount" parameterType="Document" resultType="_int">
 		select count(*)
 		  from (select d.doc_no, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
@@ -703,6 +751,7 @@
 		 		 where f.emp_id=#{empId})
 	</select>
 	
+	<!-- 9_2. 결재요청함 리스트 조회 -->
 	<select id="selectMyDocList" parameterType="Document" resultMap="reqApprovalResultSet">
 		select *
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
@@ -724,6 +773,7 @@
 		order by doc_date desc
 	</select>
 	
+	<!-- 9_3. 검색 결과에 해당하는 결재요청문서 개수 조회 -->
 	<select id="searchMyDocCount" parameterType="asc" resultType="_int">
 		select count(*)
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
@@ -766,8 +816,15 @@
 			<if test="refuse != null">
 				and doc_status = 3
 			</if>
+			<if test="reqBack != null">
+				and doc_status = 4
+			</if>
+			<if test="callback != null">
+				and doc_status = 5
+			</if>
 	</select>
 	
+	<!-- 9_4. 검색 결과에 해당하는 결재요청문서 리스트 조회 -->
 	<select id="searchMyDocList" parameterType="asc" resultMap="reqApprovalResultSet">
 		select *
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
@@ -810,11 +867,17 @@
 			<if test="refuse != null">
 				and doc_status = 3
 			</if>
+			<if test="reqBack != null">
+				and doc_status = 4
+			</if>
+			<if test="callback != null">
+				and doc_status = 5
+			</if>
 		order by doc_date desc
 	</select>
 	
 	
-	
+	<!-- 10. sidebar 보관함별 문서개수 count -->
 	<select id="countStand" parameterType="Document" resultType="_int">
 		select count(*)
 		  from (select v.doc_no, a.approver_empid, a.approve_status
@@ -917,6 +980,7 @@
 	
 
 
+	<!-- 11_1. '진행'중인 결재권자에게 회수요청 -->
 	<update id="requestCallback" parameterType="Document">
 		update approve_line
 		   set approve_status=4,
@@ -924,6 +988,7 @@
 		 where doc_no=#{docNo} and approve_step=0
 	</update>
 	
+	<!-- 11_2. 기안자 doc_status 4.회수요청으로 변경 -->
 	<update id="updateDocSt" parameterType="Document">
 		<if test="docSc == '경조비신청서'">
 			update family_event
@@ -943,7 +1008,7 @@
 	
 	
 	
-	
+	<!-- 12_1. 결재자 - 회수 승인 -->
 	<update id="permitCallback" parameterType="Document">
 		update approve_line
 		   set approve_reject=#{approveReject},
@@ -953,6 +1018,7 @@
 		 where doc_no=#{docNo} and approver_empid=#{approverEmpid}
 	</update>
 	
+	<!-- 12_2. 기안자 - 상태 회수 -->
 	<update id="statusCallback" parameterType="Document">
 		<if test="docSc == '경조비신청서'">
 			update family_event
@@ -970,6 +1036,7 @@
 			 where doc_no=#{docNo}
 	</update>
 	
+	<!-- 12_3. 결재자 - 회수 거절 -->
 	<update id="refuseCallback" parameterType="Document">
 		update approve_line
 		   set approve_reject=#{approveReject},
@@ -981,7 +1048,7 @@
 	
 	
 	
-	
+	<!-- 13_1. 결재회수함_문서 총 개수 조회 -->
 	<select id="selectCallbackCount" parameterType="Document" resultType="_int">
 		select count(*)
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
@@ -1002,6 +1069,7 @@
 		where emp_id=#{empId} and doc_status=5
 	</select>
 	
+	<!-- 13_2. 결재회수함_문서 리스트 조회 -->
 	<select id="selectCallbackList" parameterType="Document" resultMap="reqApprovalResultSet">
 		select *
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
@@ -1022,6 +1090,7 @@
 		where emp_id=#{empId} and doc_status=5
 	</select>
 	
+	<!-- 13_3. 결재회수함_검색 결과에 해당하는 회수문서 개수 조회 -->
 	<select id="searchCallbackCount" parameterType="asc" resultType="_int">
 		select count(*)
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
@@ -1054,6 +1123,7 @@
 			</if>
 	</select>
 	
+	<!-- 13_4. 결재회수함_검색 결과에 해당하는 회수문서 리스트 조회 -->
 	<select id="searchCallbackList" parameterType="asc" resultMap="reqApprovalResultSet">
 		select *
 		  from (select d.doc_no, d.emp_id, d.doc_sc, d.doc_title, e.emp_name, d.doc_department, d.doc_date, d.doc_status
@@ -1086,7 +1156,5 @@
 			</if>
 		order by doc_date desc
 	</select>
-	
-
 	
 </mapper>

@@ -50,7 +50,6 @@ public class ReservationController {
 
 		
 		  Calendar cal = Calendar.getInstance(); 
-		  cal.setTime(new Date()); 
 		  DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		  DateFormat dowf = new SimpleDateFormat("(EEE)");
 		  
@@ -159,7 +158,8 @@ public class ReservationController {
 	// 이전 버튼 클릭 시 하루 전 날짜로 예약 리스트 재 조회 후 리스트와 날짜를 리턴하는 메소드
 	@ResponseBody
 	@RequestMapping(value="reSelectAbs.re", method=RequestMethod.POST)
-	public void absAday(@RequestParam(value="currentDate") String currentDate, HttpServletResponse response) throws JsonIOException, IOException {
+	public void absAday(@RequestParam(value="currentDate") String currentDate, HttpServletResponse response) 
+			throws JsonIOException, IOException {
 
 		Calendar cal = Calendar.getInstance();
 

@@ -143,8 +143,9 @@
 	      eventLimit: true, 
 	      events: events,
 	      locale: 'ko',
-	      eventClick: function(info) { //info.event.id
+	      eventClick: function(info) {
 	    	  	
+	    	  console.log(info);
  		        $.ajax({
 		        	url:"detail.sc",
 		        	data:{schNo:info.event.id},
@@ -158,7 +159,8 @@
 			    	    $('#detailTable tr:nth-child(5) td').html(sch.schContent);
 		        		
 		        		if(sch.schCategory == "개인"){	// 개인 일정일 경우
-		        			var value = '<button type="button" class="btn btn-primary" onclick="postFormSubmit(1);">수정</button><button type="button" class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>';
+		        			var value = '<button type="button" class="btn btn-primary" onclick="postFormSubmit(1);">수정</button>';
+		        			value += '<button type="button" class="btn btn-danger" onclick="postFormSubmit(2);">삭제</button>';
 		        			$('.modal-footer').html(value);
 		        		
 		        		}else{	// 회사 일정일 경우
@@ -169,7 +171,6 @@
 		        		$("#inputSchNo").attr("value", sch.schNo);
 		        		
 		                $('#detailModal').modal('show'); // Display Modal
-		        		
 		        		
 		        	},error:function(){
 		        		console.log("이벤트 상세조회용 ajax 통신 실패");
@@ -259,9 +260,8 @@
 	            	function postFormSubmit(num) {
 	            		if(num == 1) {	// 수정하기 클릭 시
 	            			$("#postForm").attr("action", "updateSchForm.sc");
-	            			//$("#updateFormArea").css("display", "block");
+	            		
 	            		}else {	// 삭제하기 클릭 시
-	            			
 		            		$("#postForm").attr("action", "deleteSch.sc");
 	            		}
 	            		
